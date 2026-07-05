@@ -905,21 +905,64 @@ async function submitEngagement() {
 }
 
 // STUDY
+const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
+
+async function fetchGithubIndex() {
+  try {
+    const r = await fetch('content/index.json?_='+Date.now());
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
 async function loadBriefList() {
-  const briefs = await apiFetch('/api/briefs');
   const sel = document.getElementById('brief-selector');
-  if (briefs&&briefs.length) {
+  // Try local server first
+  const apiData = await apiFetch('/api/briefs');
+  if (apiData && apiData.length) {
     sel.innerHTML = '<option value="latest">📌 Latest Brief</option>'+
-      briefs.map(b=>`<option value="${b.name}">${b.display}</option>`).join('');
+      apiData.map(b=>`<option value="${b.name}">${b.display}</option>`).join('');
+    return;
+  }
+  // Fallback: GitHub Pages — read content/index.json
+  const idx = await fetchGithubIndex();
+  if (!idx) return;
+  const morning = (idx.morning||[]).slice().reverse();
+  const briefs = (idx.briefs||[]).slice().reverse();
+  const opts = [
+    ...morning.map(f=>`<option value="morning/${f}">${f.replace('morning-brief-','').replace('.md','')}</option>`),
+    ...briefs.map(f=>`<option value="briefs/${f}">${f.replace('.md','')}</option>`)
+  ];
+  if (opts.length) {
+    sel.innerHTML = '<option value="latest">📌 Latest Brief</option>' + opts.join('');
   }
 }
+
 async function loadBrief(name) {
   if (!name) return;
   const el = document.getElementById('brief-viewer');
   el.textContent = 'Loading...';
+  // Try local server
   const text = await apiFetch('/api/brief?file='+encodeURIComponent(name));
-  if (text) { el.innerHTML = mdToHtml(text); }
-  else { el.innerHTML = '<div class="empty"><div class="empty-icon">📚</div><p>รัน server.js ก่อน<br><code style="color:var(--green);font-size:11px">node SYSTEM/server.js</code></p></div>'; }
+  if (text) { el.innerHTML = mdToHtml(text); return; }
+  // Fallback: GitHub Pages — fetch file directly from content/
+  try {
+    let url;
+    if (name === 'latest') {
+      const idx = await fetchGithubIndex();
+      const latestFile = idx && idx.morning && idx.morning.slice().reverse()[0];
+      if (!latestFile) throw new Error('no file');
+      url = 'content/morning/' + latestFile;
+    } else {
+      url = 'content/' + name;
+    }
+    const r = await fetch(url+'?_='+Date.now());
+    if (!r.ok) throw new Error('fetch failed');
+    const md = await r.text();
+    el.innerHTML = mdToHtml(md);
+  } catch {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📚</div><p>ไม่พบ Brief<br><span style="color:var(--text-dim);font-size:11px">ลอง refresh หรือรัน server.js</span></p></div>';
+  }
 }
 function mdToHtml(md) {
   return md
@@ -1085,45 +1128,3 @@ function toggleHabit(key,taskId){
   if(!habits[key])habits[key]={};
   const cur=habits[key][taskId]||'none';
   habits[key][taskId]=cur==='none'?'done':cur==='done'?'missed':'none';
-  saveHabits(habits);
-  renderHabits();
-  showToast(cur==='none'?'✅ บันทึกแล้ว':cur==='done'?'⚠️ ทำเครื่องหมายข้ามแล้ว':'↩️ รีเซ็ตแล้ว');
-}
-
-function markDone(key,taskId){
-  const habits=getHabits();
-  if(!habits[key])habits[key]={};
-  habits[key][taskId]='done';
-  saveHabits(habits);
-  renderHabits();
-  showToast('✅ บันทึกแล้ว');
-}
-
-function renderMissedTasks(habits,days,today){
-  const el=document.getElementById('missed-tasks-list');
-  if(!el)return;
-  const items=[];
-  days.forEach(d=>{
-    const key=dKey(d);
-    if(key>=today)return;
-    const dh=habits[key]||{};
-    HABIT_TASKS.forEach(t=>{
-      if(!dh[t.id]||dh[t.id]==='none'){
-        items.push({d,key,t});
-      }
-    });
-  });
-  if(!items.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎉</div>ทำครบทุกอย่างแล้ว!</div>';return;}
-  el.innerHTML=items.map(m=>`
-    <div class="missed-row">
-      <div style="font-size:18px">${m.t.emoji}</div>
-      <div style="flex:1">
-        <p style="font-size:13px;font-weight:600">${m.t.label}</p>
-        <p style="font-size:11px;color:var(--text-dim)">${DAY_TH[m.d.getDay()]} ${m.d.getDate()}/${m.d.getMonth()+1}</p>
-      </div>
-      <button onclick="markDone('${m.key}','${m.t.id}')" class="btn btn-secondary btn-sm">ทำแล้ว ✓</button>
-    </div>`).join('');
-}
-</script>
-</body>
-</html>
