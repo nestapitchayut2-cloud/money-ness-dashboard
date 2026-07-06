@@ -567,7 +567,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI','Kanit',sans-
 // ═══════════════════════════════════════
 let allVocab = [], allPerf = [], pipelineData = {leads:[],converted:[]};
 let activeOutreachId = null;
-const IS_SERVER = window.location.protocol !== 'file:';
+const IS_SERVER = window.location.protocol !== 'file:' && !window.location.hostname.includes('github.io');
 
 document.addEventListener('DOMContentLoaded', () => {
   loadOverview();
@@ -1128,3 +1128,45 @@ function toggleHabit(key,taskId){
   if(!habits[key])habits[key]={};
   const cur=habits[key][taskId]||'none';
   habits[key][taskId]=cur==='none'?'done':cur==='done'?'missed':'none';
+  saveHabits(habits);
+  renderHabits();
+  showToast(cur==='none'?'✅ บันทึกแล้ว':cur==='done'?'⚠️ ทำเครื่องหมายข้ามแล้ว':'↩️ รีเซ็ตแล้ว');
+}
+
+function markDone(key,taskId){
+  const habits=getHabits();
+  if(!habits[key])habits[key]={};
+  habits[key][taskId]='done';
+  saveHabits(habits);
+  renderHabits();
+  showToast('✅ บันทึกแล้ว');
+}
+
+function renderMissedTasks(habits,days,today){
+  const el=document.getElementById('missed-tasks-list');
+  if(!el)return;
+  const items=[];
+  days.forEach(d=>{
+    const key=dKey(d);
+    if(key>=today)return;
+    const dh=habits[key]||{};
+    HABIT_TASKS.forEach(t=>{
+      if(!dh[t.id]||dh[t.id]==='none'){
+        items.push({d,key,t});
+      }
+    });
+  });
+  if(!items.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎉</div>ทำครบทุกอย่างแล้ว!</div>';return;}
+  el.innerHTML=items.map(m=>`
+    <div class="missed-row">
+      <div style="font-size:18px">${m.t.emoji}</div>
+      <div style="flex:1">
+        <p style="font-size:13px;font-weight:600">${m.t.label}</p>
+        <p style="font-size:11px;color:var(--text-dim)">${DAY_TH[m.d.getDay()]} ${m.d.getDate()}/${m.d.getMonth()+1}</p>
+      </div>
+      <button onclick="markDone('${m.key}','${m.t.id}')" class="btn btn-secondary btn-sm">ทำแล้ว ✓</button>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
