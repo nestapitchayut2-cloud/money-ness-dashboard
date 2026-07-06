@@ -441,7 +441,7 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI','Kanit',sans-
     <div class="form-group">
       <label class="form-label">Format</label>
       <select class="form-select" id="eng-format">
-        <option>Carousel</option><option>Single Image</option><option>Reels</option><option>YouTube</option><option>Story</option>
+        <option>Single Image</option><option>Reels</option><option>YouTube</option><option>Quiz</option><option>Story</option>
       </select>
     </div>
     <div class="form-grid">
@@ -478,6 +478,38 @@ body{background:var(--bg);color:var(--text);font-family:'Segoe UI','Kanit',sans-
         <thead><tr><th>วันที่</th><th>Platform</th><th>หัวข้อ</th><th>Reach</th><th>Saves</th><th>IB</th></tr></thead>
         <tbody id="perf-tbody"><tr><td colspan="6"><div class="loading">Loading</div></td></tr></tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📁 Content Library <button class="btn btn-secondary btn-sm" onclick="loadContentLibrary()" style="margin-left:8px">🔄</button></div>
+    <div id="content-library-list"><div class="loading">Loading</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🧠 Content Prompt Guide</div>
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:12px">1 Brief = 4 Content types — เลือกทำได้เลย</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <p style="font-size:13px;font-weight:700;color:var(--green);margin:0 0 4px">🖼️ Single Image</p>
+        <p style="font-size:12px;color:var(--text-dim);margin:0;line-height:1.6">Hook ใน caption 1-2 บรรทัด · ข้อมูลในภาพ 3-5 จุด · ปิดจบด้วย CTA Save หรือ Comment · ใส่ disclaimer ท้าย</p>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <p style="font-size:13px;font-weight:700;color:var(--blue);margin:0 0 4px">🎬 Reels (90-110 วิ)</p>
+        <p style="font-size:12px;color:var(--text-dim);margin:0;line-height:1.6">Hook 0-8 วิ ดึงคนค้าง · Body อธิบาย 3 จุด · เลือก Ending: Loop / CTA Save / CTA Comment (เลือกได้แค่อย่างเดียว)</p>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <p style="font-size:13px;font-weight:700;color:var(--gold);margin:0 0 4px">▶️ YouTube (5-10 นาที)</p>
+        <p style="font-size:12px;color:var(--text-dim);margin:0;line-height:1.6">Intro 30 วิ (ตอบว่าวิดีโอนี้จะได้อะไร) · เนื้อหา 3-4 ส่วน · Outro Subscribe + เปิด Playlist</p>
+      </div>
+      <div style="background:var(--surface2);border-radius:8px;padding:12px">
+        <p style="font-size:13px;font-weight:700;color:var(--purple);margin:0 0 4px">🧩 Quiz Post</p>
+        <p style="font-size:12px;color:var(--text-dim);margin:0;line-height:1.6">ถามคำถาม 1 ข้อในภาพ · 4 ตัวเลือก · เฉลยใน comment · คน engage สูงเพราะอยากรู้คำตอบ</p>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:10px 12px;background:rgba(0,255,136,.08);border-radius:8px;border-left:3px solid var(--green)">
+      <p style="font-size:11px;color:var(--green);margin:0;font-weight:700">กฎเหล็ก</p>
+      <p style="font-size:12px;color:var(--text-dim);margin:4px 0 0;line-height:1.6">"ผมทำแบบนี้" ไม่ใช่ "คุณควรทำแบบนี้" · ใส่ disclaimer ทุก post · ภาษาไทยเสมอ</p>
     </div>
   </div>
 </div>
@@ -597,6 +629,7 @@ function switchTab(name, el) {
   if (name === 'study') loadBrief('latest');
   if (name === 'pipeline') loadPipeline();
   if (name === 'habits') renderHabits();
+  if (name === 'content') loadContentLibrary();
 }
 
 // API
@@ -1067,106 +1100,27 @@ function showToast(msg, type='ok') {
   toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
 }
 
-// HABITS
-const HABIT_TASKS = [
-  {id:'quiz',emoji:'🧠',label:'Quiz'},
-  {id:'english',emoji:'🇬🇧',label:'English'},
-  {id:'brief',emoji:'📚',label:'Brief'},
-  {id:'content',emoji:'✏️',label:'Content'}
-];
-const DAY_TH = ['อา','จ','อ','พ','พฤ','ศ','ส'];
-
-function getHabits(){try{return JSON.parse(localStorage.getItem('mnd_habits')||'{}');}catch{return {};}}
-function saveHabits(d){localStorage.setItem('mnd_habits',JSON.stringify(d));}
-function dKey(d){return d.toISOString().slice(0,10);}
-
-function getWeekDates(){
-  const today=new Date();
-  const dow=today.getDay();
-  const mon=new Date(today);
-  mon.setDate(today.getDate()-(dow===0?6:dow-1));
-  return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});
-}
-
-function renderHabits(){
-  const habits=getHabits();
-  const days=getWeekDates();
-  const today=dKey(new Date());
-  const grid=document.getElementById('habit-week-grid');
-  if(!grid)return;
-
-  grid.innerHTML=days.map((d,i)=>{
-    const key=dKey(d);
-    const isToday=key===today;
-    const isPast=key<today;
-    const isFuture=key>today;
-    const dh=habits[key]||{};
-    return `<div class="habit-col">
-      <div class="habit-day-name">${DAY_TH[d.getDay()]}</div>
-      <div class="habit-day-num" style="font-weight:${isToday?700:400};color:${isToday?'var(--green)':'var(--text)'}">${d.getDate()}</div>
-      ${HABIT_TASKS.map(t=>{
-        const st=dh[t.id]||'none';
-        const cls=st==='done'?'done':st==='missed'?'missed':isToday?'today-e':'';
-        const canClick=!isFuture;
-        return `<div class="habit-dot ${cls}${canClick?' clickable':''}" ${canClick?`onclick="toggleHabit('${key}','${t.id}')"`:''}>${st==='done'?'✓':st==='missed'?'✗':isFuture?'':t.emoji}</div>`;
-      }).join('')}
-    </div>`;
-  }).join('');
-
-  // Summary
-  const pastDays=days.filter(d=>dKey(d)<=today);
-  const done=pastDays.reduce((s,d)=>{const dh=habits[dKey(d)]||{};return s+HABIT_TASKS.filter(t=>dh[t.id]==='done').length;},0);
-  const total=pastDays.length*HABIT_TASKS.length;
-  const el=document.getElementById('habit-summary');
-  if(el)el.textContent=done+'/'+total+' tasks';
-
-  renderMissedTasks(habits,days,today);
-}
-
-function toggleHabit(key,taskId){
-  const habits=getHabits();
-  if(!habits[key])habits[key]={};
-  const cur=habits[key][taskId]||'none';
-  habits[key][taskId]=cur==='none'?'done':cur==='done'?'missed':'none';
-  saveHabits(habits);
-  renderHabits();
-  showToast(cur==='none'?'✅ บันทึกแล้ว':cur==='done'?'⚠️ ทำเครื่องหมายข้ามแล้ว':'↩️ รีเซ็ตแล้ว');
-}
-
-function markDone(key,taskId){
-  const habits=getHabits();
-  if(!habits[key])habits[key]={};
-  habits[key][taskId]='done';
-  saveHabits(habits);
-  renderHabits();
-  showToast('✅ บันทึกแล้ว');
-}
-
-function renderMissedTasks(habits,days,today){
-  const el=document.getElementById('missed-tasks-list');
-  if(!el)return;
-  const items=[];
-  days.forEach(d=>{
-    const key=dKey(d);
-    if(key>=today)return;
-    const dh=habits[key]||{};
-    HABIT_TASKS.forEach(t=>{
-      if(!dh[t.id]||dh[t.id]==='none'){
-        items.push({d,key,t});
-      }
-    });
-  });
-  if(!items.length){el.innerHTML='<div class="empty"><div class="empty-icon">🎉</div>ทำครบทุกอย่างแล้ว!</div>';return;}
-  el.innerHTML=items.map(m=>`
-    <div class="missed-row">
-      <div style="font-size:18px">${m.t.emoji}</div>
-      <div style="flex:1">
-        <p style="font-size:13px;font-weight:600">${m.t.label}</p>
-        <p style="font-size:11px;color:var(--text-dim)">${DAY_TH[m.d.getDay()]} ${m.d.getDate()}/${m.d.getMonth()+1}</p>
-      </div>
-      <button onclick="markDone('${m.key}','${m.t.id}')" class="btn btn-secondary btn-sm">ทำแล้ว ✓</button>
-    </div>`).join('');
-}
-</script>
-</body>
-</html>
+// CONTENT LIBRARY
+async function loadContentLibrary() {
+  const el = document.getElementById('content-library-list');
+  if (!el) return;
+  el.innerHTML = '<div class="loading">Loading</div>';
+  let posts = [];
+  // Try local server
+  const apiData = await apiFetch('/api/content-list');
+  if (apiData && apiData.length) {
+    posts = apiData;
+  } else {
+    // Fallback: GitHub Pages
+    const idx = await fetchGithubIndex();
+    if (idx && idx.posts) {
+      posts = idx.posts.slice().reverse().map(f => ({name: f, path: 'content/posts/'+f}));
+    }
+  }
+  if (!posts.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📁</div>ยังไม่มี content</div>';
+    return;
+  }
+  const FORMAT_ICON = {reel:'🎬', post:'🖼️', youtube:'▶️', quiz:'🧩'};
+  el.innerHTML = posts.map(p => {
+    const
