@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>The Money Ness — Dashboard</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -657,6 +660,7 @@
       <button class="tab-btn" onclick="switchTab('briefs')">📖 Brief Archive</button>
       <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz History</button>
       <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
+      <button class="tab-btn" onclick="switchTab('habits')">📋 Habits</button>
     </div>
 
     <!-- Tab: This Week -->
@@ -770,6 +774,15 @@
         </table>
       </div>
     </div>
+
+    <!-- Tab: Habits -->
+    <div class="tab-panel" id="tab-habits">
+      <div style="font-size:11px;color:#64748b;margin-bottom:12px">คลิกที่วงกลมเพื่อบันทึก · กดซ้ำเพื่อเปลี่ยนสถานะ (✓ ทำแล้ว → ✗ ข้าม → ว่าง)</div>
+      <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
+      <div id="missed-tasks-list" style="font-size:13px;color:#64748b"></div>
+    </div>
+
   </div>
 
   <!-- Quick Content -->
@@ -825,6 +838,15 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'8 ก.ค.', day:'พุธ', topic:'XAU/USD: FOMC minutes คืนนี้ / EA: Caution — ห้าม live ช่วง FOMC', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-08jul2026.md' },
+  { label:'7 ก.ค.', day:'อังคาร', topic:'XAU/USD: Services PMI, ADP, FOMC minutes / EA: Caution (range ใต้ 4,171)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-07jul2026.md' },
+  { label:'6 ก.ค.', day:'จันทร์', topic:'XAU/USD: Event risk สัปดาห์นี้ — PMI, ADP, FOMC / EA: Caution (Sideways)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-06jul2026.md' },
+  { label:'3 ก.ค.', day:'ศุกร์', topic:'XAU/USD: NFP 57K (ต่ำกว่าคาด) ทองเด้งสวน downtrend / EA: จับตา momentum', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-03jul2026.md' },
+  { label:'2 ก.ค.', day:'พฤหัส', topic:'XAU/USD ~$4,026 (กรอบ $3,943–$4,063) / EA: Caution (Volatile)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-02jul2026.md' },
+  { label:'1 ก.ค.', day:'พุธ', topic:'XAU/USD: Volatile Caution — Sideways กว้าง ผันผวนสูง / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-01jul2026.md' },
+  { label:'30 มิ.ย.', day:'อังคาร', topic:'XAU/USD: PMI, JOLTS, ตัวเลขว่างงาน / EA: Caution (Volatile)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-30jun2026.md' },
+  { label:'29 มิ.ย.', day:'จันทร์', topic:'XAU/USD: Volatile ⚠️ / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-29jun2026.md' },
+  { label:'26 มิ.ย.', day:'ศุกร์', topic:'XAU/USD: GDP Q1 Stagflation read — Volatile / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-26jun2026.md' },
   { label:'25 มิ.ย.', day:'พฤหัส', topic:'BTC On-chain analysis: Exchange flow, MVRV / EA: Volatile (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-25jun2026.md' },
   { label:'24 มิ.ย.', day:'พุธ', topic:'US Macro: Fed, Interest Rate, CPI / EA: Sideways (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24jun2026.md' },
   { label:'23 มิ.ย.', day:'อังคาร', topic:'IPO process + VC structure + US Tech valuation / EA: Caution (Sideways)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23jun2026.md' },
@@ -860,6 +882,104 @@ function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   event.target.classList.add('active');
+  if (name === 'habits') renderHabits();
+}
+
+// ── Habit Tracker ──
+const HABIT_TASKS = [
+  { id: 'quiz',    label: '🧠 Quiz' },
+  { id: 'english', label: '🇬🇧 English' },
+  { id: 'brief',   label: '📰 Brief' },
+  { id: 'content', label: '✍️ Content' },
+];
+const HABIT_KEY = 'mnd_habits';
+
+function habitDateKey(d) {
+  return d.toISOString().slice(0,10);
+}
+
+function habitGetData() {
+  try { return JSON.parse(localStorage.getItem(HABIT_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function habitSave(data) {
+  localStorage.setItem(HABIT_KEY, JSON.stringify(data));
+}
+
+function habitToggle(dateKey, taskId) {
+  const data = habitGetData();
+  if (!data[dateKey]) data[dateKey] = {};
+  const cur = data[dateKey][taskId] || 'none';
+  const next = cur === 'none' ? 'done' : cur === 'done' ? 'missed' : 'none';
+  data[dateKey][taskId] = next;
+  habitSave(data);
+  renderHabits();
+}
+
+function renderHabits() {
+  const data = habitGetData();
+  const today = new Date();
+  const grid = document.getElementById('habit-week-grid');
+  const missed = document.getElementById('missed-tasks-list');
+  if (!grid) return;
+
+  // Build 7-day columns (today + 6 days back)
+  const days7 = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    days7.push(d);
+  }
+
+  const dayLabels = ['อา','จ','อ','พ','พฤ','ศ','ส'];
+
+  let html = '<table style="width:100%;border-collapse:collapse;min-width:340px">';
+  // Header row — dates
+  html += '<thead><tr><th style="width:90px;text-align:left;font-size:11px;color:#94a3b8;padding:4px 6px">งาน</th>';
+  days7.forEach(d => {
+    const isToday = habitDateKey(d) === habitDateKey(today);
+    html += `<th style="text-align:center;font-size:10px;color:${isToday?'#6366f1':'#94a3b8'};padding:4px 2px;min-width:36px">
+      ${dayLabels[d.getDay()]}<br><span style="font-size:11px;font-weight:${isToday?700:400}">${d.getDate()}</span>
+    </th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  // One row per task
+  HABIT_TASKS.forEach(task => {
+    html += `<tr><td style="font-size:12px;color:#475569;padding:5px 6px;white-space:nowrap">${task.label}</td>`;
+    days7.forEach(d => {
+      const dk = habitDateKey(d);
+      const state = (data[dk] && data[dk][task.id]) || 'none';
+      const isFuture = d > today;
+      const circle = state === 'done'   ? '✅'
+                   : state === 'missed' ? '❌'
+                   : isFuture          ? '<span style="opacity:.3">○</span>'
+                   : '○';
+      const clickable = !isFuture
+        ? `onclick="habitToggle('${dk}','${task.id}')" style="cursor:pointer;font-size:16px;user-select:none"`
+        : `style="font-size:16px"`;
+      html += `<td style="text-align:center;padding:4px 2px"><span ${clickable}>${circle}</span></td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  grid.innerHTML = html;
+
+  // Missed tasks for today
+  const todayKey = habitDateKey(today);
+  const todayData = data[todayKey] || {};
+  const missedList = HABIT_TASKS.filter(t => (todayData[t.id] || 'none') === 'missed');
+  const noneList   = HABIT_TASKS.filter(t => (todayData[t.id] || 'none') === 'none');
+
+  if (missedList.length === 0 && noneList.length === 0) {
+    missed.innerHTML = '<span style="color:#22c55e">✅ ทำครบทุกอย่างวันนี้แล้ว!</span>';
+  } else {
+    let out = '';
+    if (missedList.length) out += '<div style="margin-bottom:6px">❌ ข้าม: ' + missedList.map(t=>t.label).join(', ') + '</div>';
+    if (noneList.length)   out += '<div>⏳ ยังไม่ได้ทำ: ' + noneList.map(t=>t.label).join(', ') + '</div>';
+    missed.innerHTML = out;
+  }
 }
 
 // ── Brief Grid ──
@@ -1310,11 +1430,4 @@ function showToast(msg) {
   <div class="modal-box">
     <div class="modal-header">
       <div class="modal-title" id="modalTitle"></div>
-      <button class="modal-close" onclick="document.getElementById('fileModal').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
-
-</body>
-</html>
+      <button class="modal-close" onclick="docu
