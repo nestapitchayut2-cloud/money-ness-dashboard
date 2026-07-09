@@ -1330,45 +1330,63 @@ function renderPendingQuizzes(){
 }
 renderPendingQuizzes();
 
-// ── English Practice (สรุป article + vocab — เซฟร่างใน browser, copy ไปส่ง Claude) ──
-const todayArticle = { date:'9 ก.ค. 2569', title:'What Drives the Price of Gold?', source:'Money.com', url:'https://money.com/what-drives-the-price-of-gold/' };
-function engKey(k){ return 'engPractice_'+k; }
-function saveEng(k, el){ localStorage.setItem(engKey(k), el.value); updateEngStatus(); }
-function updateEngStatus(){
-  const s=(localStorage.getItem(engKey('summary'))||'').trim(), v=(localStorage.getItem(engKey('vocab'))||'').trim();
-  const el=document.getElementById('engStat');
-  if(el) el.textContent = (s?'✅ สรุปแล้ว':'⏳ ยังไม่สรุป') + ' · ' + (v? 'vocab '+v.split('\n').filter(x=>x.trim()).length+' คำ':'ยังไม่มี vocab');
+
+
+// ── English Practice: Pending Articles (ทุกบทความที่ยังไม่ส่งสรุป — เซฟร่างใน browser) ──
+const pendingArticles = [
+  { id:'a0709', date:'9 ก.ค.', title:'What Drives the Price of Gold?', source:'Money.com', url:'https://money.com/what-drives-the-price-of-gold/' },
+  { id:'a0708', date:'8 ก.ค.', title:'Who decides what gold is worth? How gold prices are determined', source:'Yahoo Finance', url:'https://finance.yahoo.com/personal-finance/investing/article/who-decides-what-gold-is-worth-how-gold-prices-are-determined-130135952.html' },
+  { id:'a0707', date:'7 ก.ค.', title:'Forex (FX): How Trading in the Foreign Exchange Market Works', source:'Investopedia', url:'https://www.investopedia.com/terms/f/forex.asp' },
+  { id:'a0706', date:'6 ก.ค.', title:'A guide to trading gold in forex with XAU/USD', source:'Equiti', url:'https://www.equiti.com/sc-en/news/trading-ideas/how-to-trade-gold-in-forex-a-complete-beginner-guide-to-xauusd/' },
+  { id:'a0703', date:'3 ก.ค.', title:'ESG (Environmental, Social & Governance)', source:'Corporate Finance Institute', url:'https://corporatefinanceinstitute.com/resources/esg/esg-environmental-social-governance/' },
+  { id:'a0702', date:'2 ก.ค.', title:'What is an expense ratio? Costs of investing explained', source:'Vanguard', url:'https://investor.vanguard.com/investor-resources-education/education/expense-ratio' },
+  { id:'a0701', date:'1 ก.ค.', title:'Why Gold Is a Safe-Haven Asset', source:'CBS News', url:'https://www.cbsnews.com/news/why-gold-is-a-safe-haven-asset/' },
+  { id:'a0630', date:'30 มิ.ย.', title:'Gold Price Dips Below US$4,300 as New Fed Chair Holds Rates Steady', source:'Investing News', url:'https://investingnews.com/federal-reserve-gold-price/' },
+  { id:'a0629', date:'29 มิ.ย.', title:'Understanding Gold Prices', source:'PIMCO', url:'https://www.pimco.com/us/en/resources/education/understanding-gold-prices' }
+];
+function engAKey(id,k){ return 'engA_'+id+'_'+k; }
+function saveEngA(id,k,el){ localStorage.setItem(engAKey(id,k), el.value); updateEngAStatus(id); }
+function updateEngAStatus(id){
+  const s=(localStorage.getItem(engAKey(id,'s'))||'').trim(), v=(localStorage.getItem(engAKey(id,'v'))||'').trim();
+  const el=document.getElementById('engstat-'+id);
+  if(!el) return;
+  const parts=[];
+  if(s) parts.push('✍️ มีร่างสรุป');
+  if(v) parts.push('🔤 '+v.split('\n').filter(function(x){return x.trim();}).length+' คำ');
+  el.textContent = parts.join(' · ');
 }
-function copyEngPractice(){
-  const s=localStorage.getItem(engKey('summary'))||'(ยังไม่เขียน)';
-  const v=localStorage.getItem(engKey('vocab'))||'(ยังไม่มี)';
-  const out='ส่งการบ้าน English วันนี้ครับ\nArticle: '+todayArticle.title+' — '+todayArticle.source+' ('+todayArticle.date+')\n'+todayArticle.url+
+function copyEngA(id){
+  const a = pendingArticles.find(function(x){return x.id===id;});
+  const s=localStorage.getItem(engAKey(id,'s'))||'(ยังไม่เขียน)';
+  const v=localStorage.getItem(engAKey(id,'v'))||'(ยังไม่มี)';
+  const out='ส่งการบ้าน English ครับ — article วันที่ '+a.date+'\nArticle: '+a.title+' — '+a.source+'\n'+a.url+
     '\n\nMy summary:\n'+s+'\n\nVocab ที่เรียนรู้ (word = ความหมาย):\n'+v+
-    '\n\nช่วยตรวจ grammar/ความเข้าใจ แล้วบันทึก vocab ลง ENGLISH/vocab-list.md + dashboard ให้ด้วย';
-  navigator.clipboard.writeText(out).then(()=>{ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว — วางใน Claude chat ได้เลย'); });
-}
-function clearEngPractice(){
-  if(!confirm('ล้างร่างของวันนี้ (หลังส่งให้ Claude แล้ว)?')) return;
-  localStorage.removeItem(engKey('summary')); localStorage.removeItem(engKey('vocab'));
-  renderEngPractice();
+    '\n\nช่วยตรวจ grammar/ความเข้าใจ บันทึก vocab ลง ENGLISH/vocab-list.md + dashboard แล้วเอา article นี้ออกจาก pendingArticles ด้วย';
+  navigator.clipboard.writeText(out).then(function(){ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว — วางใน Claude chat ได้เลย'); });
 }
 function renderEngPractice(){
   const box=document.getElementById('englishPractice'); if(!box) return;
-  box.innerHTML =
-   '<div class="quiz-card"><div style="padding:14px">'+
-   '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="font-size:13px;font-weight:700;flex:1">📰 English Article วันนี้ — '+todayArticle.date+'</div><span id="engStat" style="font-size:11px;color:#fbbf24"></span></div>'+
-   '<a href="'+todayArticle.url+'" target="_blank" style="font-size:12px;color:#60a5fa;text-decoration:none">'+todayArticle.title+' — '+todayArticle.source+' ↗</a>'+
-   '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">✍️ สรุป 3-5 ประโยค (ภาษาอังกฤษ) — เซฟร่างอัตโนมัติ:</div>'+
-   '<textarea id="engSummary" oninput="saveEng(\'summary\',this)" placeholder="Write your 3-5 sentence summary here..." style="width:100%;min-height:90px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
-   '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">🔤 Vocab ที่เรียนรู้ (บรรทัดละคำ: word = ความหมาย):</div>'+
-   '<textarea id="engVocab" oninput="saveEng(\'vocab\',this)" placeholder="เช่น: bullion = ทองคำแท่ง" style="width:100%;min-height:60px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
-   '<div style="margin-top:10px;display:flex;gap:8px">'+
-   '<button onclick="copyEngPractice()" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>'+
-   '<button onclick="clearEngPractice()" style="background:#12151f;color:#64748b;border:1px solid #2d3148;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer">🗑 ล้างร่าง</button></div>'+
-   '</div></div>';
-  document.getElementById('engSummary').value = localStorage.getItem(engKey('summary'))||'';
-  document.getElementById('engVocab').value = localStorage.getItem(engKey('vocab'))||'';
-  updateEngStatus();
+  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px">📰 English Articles ที่รอสรุป ('+pendingArticles.length+' บทความ) — เลือกอ่านอันไหนก่อนก็ได้ พิมพ์สรุป + vocab ระบบเซฟร่างอัตโนมัติ เสร็จแล้วกด Copy มาส่งใน Claude chat ทีละบทความ</div>' +
+  pendingArticles.map(function(a,idx){
+    return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'engb-'+a.id+'\').classList.toggle(\'open\')">'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+(idx===0?'⭐ ':'')+a.date+' — '+a.title+'</div>'+
+      '<div style="font-size:11px;color:#64748b">'+a.source+(idx===0?' · บทความล่าสุด':'')+'</div></div>'+
+      '<span id="engstat-'+a.id+'" style="font-size:11px;color:#fbbf24;margin-right:8px"></span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div class="quiz-card-body" id="engb-'+a.id+'" style="padding:14px">'+
+      '<a href="'+a.url+'" target="_blank" style="font-size:12px;color:#60a5fa;text-decoration:none">เปิดอ่านบทความ ↗</a>'+
+      '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">✍️ สรุป 3-5 ประโยค (ภาษาอังกฤษ):</div>'+
+      '<textarea oninput="saveEngA(\''+a.id+'\',\'s\',this)" id="engs-'+a.id+'" placeholder="Write your 3-5 sentence summary here..." style="width:100%;min-height:80px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
+      '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">🔤 Vocab ที่เรียนรู้ (บรรทัดละคำ: word = ความหมาย):</div>'+
+      '<textarea oninput="saveEngA(\''+a.id+'\',\'v\',this)" id="engv-'+a.id+'" placeholder="เช่น: bullion = ทองคำแท่ง" style="width:100%;min-height:50px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
+      '<button onclick="copyEngA(\''+a.id+'\')" style="margin-top:10px;background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>'+
+      '</div></div>';
+  }).join('');
+  pendingArticles.forEach(function(a){
+    const es=document.getElementById('engs-'+a.id), ev=document.getElementById('engv-'+a.id);
+    if(es) es.value = localStorage.getItem(engAKey(a.id,'s'))||'';
+    if(ev) ev.value = localStorage.getItem(engAKey(a.id,'v'))||'';
+    updateEngAStatus(a.id);
+  });
 }
 renderEngPractice();
 
