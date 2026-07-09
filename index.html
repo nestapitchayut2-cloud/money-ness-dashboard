@@ -992,7 +992,7 @@ function renderHabits() {
 
 // ── Brief Grid ──
 // ── Content loader (fetches from GitHub) ──
-const CONTENT_BASE = 'https://raw.githubusercontent.com/nestapitchayut2-cloud/money-ness-dashboard/main/content/';
+const CONTENT_BASE = 'content/'; // same-origin (GitHub Pages) — ไม่พึ่ง raw CDN
 const contentCache = {};
 
 function getContentFolder(filename) {
