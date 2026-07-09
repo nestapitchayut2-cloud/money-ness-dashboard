@@ -659,11 +659,11 @@
       <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz History</button>
       <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
       <button class="tab-btn" onclick="switchTab('habits')">📋 Habits</button>
+      <button class="tab-btn" onclick="switchTab('ideas')">💡 Ideas</button>
     </div>
 
     <!-- Tab: This Week -->
     <div class="tab-panel active" id="tab-week">
-      <div id="ideaInbox" style="margin-bottom:16px"></div>
       <div class="layer-badge">🟡 สัปดาห์นี้: 35% Growth — BTC / US Stocks / Macro</div>
       <div class="topic-grid">
         <div class="topic-card post-day">
@@ -753,6 +753,13 @@
       <div id="pendingQuizzes" style="margin-bottom:20px"></div>
       <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
       <div id="quizCards"></div>
+    </div>
+
+        <!-- Tab: Ideas -->
+    <div class="tab-panel" id="tab-ideas">
+      <div id="ideaInbox" style="margin-bottom:16px"></div>
+      <div id="ideaFilters"></div>
+      <div id="ideaCards"></div>
     </div>
 
     <!-- Tab: Vocabulary -->
@@ -1432,6 +1439,55 @@ function renderIdeaInbox(){
     '</div>'+items+'</div></div>';
 }
 renderIdeaInbox();
+
+// ── Ideas Hub (คลังไอเดีย — หมวดหมู่ + สถานะ) ──
+const IDEA_STATUS = { todo:['⏳ รอทำ','#fbbf24','#2b230d'], learned:['📚 เรียนแล้ว','#60a5fa','#0d1a2b'], done:['✅ ทำ content แล้ว','#39ff14','#0d2b0d'] };
+const IDEA_CATS = ['หุ้น','BTC','Forex','กองทุน','Tax','Tech','Mindset'];
+const ideaBank = [
+  { num:'003', topic:'Fabrinet — "TSMC แห่งวงการแสง" โรงงานใหญ่สุดในโลก อยู่ที่ไทย', cat:'Tech', tags:['หุ้น'], status:'todo', date:'16 มิ.ย. 2569',
+    angles:['หุ้น (NYSE: FN) ที่คนไม่ค่อยรู้จักแต่ทำ Supply ให้ Tech โลก','"โรงงานที่ใหญ่สุดในโลกอยู่ที่ไทย แต่คนไทยไม่รู้จัก"','AI Boom → ความต้องการ Fiber Optic → Fabrinet ได้ประโยชน์','คนไทยควรรู้จักหุ้นนี้ก่อนใคร'],
+    image:'ภาพ Laser/Photonics บน Chip สไตล์ Tech Cinematic', fit:'The Money Ness — Stock / Tech ในไทย / Hidden Gem' },
+  { num:'002', topic:'วอร์เรน บัฟเฟตต์ขาย TSMC 600,000 ล้านบาท', cat:'หุ้น', tags:['Mindset'], status:'todo', date:'16 มิ.ย. 2569',
+    angles:['ทำไมบัฟเฟตต์ถึงขายหุ้น TSMC หลังซื้อไม่นาน?','แม้แต่นักลงทุนอันดับ 1 โลกยังเปลี่ยนใจได้','"Cut Loss ไม่ใช่ความพ่ายแพ้ — บัฟเฟตต์ก็ทำ"','เชื่อมกับ Risk Management และ Position Sizing'],
+    image:'บัฟเฟตต์กอดหมูทำด้วยธนบัตร มี TSMC Chip วางอยู่ด้านหน้า', fit:'The Money Ness — Stock / นักลงทุนชื่อดัง / Mindset' },
+  { num:'001', topic:'Data Center ในอวกาศ ทำได้จริงแค่ไหน?', cat:'Tech', tags:[], status:'todo', date:'16 มิ.ย. 2569',
+    angles:['บริษัทไหนกำลังทำเรื่องนี้อยู่? ลงทุนได้ไหม?','เชื่อมกับ Tech Stock / Megatrend อวกาศ','"อนาคตของ Cloud ไม่ได้อยู่บนโลก"'],
+    image:'ดาวเทียมและโลก สไตล์ Cinematic อวกาศ ตัวอักษรบนพื้นดำล่าง', fit:'The Money Ness — Megatrend / Tech Investment' }
+];
+let ideaFStatus='All', ideaFCat='All';
+function setIdeaFilter(dim,val){ if(dim==='s') ideaFStatus=val; else ideaFCat=val; renderIdeaHub(); }
+function renderIdeaHub(){
+  const fbox=document.getElementById('ideaFilters'), cbox=document.getElementById('ideaCards');
+  if(!fbox||!cbox) return;
+  function btn(label,dim,val,active){ return '<button class="filter-btn'+(active?' active':'')+'" onclick="setIdeaFilter(\''+dim+'\',\''+val+'\')">'+label+'</button>'; }
+  let f='<div style="font-size:11px;color:#475569;margin-bottom:4px">สถานะ:</div><div class="filter-btns" style="margin-bottom:8px">';
+  f+=btn('ทั้งหมด','s','All',ideaFStatus==='All');
+  for(const k in IDEA_STATUS) f+=btn(IDEA_STATUS[k][0],'s',k,ideaFStatus===k);
+  f+='</div><div style="font-size:11px;color:#475569;margin-bottom:4px">หมวด:</div><div class="filter-btns" style="margin-bottom:14px">'+btn('ทั้งหมด','c','All',ideaFCat==='All');
+  IDEA_CATS.forEach(function(c){ f+=btn(c,'c',c,ideaFCat===c); });
+  f+='</div>';
+  fbox.innerHTML=f;
+  const list=ideaBank.filter(function(x){
+    return (ideaFStatus==='All'||x.status===ideaFStatus) && (ideaFCat==='All'||x.cat===ideaFCat||(x.tags||[]).indexOf(ideaFCat)>=0);
+  });
+  if(!list.length){ cbox.innerHTML='<div style="font-size:12px;color:#475569;padding:12px">ไม่มีไอเดียในหมวดนี้</div>'; return; }
+  cbox.innerHTML=list.map(function(x){
+    const st=IDEA_STATUS[x.status];
+    const tags=[x.cat].concat(x.tags||[]).map(function(t){ return '<span style="background:#1e3a5f;color:#93c5fd;padding:2px 8px;border-radius:99px;font-size:10px;margin-right:4px">'+t+'</span>'; }).join('');
+    const angles=(x.angles||[]).map(function(a){ return '<li style="margin-bottom:4px">'+a+'</li>'; }).join('');
+    return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'ideab-'+x.num+'\').classList.toggle(\'open\')">'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:4px">💡 #'+x.num+' — '+x.topic+'</div>'+
+      '<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+tags+'<span style="font-size:10px;color:#475569">เก็บ '+x.date+'</span></div></div>'+
+      '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;background:'+st[2]+';color:'+st[1]+'">'+st[0]+'</span><span style="font-size:11px;color:#475569">▼</span></div></div>'+
+      '<div class="quiz-card-body" id="ideab-'+x.num+'" style="padding:14px">'+
+      '<div style="font-size:11px;color:#64748b;margin-bottom:6px">🎯 Angle ที่น่าสนใจ:</div><ul style="font-size:12px;color:#cbd5e1;padding-left:18px;margin-bottom:10px">'+angles+'</ul>'+
+      (x.image?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">🖼️ ภาพต้นแบบ:</div><div style="font-size:12px;color:#cbd5e1;margin-bottom:10px">'+x.image+'</div>':'')+
+      (x.fit?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">📌 เหมาะกับ:</div><div style="font-size:12px;color:#cbd5e1">'+x.fit+'</div>':'')+
+      '</div></div>';
+  }).join('');
+}
+renderIdeaHub();
+
 
 
 
