@@ -1407,7 +1407,7 @@ function copyIdeas(){
   const a=getIdeas(); if(!a.length) return;
   let out='ผมมีไอเดียอยากเรียนจาก Idea Inbox ครับ:\n\n';
   a.forEach(function(x,i){ out+=(i+1)+'. '+(x.note||'(ไม่มีโน้ต)')+(x.url?'\n   '+x.url:'')+'\n   (เก็บไว้เมื่อ '+x.d+')\n\n'; });
-  out+='ช่วยเลือก/จัดลำดับ แล้วทำเป็นบทเรียนเต็ม + quiz ตาม format เดิม พอผมสอบผ่านค่อยแตกเป็น content ของ The Money Ness';
+  out+='ช่วยเลือก/จัดลำดับ ทำเป็นบทเรียนเต็ม + quiz ตาม format เดิม พอผมสอบผ่านค่อยแตกเป็น content ของ The Money Ness และช่วยบันทึกไอเดียทั้งหมดลงคลัง SHARED/idea-bank.md + sync ขึ้น dashboard ด้วย';
   navigator.clipboard.writeText(out).then(function(){ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว'); });
 }
 function renderIdeaInbox(){
@@ -1427,6 +1427,7 @@ function renderIdeaInbox(){
     '<textarea id="ideaNote" placeholder="โน้ตสั้นๆ: สนใจมุมไหน / คลิปชื่ออะไร" style="width:100%;min-height:40px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
     '<div style="display:flex;gap:8px;margin:8px 0 12px">'+
     '<button onclick="addIdea()" style="background:#1e3a5f;color:#60a5fa;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">＋ เก็บไอเดีย</button>'+
+    '<button onclick="openBriefFile(\'idea-bank.md\')" style="background:#12151f;color:#fbbf24;border:1px solid #2d3148;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📚 เปิดคลังไอเดีย</button>'+
     (a.length?'<button onclick="copyIdeas()" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>':'')+
     '</div>'+items+'</div></div>';
 }
