@@ -1414,7 +1414,7 @@ function copyIdeas(){
   const a=getIdeas(); if(!a.length) return;
   let out='ผมมีไอเดียอยากเรียนจาก Idea Inbox ครับ:\n\n';
   a.forEach(function(x,i){ out+=(i+1)+'. '+(x.note||'(ไม่มีโน้ต)')+(x.url?'\n   '+x.url:'')+'\n   (เก็บไว้เมื่อ '+x.d+')\n\n'; });
-  out+='ช่วยเลือก/จัดลำดับ ทำเป็นบทเรียนเต็ม + quiz ตาม format เดิม พอผมสอบผ่านค่อยแตกเป็น content ของ The Money Ness และช่วยบันทึกไอเดียทั้งหมดลงคลัง SHARED/idea-bank.md + sync ขึ้น dashboard ด้วย';
+  out+='ช่วยใส่หมวดหมู่และบันทึกไอเดียเหล่านี้เข้าคลังถาวร (idea-bank.md + การ์ดในแท็บ Ideas บน dashboard) ให้หน่อยครับ — แค่เก็บเข้าคลัง ยังไม่ต้องทำบทเรียน เดี๋ยวผมกดหยิบจากการ์ดเองตอนพร้อมเรียน';
   navigator.clipboard.writeText(out).then(function(){ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว'); });
 }
 function renderIdeaInbox(){
