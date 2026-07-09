@@ -749,6 +749,7 @@
 
     <!-- Tab: Quiz History -->
     <div class="tab-panel" id="tab-quiz">
+      <div id="pendingQuizzes" style="margin-bottom:20px"></div>
       <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
       <div id="quizCards"></div>
     </div>
@@ -1268,6 +1269,67 @@ function renderQuizHistory() {
 }
 
 renderQuizHistory();
+
+// ── Pending Quizzes (ตอบค้างไว้ได้ — เซฟใน browser อัตโนมัติ) ──
+const pendingQuizzes = [
+  { id:'tax', title:'Quiz #1 — Tax Planning (RMF + Thai ESG)', ready:true, note:'เรียน Ep.1–2 ครบแล้ว พร้อมตอบเลย', questions:[
+    'Thai ESG กับ RMF ใช้วงเงินลดหย่อนร่วมกันหรือแยกกัน? เพดานแต่ละกลุ่มเท่าไหร่?',
+    'ซื้อ Thai ESG วันที่ 15 พ.ย. 2569 จะขายได้โดยไม่ผิดเงื่อนไขเร็วสุดเมื่อไหร่?',
+    'ฐานภาษี 20% ซื้อ Thai ESG 150,000 บาท ได้ภาษีคืนกี่บาท คิดเป็นผลตอบแทนทันทีกี่ %?',
+    'ทำไมปี 2569 ถึงสำคัญเป็นพิเศษกับ Ness เรื่อง Thai ESG (2 เหตุผล)?',
+    'ขาย Thai ESG ก่อนครบ 5 ปี จะเกิดอะไรขึ้นบ้าง?' ] },
+  { id:'btc', title:'Quiz #3 — BTC & Crypto', ready:true, note:'แนะนำทบทวน brief 18 มิ.ย. + morning brief 25 มิ.ย. ก่อน', questions:[
+    'Halving คืออะไร และตามสถิติรอบก่อนๆ ราคามัก peak ประมาณกี่เดือนหลัง halving?',
+    'ถ้าเห็น Exchange inflow เพิ่มขึ้นผิดปกติ มักตีความว่าอะไร?',
+    'MVRV สูงมากบอกอะไรเรา และควรระวังอะไร?',
+    'ทำไม BTC ยังไม่เหมาะเป็น "เงิน" ใช้จ่ายรายวัน (อย่างน้อย 2 เหตุผล)?',
+    'DCA BTC ระยะยาวควรอยู่เลเยอร์ไหนของพอร์ต 50/35/15 เพราะอะไร?' ] },
+  { id:'opt', title:'Quiz #5 — Options (Greeks + กลยุทธ์พื้นฐาน)', ready:true, note:'แนะนำทบทวน Greeks (Delta/Theta/Vega) ก่อน', questions:[
+    'Delta 0.30 ของ call option บอกอะไรเรา 2 อย่าง?',
+    'Theta เข้าข้างคนซื้อหรือคนขาย option? เพราะอะไร?',
+    'Covered Call เหมาะกับตลาดแบบไหน และความเสี่ยงหลักคืออะไร?',
+    'Protective Put ต่างจากการตั้ง stop loss ตรงไหน?',
+    'ก่อนข่าวใหญ่ IV มักพุ่ง — ถ้าซื้อ option ตอนนั้น เสี่ยงเจออะไรหลังข่าวออก?' ] },
+  { id:'mf', title:'Quiz #6 — Mutual Funds', ready:false, note:'🔒 ยังไม่มีบทเรียนเต็ม — เรียนก่อนแล้วจะปลดล็อก', questions:[] }
+];
+function qKey(qid,i){ return 'quizAns_'+qid+'_'+i; }
+function saveQuizDraft(qid,i,el){ localStorage.setItem(qKey(qid,i), el.value); updatePendingStatus(qid); }
+function updatePendingStatus(qid){
+  const quiz = pendingQuizzes.find(q=>q.id===qid);
+  const n = quiz.questions.filter((_,i)=> (localStorage.getItem(qKey(qid,i))||'').trim()).length;
+  const el = document.getElementById('pqstat-'+qid);
+  if(el) el.textContent = 'ร่างคำตอบ: '+n+'/'+quiz.questions.length+' ข้อ';
+}
+function copyQuizAnswers(qid){
+  const quiz = pendingQuizzes.find(q=>q.id===qid);
+  let out = 'ตรวจ Quiz ให้หน่อยครับ — '+quiz.title+'\n\n';
+  quiz.questions.forEach((q,i)=>{ out += 'ข้อ '+(i+1)+': '+q+'\nตอบ: '+(localStorage.getItem(qKey(qid,i))||'(ยังไม่ตอบ)')+'\n\n'; });
+  navigator.clipboard.writeText(out).then(()=>{ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว — วางใน Claude chat ได้เลย'); });
+}
+function renderPendingQuizzes(){
+  const box = document.getElementById('pendingQuizzes');
+  if(!box) return;
+  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px">⏳ Quiz ที่รอตอบ — พิมพ์คำตอบได้เลย ระบบเซฟร่างให้อัตโนมัติ พอครบกด Copy แล้วเอาไปวางใน Claude chat</div>' +
+  pendingQuizzes.map(q=>{
+    if(!q.ready) return '<div class="quiz-card" style="opacity:.55;padding:14px"><div style="font-size:13px;font-weight:700">'+q.title+'</div><div style="font-size:11px;color:#64748b;margin-top:4px">'+q.note+'</div></div>';
+    const qs = q.questions.map((question,i)=>
+      '<div style="margin-bottom:12px"><div style="font-size:12px;color:#cbd5e1;margin-bottom:5px">'+(i+1)+'. '+question+'</div>'+
+      '<textarea oninput="saveQuizDraft(\''+q.id+'\','+i+',this)" id="pq-'+q.id+'-'+i+'" placeholder="พิมพ์คำตอบ..." style="width:100%;min-height:52px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea></div>').join('');
+    return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'pqb-'+q.id+'\').classList.toggle(\'open\')">'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+q.title+'</div>'+
+      '<div style="font-size:11px;color:#64748b">'+q.note+'</div></div>'+
+      '<span id="pqstat-'+q.id+'" style="font-size:11px;color:#fbbf24;margin-right:8px"></span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div class="quiz-card-body" id="pqb-'+q.id+'" style="padding:14px">'+qs+
+      '<button onclick="copyQuizAnswers(\''+q.id+'\')" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy คำตอบไปวางใน Claude</button></div></div>';
+  }).join('');
+  pendingQuizzes.filter(q=>q.ready).forEach(q=>{
+    q.questions.forEach((_,i)=>{ const el=document.getElementById('pq-'+q.id+'-'+i); if(el) el.value = localStorage.getItem(qKey(q.id,i))||''; });
+    updatePendingStatus(q.id);
+  });
+}
+renderPendingQuizzes();
+
+
 
 // ── Quick Actions ──
 const paths = {
