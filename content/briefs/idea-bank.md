@@ -64,4 +64,22 @@
 
 ---
 
-*เพิ่มล่าสุด: 16 มิถุนายน 2569*
+### 💡 #004 — One Person Business
+**บันทึก:** 9 ก.ค. 2569 | **Status:** ⏳ รอทำ
+
+**Topic:** เทรนด์ One Person Business — ธุรกิจคนเดียวทำได้จริงแค่ไหน?
+
+**ที่มา:** YouTube — https://www.youtube.com/watch?v=0E4qpMb3s3Q
+
+**Angle ที่น่าสนใจ:**
+- เทรนด์ของการทำ One Person Business กำลังมา
+- One Person Business เหมาะกับใคร?
+- มี Business Model แบบไหนบ้าง?
+- เชื่อมกับชีวิต Ness: มนุษย์เงินเดือนที่สร้าง side business (เพจ/IB/EA) คือ One Person Business อยู่แล้ว
+
+**เหมาะกับ:** The Money Ness (Lifestyle / Side Income / มนุษย์เงินเดือนสร้างรายได้เสริม)
+
+---
+
+*เพิ่มล่าสุด: 9 กรกฎาคม 2569*
+<!-- old:  16 มิถุนายน 2569*
