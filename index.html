@@ -1456,6 +1456,18 @@ const ideaBank = [
 ];
 let ideaFStatus='All', ideaFCat='All';
 function setIdeaFilter(dim,val){ if(dim==='s') ideaFStatus=val; else ideaFCat=val; renderIdeaHub(); }
+function copyIdeaUse(num){
+  const x = ideaBank.find(function(i){return i.num===num;});
+  let out;
+  if(x.status==='todo'){
+    out='ผมอยากหยิบไอเดีย 💡 #'+x.num+' — '+x.topic+' จากคลังไอเดียไปเรียนครับ\n\nช่วยทำบทเรียนเต็มตาม format (ELI5 → ลงลึก → ตัวอย่างตลาดจริง → เชื่อมกับพอร์ตผม → takeaways → quiz) เซฟไฟล์ + ขึ้น dashboard แล้วเปลี่ยนสถานะไอเดียนี้เป็น 📚 เรียนแล้ว';
+  } else if(x.status==='learned'){
+    out='ผมเรียนไอเดีย 💡 #'+x.num+' — '+x.topic+' ไปแล้ว อยากหยิบไปทำ content ครับ\n\nช่วยร่างเป็น Single Image caption หรือ Reels script ตามสไตล์ The Money Ness ผ่าน fact-check เซฟลง THE-MONEY-NESS + ขึ้น Content Drafts แล้วเปลี่ยนสถานะไอเดียเป็น ✅ ทำ content แล้ว';
+  } else {
+    out='ไอเดีย 💡 #'+x.num+' — '+x.topic+' ทำครบวงจรแล้ว — อยากต่อยอด/รีมิกซ์เป็น content มุมใหม่ครับ';
+  }
+  navigator.clipboard.writeText(out).then(function(){ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว — วางใน Claude chat ได้เลย'); });
+}
 function renderIdeaHub(){
   const fbox=document.getElementById('ideaFilters'), cbox=document.getElementById('ideaCards');
   if(!fbox||!cbox) return;
@@ -1483,6 +1495,7 @@ function renderIdeaHub(){
       '<div style="font-size:11px;color:#64748b;margin-bottom:6px">🎯 Angle ที่น่าสนใจ:</div><ul style="font-size:12px;color:#cbd5e1;padding-left:18px;margin-bottom:10px">'+angles+'</ul>'+
       (x.image?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">🖼️ ภาพต้นแบบ:</div><div style="font-size:12px;color:#cbd5e1;margin-bottom:10px">'+x.image+'</div>':'')+
       (x.fit?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">📌 เหมาะกับ:</div><div style="font-size:12px;color:#cbd5e1">'+x.fit+'</div>':'')+
+      '<div style="margin-top:12px"><button onclick="copyIdeaUse(\''+x.num+'\')" style="background:'+(x.status==='todo'?'#39ff14':(x.status==='learned'?'#60a5fa':'#12151f'))+';color:'+(x.status==='done'?'#64748b':'#000')+';border:'+(x.status==='done'?'1px solid #2d3148':'none')+';border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">'+(x.status==='todo'?'🚀 หยิบไปเรียน — Copy ส่ง Claude':(x.status==='learned'?'✍️ หยิบไปทำ Content — Copy ส่ง Claude':'🔁 ต่อยอด/รีมิกซ์'))+'</button></div>'+
       '</div></div>';
   }).join('');
 }
