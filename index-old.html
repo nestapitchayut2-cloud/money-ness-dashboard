@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>The Money Ness — Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; padding: 24px; }
+
+  /* Header */
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
+  .header h1 span { color: #39ff14; }
+  .header .date { font-size: 13px; color: #64748b; }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .col-1 { grid-column: span 1; }
+  .col-2 { grid-column: span 2; }
+  .col-3 { grid-column: span 3; }
+
+  /* Card */
+  .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 20px; }
+  .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 14px; }
+
+  /* EA Progress */
+  .ea-phase { font-size: 12px; color: #fb923c; font-weight: 600; background: #2d1f0e; padding: 3px 10px; border-radius: 99px; display: inline-block; margin-bottom: 10px; }
+  .ea-pct { font-size: 48px; font-weight: 800; color: #39ff14; line-height: 1; }
+  .ea-label { font-size: 12px; color: #64748b; margin: 4px 0 12px; }
+  .progress-bar { background: #2d3148; border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+  .progress-fill { background: linear-gradient(90deg, #39ff14, #00d4aa); height: 100%; border-radius: 99px; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: #475569; margin-bottom: 14px; }
+  .ea-blocker { font-size: 11px; background: #1e1e2e; border: 1px solid #3d3148; border-radius: 8px; padding: 8px 10px; color: #94a3b8; }
+  .ea-blocker strong { color: #fb923c; }
+
+  /* Portfolio */
+  .port-layers { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .port-layer { display: flex; align-items: center; gap: 10px; }
+  .port-bar-wrap { flex: 1; background: #2d3148; border-radius: 99px; height: 10px; overflow: hidden; }
+  .port-bar { height: 100%; border-radius: 99px; }
+  .bar-stable { background: linear-gradient(90deg, #22c55e, #16a34a); width: 50%; }
+  .bar-growth { background: linear-gradient(90deg, #eab308, #ca8a04); width: 35%; }
+  .bar-risk   { background: linear-gradient(90deg, #ef4444, #dc2626); width: 15%; }
+  .port-label { font-size: 12px; color: #94a3b8; min-width: 110px; }
+  .port-pct { font-size: 13px; font-weight: 700; min-width: 34px; text-align: right; }
+  .pct-stable { color: #22c55e; }
+  .pct-growth { color: #eab308; }
+  .pct-risk   { color: #ef4444; }
+  .port-goal { font-size: 11px; color: #475569; display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid #2d3148; }
+  .port-goal span { color: #94a3b8; }
+
+  /* Upcoming Posts */
+  .post-list { display: flex; flex-direction: column; gap: 10px; }
+  .post-item { display: flex; align-items: center; gap: 12px; background: #12151f; border-radius: 8px; padding: 12px; border: 1px solid #2d3148; }
+  .post-date { min-width: 52px; text-align: center; }
+  .post-date .day { font-size: 18px; font-weight: 700; color: #fff; line-height: 1; }
+  .post-date .month { font-size: 10px; color: #64748b; }
+  .post-divider { width: 1px; height: 36px; background: #2d3148; }
+  .post-info { flex: 1; }
+  .post-title { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 3px; }
+  .post-tag { font-size: 10px; padding: 2px 7px; border-radius: 99px; display: inline-block; font-weight: 500; }
+  .tag-tmn { background: #1e3a5f; color: #60a5fa; }
+  .post-status { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
+  .status-ready { background: #0d2b0d; color: #39ff14; border: 1px solid #1a4d1a; }
+
+  /* Quick Actions */
+  .actions { display: flex; flex-direction: column; gap: 8px; }
+  .btn { width: 100%; padding: 10px 14px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.15s; text-align: left; }
+  .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+  .btn-primary   { background: #39ff14; color: #0a1f0a; }
+  .btn-secondary { background: #1e3a5f; color: #93c5fd; }
+  .btn-warning   { background: #2d1f0e; color: #fb923c; border: 1px solid #3d2a10; }
+  .btn-ghost     { background: #1a1d27; color: #94a3b8; border: 1px solid #2d3148; }
+  .btn-icon { font-size: 15px; }
+  .btn-text { flex: 1; }
+  .btn-sub { font-size: 10px; font-weight: 400; opacity: 0.7; display: block; }
+
+  /* Scheduled Tasks */
+  .task-list { display: flex; flex-direction: column; gap: 8px; }
+  .task-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; background: #12151f; border-radius: 8px; border: 1px solid #2d3148; }
+  .task-name { font-size: 12px; color: #e2e8f0; font-weight: 500; }
+  .task-time { font-size: 10px; color: #64748b; margin-top: 1px; }
+  .task-badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
+  .badge-active { background: #0d2b0d; color: #39ff14; }
+  .badge-off    { background: #1e1e1e; color: #475569; }
+
+  /* ── Learning Hub ── */
+  .tab-nav { display: flex; gap: 6px; margin-bottom: 16px; }
+  .tab-btn { padding: 7px 16px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .tab-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .tab-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* Tab 1: This Week */
+  .layer-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e2d1e; border: 1px solid #2a4d2a; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #86efac; margin-bottom: 14px; }
+  .topic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
+  .topic-card { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px; }
+  .topic-card .t-day { font-size: 10px; color: #64748b; font-weight: 600; margin-bottom: 4px; }
+  .topic-card .t-content { font-size: 11px; color: #cbd5e1; margin-bottom: 4px; line-height: 1.4; }
+  .topic-card .t-learn { font-size: 10px; color: #7c8fb0; line-height: 1.3; }
+  .topic-card.post-day { border-color: #1e3a5f; }
+  .topic-card .t-dot { width: 6px; height: 6px; border-radius: 50%; background: #475569; display: inline-block; margin-bottom: 3px; }
+  .curriculum-box { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 12px 14px; }
+  .curriculum-box .c-title { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+  .curriculum-ep { display: flex; gap: 8px; }
+  .ep-card { flex: 1; background: #1a1d27; border-radius: 8px; padding: 10px; border: 1px solid #2d3148; }
+  .ep-card .ep-layer { font-size: 10px; margin-bottom: 3px; }
+  .ep-card .ep-num { font-size: 10px; color: #475569; }
+  .ep-card .ep-name { font-size: 12px; font-weight: 600; color: #e2e8f0; margin: 2px 0; }
+  .ep-card .ep-goal { font-size: 10px; color: #64748b; line-height: 1.3; }
+
+  /* Tab 2: Briefs */
+  .sub-tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+  .sub-tab-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .sub-tab-btn.active { background: #1a1d27; border-color: #64748b; color: #e2e8f0; }
+  .sub-panel { display: none; }
+  .sub-panel.active { display: block; }
+  .brief-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .brief-item { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .brief-item:hover { border-color: #39ff14; background: #0d1f0d; }
+  .brief-item .b-date { font-size: 14px; font-weight: 700; color: #e2e8f0; margin-bottom: 3px; }
+  .brief-item .b-day { font-size: 11px; color: #64748b; margin-bottom: 6px; }
+  .brief-item .b-topic { font-size: 10px; color: #94a3b8; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brief-item .b-action { font-size: 10px; color: #39ff14; }
+
+  /* Tab 3: Vocabulary */
+  .vocab-controls { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .vocab-search { flex: 1; min-width: 180px; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #e2e8f0; outline: none; }
+  .vocab-search:focus { border-color: #39ff14; }
+  .vocab-search::placeholder { color: #475569; }
+  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .filter-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .view-toggle { display: flex; gap: 4px; }
+  .view-btn { padding: 6px 10px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; cursor: pointer; }
+  .view-btn.active { background: #1a1d27; border-color: #64748b; color: #e2e8f0; }
+
+  /* Flashcard grid */
+  .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .flashcard { height: 110px; cursor: pointer; perspective: 600px; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .card-front, .card-back { position: absolute; inset: 0; border-radius: 10px; padding: 14px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; }
+  .card-front { background: #12151f; border: 1px solid #2d3148; }
+  .card-back { background: #0f1f2f; border: 1px solid #1e3a5f; transform: rotateY(180deg); }
+  .card-front .fc-cat { font-size: 10px; color: #64748b; margin-bottom: 6px; }
+  .card-front .fc-word { font-size: 14px; font-weight: 700; color: #e2e8f0; }
+  .card-front .fc-hint { font-size: 10px; color: #39ff14; margin-top: 8px; }
+  .card-back .fc-meaning { font-size: 12px; color: #93c5fd; line-height: 1.4; margin-bottom: 6px; }
+  .card-back .fc-example { font-size: 10px; color: #64748b; line-height: 1.3; font-style: italic; }
+
+  /* List view */
+  .vocab-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .vocab-table th { text-align: left; padding: 8px 10px; color: #64748b; font-size: 11px; border-bottom: 1px solid #2d3148; }
+  .vocab-table td { padding: 9px 10px; border-bottom: 1px solid #1e2030; vertical-align: top; }
+  .vocab-table tr:hover td { background: #12151f; }
+  .vocab-table .v-word { color: #60a5fa; font-weight: 600; }
+  .vocab-table .v-meaning { color: #e2e8f0; }
+  .vocab-table .v-example { color: #64748b; font-style: italic; }
+  .vocab-count { font-size: 11px; color: #475569; margin-bottom: 10px; }
+
+  /* Quick Content Panel */
+  .qc-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .qc-row { display: flex; gap: 10px; align-items: flex-start; }
+  .qc-input { flex: 1; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; }
+  .qc-input:focus { border-color: #39ff14; }
+  .qc-input::placeholder { color: #475569; }
+  .qc-type-group { display: flex; gap: 6px; }
+  .qc-type-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .qc-type-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .qc-type-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
+  .qc-copy-btn { padding: 10px 22px; border-radius: 8px; border: none; background: #39ff14; color: #0a1f0a; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .qc-copy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .qc-hint { font-size: 11px; color: #475569; line-height: 1.5; padding: 10px 12px; background: #12151f; border-radius: 8px; border: 1px solid #2d3148; }
+  .qc-hint strong { color: #64748b; }
+
+  /* Quiz History */
+  .quiz-stat { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 100px; }
+  .quiz-stat .qs-num { font-size: 22px; font-weight: 800; }
+  .quiz-stat .qs-label { font-size: 10px; color: #64748b; margin-top: 2px; }
+  .quiz-card { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .quiz-card-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; transition: background .15s; }
+  .quiz-card-header:hover { background: rgba(255,255,255,.03); }
+  .qc-score { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
+  .qc-pass { background: rgba(57,255,20,.12); color: #39ff14; border: 2px solid #39ff14; }
+  .qc-fail { background: rgba(239,68,68,.12); color: #ef4444; border: 2px solid #ef4444; }
+  .quiz-card-body { display: none; border-top: 1px solid #2d3148; }
+  .quiz-card-body.open { display: block; }
+  .qa-item { padding: 12px 16px; border-bottom: 1px solid #1e2030; }
+  .qa-item:last-child { border-bottom: none; }
+  .qa-question { font-size: 12px; color: #e2e8f0; line-height: 1.5; margin-bottom: 6px; }
+  .qa-your-answer { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+  .qa-explanation { font-size: 11px; line-height: 1.5; margin-top: 4px; padding: 6px 10px; border-radius: 6px; }
+  .qa-correct-exp { background: rgba(57,255,20,.08); color: #86efac; border-left: 3px solid #39ff14; }
+  .qa-wrong-exp { background: rgba(239,68,68,.08); color: #fca5a5; border-left: 3px solid #ef4444; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #1a1d27; border: 1px solid #39ff14; color: #39ff14; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 100; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+
+  /* ── Goals & Tracking ── */
+  .goals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .goal-section { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 14px; }
+  .goal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .goal-section-title span { font-size: 14px; }
+
+  /* Weekly checkboxes */
+  .goal-check-list { display: flex; flex-direction: column; gap: 7px; }
+  .goal-check-item { display: flex; align-items: center; gap: 9px; cursor: pointer; }
+  .goal-check-item input[type=checkbox] { display: none; }
+  .g-box { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid #3d4468; background: #1a1d27; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .goal-check-item.checked .g-box { background: #39ff14; border-color: #39ff14; }
+  .goal-check-item.checked .g-box::after { content: '✓'; font-size: 10px; font-weight: 800; color: #0a1f0a; }
+  .goal-check-item.checked .g-label { color: #475569; text-decoration: line-through; }
+  .g-label { font-size: 12px; color: #94a3b8; flex: 1; }
+  .g-sub { font-size: 10px; color: #475569; }
+
+  /* Weekly mini-progress */
+  .week-progress { margin-top: 12px; padding-top: 10px; border-top: 1px solid #2d3148; }
+  .week-progress-label { font-size: 10px; color: #64748b; margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .week-pct-val { color: #39ff14; font-weight: 700; }
+
+  /* Monthly progress */
+  .month-goal-list { display: flex; flex-direction: column; gap: 12px; }
+  .month-goal-item {}
+  .month-goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .month-goal-name { font-size: 12px; color: #e2e8f0; font-weight: 500; }
+  .month-goal-val { font-size: 11px; color: #94a3b8; }
+  .month-goal-val .curr { color: #39ff14; font-weight: 700; }
+  .month-goal-val .tgt { color: #475569; }
+  .month-edit-btn { font-size: 10px; color: #3b6fa8; cursor: pointer; padding: 2px 6px; border-radius: 4px; border: 1px solid #1e3a5f; background: none; transition: all 0.15s; }
+  .month-edit-btn:hover { background: #1e3a5f; color: #93c5fd; }
+  .month-input-row { display: none; margin-top: 6px; gap: 6px; align-items: center; }
+  .month-input-row.show { display: flex; }
+  .month-input { background: #1a1d27; border: 1px solid #3d4468; border-radius: 6px; padding: 5px 8px; color: #e2e8f0; font-size: 12px; width: 100%; outline: none; }
+  .month-input:focus { border-color: #39ff14; }
+  .month-save-btn { background: #39ff14; color: #0a1f0a; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+  /* Yearly milestones */
+  .year-milestone-list { display: flex; flex-direction: column; gap: 8px; }
+  .year-milestone { display: flex; align-items: flex-start; gap: 9px; cursor: pointer; padding: 8px; border-radius: 7px; transition: background 0.15s; }
+  .year-milestone:hover { background: #1a1d27; }
+  .year-milestone.done .ym-dot { background: #39ff14; border-color: #39ff14; }
+  .year-milestone.done .ym-dot::after { content: '✓'; font-size: 9px; font-weight: 800; color: #0a1f0a; display: flex; align-items: center; justify-content: center; height: 100%; }
+  .year-milestone.done .ym-name { color: #475569; text-decoration: line-through; }
+  .ym-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #3d4468; background: #1a1d27; flex-shrink: 0; margin-top: 1px; transition: all 0.15s; }
+  .ym-content { flex: 1; }
+  .ym-name { font-size: 12px; color: #94a3b8; line-height: 1.3; }
+  .ym-tag { font-size: 10px; padding: 1px 6px; border-radius: 99px; display: inline-block; margin-top: 3px; }
+  .ym-q1 { background: #1e3a5f; color: #60a5fa; }
+  .ym-q2 { background: #1e2d1e; color: #86efac; }
+  .ym-q3 { background: #2d1f0e; color: #fb923c; }
+  .ym-q4 { background: #2d1a2d; color: #c084fc; }
+  .ym-ongoing { background: #1e1e2e; color: #94a3b8; }
+  @media (max-width: 768px) { .goals-grid { grid-template-columns: 1fr; } }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+
+    /* Grid: ทุก col กลายเป็น full width */
+    .grid { grid-template-columns: 1fr; gap: 12px; }
+    .col-1, .col-2, .col-3 { grid-column: span 1; }
+
+    /* Header */
+    .header h1 { font-size: 18px; }
+    .header { margin-bottom: 16px; }
+
+    /* EA */
+    .ea-pct { font-size: 38px; }
+
+    /* Portfolio */
+    .port-label { min-width: 80px; font-size: 11px; }
+    .port-goal { flex-direction: column; gap: 4px; }
+
+    /* Posts */
+    .post-item { gap: 8px; padding: 10px; }
+    .post-date .day { font-size: 15px; }
+    .post-title { font-size: 12px; }
+    .post-status { font-size: 10px; padding: 3px 8px; }
+
+    /* Tab nav: scroll horizontal */
+    .tab-nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    .tab-btn { white-space: nowrap; flex-shrink: 0; }
+    .sub-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+    .sub-tab-btn { white-space: nowrap; flex-shrink: 0; }
+
+    /* Topic grid: 2 col */
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Curriculum: stack */
+    .curriculum-ep { flex-direction: column; gap: 8px; }
+
+    /* Brief grid: 2 col */
+    .brief-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Content filters: scroll */
+    #contentFilters { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; -webkit-overflow-scrolling: touch; gap: 6px; }
+    #contentFilters .filter-btn { white-space: nowrap; flex-shrink: 0; }
+    #contentFilters span { flex-shrink: 0; }
+
+    /* Quiz summary: scroll */
+    #quizSummaryBar { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+    .quiz-stat { min-width: 80px; flex-shrink: 0; padding: 8px 12px; }
+
+    /* Flashcard grid: 2 col */
+    .flashcard-grid { grid-template-columns: repeat(2, 1fr); }
+    .flashcard { height: 100px; }
+
+    /* Vocab controls */
+    .vocab-search { min-width: unset; width: 100%; }
+    .filter-btns { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+    .filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+    /* Quick Content */
+    .qc-row { flex-direction: column; gap: 8px; }
+    .qc-copy-btn { width: 100%; text-align: center; justify-content: center; }
+    .qc-type-group { flex-wrap: wrap; }
+
+    /* Vocab table: scroll */
+    #vocabListView { overflow-x: auto; }
+    .vocab-table { font-size: 11px; }
+    .vocab-table td, .vocab-table th { padding: 7px 8px; }
+
+    /* Toast: full width bottom */
+    .toast { left: 12px; right: 12px; bottom: 16px; text-align: center; }
+
+    /* Layer badge wrap */
+    .layer-badge { flex-wrap: wrap; }
+  }
+
+  /* ── Modal ── */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:200; overflow-y:auto; padding:16px; }
+  .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; }
+  .modal-box { background:#1a1d27; border:1px solid #2d3148; border-radius:14px; width:100%; max-width:760px; margin:auto; overflow:hidden; }
+  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid #2d3148; position:sticky; top:0; background:#1a1d27; z-index:10; }
+  .modal-title { font-size:14px; font-weight:700; color:#e2e8f0; flex:1; margin-right:12px; }
+  .modal-close { background:#12151f; border:1px solid #2d3148; color:#94a3b8; width:32px; height:32px; border-radius:8px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .modal-close:hover { background:#2d3148; color:#e2e8f0; }
+  .modal-body { padding:20px; overflow-y:auto; max-height:80vh; }
+  .modal-body h1,.modal-body h2,.modal-body h3 { color:#e2e8f0; margin:16px 0 8px; }
+  .modal-body h1 { font-size:18px; border-bottom:1px solid #2d3148; padding-bottom:8px; }
+  .modal-body h2 { font-size:15px; color:#93c5fd; }
+  .modal-body h3 { font-size:13px; color:#60a5fa; }
+  .modal-body p { font-size:13px; line-height:1.7; color:#cbd5e1; margin-bottom:10px; }
+  .modal-body ul,.modal-body ol { font-size:13px; color:#cbd5e1; padding-left:20px; margin-bottom:10px; line-height:1.7; }
+  .modal-body li { margin-bottom:4px; }
+  .modal-body code { background:#12151f; color:#39ff14; padding:2px 6px; border-radius:4px; font-size:12px; font-family:monospace; }
+  .modal-body pre { background:#12151f; border:1px solid #2d3148; border-radius:8px; padding:12px; overflow-x:auto; margin-bottom:12px; }
+  .modal-body pre code { background:none; padding:0; color:#94a3b8; }
+  .modal-body strong { color:#f8fafc; }
+  .modal-body em { color:#fbbf24; }
+  .modal-body blockquote { border-left:3px solid #39ff14; padding-left:12px; color:#64748b; margin:10px 0; }
+  .modal-body table { width:100%; border-collapse:collapse; font-size:12px; margin-bottom:12px; }
+  .modal-body th { background:#12151f; color:#64748b; padding:8px 10px; text-align:left; border-bottom:1px solid #2d3148; }
+  .modal-body td { padding:8px 10px; border-bottom:1px solid #1e2030; color:#cbd5e1; }
+  .modal-body hr { border:none; border-top:1px solid #2d3148; margin:16px 0; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+<body>
+
+<div class="header">
+  <h1>The Money Ness <span>System</span></h1>
+  <div class="date" id="currentDate"></div>
+</div>
+
+<div class="grid">
+
+  <!-- EA Progress -->
+  <div class="card col-1">
+    <div class="card-title">🤖 EA → Prop Firm</div>
+    <div class="ea-phase">Optimization Phase</div>
+    <div class="ea-pct">50%</div>
+    <div class="ea-label">XAU/USD · เป้า: Prop Firm Challenge Q1/2027</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+    <div class="progress-labels"><span>0%</span><span>100% = Challenge ready</span></div>
+    <div class="ea-blocker">
+      <strong>⚠ Blocker:</strong> AI เขียน code ผิด → iteration ช้า<br>
+      <span style="color:#64748b">Fix: เรียน MQL5 พื้นฐาน (Episode 2 · ส.ค.)</span>
+    </div>
+  </div>
+
+  <!-- Upcoming Posts -->
+  <div class="card col-2">
+    <div class="card-title">📅 โพสต์สัปดาห์นี้ (23–27 มิ.ย.)</div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-date"><div class="day">23</div><div class="month">มิ.ย.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">SpaceX IPO $1.75 Trillion — แต่คุณควรซื้อไหม?</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+        <span class="post-status status-ready">✅ พร้อม</span>
+      </div>
+      <div class="post-item">
+        <div class="post-date"><div class="day">25</div><div class="month">มิ.ย.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">Smart Money ซื้อเงียบๆ — มนุษย์เงินเดือนก็ทำได้</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+        <span class="post-status status-ready">✅ พร้อม</span>
+      </div>
+      <div class="post-item">
+        <div class="post-date"><div class="day">27</div><div class="month">มิ.ย.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">5 วัน 5 เรื่อง — Week Recap</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+        <span class="post-status status-ready">✅ พร้อม</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio -->
+  <div class="card col-2">
+    <div class="card-title">💼 Portfolio 50/35/15</div>
+    <div class="port-layers">
+      <div class="port-layer">
+        <div class="port-label">🟢 Safe & Stable</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-stable"></div></div>
+        <div class="port-pct pct-stable">50%</div>
+      </div>
+      <div class="port-layer">
+        <div class="port-label">🟡 Growth</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-growth"></div></div>
+        <div class="port-pct pct-growth">35%</div>
+      </div>
+      <div class="port-layer">
+        <div class="port-label">🔴 High-risk (EA)</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-risk"></div></div>
+        <div class="port-pct pct-risk">15%</div>
+      </div>
+    </div>
+    <div class="port-goal">
+      <span>เริ่มต้น 600,000 ฿ · +50,000 ฿/เดือน</span>
+      <span>เป้า <strong style="color:#39ff14">10,000,000 ฿</strong> ใน 5 ปี</span>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="card col-1">
+    <div class="card-title">⚡ Quick Actions</div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="copySyncCommand()">
+        <span class="btn-icon">🔄</span>
+        <div class="btn-text">Sync Master Workflow<span class="btn-sub">Copy PowerShell command</span></div>
+      </button>
+      <button class="btn btn-secondary" onclick="copyPath('weekly-topics')">
+        <span class="btn-icon">📝</span>
+        <div class="btn-text">แก้ Weekly Topics<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
+      <button class="btn btn-warning" onclick="copyPath('curriculum')">
+        <span class="btn-icon">📚</span>
+        <div class="btn-text">ดู Learning Curriculum<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
+      <button class="btn btn-ghost" onclick="copyPath('action-plan')">
+        <span class="btn-icon">🗺️</span>
+        <div class="btn-text">Action Plan รายปี<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Scheduled Tasks -->
+  <div class="card col-1">
+    <div class="card-title">🤖 Scheduled Tasks</div>
+    <div class="task-list">
+      <div class="task-item">
+        <div><div class="task-name">morning-study-brief</div><div class="task-time">จ–ศ 08:33 · Daily Orientation</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
+      </div>
+      <div class="task-item">
+        <div><div class="task-name">weekly-finance-news</div><div class="task-time">เสาร์ 09:01 · สรุปข่าว + content angles</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
+      </div>
+      <div class="task-item">
+        <div><div class="task-name">weekly-project-report</div><div class="task-time">อาทิตย์ 20:00 · local-first report</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
+      </div>
+      <div class="task-item">
+        <div><div class="task-name">daily-content-pipeline</div><div class="task-time">ปิดถาวร</div></div>
+        <span class="task-badge badge-off">⛔ Off</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Goals & Tracking -->
+  <div class="card col-3">
+    <div class="card-title">🎯 เป้าหมาย & Tracking</div>
+    <div class="goals-grid">
+
+      <!-- Weekly -->
+      <div class="goal-section">
+        <div class="goal-section-title"><span>📅</span> สัปดาห์นี้</div>
+        <div class="goal-check-list" id="weeklyChecks">
+          <label class="goal-check-item" data-key="post1">
+            <div class="g-box"></div>
+            <div><div class="g-label">โพสต์ 1 — จันทร์/อังคาร</div></div>
+          </label>
+          <label class="goal-check-item" data-key="post2">
+            <div class="g-box"></div>
+            <div><div class="g-label">โพสต์ 2 — พุธ/พฤหัส</div></div>
+          </label>
+          <label class="goal-check-item" data-key="post3">
+            <div class="g-box"></div>
+            <div><div class="g-label">โพสต์ 3 — ศุกร์/เสาร์</div></div>
+          </label>
+          <label class="goal-check-item" data-key="brief5">
+            <div class="g-box"></div>
+            <div><div class="g-label">Morning Brief ครบ 5 วัน</div></div>
+          </label>
+          <label class="goal-check-item" data-key="learn5">
+            <div class="g-box"></div>
+            <div><div class="g-label">เรียนตามแผน 5 วัน</div></div>
+          </label>
+          <label class="goal-check-item" data-key="eadev">
+            <div class="g-box"></div>
+            <div><div class="g-label">EA Dev — iteration อย่างน้อย 1 รอบ</div></div>
+          </label>
+        </div>
+        <div class="week-progress">
+          <div class="week-progress-label">
+            <span>ความคืบหน้าสัปดาห์นี้</span>
+            <span class="week-pct-val" id="weekPct">0%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="weekBar" style="width:0%"></div></div>
+          <div style="font-size:10px;color:#475569;margin-top:4px" id="weekReset"></div>
+        </div>
+      </div>
+
+      <!-- Monthly -->
+      <div class="goal-section">
+        <div class="goal-section-title"><span>📆</span> เดือนนี้</div>
+        <div class="month-goal-list">
+
+          <div class="month-goal-item">
+            <div class="month-goal-header">
+              <span class="month-goal-name">💰 ออมเงิน</span>
+              <button class="month-edit-btn" onclick="toggleMonthEdit('save')">✏️ อัพเดต</button>
+            </div>
+            <div class="month-goal-val">
+              <span class="curr" id="save-curr">0</span>
+              <span class="tgt"> / 50,000 ฿</span>
+            </div>
+            <div class="progress-bar" style="margin-top:6px">
+              <div class="progress-fill" id="save-bar" style="width:0%"></div>
+            </div>
+            <div class="month-input-row" id="save-row">
+              <input class="month-input" type="number" id="save-input" placeholder="ใส่ยอดออมปัจจุบัน (฿)">
+              <button class="month-save-btn" onclick="saveMonthGoal('save', 50000)">บันทึก</button>
+            </div>
+          </div>
+
+          <div class="month-goal-item">
+            <div class="month-goal-header">
+              <span class="month-goal-name">📈 พอร์ตรวม</span>
+              <button class="month-edit-btn" onclick="toggleMonthEdit('port')">✏️ อัพเดต</button>
+            </div>
+            <div class="month-goal-val">
+              <span class="curr" id="port-curr">600,000</span>
+              <span class="tgt"> / 650,000 ฿</span>
+            </div>
+            <div class="progress-bar" style="margin-top:6px">
+              <div class="progress-fill" id="port-bar" style="width:92%"></div>
+            </div>
+            <div class="month-input-row" id="port-row">
+              <input class="month-input" type="number" id="port-input" placeholder="มูลค่าพอร์ตปัจจุบัน (฿)">
+              <button class="month-save-btn" onclick="saveMonthGoal('port', 650000)">บันทึก</button>
+            </div>
+          </div>
+
+          <div class="month-goal-item">
+            <div class="month-goal-header">
+              <span class="month-goal-name">📝 Content ที่โพสต์</span>
+              <button class="month-edit-btn" onclick="toggleMonthEdit('posts')">✏️ อัพเดต</button>
+            </div>
+            <div class="month-goal-val">
+              <span class="curr" id="posts-curr">0</span>
+              <span class="tgt"> / 12 โพสต์</span>
+            </div>
+            <div class="progress-bar" style="margin-top:6px">
+              <div class="progress-fill" id="posts-bar" style="width:0%"></div>
+            </div>
+            <div class="month-input-row" id="posts-row">
+              <input class="month-input" type="number" id="posts-input" placeholder="จำนวนโพสต์เดือนนี้">
+              <button class="month-save-btn" onclick="saveMonthGoal('posts', 12)">บันทึก</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Yearly -->
+      <div class="goal-section">
+        <div class="goal-section-title"><span>🏆</span> ปีนี้ 2026</div>
+        <div class="year-milestone-list" id="yearMilestones">
+          <div class="year-milestone" data-key="y_eaopt" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">EA Optimization Phase เสร็จ</div>
+              <span class="ym-tag ym-q3">Q3 ส.ค.</span>
+            </div>
+          </div>
+          <div class="year-milestone" data-key="y_prop" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">เปิด Prop Firm Account</div>
+              <span class="ym-tag ym-q4">Q4 ก.ย.–ต.ค.</span>
+            </div>
+          </div>
+          <div class="year-milestone" data-key="y_ib" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">IB Income เริ่มต้น (short-term)</div>
+              <span class="ym-tag ym-q3">ก.ย. 2026</span>
+            </div>
+          </div>
+          <div class="year-milestone" data-key="y_l1safe" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">เรียนครบ Layer 50% — Episode 1–3</div>
+              <span class="ym-tag ym-q2">Q2–Q3</span>
+            </div>
+          </div>
+          <div class="year-milestone" data-key="y_port1m" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">พอร์ตแตะ 1,000,000 ฿</div>
+              <span class="ym-tag ym-q4">ปลายปี</span>
+            </div>
+          </div>
+          <div class="year-milestone" data-key="y_content" onclick="toggleYearMilestone(this)">
+            <div class="ym-dot"></div>
+            <div class="ym-content">
+              <div class="ym-name">The Money Ness — 5,000 followers</div>
+              <span class="ym-tag ym-ongoing">ต่อเนื่อง</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Learning Hub -->
+  <div class="card col-3">
+    <div class="card-title">🎓 Learning Hub</div>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('week')">📅 สัปดาห์นี้</button>
+      <button class="tab-btn" onclick="switchTab('briefs')">📖 Brief Archive</button>
+      <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz History</button>
+      <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
+      <button class="tab-btn" onclick="switchTab('habits')">📋 Habits</button>
+    </div>
+
+    <!-- Tab: This Week -->
+    <div class="tab-panel active" id="tab-week">
+      <div class="layer-badge">🟡 สัปดาห์นี้: 35% Growth — BTC / US Stocks / Macro</div>
+      <div class="topic-grid">
+        <div class="topic-card post-day">
+          <div class="t-day">จ. 23</div>
+          <div class="t-content">📤 SpaceX IPO</div>
+          <div class="t-learn">เรียน: IPO process + VC structure</div>
+        </div>
+        <div class="topic-card">
+          <div class="t-day">อ. 24</div>
+          <div class="t-content">📚 เรียน</div>
+          <div class="t-learn">US Macro — Fed, Rate, CPI</div>
+        </div>
+        <div class="topic-card post-day">
+          <div class="t-day">พ. 25</div>
+          <div class="t-content">📤 Smart Money BTC</div>
+          <div class="t-learn">เรียน: On-chain, Exchange flow</div>
+        </div>
+        <div class="topic-card">
+          <div class="t-day">พฤ. 26</div>
+          <div class="t-content">📚 เรียน</div>
+          <div class="t-learn">BTC Market Cycle + Halving</div>
+        </div>
+        <div class="topic-card post-day">
+          <div class="t-day">ศ. 27</div>
+          <div class="t-content">📤 Week Recap</div>
+          <div class="t-learn">สรุปสัปดาห์ + Growth layer</div>
+        </div>
+      </div>
+      <div class="curriculum-box">
+        <div class="c-title">📍 ตำแหน่งใน Curriculum ปัจจุบัน</div>
+        <div class="curriculum-ep">
+          <div class="ep-card">
+            <div class="ep-layer">🔴 Layer 15%</div>
+            <div class="ep-num">Episode 1</div>
+            <div class="ep-name">XAU/USD Market Structure</div>
+            <div class="ep-goal">S/R, Trend, Swing High/Low</div>
+          </div>
+          <div class="ep-card" style="border-color:#3b6fa8">
+            <div class="ep-layer">🟡 Layer 35%</div>
+            <div class="ep-num">Episode 1 ← สัปดาห์นี้</div>
+            <div class="ep-name">BTC Market Cycle</div>
+            <div class="ep-goal">4 ปีรอบ, Halving effect</div>
+          </div>
+          <div class="ep-card">
+            <div class="ep-layer">🟢 Layer 50%</div>
+            <div class="ep-num">Episode 1</div>
+            <div class="ep-name">Dividend Basics</div>
+            <div class="ep-goal">Yield, Payout ratio, Thai vs US</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Brief Archive -->
+    <div class="tab-panel" id="tab-briefs">
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab('morning')">🌅 Morning Brief</button>
+        <button class="sub-tab-btn" onclick="switchSubTab('learning')">📚 บทเรียน</button>
+        <button class="sub-tab-btn" onclick="switchSubTab('content')">✍️ Content Drafts</button>
+      </div>
+      <p style="font-size:11px;color:#475569;margin-bottom:12px">คลิกเพื่อเปิดในหน้าต่างใหม่ — ถ้าเปิดไม่ได้ให้กด Shift+คลิก หรือ copy path วางใน Explorer</p>
+      <div class="sub-panel active" id="sub-morning">
+        <div class="brief-grid" id="briefGridMorning"></div>
+      </div>
+      <div class="sub-panel" id="sub-learning">
+        <div class="brief-grid" id="briefGridLearning"></div>
+      </div>
+      <div class="sub-panel" id="sub-content">
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="contentFilters">
+          <span style="font-size:11px;color:#64748b;align-self:center">ประเภท:</span>
+          <button class="filter-btn active" onclick="filterContent('type','All',this)">ทั้งหมด</button>
+          <button class="filter-btn" onclick="filterContent('type','โพสต์',this)">📸 โพสต์</button>
+          <button class="filter-btn" onclick="filterContent('type','Reels',this)">🎬 Reels</button>
+          <span style="font-size:11px;color:#64748b;align-self:center;margin-left:8px">หมวด:</span>
+          <button class="filter-btn active" id="catAll" onclick="filterContent('cat','All',this)">ทั้งหมด</button>
+          <button class="filter-btn" onclick="filterContent('cat','Forex',this)">Forex</button>
+          <button class="filter-btn" onclick="filterContent('cat','หุ้น',this)">หุ้น</button>
+          <button class="filter-btn" onclick="filterContent('cat','กองทุน',this)">กองทุน</button>
+          <button class="filter-btn" onclick="filterContent('cat','BTC',this)">BTC</button>
+        </div>
+        <div class="brief-grid" id="briefGridContent"></div>
+      </div>
+    </div>
+
+    <!-- Tab: Quiz History -->
+    <div class="tab-panel" id="tab-quiz">
+      <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
+      <div id="quizCards"></div>
+    </div>
+
+    <!-- Tab: Vocabulary -->
+    <div class="tab-panel" id="tab-vocab">
+      <div class="vocab-controls">
+        <input class="vocab-search" type="text" placeholder="🔍 ค้นหาคำศัพท์..." oninput="filterVocab()" id="vocabSearch">
+        <div class="filter-btns" id="filterBtns"></div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="viewFlash" onclick="setView('flash')">🃏</button>
+          <button class="view-btn" id="viewList" onclick="setView('list')">📋</button>
+        </div>
+      </div>
+      <div class="vocab-count" id="vocabCount"></div>
+      <div id="vocabFlashGrid" class="flashcard-grid"></div>
+      <div id="vocabListView" style="display:none;overflow-x:auto">
+        <table class="vocab-table">
+          <thead><tr><th>คำ</th><th>ความหมาย</th><th>ตัวอย่าง</th><th>หมวด</th></tr></thead>
+          <tbody id="vocabTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab: Habits -->
+    <div class="tab-panel" id="tab-habits">
+      <div style="font-size:11px;color:#64748b;margin-bottom:12px">คลิกที่วงกลมเพื่อบันทึก · กดซ้ำเพื่อเปลี่ยนสถานะ (✓ ทำแล้ว → ✗ ข้าม → ว่าง)</div>
+      <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
+      <div id="missed-tasks-list" style="font-size:13px;color:#64748b"></div>
+    </div>
+
+  </div>
+
+  <!-- Quick Content -->
+  <div class="card col-3">
+    <div class="card-title">✍️ Quick Content — สร้าง Prompt ให้ Claude</div>
+    <div class="qc-wrap">
+      <div class="qc-row">
+        <input class="qc-input" id="qcTopic" type="text" placeholder="หัวข้อที่อยากทำ Content เช่น ทำไม DCA ดีกว่าจับจังหวะตลาด" />
+        <button class="qc-copy-btn" onclick="generateContentPrompt()">📋 Copy Prompt</button>
+      </div>
+      <div class="qc-type-group">
+        <button class="qc-type-btn active" id="qcBtn-post" onclick="selectQcType('โพสต์', this)">📸 โพสต์</button>
+        <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
+        <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
+      </div>
+      <div class="qc-hint">
+        <strong>วิธีใช้:</strong> พิมหัวข้อ → เลือก format → กด Copy → วาง prompt ใน Claude chat<br>
+        Claude จะอ่าน ness-profile + weekly-topics ก่อนเสมอ ไม่ต้องบอกซ้ำ
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Date ──
+const days = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
+const months = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const now = new Date();
+document.getElementById('currentDate').textContent =
+  `วัน${days[now.getDay()]}ที่ ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()+543}`;
+
+// ── Vocab Data ──
+const vocab = [
+  { word:'Tracking Difference', meaning:'ผลต่างระหว่างผลตอบแทนกองทุนกับ Index จริง', example:'"The fund has a TD of 1.2% per year"', cat:'Fund' },
+  { word:'Total Expense Ratio (TER)', meaning:'ค่าใช้จ่ายรวมทั้งหมดของกองทุน ไม่ใช่แค่ค่าธรรมเนียมที่ประกาศ', example:'"TER includes hidden costs like transaction fees"', cat:'Fund' },
+  { word:'Cash Drag', meaning:'ผลตอบแทนที่หายไปเพราะกองทุนถือเงินสดไม่ได้ลงทุน', example:'"5% cash holding causes ~1% drag on returns"', cat:'Fund' },
+  { word:'Volatility Drag', meaning:'ผลตอบแทนที่ลดลงจากความผันผวน ≈ variance/2', example:'"20% volatility causes ~2% drag per year"', cat:'Investment' },
+  { word:'Sequence of Returns Risk', meaning:'ความเสี่ยงจากผลตอบแทนลบตอนต้นแผน ทำลายพอร์ตมากกว่าค่าเฉลี่ย', example:'"Bad returns early in retirement can halve your portfolio"', cat:'Investment' },
+  { word:'Dollar Cost Averaging (DCA)', meaning:'ลงทุนเท่ากันทุกเดือน ไม่สนใจราคาตลาด', example:'"DCA 5,000 THB every month regardless of price"', cat:'Investment' },
+  { word:'Value Averaging', meaning:'ปรับการลงทุนแต่ละเดือนให้พอร์ตเติบโตตามเป้าที่วางไว้', example:'"If target is 10K but portfolio is 8K, invest 2K extra"', cat:'Investment' },
+  { word:'Geometric Mean', meaning:'ผลตอบแทนเฉลี่ยที่แท้จริงที่นักลงทุนได้รับ (ต่ำกว่า arithmetic mean เสมอ)', example:'"Geometric mean = arithmetic mean - volatility drag"', cat:'Investment' },
+  { word:'Dividend Withholding Tax', meaning:'ภาษีหัก ณ ที่จ่าย บนเงินปันผลจากต่างประเทศ', example:'"Thai funds get 15% WHT via US-Thailand tax treaty"', cat:'Tax' },
+  { word:'Tax Treaty', meaning:'สนธิสัญญาภาษีซ้อน ลดภาษีซ้ำซ้อนระหว่างประเทศ', example:'"Thai-US tax treaty reduces dividend tax from 30% to 15%"', cat:'Tax' },
+  { word:'RMF (Retirement Mutual Fund)', meaning:'กองทุนรวมเพื่อการเลี้ยงชีพ ลดหย่อนภาษีได้สูงสุด 500,000 บาท/ปี', example:'"RMF deduction = min(30% of income, 500K) minus PVD"', cat:'Tax' },
+  { word:'Marginal Tax Rate', meaning:'อัตราภาษีของเงินส่วนบนสุด (บาทสุดท้ายที่หาได้)', example:'"Marginal rate 20% means last 200K of income taxed at 20%"', cat:'Tax' },
+  { word:'Effective Tax Rate', meaning:'อัตราภาษีเฉลี่ยที่จ่ายจริง (ต่ำกว่า marginal เสมอ)', example:'"Effective rate is always lower than marginal rate"', cat:'Tax' },
+  { word:'Spread', meaning:'ส่วนต่างระหว่างราคา Bid และ Ask ในตลาด Forex', example:'"EUR/USD spread of 1 pip = $0.0001"', cat:'Forex' },
+  { word:'Pip', meaning:'หน่วยเล็กที่สุดของการเคลื่อนไหวราคา Forex', example:'"GBP/USD moved 50 pips today"', cat:'Forex' },
+];
+
+// ── Brief Archive ──
+const morningBriefs = [
+  { label:'10 ก.ค.', day:'ศุกร์', topic:'ทบทวน RMF vs Thai ESG — แผนซื้อจริงปลายปี / EA: Volatile (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10jul2026.md' },
+  { label:'9 ก.ค.', day:'พฤหัส', topic:'Forex Week Day 3 — เขียน News Filter spec / EA: Sideways (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-09jul2026.md' },
+  { label:'8 ก.ค.', day:'พุธ', topic:'XAU/USD: FOMC minutes คืนนี้ / EA: Caution — ห้าม live ช่วง FOMC', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-08jul2026.md' },
+  { label:'7 ก.ค.', day:'อังคาร', topic:'XAU/USD: Services PMI, ADP, FOMC minutes / EA: Caution (range ใต้ 4,171)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-07jul2026.md' },
+  { label:'6 ก.ค.', day:'จันทร์', topic:'XAU/USD: Event risk สัปดาห์นี้ — PMI, ADP, FOMC / EA: Caution (Sideways)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-06jul2026.md' },
+  { label:'3 ก.ค.', day:'ศุกร์', topic:'XAU/USD: NFP 57K (ต่ำกว่าคาด) ทองเด้งสวน downtrend / EA: จับตา momentum', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-03jul2026.md' },
+  { label:'2 ก.ค.', day:'พฤหัส', topic:'XAU/USD ~$4,026 (กรอบ $3,943–$4,063) / EA: Caution (Volatile)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-02jul2026.md' },
+  { label:'1 ก.ค.', day:'พุธ', topic:'XAU/USD: Volatile Caution — Sideways กว้าง ผันผวนสูง / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-01jul2026.md' },
+  { label:'30 มิ.ย.', day:'อังคาร', topic:'XAU/USD: PMI, JOLTS, ตัวเลขว่างงาน / EA: Caution (Volatile)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-30jun2026.md' },
+  { label:'29 มิ.ย.', day:'จันทร์', topic:'XAU/USD: Volatile ⚠️ / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-29jun2026.md' },
+  { label:'26 มิ.ย.', day:'ศุกร์', topic:'XAU/USD: GDP Q1 Stagflation read — Volatile / EA: Caution', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-26jun2026.md' },
+  { label:'25 มิ.ย.', day:'พฤหัส', topic:'BTC On-chain analysis: Exchange flow, MVRV / EA: Volatile (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-25jun2026.md' },
+  { label:'24 มิ.ย.', day:'พุธ', topic:'US Macro: Fed, Interest Rate, CPI / EA: Sideways (Caution)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24jun2026.md' },
+  { label:'23 มิ.ย.', day:'อังคาร', topic:'IPO process + VC structure + US Tech valuation / EA: Caution (Sideways)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23jun2026.md' },
+  { label:'22 มิ.ย.', day:'จันทร์', topic:'Forex Study + Deep Dive Prep', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-22jun2026.md' },
+  { label:'20 มิ.ย.', day:'ศุกร์', topic:'Week Recap + Orientation', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20jun2026.md' },
+  { label:'19 มิ.ย.', day:'พฤหัส', topic:'RMF + Thai ESG', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-19jun2026.md' },
+  { label:'18 มิ.ย.', day:'พุธ', topic:'BTC แทนเงินได้จริงไหม', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18jun2026.md' },
+  { label:'17 มิ.ย.', day:'อังคาร', topic:'Forex vs หุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17jun2026.md' },
+  { label:'16 มิ.ย.', day:'จันทร์', topic:'Market Orientation', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16jun2026.md' },
+  { label:'15 มิ.ย.', day:'อาทิตย์', topic:'Market Orientation', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-15jun2026.md' },
+];
+
+const contentDrafts = [
+  { label:'24 มิ.ย.', day:'พุธ', topic:'กองทุนน้ำมัน vs ETF — ลงทุนยังไงในช่วงน้ำมันลง', type:'โพสต์', cat:'กองทุน', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\post-oil-fund-24jun.md' },
+  { label:'24 มิ.ย.', day:'พุธ', topic:'Fed ลดดอกเบี้ย ≠ หุ้นขึ้นเสมอ', type:'Reels', cat:'หุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\reel-fed-rate-cut-24jun.md' },
+  { label:'23 มิ.ย.', day:'อังคาร', topic:'SpaceX IPO — คุณรู้จักมันแค่ไหน?', type:'โพสต์', cat:'หุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\post-spacex-ipo-23jun.md' },
+  { label:'23 มิ.ย.', day:'อังคาร', topic:'ทำไมคนไทย FOMO Forex แต่กลับขาดทุน', type:'โพสต์', cat:'Forex', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\post-forex-fomo.md' },
+  { label:'23 มิ.ย.', day:'อังคาร', topic:'S&P 500 โต 10% ต่อปี — มุมมองของผม', type:'Reels', cat:'หุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\reel-sp500-10pct-returns.md' },
+];
+
+const learningBriefs = [
+  { label:'23 มิ.ย.', day:'อังคาร', topic:'SpaceX IPO — IPO Process + VC Structure + US Tech Valuation', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-23jun-spacex-ipo.md' },
+  { label:'22 มิ.ย.', day:'จันทร์', topic:'Options Non-Directional System + Quiz', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-22jun-options-nondirectional.md' },
+  { label:'22 มิ.ย.', day:'จันทร์', topic:'Finance Brief — Fed, BTC, บาท, SET', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-22jun-finance-news.md' },
+  { label:'19 มิ.ย.', day:'พฤหัส', topic:'RMF + Thai ESG ลดภาษีหลักหมื่น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-19jun-rmf-ssf-tax.md' },
+  { label:'18 มิ.ย.', day:'พุธ', topic:'BTC จะแทนเงินได้จริงไหม', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-18jun-btc-money.md' },
+  { label:'17 มิ.ย.', day:'อังคาร', topic:'ทำไมเทรด Forex แทนซื้อหุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\brief-17jun-forex-vs-stocks.md' },
+];
+
+// ── Tabs ──
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'habits') renderHabits();
+}
+
+// ── Habit Tracker ──
+const HABIT_TASKS = [
+  { id: 'quiz',    label: '🧠 Quiz' },
+  { id: 'english', label: '🇬🇧 English' },
+  { id: 'brief',   label: '📰 Brief' },
+  { id: 'content', label: '✍️ Content' },
+];
+const HABIT_KEY = 'mnd_habits';
+
+function habitDateKey(d) {
+  return d.toISOString().slice(0,10);
+}
+
+function habitGetData() {
+  try { return JSON.parse(localStorage.getItem(HABIT_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function habitSave(data) {
+  localStorage.setItem(HABIT_KEY, JSON.stringify(data));
+}
+
+function habitToggle(dateKey, taskId) {
+  const data = habitGetData();
+  if (!data[dateKey]) data[dateKey] = {};
+  const cur = data[dateKey][taskId] || 'none';
+  const next = cur === 'none' ? 'done' : cur === 'done' ? 'missed' : 'none';
+  data[dateKey][taskId] = next;
+  habitSave(data);
+  renderHabits();
+}
+
+function renderHabits() {
+  const data = habitGetData();
+  const today = new Date();
+  const grid = document.getElementById('habit-week-grid');
+  const missed = document.getElementById('missed-tasks-list');
+  if (!grid) return;
+
+  // Build 7-day columns (today + 6 days back)
+  const days7 = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    days7.push(d);
+  }
+
+  const dayLabels = ['อา','จ','อ','พ','พฤ','ศ','ส'];
+
+  let html = '<table style="width:100%;border-collapse:collapse;min-width:340px">';
+  // Header row — dates
+  html += '<thead><tr><th style="width:90px;text-align:left;font-size:11px;color:#94a3b8;padding:4px 6px">งาน</th>';
+  days7.forEach(d => {
+    const isToday = habitDateKey(d) === habitDateKey(today);
+    html += `<th style="text-align:center;font-size:10px;color:${isToday?'#6366f1':'#94a3b8'};padding:4px 2px;min-width:36px">
+      ${dayLabels[d.getDay()]}<br><span style="font-size:11px;font-weight:${isToday?700:400}">${d.getDate()}</span>
+    </th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  // One row per task
+  HABIT_TASKS.forEach(task => {
+    html += `<tr><td style="font-size:12px;color:#475569;padding:5px 6px;white-space:nowrap">${task.label}</td>`;
+    days7.forEach(d => {
+      const dk = habitDateKey(d);
+      const state = (data[dk] && data[dk][task.id]) || 'none';
+      const isFuture = d > today;
+      const circle = state === 'done'   ? '✅'
+                   : state === 'missed' ? '❌'
+                   : isFuture          ? '<span style="opacity:.3">○</span>'
+                   : '○';
+      const clickable = !isFuture
+        ? `onclick="habitToggle('${dk}','${task.id}')" style="cursor:pointer;font-size:16px;user-select:none"`
+        : `style="font-size:16px"`;
+      html += `<td style="text-align:center;padding:4px 2px"><span ${clickable}>${circle}</span></td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  grid.innerHTML = html;
+
+  // Missed tasks for today
+  const todayKey = habitDateKey(today);
+  const todayData = data[todayKey] || {};
+  const missedList = HABIT_TASKS.filter(t => (todayData[t.id] || 'none') === 'missed');
+  const noneList   = HABIT_TASKS.filter(t => (todayData[t.id] || 'none') === 'none');
+
+  if (missedList.length === 0 && noneList.length === 0) {
+    missed.innerHTML = '<span style="color:#22c55e">✅ ทำครบทุกอย่างวันนี้แล้ว!</span>';
+  } else {
+    let out = '';
+    if (missedList.length) out += '<div style="margin-bottom:6px">❌ ข้าม: ' + missedList.map(t=>t.label).join(', ') + '</div>';
+    if (noneList.length)   out += '<div>⏳ ยังไม่ได้ทำ: ' + noneList.map(t=>t.label).join(', ') + '</div>';
+    missed.innerHTML = out;
+  }
+}
+
+// ── Brief Grid ──
+// ── Content loader (fetches from GitHub) ──
+const CONTENT_BASE = 'https://raw.githubusercontent.com/nestapitchayut2-cloud/money-ness-dashboard/main/content/';
+const contentCache = {};
+
+function getContentFolder(filename) {
+  if (filename.startsWith('morning-') || filename.startsWith('catchup-brief-week')) return 'morning/';
+  if (filename.startsWith('post-') || filename.startsWith('reel-')) return 'posts/';
+  return 'briefs/';
+}
+
+async function fetchContent(filename) {
+  if (contentCache[filename]) return contentCache[filename];
+  const folder = getContentFolder(filename);
+  const url = CONTENT_BASE + folder + filename;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error('ไม่พบไฟล์: ' + filename);
+  const text = await resp.text();
+  contentCache[filename] = text;
+  return text;
+}
+
+
+async function openBriefFile(path) {
+  const fileName = path.split('\\').pop().split('/').pop();
+  const modal = document.getElementById('fileModal');
+  const titleEl = document.getElementById('modalTitle');
+  const bodyEl = document.getElementById('modalBody');
+  
+  // Show loading
+  titleEl.textContent = 'กำลังโหลด...';
+  bodyEl.innerHTML = '<p style="color:#64748b;text-align:center;padding:40px">⏳ กำลังโหลด...</p>';
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  
+  try {
+    const content = await fetchContent(fileName);
+    titleEl.textContent = fileName.replace('.md','').replace(/-/g,' ');
+    bodyEl.innerHTML = marked.parse(content);
+  } catch(e) {
+    bodyEl.innerHTML = '<p style="color:#ef4444">❌ ' + e.message + '</p>';
+  }
+}
+
+function closeModal(e) {
+  if(e.target === document.getElementById('fileModal')) {
+    document.getElementById('fileModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') {
+    document.getElementById('fileModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+
+function buildBriefGrid(containerId, items) {
+  const grid = document.getElementById(containerId);
+  items.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'brief-item';
+    el.innerHTML = `<div class="b-date">${b.label}</div><div class="b-day">${b.day}</div><div class="b-topic">${b.topic}</div><div class="b-action">↗ เปิดอ่าน</div>`;
+    el.onclick = () => openBriefFile(b.path);
+    grid.appendChild(el);
+  });
+}
+
+buildBriefGrid('briefGridMorning', morningBriefs);
+buildBriefGrid('briefGridLearning', learningBriefs);
+
+// ── Content Drafts with filter ──
+let activeContentType = 'All';
+let activeContentCat = 'All';
+
+function renderContentGrid() {
+  const grid = document.getElementById('briefGridContent');
+  grid.innerHTML = '';
+  const filtered = contentDrafts.filter(d =>
+    (activeContentType === 'All' || d.type === activeContentType) &&
+    (activeContentCat === 'All' || d.cat === activeContentCat)
+  );
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="font-size:12px;color:#475569;padding:12px">ไม่มี content ในหมวดนี้</div>';
+    return;
+  }
+  filtered.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'brief-item';
+    const typeIcon = b.type === 'Reels' ? '🎬' : '📸';
+    el.innerHTML = `
+      <div class="b-date">${b.label}</div>
+      <div class="b-day">${b.day}</div>
+      <div style="font-size:10px;margin-bottom:4px">
+        <span style="background:#1e3a5f;color:#60a5fa;padding:2px 6px;border-radius:99px;margin-right:4px">${typeIcon} ${b.type}</span>
+        <span style="background:#1e2d1e;color:#86efac;padding:2px 6px;border-radius:99px">${b.cat}</span>
+      </div>
+      <div class="b-topic">${b.topic}</div>
+      <div class="b-action">↗ เปิดอ่าน</div>`;
+    el.onclick = () => openBriefFile(b.path);
+    grid.appendChild(el);
+  });
+}
+
+function filterContent(dimension, value, btn) {
+  if (dimension === 'type') {
+    activeContentType = value;
+    document.querySelectorAll('#contentFilters .filter-btn').forEach(b => {
+      if (['ทั้งหมด','📸 โพสต์','🎬 Reels'].some(t => b.textContent.includes(t.replace('📸 ','').replace('🎬 ','')) || b.textContent === t)) b.classList.remove('active');
+    });
+  } else {
+    activeContentCat = value;
+  }
+  // simpler: just toggle active on same-group buttons
+  const allBtns = document.querySelectorAll('#contentFilters .filter-btn');
+  const typeLabels = ['ทั้งหมด','โพสต์','Reels'];
+  const catLabels = ['ทั้งหมด','Forex','หุ้น','กองทุน','BTC'];
+  allBtns.forEach(b => {
+    const txt = b.textContent.replace('📸 ','').replace('🎬 ','');
+    if (dimension === 'type' && typeLabels.includes(txt)) b.classList.remove('active');
+    if (dimension === 'cat' && catLabels.includes(txt)) b.classList.remove('active');
+  });
+  btn.classList.add('active');
+  renderContentGrid();
+}
+
+renderContentGrid();
+
+function switchSubTab(name) {
+  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── Vocab ──
+let activeFilter = 'All';
+let activeView = 'flash';
+const cats = ['All', ...new Set(vocab.map(v => v.cat))];
+
+// Filter buttons
+const fb = document.getElementById('filterBtns');
+cats.forEach(c => {
+  const btn = document.createElement('button');
+  btn.className = 'filter-btn' + (c === 'All' ? ' active' : '');
+  btn.textContent = c;
+  btn.onclick = () => {
+    activeFilter = c;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderVocab();
+  };
+  fb.appendChild(btn);
+});
+
+function getFiltered() {
+  const q = document.getElementById('vocabSearch').value.toLowerCase();
+  return vocab.filter(v =>
+    (activeFilter === 'All' || v.cat === activeFilter) &&
+    (v.word.toLowerCase().includes(q) || v.meaning.toLowerCase().includes(q))
+  );
+}
+
+function renderVocab() {
+  const filtered = getFiltered();
+  document.getElementById('vocabCount').textContent = `แสดง ${filtered.length} / ${vocab.length} คำ`;
+
+  if (activeView === 'flash') {
+    const grid = document.getElementById('vocabFlashGrid');
+    grid.innerHTML = '';
+    filtered.forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'flashcard';
+      card.innerHTML = `
+        <div class="flashcard-inner">
+          <div class="card-front">
+            <div class="fc-cat">${v.cat}</div>
+            <div class="fc-word">${v.word}</div>
+            <div class="fc-hint">👆 คลิกดูความหมาย</div>
+          </div>
+          <div class="card-back">
+            <div class="fc-meaning">${v.meaning}</div>
+            <div class="fc-example">${v.example}</div>
+          </div>
+        </div>`;
+      card.onclick = () => card.classList.toggle('flipped');
+      grid.appendChild(card);
+    });
+  } else {
+    const tbody = document.getElementById('vocabTableBody');
+    tbody.innerHTML = '';
+    filtered.forEach(v => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="v-word">${v.word}</td><td class="v-meaning">${v.meaning}</td><td class="v-example">${v.example}</td><td style="color:#64748b">${v.cat}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+function filterVocab() { renderVocab(); }
+
+function setView(v) {
+  activeView = v;
+  document.getElementById('vocabFlashGrid').style.display = v === 'flash' ? 'grid' : 'none';
+  document.getElementById('vocabListView').style.display = v === 'list' ? 'block' : 'none';
+  document.getElementById('viewFlash').classList.toggle('active', v === 'flash');
+  document.getElementById('viewList').classList.toggle('active', v === 'list');
+  renderVocab();
+}
+
+renderVocab();
+
+// ── Quiz History ──
+const quizData = [
+  {
+    topic: 'Index Funds / DCA / Tax Optimization',
+    date: '20 มิ.ย. 2569',
+    score: 3, total: 4, passed: true,
+    weak: 'Sequence of Returns Risk — ตอบว่า D (วิธีแก้) แทนที่จะตอบ B (ผลที่เกิด)',
+    qa: [
+      { q: 'DCA $100/เดือนใน S&P500 นาน 20 ปี เทียบกับฝากธนาคาร 1.5%/ปี ต่างกันเท่าไหร่?', answered: 'B', explanation: 'S&P500 DCA 20 ปี ≈ $60,000+ vs ฝากธนาคาร ≈ $28,000 — ต่างกันเกือบ 2x เพราะทบต้นที่ return สูงกว่า', correct: true },
+      { q: 'ซื้อ LTF ปลายปี ลดหย่อนได้ไหม?', answered: 'A (ได้)', explanation: 'SSF/LTF หมดสิทธิ์แล้ว ซื้อ LTF ใหม่ไม่ได้ลดหย่อน ที่ซื้อไว้ก่อนหน้ายังได้สิทธิ์เดิม', correct: true },
+      { q: 'Sequence of Returns Risk คืออะไร?', answered: 'D (วิธีแก้ปัญหา)', explanation: 'คือความเสี่ยงที่ผลตอบแทนลบมาช่วงต้นของการถอนเงิน ทำให้พอร์ตหมดเร็วกว่าที่คาด — ตอบ B ถูก', correct: false },
+      { q: 'กองทุนไทยถูกหัก Dividend WHT เท่าไหร่?', answered: 'B (15%)', explanation: '15% ตาม Tax Treaty — ไม่ใช่ 30% แบบที่เข้าใจกัน', correct: true }
+    ]
+  },
+  {
+    topic: 'Options Trading (Iron Condor / Wheel / Non-Directional)',
+    date: '22 มิ.ย. 2026',
+    score: 3, total: 4, passed: true,
+    weak: 'ข้อ 2 — Iron Condor หลัง Earnings: ประเมิน IV Crush ช่วยได้มากเกินจริง ทั้งที่ Delta loss > Vega gain',
+    qa: [
+      { q: 'SPY = $500, VIX = 28, พรุ่งนี้ Fed Meeting — เพื่อนบอกให้ขาย Iron Condor เลย คุณจะทำอะไร?', answered: 'รอก่อน', explanation: 'VIX = 28 สูงเกิน + Fed พรุ่งนี้ → IV จะพุ่งอีก Iron Condor มี Vega ลบ = ขาดทุนทันที รอหลัง Fed ผ่านแล้วค่อย entry ตอน VIX < 22', correct: true },
+      { q: 'ขาย AAPL Iron Condor DTE 20 วัน AAPL พุ่งหลัง Earnings + IV Crush — position เป็นยังไง?', answered: 'กำไรเพราะ IV Crush', explanation: 'Delta loss (ราคาทะลุ Short Call) > Vega gain (IV ลด) → ยังขาดทุน ต้อง Roll Call ขึ้นหรือปิด Call spread', correct: false },
+      { q: 'MSFT Wheel Cost Basis $376 ราคา $365 มีข่าว Antitrust — Wheel ต่อไหม? Strike CC อยู่ที่ไหน?', answered: 'ถูกทั้งคู่', explanation: 'ก) Fundamental เปลี่ยน = พิจารณาตัดขาดทุน net $500 ดีกว่าถือต่อ ข) ถ้า Wheel ต่อ → Strike $368–370 Delta ~0.40', correct: true },
+      { q: 'เพื่อนมี $15,000 เวลา 15 นาที/วัน ชอบ NVDA แต่กลัว Volatile ต้องการ income ทุกเดือน ไม่เคยทำ Options', answered: 'CSP บน SPY/QQQ', explanation: 'CSP บน SPY/QQQ ดีกว่า NVDA เพราะ Beta ต่ำกว่า ได้ ~$150–200/เดือน ไม่แนะนำ Iron Condor (ซับซ้อนเกิน)', correct: true }
+    ]
+  }
+];
+
+function renderQuizHistory() {
+  const taken = quizData.filter(q => q.score !== null);
+  const avgPct = taken.length ? Math.round(taken.reduce((s,q) => s + q.score/q.total*100, 0) / taken.length) : 0;
+  const passed = taken.filter(q => q.passed).length;
+
+  document.getElementById('quizSummaryBar').innerHTML = `
+    <div class="quiz-stat"><div class="qs-num" style="color:#39ff14">${taken.length}</div><div class="qs-label">Quiz ที่ทำแล้ว</div></div>
+    <div class="quiz-stat"><div class="qs-num" style="color:#60a5fa">${avgPct}%</div><div class="qs-label">คะแนนเฉลี่ย</div></div>
+    <div class="quiz-stat"><div class="qs-num" style="color:#39ff14">${passed}/${taken.length}</div><div class="qs-label">ผ่านแล้ว</div></div>`;
+
+  document.getElementById('quizCards').innerHTML = taken.map((q,i) => {
+    const pct = Math.round(q.score/q.total*100);
+    const qaRows = q.qa.map(item => `
+      <div class="qa-item">
+        <div class="qa-question">${item.correct ? '✅' : '❌'} ${item.q}</div>
+        <div class="qa-your-answer">คุณตอบ: ${item.answered}</div>
+        <div class="qa-explanation ${item.correct ? 'qa-correct-exp' : 'qa-wrong-exp'}">💡 ${item.explanation}</div>
+      </div>`).join('');
+    return `
+    <div class="quiz-card">
+      <div class="quiz-card-header" onclick="document.getElementById('qb-${i}').classList.toggle('open')">
+        <div class="qc-score ${q.passed ? 'qc-pass' : 'qc-fail'}">${pct}%</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;margin-bottom:3px">${q.topic}</div>
+          <div style="font-size:11px;color:#64748b">${q.date} · ${q.score}/${q.total} ข้อ</div>
+          ${q.weak ? `<div style="font-size:10px;color:#ef4444;margin-top:4px">⚠ ${q.weak}</div>` : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;${q.passed ? 'background:#0d2b0d;color:#39ff14' : 'background:#2b0d0d;color:#ef4444'}">${q.passed ? '✓ ผ่าน' : '✗ ไม่ผ่าน'}</span>
+          <span style="font-size:11px;color:#475569">▼</span>
+        </div>
+      </div>
+      <div class="quiz-card-body" id="qb-${i}">${qaRows}</div>
+    </div>`;
+  }).join('');
+}
+
+renderQuizHistory();
+
+// ── Quick Actions ──
+const paths = {
+  'weekly-topics': 'C:\\Users\\NP\\Desktop\\Claude Workspace\\SHARED\\weekly-topics.md',
+  'curriculum': 'C:\\Users\\NP\\Desktop\\Claude Workspace\\SHARED\\learning-curriculum.md',
+  'action-plan': 'C:\\Users\\NP\\Desktop\\Claude Workspace\\SHARED\\action-plan.md',
+};
+function copyPath(key) {
+  navigator.clipboard.writeText(paths[key]).then(() => showToast('📋 Copy path แล้ว — วางใน VS Code หรือ Notepad'));
+}
+function copySyncCommand() {
+  const cmd = `Copy-Item "C:\\Users\\NP\\Desktop\\Claude Workspace\\SHARED\\master-workflow.md" "C:\\Users\\NP\\Desktop\\Claude Workspace\\MASTER-WORKFLOW.md" -Force`;
+  navigator.clipboard.writeText(cmd).then(() => showToast('✅ Copy แล้ว — เปิด PowerShell แล้วกด Ctrl+V'));
+}
+
+// ── Quick Content ──
+let qcType = 'โพสต์';
+
+function selectQcType(type, btn) {
+  qcType = type;
+  document.querySelectorAll('.qc-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function generateContentPrompt() {
+  const topic = document.getElementById('qcTopic').value.trim();
+  if (!topic) { showToast('⚠️ ใส่หัวข้อก่อนนะ'); return; }
+
+  let formatDesc = '';
+  let instructions = '';
+
+  if (qcType === 'โพสต์') {
+    formatDesc = 'Single Image + Long-form Caption (ภาษาไทย casual) + Gemini Image Brief';
+    instructions = 'Caption เล่าจากมุมมองและประสบการณ์จริงของ Ness เป็น storytelling ไม่ใช่ทฤษฎี มี Hook แรก 2-3 บรรทัด แล้วค่อยไปเนื้อหา จบด้วย Call-to-Action หรือคำถาม';
+  } else if (qcType === 'Reels') {
+    formatDesc = 'Reels Script 60-90 วินาที สำหรับ Facebook/IG Reels';
+    instructions = `Script format มาตรฐาน The Money Ness Reel:
+1. [Hook — 0-X วิ] — 1 ประโยค honest ไม่เกินจริง เปิดด้วย internal thought หรือเถียงความเชื่อ
+2. [Body — X-Y วิ] — Monologue ต่อเนื่อง ไม่ jump cut มีตัวเลขจริง เล่าจากประสบการณ์ Ness
+3. 🔚 เลือกแบบปิดจบ (3 ตัวเลือกเสมอ):
+   - ตัวเลือก A — CTA Comment
+   - ตัวเลือก B — CTA Save
+   - ตัวเลือก C — Loop (ค้างกลางอากาศ คลิปวน)
+4. 📋 Production Notes (ตาราง: ความยาว, On-camera, ตัวเลขจริง, Trigger)
+5. 💡 แนวทางเลือก Ending (ตาราง: สถานการณ์ → ควรเลือก A/B/C)
+ภาษาพูดไทย casual เหมือน Ness พูดเอง ไม่อ่านจากกระดาษ`;
+  } else if (qcType === 'บทเรียน') {
+    formatDesc = 'Learning Brief ยาว 15-20 นาที (Markdown format)';
+    instructions = 'เนื้อหาเชิงลึก มีตาราง ตัวเลขจริง Fact-Check badge ถ้ามีข้อมูลที่ต้อง verify และ Reflective Question ท้าย';
+  }
+
+  const prompt = `🎯 Content Request — The Money Ness
+
+ก่อนเริ่ม: อ่านไฟล์เหล่านี้ก่อน
+- SHARED/ness-profile.md — ตัวตนและสไตล์ของ Ness
+- SHARED/weekly-topics.md — Layer + หัวข้อสัปดาห์นี้
+- SHARED/master-workflow.md — กฎระบบ + format มาตรฐาน
+- SHARED/style-guide.md — Reel DNA, tone, โครงสร้าง, CTA rules
+
+หัวข้อ: ${topic}
+Format: ${formatDesc}
+
+คำแนะนำ: ${instructions}
+
+Tone: ภาษาไทย casual — เหมือนเพื่อนที่ลงทุนจริงมาเล่าให้ฟัง
+เพจ: The Money Ness — สำหรับมนุษย์เงินเดือนไทยที่อยากสร้างความมั่งคั่ง`;
+
+  navigator.clipboard.writeText(prompt).then(() =>
+    showToast('✅ Copy prompt แล้ว — วาง Cowork chat ได้เลย')
+  );
+}
+
+
+// ── Goals & Tracking ──
+(function() {
+  function getWeekKey() {
+    const d = new Date();
+    const jan1 = new Date(d.getFullYear(), 0, 1);
+    const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+    return 'goals_week_' + d.getFullYear() + '_W' + week;
+  }
+  function getMonthKey() {
+    const d = new Date();
+    return 'goals_month_' + d.getFullYear() + '_' + (d.getMonth()+1);
+  }
+  const YEAR_KEY = 'goals_year_2026';
+
+  // ── Weekly ──
+  const weekKey = getWeekKey();
+  const weekData = JSON.parse(localStorage.getItem(weekKey) || '{}');
+
+  function updateWeekProgress() {
+    const items = document.querySelectorAll('#weeklyChecks .goal-check-item');
+    const total = items.length;
+    let done = 0;
+    items.forEach(item => { if (item.classList.contains('checked')) done++; });
+    const pct = Math.round(done / total * 100);
+    document.getElementById('weekPct').textContent = pct + '%';
+    document.getElementById('weekBar').style.width = pct + '%';
+    const d = new Date();
+    const monday = new Date(d);
+    monday.setDate(d.getDate() - (d.getDay() === 0 ? 6 : d.getDay() - 1) + 7);
+    document.getElementById('weekReset').textContent = 'reset วันจันทร์หน้า · ' + done + '/' + total + ' เสร็จแล้ว';
+  }
+
+  document.querySelectorAll('#weeklyChecks .goal-check-item').forEach(item => {
+    const key = item.dataset.key;
+    if (weekData[key]) item.classList.add('checked');
+    item.addEventListener('click', () => {
+      item.classList.toggle('checked');
+      weekData[key] = item.classList.contains('checked');
+      localStorage.setItem(weekKey, JSON.stringify(weekData));
+      updateWeekProgress();
+    });
+  });
+  updateWeekProgress();
+
+  // ── Monthly ──
+  const monthKey = getMonthKey();
+  const monthData = JSON.parse(localStorage.getItem(monthKey) || '{}');
+
+  function renderMonthGoal(id, target, fmt) {
+    const val = monthData[id] || 0;
+    const el = document.getElementById(id + '-curr');
+    const bar = document.getElementById(id + '-bar');
+    if (!el) return;
+    el.textContent = fmt ? Number(val).toLocaleString() : val;
+    const pct = Math.min(100, Math.round(val / target * 100));
+    bar.style.width = pct + '%';
+  }
+  renderMonthGoal('save', 50000, true);
+  renderMonthGoal('port', 650000, true);
+  renderMonthGoal('posts', 12, false);
+
+  window.toggleMonthEdit = function(id) {
+    const row = document.getElementById(id + '-row');
+    row.classList.toggle('show');
+    if (row.classList.contains('show')) {
+      const inp = document.getElementById(id + '-input');
+      inp.value = monthData[id] || '';
+      inp.focus();
+    }
+  };
+
+  window.saveMonthGoal = function(id, target) {
+    const val = parseFloat(document.getElementById(id + '-input').value) || 0;
+    monthData[id] = val;
+    localStorage.setItem(monthKey, JSON.stringify(monthData));
+    renderMonthGoal(id, target, id !== 'posts');
+    document.getElementByI
