@@ -875,6 +875,8 @@ const morningBriefs = [
 ];
 
 const contentDrafts = [
+  { label:'12 ก.ค.', day:'อาทิตย์', topic:'ลงทุน S&P500 ได้จากที่ไหนบ้าง และต่างกันยังไง?', type:'Reels', cat:'กองทุน', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\THE-MONEY-NESS\\reels-scripts\\reels-sp500-where-to-buy.md' },
+  { label:'10 ก.ค.', day:'ศุกร์', topic:'ความยากในการลงทุน ไม่ได้อยู่ที่การอ่านหนังสือ', type:'Reels', cat:'หุ้น', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\THE-MONEY-NESS\\reels-scripts\\reels-patience-volatility.md' },
   { label:'10 ก.ค.', day:'ศุกร์', topic:'ยุคแห่งเศรษฐกิจความสนใจ (Attention Economy) — เราโดนขายปีละ 2,000 บาท', type:'Reels', cat:'Mindset', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\THE-MONEY-NESS\\reels-scripts\\reels-attention-economy.md' },
   { label:'9 ก.ค.', day:'พฤหัส', topic:'ความยากที่แท้จริงของการลงทุน — ควบคุมอารมณ์ระหว่างรอ', type:'โพสต์', cat:'Mindset', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\THE-MONEY-NESS\\drafts\\post-patience-investing.md' },
   { label:'1 ก.ค.', day:'พุธ', topic:'DCA กองทุน S&P500 — Reels Script', type:'Reels', cat:'กองทุน', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\reel-dca-sp500-updated.md' },
@@ -1016,7 +1018,7 @@ const contentCache = {};
 
 function getContentFolder(filename) {
   if (filename.startsWith('morning-') || filename.startsWith('catchup-brief-week')) return 'morning/';
-  if (filename.startsWith('post-') || filename.startsWith('reel-')) return 'posts/';
+  if (filename.startsWith('post-') || filename.startsWith('reel-') || filename.startsWith('reels-')) return 'posts/';
   return 'briefs/';
 }
 
