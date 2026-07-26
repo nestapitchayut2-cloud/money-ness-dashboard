@@ -1238,6 +1238,20 @@ renderVocab();
 // ── Quiz History ──
 const quizData = [
   {
+    topic: 'BTC & Crypto (Halving / On-chain / 50-35-15)',
+    date: '26 ก.ค. 2569',
+    score: '5/5',
+    pass: true,
+    qa: [
+      { q:'Halving คืออะไร และราคามัก peak กี่เดือนหลัง halving?', a:'supply ใหม่ลด 50% → demand เท่าเดิม/เพิ่ม → ราคาขึ้นแรงใน 12-18 เดือน → ATH → correction', correct:true, note:'ถูก — แต่ pattern 12-18 เดือนมาจาก sample แค่ 3 รอบ รอบหลัง ETF เข้ามา demand ไม่ได้มาจาก retail cycle เหมือนเดิม ใช้เป็น context ได้ ใช้ตั้งเวลาขายไม่ได้' },
+      { q:'Exchange inflow เพิ่มผิดปกติ ตีความว่าอะไร?', a:'นักลงทุนเตรียมนำเหรียญเข้ากระดานเพื่อขาย → แรงกดดันราคาลงระยะสั้น', correct:true, note:'ถูก — เสริม: เช็คด้วยว่าเข้า spot หรือ derivatives exchange ถ้าเข้า derivatives อาจเป็นการวาง collateral และก้อนใหญ่ก้อนเดียวอาจเป็นแค่ custody migration' },
+      { q:'MVRV สูงมากบอกอะไร ควรระวังอะไร?', a:'ราคาตลาดสูงกว่าต้นทุนเฉลี่ยทั้งตลาดมาก ผู้ถือมีกำไรสะสมสูง = โซนร้อน/ใกล้ยอดรอบ', correct:true, note:'ถูก — เสริม: MVRV ค้างโซนสูงได้หลายเดือน ไม่ใช่ timing tool ใช้ MVRV Z-score อ่านง่ายกว่า และเทียบ threshold ข้ามรอบตรงๆ ไม่ได้' },
+      { q:'ทำไม BTC ยังไม่เหมาะเป็นเงินใช้จ่ายรายวัน?', a:'Medium of Exchange ทำได้แต่ไม่ mainstream (Lightning ยังเล็ก) + Unit of Account ยังไม่ใช่ เพราะผันผวนเกินไป', correct:true, note:'ถูกและลึก — เสริมเหตุผลข้อ 3 ที่สำคัญกับคนไทย: จ่ายด้วย BTC นับเป็นการจำหน่ายจ่ายโอน = เกิดภาระภาษีทุกครั้งที่ใช้ซื้อของ' },
+      { q:'DCA BTC ระยะยาวควรอยู่เลเยอร์ไหนของ 50/35/15?', a:'35% Growth — upside สูง, ใช้ Crisis Dip Playbook ซื้อตอน correction, ถือข้ามรอบ halving ขายบางส่วนตอน cycle สูงสุด', correct:true, note:'ถูก ตรงกับ goal-framework.md เป๊ะ' }
+    ],
+    weak: 'ไม่มีข้อผิด — จุดที่ควรระวังคือยังตอบแบบยกกฎมาตรง 2 จุด: 4-year cycle (รอบหลัง ETF ทำ pattern เพี้ยน) และ Exchange inflow (ตีความทางเดียวว่าเตรียมขาย)'
+  },
+  {
     topic: 'Index Funds / DCA / Tax Optimization',
     date: '20 มิ.ย. 2569',
     score: 3, total: 4, passed: true,
@@ -1323,13 +1337,12 @@ const pendingQuizzes = [
     'ฐานภาษี 20% ซื้อ Thai ESG 150,000 บาท ได้ภาษีคืนกี่บาท คิดเป็นผลตอบแทนทันทีกี่ %?',
     'ทำไมปี 2569 ถึงสำคัญเป็นพิเศษกับ Ness เรื่อง Thai ESG (2 เหตุผล)?',
     'ขาย Thai ESG ก่อนครบ 5 ปี จะเกิดอะไรขึ้นบ้าง?' ] },
-  { id:'btc', title:'Quiz #3 — BTC & Crypto', ready:true, note:'แนะนำทบทวน brief 18 มิ.ย. + morning brief 25 มิ.ย. ก่อน', questions:[
-    'Halving คืออะไร และตามสถิติรอบก่อนๆ ราคามัก peak ประมาณกี่เดือนหลัง halving?',
-    'ถ้าเห็น Exchange inflow เพิ่มขึ้นผิดปกติ มักตีความว่าอะไร?',
-    'MVRV สูงมากบอกอะไรเรา และควรระวังอะไร?',
-    'ทำไม BTC ยังไม่เหมาะเป็น "เงิน" ใช้จ่ายรายวัน (อย่างน้อย 2 เหตุผล)?',
-    'DCA BTC ระยะยาวควรอยู่เลเยอร์ไหนของพอร์ต 50/35/15 เพราะอะไร?' ] },
-  { id:'mf', title:'Quiz #6 — Mutual Funds', ready:false, note:'🔒 ยังไม่มีบทเรียนเต็ม — เรียนก่อนแล้วจะปลดล็อก', questions:[] }
+  { id:'mf', title:'Quiz #6 — Mutual Funds (กองทุนรวมไทย)', ready:true, note:'🔓 ปลดล็อกแล้ว — อ่านบทเรียน "กองทุนรวมไทย 18 มิ.ย." + ฉบับ DEEP ในแท็บบทเรียนก่อน', questions:[
+    'TER คืออะไร และทำไมค่าธรรมเนียมต่างกัน 1%/ปี ถึงสำคัญมากในระยะ 20 ปี?',
+    'Tracking Error ต่างจากค่าธรรมเนียมยังไง — ทำไมกองทุน S&P500 ไทยถึงได้ผลตอบแทนต่ำกว่า S&P500 มากกว่าค่าธรรมเนียมที่ระบุ?',
+    'Active Fund vs Index Fund — สถิติระยะยาวบอกอะไร และควรเลือกแบบไหนสำหรับ 50% Stable layer?',
+    'DCA ที่ทำ "ถูกต้อง" ต่างจากที่คนทั่วไปทำยังไง?',
+    'ก่อนซื้อกองทุนไทยสักกอง ต้องเช็คอะไรบ้างอย่างน้อย 3 อย่าง?' ] }
 ];
 function qKey(qid,i){ return 'quizAns_'+qid+'_'+i; }
 function saveQuizDraft(qid,i,el){ localStorage.setItem(qKey(qid,i), el.value); updatePendingStatus(qid); }
