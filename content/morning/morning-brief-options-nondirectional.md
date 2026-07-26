@@ -436,7 +436,7 @@ Iron Condor ชอบ Sideways | Covered Call ชอบ Sideways-Bullish | CSP �
 
 ---
 
-**ข้อ 1 ₄ Scenario Judgment:**  
+**ข้อ 1 — Scenario Judgment:**  
 คุณเปิด Iron Condor บน SPY ที่ Strike $480/$490 Put Side และ $520/$530 Call Side รับเบี้ย $3.20  
 3 วันต่อมา ข่าว Fed ออกมาว่าจะลดดอกเบี้ย → SPY ขึ้น 2.5% ไปอยู่ที่ $512  
 ยังมี 28 DTE เหลืออยู่
