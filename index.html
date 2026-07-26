@@ -1254,6 +1254,19 @@ const quizData = [
       { q: 'MSFT Wheel Cost Basis $376 ราคา $365 มีข่าว Antitrust — Wheel ต่อไหม? Strike CC อยู่ที่ไหน?', answered: 'ถูกทั้งคู่', explanation: 'ก) Fundamental เปลี่ยน = พิจารณาตัดขาดทุน net $500 ดีกว่าถือต่อ ข) ถ้า Wheel ต่อ → Strike $368–370 Delta ~0.40', correct: true },
       { q: 'เพื่อนมี $15,000 เวลา 15 นาที/วัน ชอบ NVDA แต่กลัว Volatile ต้องการ income ทุกเดือน ไม่เคยทำ Options', answered: 'CSP บน SPY/QQQ', explanation: 'CSP บน SPY/QQQ ดีกว่า NVDA เพราะ Beta ต่ำกว่า ได้ ~$150–200/เดือน ไม่แนะนำ Iron Condor (ซับซ้อนเกิน)', correct: true }
     ]
+  },
+  {
+    topic: 'Options (Greeks + กลยุทธ์พื้นฐาน)',
+    date: '22 ก.ค. 2569',
+    score: 4, total: 5, passed: true,
+    weak: 'Covered Call — บอกว่าเหมาะกับตลาดขาขึ้น (ที่จริง sideways/mildly bullish เหมาะกว่า) และอธิบายความเสี่ยงหลักไม่ตรงจุด',
+    qa: [
+      { q: 'Delta 0.30 ของ call option บอกอะไรเรา 2 อย่าง?', answered: 'Price sensitivity (หุ้น±1 บาท → Call ขยับ ~0.30) + โอกาส ITM ตอนหมดอายุ ~30%', explanation: 'ถูกทั้งสองข้อ — Delta คือทั้ง price sensitivity และตัวประมาณ probability of expiring ITM', correct: true },
+      { q: 'Theta เข้าข้างคนซื้อหรือคนขาย option? เพราะอะไร?', answered: 'เข้าข้างคนขาย เพราะ Theta กัดกินมูลค่า option ทุกวัน', explanation: 'ถูกต้อง — time decay ทำให้มูลค่า option ลดลงเรื่อยๆ เป็นประโยชน์กับฝั่งขาย', correct: true },
+      { q: 'Covered Call เหมาะกับตลาดแบบไหน และความเสี่ยงหลักคืออะไร?', answered: 'เหมาะตลาดขาขึ้น เพื่อเอา cash flow จากพรีเมี่ยม ความเสี่ยงคือต้องซื้อของแพงกว่าตลาด', explanation: 'เฉลย: เหมาะกับ Sideways/ขึ้นช้าๆ (Neutral-to-mildly-bullish) มากกว่า — ถ้าหุ้นพุ่งแรงจริง กำไรโดน cap ที่ strike (เสียโอกาส) ความเสี่ยงหลักคือยังถือความเสี่ยงขาลงของหุ้นเต็มๆ แค่มี premium ช่วยลดทุนนิดหน่อย', correct: false },
+      { q: 'Protective Put ต่างจากการตั้ง stop loss ตรงไหน?', answered: 'Protective Put เสียเงินซื้อสิทธิ์ล่วงหน้าแต่ถือหุ้นต่อได้ / Stop Loss ไม่มีค่าใช้จ่ายแต่สั่งขายทิ้งอัตโนมัติ', explanation: 'ถูกต้อง — เสริม: Protective Put การันตีราคาขายแน่นอนแม้ราคา gap ข้ามคืน ส่วน Stop Loss อาจโดน slippage ตอนตลาดวิ่งเร็ว', correct: true },
+      { q: 'ก่อนข่าวใหญ่ IV มักพุ่ง — ถ้าซื้อ option ตอนนั้น เสี่ยงเจออะไรหลังข่าวออก?', answered: 'IV Crush — ราคา option ร่วงแรงแม้ทายทิศทางถูก', explanation: 'ถูกต้อง — นี่คือ IV Crush', correct: true }
+    ]
   }
 ];
 
@@ -1310,12 +1323,6 @@ const pendingQuizzes = [
     'MVRV สูงมากบอกอะไรเรา และควรระวังอะไร?',
     'ทำไม BTC ยังไม่เหมาะเป็น "เงิน" ใช้จ่ายรายวัน (อย่างน้อย 2 เหตุผล)?',
     'DCA BTC ระยะยาวควรอยู่เลเยอร์ไหนของพอร์ต 50/35/15 เพราะอะไร?' ] },
-  { id:'opt', title:'Quiz #5 — Options (Greeks + กลยุทธ์พื้นฐาน)', ready:true, note:'แนะนำทบทวน Greeks (Delta/Theta/Vega) ก่อน', questions:[
-    'Delta 0.30 ของ call option บอกอะไรเรา 2 อย่าง?',
-    'Theta เข้าข้างคนซื้อหรือคนขาย option? เพราะอะไร?',
-    'Covered Call เหมาะกับตลาดแบบไหน และความเสี่ยงหลักคืออะไร?',
-    'Protective Put ต่างจากการตั้ง stop loss ตรงไหน?',
-    'ก่อนข่าวใหญ่ IV มักพุ่ง — ถ้าซื้อ option ตอนนั้น เสี่ยงเจออะไรหลังข่าวออก?' ] },
   { id:'mf', title:'Quiz #6 — Mutual Funds', ready:false, note:'🔒 ยังไม่มีบทเรียนเต็ม — เรียนก่อนแล้วจะปลดล็อก', questions:[] }
 ];
 function qKey(qid,i){ return 'quizAns_'+qid+'_'+i; }
