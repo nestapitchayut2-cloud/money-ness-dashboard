@@ -1,9 +1,16 @@
-# Weekly Topics — สัปดาห์ 20–26 ก.ค. 2026
-**อัพเดทโดย:** Claude | 20 กรกฎาคม 2026
-**Portfolio Layer สัปดาห์นี้:** 🟡 35% Growth — BTC / US Stocks / Macro (กลับเข้า rotation หลังตกค้าง 2 สัปดาห์)
-**Learning Theme (July):** "Know Your Own Money" — สัปดาห์นี้เน้น **เคลียร์งานค้าง + Growth layer**
+# Weekly Topics — สัปดาห์ 3–9 ส.ค. 2026
+**อัพเดทโดย:** Claude | 3 สิงหาคม 2026
+**Portfolio Layer สัปดาห์นี้:** 🟢 50% Stable — หุ้นปันผล / ETF / Options / ภาษี
+*(หมุนตาม rotation: 20-26 ก.ค. = 🟡 35% Growth → สัปดาห์ 27 ก.ค.-2 ส.ค. ตกหล่นไม่ได้อัปเดต → สัปดาห์นี้กลับเข้า 🟢 50% ตามลำดับ)*
+**Learning Theme (สิงหาคม):** "ปิดวงจรที่ค้าง" — เลิกเปิดเรื่องใหม่จนกว่าของเก่าจะจบ
 
-⚠️ **Priority พิเศษสัปดาห์นี้ (จาก weekly report 19 ก.ค.):** ปิด Quiz Tax Planning (ค้าง 11 วัน) → ทำ content Thai ESG (time-sensitive) → ลด English backlog (13 บทความ) ให้เหลือ ≤ 8
+🔥 **Priority สูงสุดสัปดาห์นี้ — ปิด Quiz #1 Tax Planning ที่ค้างมา 24 วัน**
+เรียน Ep.1 (RMF) + Ep.2 (Thai ESG) จบตั้งแต่ 10 ก.ค. แต่ quiz ยังไม่ได้ทำ ทำให้ Tax Planning ค้างไม่ปิดวงจรมาเดือนนึงแล้ว
+ทำที่ dashboard แท็บ 🧠 Quiz → ตอบในช่อง → กด Copy ส่งมาให้ Claude ตรวจ (ใช้เวลา ~15 นาที)
+
+📌 **บริบทสัปดาห์นี้:** สัปดาห์ข้อมูลเศรษฐกิจแน่น — ISM Manufacturing (จันทร์), JOLTS (อังคาร), ISM Services (พุธ), **Nonfarm Payrolls (ศุกร์ 7 ส.ค.)**
+ต่อยอดจากที่เพิ่งเรียน PMI / ISM / PPI / CPI มา 2 สัปดาห์ได้พอดี — สัปดาห์นี้คือของจริงให้ดู
+*(CPI เดือน ก.ค. ออกวันพุธ 12 ส.ค. = สัปดาห์หน้า ไม่ใช่สัปดาห์นี้)*
 
 ---
 
@@ -11,13 +18,13 @@
 
 | วัน | หัวข้อ Content | หัวข้อเรียนรายวัน | เพจ | สถานะ |
 |---|---|---|---|---|
-| จันทร์ 20 ก.ค. | — | **ปิด Quiz Tax Planning** + ทบทวน takeaways Ep.1-2 | — | 🔥 ค้างนาน |
-| อังคาร 21 ก.ค. | Thai ESG ปีสุดท้าย — ลดภาษี 300,000 ก่อนหมดสิทธิ์ | Earnings season คืออะไร ทำไมหุ้นเหวี่ยงแรงช่วงนี้ (เคส IBM -25%, Netflix -11%) | The Money Ness | — |
-| พุธ 22 ก.ค. | — | Drawdown หุ้นรายตัว vs Index — ทำไม S&P500 นิ่งกว่า + English article 1 บทความ | — | — |
-| พฤหัส 23 ก.ค. | RMF vs Thai ESG — วงเงินแยกกัน ซื้ออะไรก่อน | VIX ต่ำ = จังหวะศึกษา Protective Put ก่อน ส.ค. ผันผวน (โยง Options curriculum) | The Money Ness | — |
-| ศุกร์ 24 ก.ค. | — | กองทุนเอเชีย AI theme (เกาหลี +105%, ไทย/ไต้หวันเริ่มขยับ) — ควรมีในพอร์ต Growth ไหม + English article 1 บทความ | — | — |
-| เสาร์ 25 ก.ค. | — | EA optimization + XAU/USD week review (FOMC 28-29 ก.ค. สัปดาห์หน้า — เตรียม News Filter) | — | — |
-| อาทิตย์ 26 ก.ค. | — | ☀️ Sunday Lesson: Power Query — merge/join ตาราง (Phase 1 Week 3 ต่อ) | — | — |
+| จันทร์ 3 ส.ค. | — | **ปิด Quiz #1 Tax Planning** (ค้าง 24 วัน) + ISM Manufacturing PMI 21:00 น. | — | 🔥 ค้างนานสุด |
+| อังคาร 4 ส.ค. | RMF vs Thai ESG — วงเงินแยกกัน ซื้ออะไรก่อน | 🟢 Ep.7 **ภาษีการลงทุนในไทย** — Dividend tax, Capital gains, การยื่นภาษี | The Money Ness | Deep Dive |
+| พุธ 5 ส.ค. | — | ISM Services vs Manufacturing ต่างกันยังไง ทำไมภาคบริการสำคัญกว่าในสหรัฐฯ + English article | — | — |
+| พฤหัส 6 ส.ค. | TER กินกำไรคุณปีละเท่าไหร่ (คำนวณจริง 20 ปี) | 🟢 **เตรียม Quiz #6 Mutual Funds** — อ่านบทเรียนกองทุนไทย 2 ไฟล์ในแท็บบทเรียน (TER, Tracking Error, DCA) | The Money Ness | Deep Dive |
+| ศุกร์ 7 ส.ค. | — | **Nonfarm Payrolls** — ตัวเลขจ้างงานกระทบทองและ Fed ยังไง + English article | — | 📊 ตัวเลขใหญ่ |
+| เสาร์ 8 ส.ค. | — | EA week review + ทบทวนว่าสัปดาห์ข้อมูลแน่นแบบนี้ EA ทำงานเป็นยังไง | — | — |
+| อาทิตย์ 9 ส.ค. | — | ☀️ Sunday Lesson: Excel/Power Query ต่อจาก Merge Queries (Phase 1 Week 5) | — | — |
 
 ---
 
@@ -25,22 +32,35 @@
 
 | # | หัวข้อ | Pillar | Format | Priority |
 |---|---|---|---|---|
-| 1 | Thai ESG ปีสุดท้าย — ลดภาษี 300,000 ก่อนโครงการหมดอายุสิ้นปี (ทำหลัง quiz ผ่าน) | Finance | Single Image | 🔥 สูงสุด — time-sensitive |
-| 2 | RMF vs Thai ESG — วงเงินแยกกัน! ซื้ออะไรก่อนถ้าเงินจำกัด | Finance | Single Image | สูง |
-| 3 | IBM -25% วันเดียว, Netflix -11% — ทำไมผมไม่เทเงินก้อนในหุ้นตัวเดียว (เทียบ drawdown vs S&P500) | Finance | Single Image | สูง |
-| 4 | เกาหลีวิ่ง 105% จากธีม AI — กองทุนไทย/ไต้หวันเพิ่งเริ่มขยับตาม? | Finance | Single Image | กลาง |
-| 5 | VIX ยังสงบ แต่ ส.ค. มักผันผวน — ทำไมผมศึกษา protective put ตั้งแต่ตอนนี้ | Finance | Reels | กลาง |
+| 1 | RMF vs Thai ESG — วงเงินแยกกัน! ซื้ออะไรก่อนถ้าเงินจำกัด (ยกมาจากสัปดาห์ที่แล้ว ยังไม่ได้ทำ) | Finance | Single Image | 🔥 สูงสุด |
+| 2 | ค่าธรรมเนียมกองทุน 1%/ปี ฟังดูน้อย — แต่ 20 ปีมันกินเงินคุณไปเท่าไหร่ (คำนวณจริง) | Finance | Single Image | สูง |
+| 3 | กองทุน S&P500 ในไทยไม่ได้ผลตอบแทนเท่า S&P500 — Tracking Error ที่ brochure ไม่บอก | Finance | Single Image | สูง |
+| 4 | ตัวเลข "จากคน 400 คน" ที่ขยับตลาดทั้งโลก — ISM PMI คืออะไร ทำไมต้องสนใจ | Finance | Reels | กลาง |
+| 5 | ผมเช็คอะไรก่อนซื้อกองทุนสักกอง (checklist 5 ข้อจากที่เรียนมา) | Finance | Single Image | กลาง |
 
 ## 🟡 IB Forex (2 topics)
 
 | # | หัวข้อ | Type | Format |
 |---|---|---|---|
-| 1 | FOMC 28-29 ก.ค. กำลังมา — เทรดเดอร์ทองต้องเตรียมอะไร (spread, news filter) | Educational | Single Image |
-| 2 | ทอง $4,000 หลุดแล้วเด้ง — อ่าน forward-looking market จากเคส CPI 14 ก.ค. | Educational | Reels |
+| 1 | สัปดาห์ข้อมูลแน่น (ISM จันทร์-พุธ, NFP ศุกร์) — ตั้ง news filter ยังไงไม่ให้ EA เจ๊ง | Educational | Single Image |
+| 2 | Nonfarm Payrolls คืออะไร ทำไมทองเหวี่ยงแรงทุกครั้งที่ประกาศ | Tutorial | Reels |
 
 ---
 
 ## 📚 My Learning Focus This Week
 
-- **Topic:** เคลียร์ Tax Planning ให้จบวงจร (quiz → content) + เริ่ม Growth layer: earnings season, drawdown, protective put
-- **Goal:** สิ้นสัปดาห์: Quiz Tax ผ่าน ✅ / content Thai ESG โพสต์แล้ว ✅ / English backlog เหลือ ≤ 8 / อธิบายได้ว่าทำไม VIX ต่ำ = จังหวะศึกษา put
+- **Topic:** 🟢 50% Stable layer — ภาษีการลงทุนไทย (Ep.7) + กองทุนรวม (TER / Tracking Error) และปิด quiz ที่ค้างทั้ง 2 ตัว
+- **Goal สิ้นสัปดาห์:**
+  - ✅ Quiz #1 Tax Planning ผ่าน (ค้าง 24 วัน — ต้องจบสัปดาห์นี้)
+  - ✅ Quiz #6 Mutual Funds ผ่าน (เพิ่งปลดล็อก มีบทเรียนครบแล้ว)
+  - ✅ English backlog เหลือ ≤ 5 (ตัดเหลือ 10 บทความแล้ว 3 ส.ค. อ่านให้ได้อย่างน้อย 5)
+  - ✅ อธิบายได้เองว่า TER 1% กับ 0.2% ต่างกันแค่ไหนใน 20 ปี และ Tracking Error เกิดจากอะไร
+
+---
+
+## 🧹 หมายเหตุการเคลียร์ระบบ (3 ส.ค. 2569)
+
+- **English backlog ตัดจาก 25 → 10 บทความ** เก็บเฉพาะที่ตรงกับสิ่งที่เรียนอยู่ (ISM/PMI, Fed, Tax, TER) ที่เหลือทิ้ง
+  เหตุผล: backlog สะสม 5 สัปดาห์โดยไม่เคยถูกใช้ = ปริมาณไม่ตรงกับเวลาจริงที่มี ตั้งเป้าใหม่ให้ทำได้จริง
+- **Quiz #6 Mutual Funds ปลดล็อกแล้ว** — บทเรียนกองทุนไทย 2 ไฟล์ที่เคยเป็นไฟล์กำพร้าถูกลิงก์เข้าแท็บบทเรียนแล้ว
+- **Morning brief 28-31 ก.ค. + 3 ส.ค. push ขึ้นเว็บครบแล้ว** (ก่อนหน้านี้ค้างเพราะกฎ workflow ขัดกันเอง แก้แล้ว)
