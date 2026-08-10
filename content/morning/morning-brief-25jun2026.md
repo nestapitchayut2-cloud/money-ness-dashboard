@@ -14,21 +14,14 @@
 | Resistance หลัก | $4,311 (100-period SMA) |
 | EA Condition | ⚠️ **Caution** |
 
-**แนะนำสำหรับ EA วันนี้:** ตลาดมี Bearish momentum แรง ควร monitor EA ใน Sideways ระวัง Whipsaw / Spread กว้างช่วงข่าว
+**แนะนำสำหรับ EA วันนี้:** ตลาดมี Bearish momentum แรง ควร monitor EA ในโหมด Caution — ถ้า EA เล่นฝั่ง Buy ให้ลด lot size หรือ skip trade จนกว่าราคาจะ stabilize เหนือ $4,100+
 
 ---
 
-## 📊 XAU/USD วันนี้
-
-**สภาวะตลาด:** Volatile (Caution)
-**ราคาปัจจุบัน:** ~$3,985–$4,094 | ที่: ควร อายอบแต่แรงฑาผล
-
----
-
-## 📚 BTC On-chain analysis — Exchange flow, MVRV
+## 📚 วันนี้เรียน: BTC On-chain analysis — Exchange flow, MVRV
 
 **มุมที่น่าสนใจ:**
-On-chain data คือ "ดูพฤติกรรมเงินจริงฆ" ได้จที่ต้อง — Exchange flow บอกว่าคนเอา BTC ฮออกจาก exchange (bullish signal) หรือเงินสด฀นี้จาง — MVRV บอกว่าตอนนี้ "ดอกกขจเรนื่อง BTC เหมือน" ถ้าสูงมาก = คนอาจเริจมขาย — เป็น tool ที่ Smart Money ใช้ดู timing
+On-chain data คือ "ดูพฤติกรรมเงินจริงๆ" ไม่ใช่ดูแค่ราคา — Exchange flow บอกว่าคนเอา BTC ออกจาก exchange (bullish signal) หรือเอาเข้า (sell pressure) และ MVRV บอกว่าตอนนี้ "คนถือ BTC กำไรเฉลี่ยเท่าไร" ถ้าสูงมาก = คนอาจเริ่มขาย เป็น tool ที่ Smart Money ใช้ดู timing จริงๆ
 
 ✍️ **Content วันนี้:** Smart Money สะสม BTC (Draft พร้อมแล้ว)
 
@@ -36,7 +29,7 @@ On-chain data คือ "ดูพฤติกรรมเงินจริง�
 
 ## 💭 คำถามชวนคิด
 
-ถ้า Exchange flow บอกว่า BTC ไทนี่เป็นที่นาที่ 3 สัปดาห์ติด — แต่ราคายังไม่ขึ้น... นั่นหมายความว่าอะไร? คนที่ถอนออกไปเขาทำอะไรกับ BTC นั้นอยู่?
+ถ้า Exchange flow บอกว่า BTC ไหลออกจาก exchange อย่างต่อเนื่อง 3 สัปดาห์ติด — แต่ราคายังไม่ขึ้น... นั่นหมายความว่าอะไร? คนที่ถอนออกไปเขาทำอะไรกับ BTC นั้นอยู่?
 
 ---
 
