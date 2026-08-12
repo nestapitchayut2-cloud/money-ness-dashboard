@@ -825,6 +825,13 @@ document.getElementById('currentDate').textContent =
 
 // ── Vocab Data ──
 const vocab = [
+  { word:'evaluation fee', meaning:'ค่าสมัครสอบ/ค่าประเมิน', example:'"The firm\'s revenue comes mainly from the evaluation fee, not trading profit"', cat:'IELTS' },
+  { word:'profit split', meaning:'สัดส่วนแบ่งกำไร', example:'"Funded traders keep between 70% and 90% under the profit split"', cat:'IELTS' },
+  { word:'retention rate', meaning:'อัตราการอยู่รอด/คงอยู่', example:'"The industry\'s retention rate is low — most traders drop out within months"', cat:'IELTS' },
+  { word:'permissive', meaning:'ผ่อนปรน ไม่เข้มงวด', example:'"Firms based themselves in the UAE, where the regulatory environment is more permissive"', cat:'IELTS' },
+  { word:'oversight', meaning:'การกำกับดูแล', example:'"Regulatory oversight is a patchwork that varies by jurisdiction"', cat:'IELTS' },
+  { word:'predatory', meaning:'เอาเปรียบ ฉวยประโยชน์', example:'"Critics call some challenge fee structures predatory"', cat:'IELTS' },
+  { word:'end to end', meaning:'ตั้งแต่ต้นจนจบ', example:'"End to end, only 1-2% of applicants reach a payout"', cat:'IELTS' },
   { word:'utilities', meaning:'ค่าน้ำ ค่าไฟ ค่าสาธารณูปโภค', example:'"Included utilities: gas, heat, water, electricity, phone"', cat:'IELTS' },
   { word:'tenant', meaning:'ผู้เช่า', example:'"The tenant\'s name was John Hooper"', cat:'IELTS' },
   { word:'employment contract', meaning:'สัญญาจ้างงาน', example:'"Bring your employment contract to the meeting"', cat:'IELTS' },
@@ -1446,59 +1453,6 @@ Checklist 4 ข้อที่ต้องมีในคำตอบ:
 
 ภาษาบรรยายแนวโน้ม 5 คำของสัปดาห์นี้: surge, plateau, decline steadily, fluctuate, account for`,
     answerKey:'' },
-  { id:'i0810', date:'10 ส.ค.', day:'จันทร์', part:'Reading', title:'🧪 TEST RUN — Prop firm business model · 12 ข้อ / 20 นาที', brief:'morning-brief-10aug2026-ielts-day1.md', url:'https://www.simtrade.fr/blog_simtrade/business-model-proprietary-trading-firms/',
-    sections:[
-      { key:'a1', type:'tfng', label:'Questions 1–5 · TRUE / FALSE / NOT GIVEN', note:'TRUE = บทความบอกแบบนี้ · FALSE = บทความบอกตรงข้าม · NOT GIVEN = บทความไม่ได้พูดถึงเลย',
-        items:[
-          'FTMO was founded in the Czech Republic in 2014.',
-          'Most applicants who pay for a prop firm challenge do not pass it.',
-          'Funded traders in the United States pay a lower rate of tax than employees of investment banks.',
-          'The article recommends prop firm challenges as the best way for complete beginners to learn to trade.',
-          'Women make up only a small minority of funded traders.'
-        ] },
-      { key:'a2', type:'text', label:'Questions 6–9 · MATCHING HEADINGS', note:'เลือกหัวข้อ i–vii ให้ตรงกับแต่ละส่วนของบทความ (มีหัวข้อเกินมา 3 อัน)',
-        text:`i. A patchwork of oversight across jurisdictions
-ii. Where the money actually comes from
-iii. How the sector grew, and how big it is now
-iv. The tools and platforms traders use day to day
-v. Who signs up — and how long they last
-vi. A step-by-step guide to passing your first challenge
-vii. Why losing streaks feel worse than they are
-
-6. Industry origins and scale
-7. Core business model / revenue streams
-8. Trader demographics and retention
-9. Regulatory environment`,
-        placeholder:'6. iii\n7. ii\n8. v\n9. i' },
-      { key:'a3', type:'text', label:'Questions 10–12 · SUMMARY COMPLETION', note:'เติมคำ NO MORE THAN THREE WORDS OR A NUMBER',
-        text:`A prop firm typically charges an evaluation fee up front. Because only (10) __________ of all applicants reach a payout from start to finish, it is fee income rather than trading profit that drives the business. Traders who do get funded usually keep between 70% and (11) __________ of what they earn. Many firms have chosen to base themselves in (12) __________, where the regulatory environment is more permissive.`,
-        placeholder:'10. ...\n11. ...\n12. ...' }
-    ],
-    answerKey:`1. TRUE — "firms like FTMO (Czech Republic, 2014)" ตรงทั้งประเทศและปี
-
-2. TRUE — pass rate 5–10% แปลว่า 90–95% ไม่ผ่าน = ตรงกับ "most applicants do not pass" (inference ที่ปลอดภัย เพราะตัวเลขในบทความบังคับให้ข้อสรุปนี้จริง)
-
-3. NOT GIVEN ⭐ ข้อที่คนพลาดเยอะที่สุด — บทความพูดถึงภาษีแค่ว่าเทรดเดอร์ต้อง "bear their own tax obligations" ไม่ได้บอกอัตราภาษีของประเทศไหนเลย และไม่ได้เปรียบเทียบกับพนักงานธนาคาร
-   ทำไมไม่ใช่ FALSE: FALSE ต้องมีประโยคในบทความที่ขัดกันตรงๆ — ถ้าชี้นิ้วไปที่ประโยคที่แย้งไม่ได้เลย = NOT GIVEN
-
-4. FALSE — บทความแนะนำตรงข้าม: "SimTrade, paper trading, or small personal accounts teach discipline without predatory fee structures" (บอกให้มือใหม่หลีกเลี่ยง challenge)
-
-5. NOT GIVEN — บทความพูดถึงอายุ/อาชีพเดิมของเทรดเดอร์ (25–40 ปี) แต่ไม่มีสถิติเรื่องเพศเลย — ห้ามใช้ความรู้นอกบทความ
-
-Questions 6–9 · Matching Headings
-6. Industry origins and scale → iii (จุดกำเนิดยุค 1980–90s + โต 40–50%/ปี + 200+ เจ้า)
-7. Core business model / revenue → ii (evaluation fee, reset fee, subscription, profit split)
-8. Trader demographics and retention → v (ใครสมัคร + อยู่ได้นานแค่ไหน — 60–70% หลุดใน 3 เดือน)
-9. Regulatory environment → i (CFTC/AMF/FCA/DIFC แต่ละเจ้าคุมคนละแบบ = "patchwork of oversight")
-ตัวลวงที่เหลือ: iv, vi, vii ไม่มีในบทความ
-เทคนิค: อ่านประโยคแรก+ประโยคสุดท้ายของแต่ละส่วนก่อน 80% ของกรณีหัวข้อที่ถูกจะสะท้อนสองประโยคนี้
-
-Questions 10–12 · Summary Completion
-10. 1–2% (หรือ one to two percent) — "only ~1–2% of all applicants reach a payout"
-11. 90% (หรือ ninety percent) — "often 70–90%"
-12. Dubai (หรือ the UAE) — "The UAE (DIFC, DMCC)... attracting many firms to Dubai"
-
-⚠️ NO MORE THAN THREE WORDS แล้วเขียนเกิน = ผิดทันที ต่อให้ความหมายถูก และสะกดผิด = ผิด ไม่มีอนุโลม` },
 ];
 function iKey(id,k){ return 'ielts_'+id+'_'+k; }
 function saveIelts(id,k,el){ localStorage.setItem(iKey(id,k), el.value); updateIeltsStatus(id); }
