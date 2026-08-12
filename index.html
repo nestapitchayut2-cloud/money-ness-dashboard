@@ -825,6 +825,11 @@ document.getElementById('currentDate').textContent =
 
 // ── Vocab Data ──
 const vocab = [
+  { word:'utilities', meaning:'ค่าน้ำ ค่าไฟ ค่าสาธารณูปโภค', example:'"Included utilities: gas, heat, water, electricity, phone"', cat:'IELTS' },
+  { word:'tenant', meaning:'ผู้เช่า', example:'"The tenant\'s name was John Hooper"', cat:'IELTS' },
+  { word:'employment contract', meaning:'สัญญาจ้างงาน', example:'"Bring your employment contract to the meeting"', cat:'IELTS' },
+  { word:'reference', meaning:'หนังสือรับรอง/อ้างอิง', example:'"A reference from a friend or colleague is accepted"', cat:'IELTS' },
+  { word:'underground', meaning:'รถไฟใต้ดิน (UK English — ไม่ใช้ "subway")', example:'"Public transport nearby: underground, bus"', cat:'IELTS' },
   { word:'Tracking Difference', meaning:'ผลต่างระหว่างผลตอบแทนกองทุนกับ Index จริง', example:'"The fund has a TD of 1.2% per year"', cat:'Fund' },
   { word:'Total Expense Ratio (TER)', meaning:'ค่าใช้จ่ายรวมทั้งหมดของกองทุน ไม่ใช่แค่ค่าธรรมเนียมที่ประกาศ', example:'"TER includes hidden costs like transaction fees"', cat:'Fund' },
   { word:'Cash Drag', meaning:'ผลตอบแทนที่หายไปเพราะกองทุนถือเงินสดไม่ได้ลงทุน', example:'"5% cash holding causes ~1% drag on returns"', cat:'Fund' },
@@ -1441,46 +1446,6 @@ Checklist 4 ข้อที่ต้องมีในคำตอบ:
 
 ภาษาบรรยายแนวโน้ม 5 คำของสัปดาห์นี้: surge, plateau, decline steadily, fluctuate, account for`,
     answerKey:'' },
-  { id:'i0811', date:'11 ส.ค.', day:'อังคาร', part:'Listening', title:'S1 — Apartment rental booking call · 10 ข้อ + dictation 5 ประโยค / 45 นาที', brief:'morning-brief-11aug2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-5.1.html',
-    sections:[
-      { key:'a1', type:'text', label:'Questions 1–5 · Form Completion', note:'เติมคำ NO MORE THAN ONE WORD OR A NUMBER · 🔗 ไฟล์เสียง (mp3): https://ielts-up.com/listening/5.1.mp3',
-        text:`Apartment for rent — Street: Bridge Street
-1. Street number: __________
-2. Included utilities: gas, heat, water, __________, phone
-3. NOT included utility: __________
-4. Public transport: underground, __________
-5. Tenant's name: John __________`,
-        placeholder:'1. ...\n2. ...\n3. ...\n4. ...\n5. ...' },
-      { key:'a2', type:'text', label:'Questions 6–8 · Choose THREE letters, A–F', note:'Which THREE things should the caller bring to the meeting?',
-        text:`A. Driving license   B. Passport   C. Tax bill
-D. Employment contract   E. Reference from a friend or colleague   F. Reference from an employer`,
-        placeholder:'6-8. เช่น B, D, E' },
-      { key:'a3', type:'text', label:'Questions 9–10 · Multiple Choice',
-        text:`9. What time do the caller and apartment manager decide to meet?
-   A. 5:30 PM   B. 6:00 PM   C. 6:30 PM
-10. Where do they decide to meet?
-   A. Near the manager's apartment   B. At the caller's future apartment   C. At the office`,
-        placeholder:'9. ...\n10. ...' },
-      { key:'a4', type:'text', label:'🎙️ Dictation (5 ประโยค)', note:'เขียนคำต่อคำ ฟังรอบเดียวต่อช่วง ห้ามย้อน — 1) 0:30–0:50  2) 1:20–1:40  3) 2:20–2:45  4) 3:30–3:50  5) 4:20–4:45',
-        placeholder:'1. ...\n2. ...\n3. ...\n4. ...\n5. ...' }
-    ],
-    answerKey:`Questions 1–5
-1. 32
-2. electricity
-3. Internet
-4. bus
-5. Hooper
-
-Questions 6–8 (ไม่เรียงลำดับ)
-B (Passport), D (Employment contract), E (Reference from a friend or colleague)
-
-Questions 9–10
-9. C (6:30 PM)
-10. B (At the caller's future apartment)
-
-ที่มาเฉลย: หน้าโจทย์ต้นทางของ ielts-up.com (ปุ่ม "Show answers")
-
-🎙️ Dictation — ไม่มี transcript ทางการ ฟังซ้ำเฉพาะ 5 ช่วงเวลาข้างต้นแล้วเช็คเอง จุดที่มักพลาด: ตัวเลข (เลขที่ถนน/เวลานัด), การสะกดชื่อคน (Hooper), คำเชื่อมที่พูดเร็ว` },
   { id:'i0810', date:'10 ส.ค.', day:'จันทร์', part:'Reading', title:'🧪 TEST RUN — Prop firm business model · 12 ข้อ / 20 นาที', brief:'morning-brief-10aug2026-ielts-day1.md', url:'https://www.simtrade.fr/blog_simtrade/business-model-proprietary-trading-firms/',
     sections:[
       { key:'a1', type:'tfng', label:'Questions 1–5 · TRUE / FALSE / NOT GIVEN', note:'TRUE = บทความบอกแบบนี้ · FALSE = บทความบอกตรงข้าม · NOT GIVEN = บทความไม่ได้พูดถึงเลย',
