@@ -1415,12 +1415,58 @@ renderPendingQuizzes();
 // ── IELTS Practice (แทนที่ระบบ "อ่านบทความ+สรุป" เดิม เริ่ม 10 ส.ค. 2569) ──
 // แผนเต็ม: SHARED/ielts-plan.md · ธีมสัปดาห์: ENGLISH/ielts-week-theme.md · band: ENGLISH/ielts-progress.md
 // Claude (task morning-study-brief / sunday-english-lesson) เพิ่ม entry ใหม่ที่ "บรรทัดแรกสุด" ของ ieltsTasks ทุกครั้ง
-// schema: { id, date, day, part, title, brief, url, sections?, questions?, answerKey }  — part ต้องตรงกับคีย์ใน IELTS_PARTS เป๊ะ
+// schema: { id, date, day, part, title, brief, url, warmup?, sections?, questions?, answerKey }  — part ต้องตรงกับคีย์ใน IELTS_PARTS เป๊ะ
+// warmup? = { mode?, clip, url?, steps:[...] } — Listening warm-up 10 นาทีของวันนั้น (ทุกวันมี) แสดงเป็นกล่องแยกเหนือโจทย์ บอกให้ฟังก่อนเริ่มทำ
 // ใช้ sections (array) กับพาร์ทที่มีหลายกลุ่มคำถามในหน้าเดียว (Reading/Listening/Mock) — แต่ละ section แสดงโจทย์ตามด้วยช่องคำตอบของตัวเองทันที
 //   section = { key, type:'tfng'|'text', label, note?, items? (สำหรับ tfng — array ของประโยค), text? (สำหรับ text — โจทย์เต็มของ section), placeholder? }
 // ใช้ questions (string เดียว) + boxes ปกติจาก IELTS_PARTS กับพาร์ทที่มีคำตอบเดียวยาวๆ (Writing/Speaking) — เขียนแยกทั้งสองแบบไม่ได้พร้อมกัน
 // answerKey = เฉลย กดดูได้จากปุ่มท้ายการ์ดเดิม (เว้นว่าง '' ถ้าพาร์ทไม่มีเฉลยตายตัว เช่น Writing/Speaking)
+// questions/section.text รองรับ markdown เบาๆ ผ่าน mdLite(): **bold**, ```code fence```, ตาราง pipe |, บรรทัดขึ้นต้น 💡/ใบ้ (tip), ⚠️ (warning), 🔁 (retry), "Part N.../Checklist" (หัวข้อย่อย), "You should say:" (กล่อง cue card)
 function escH(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function mdLite(text){
+  if(!text) return '';
+  const blocks = String(text).split(/\n{2,}/);
+  return blocks.map(function(raw){
+    const block = raw.trim();
+    if(!block) return '';
+    const fence = block.match(/^```([\s\S]*?)```$/);
+    if(fence) return '<div style="background:#0b0d14;border:1px solid #3d4468;border-radius:8px;padding:12px;margin:8px 0;font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#e2e8f0;white-space:pre-wrap;line-height:1.6">'+escH(fence[1].trim())+'</div>';
+    const rawLines = block.split('\n');
+    if(rawLines.length>=2 && rawLines.every(function(l){return l.indexOf('|')!==-1;})){
+      const rows = rawLines.map(function(l){ return l.split('|').map(function(c){return c.trim();}); });
+      const header = rows[0], body = rows.slice(1);
+      return '<div style="overflow-x:auto;margin:10px 0"><table style="border-collapse:collapse;width:100%;font-size:11.5px">' +
+        '<tr>'+header.map(function(h){return '<th style="text-align:left;padding:6px 8px;border-bottom:1px solid #3d4468;color:#93c5fd;white-space:nowrap">'+escH(h)+'</th>';}).join('')+'</tr>' +
+        body.map(function(r){return '<tr>'+r.map(function(c){return '<td style="padding:6px 8px;border-bottom:1px solid #1f2437;color:#cbd5e1;white-space:nowrap">'+escH(c)+'</td>';}).join('')+'</tr>';}).join('') +
+        '</table></div>';
+    }
+    let html = escH(block).replace(/\*\*(.+?)\*\*/g, '<strong style="color:#f1f5f9">$1</strong>');
+    if(/^(💡|🔑|👉|ใบ้)/.test(block)) return '<div style="background:#1a1608;border-left:3px solid #fbbf24;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#fde68a;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/^(⚠️|❗)/.test(block)) return '<div style="background:#1a0e0e;border-left:3px solid #f87171;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#fca5a5;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/^🔁/.test(block)) return '<div style="background:#1a1020;border-left:3px solid #c084fc;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#e9d5ff;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/You should say:/.test(block)) return '<div style="background:#161a26;border:1px solid #3d4468;border-radius:8px;padding:12px 14px;margin:8px 0;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;font-style:italic">'+html+'</div>';
+    if(/^\(.*\)$/.test(block)) return '<div style="font-size:11.5px;color:#64748b;line-height:1.6;white-space:pre-wrap;margin:6px 0;font-style:italic">'+html+'</div>';
+    const lines = html.split('\n');
+    if(lines.length && /^(Part \d|Questions? \d|Checklist)/.test(lines[0]) && lines[0].length < 90){
+      const head = lines.shift();
+      const rest = lines.join('\n');
+      return '<div style="font-size:12.5px;font-weight:700;color:#93c5fd;margin:12px 0 4px">'+head+'</div>' +
+        (rest ? '<div style="font-size:12.5px;color:#cbd5e1;line-height:1.7;white-space:pre-wrap">'+rest+'</div>' : '');
+    }
+    return '<div style="font-size:12.5px;color:#cbd5e1;line-height:1.7;white-space:pre-wrap;margin:8px 0">'+html+'</div>';
+  }).join('');
+}
+function renderWarmup(w){
+  if(!w) return '';
+  const steps = (w.steps||[]).map(function(s,i){ return '<div style="display:flex;gap:8px;margin-top:6px"><span style="color:#22d3ee;font-weight:700;flex-shrink:0">'+(i+1)+'.</span><span style="font-size:12px;color:#cbd5e1;line-height:1.6">'+escH(s)+'</span></div>'; }).join('');
+  return '<div style="background:#0c1a1d;border:1px solid #164e52;border-left:3px solid #22d3ee;border-radius:10px;padding:12px 14px;margin-bottom:14px">' +
+    '<div style="font-size:12px;font-weight:700;color:#67e8f9;margin-bottom:6px">🎧 Warm-up ก่อนเริ่ม (10 นาที)'+(w.mode?' — '+escH(w.mode):'')+'</div>' +
+    (w.clip ? '<div style="font-size:11.5px;color:#a5f3fc;margin-bottom:4px">คลิป: <span style="color:#e2e8f0">'+escH(w.clip)+'</span></div>' : '') +
+    (w.url ? '<div style="font-size:11.5px;margin-bottom:8px"><a href="'+w.url+'" target="_blank" style="color:#60a5fa;text-decoration:none">🔗 เปิดฟังคลิป ↗</a></div>' : '') +
+    steps +
+    '<div style="font-size:11px;color:#67e8f9;margin-top:10px;font-weight:600">👇 ฟังให้ครบก่อน แล้วค่อยลงมือทำโจทย์ด้านล่าง</div>' +
+  '</div>';
+}
 const ieltsInfo = { goal:'IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027', theme:'How prop trading firms actually make money' };
 const ieltsGuides = [
   { label:'📖 Reading', file:'ielts-reading-strategy.md' },
@@ -1469,6 +1515,13 @@ Checklist 4 ข้อที่ต้องมีในคำตอบ:
 ภาษาบรรยายแนวโน้ม 5 คำของสัปดาห์นี้: surge, plateau, decline steadily, fluctuate, account for`,
     answerKey:'' },
   { id:'i0813', date:'13 ส.ค.', day:'พฤหัส', part:'Speaking', title:'Cue card — Describe a business whose way of making money surprised you (เตรียม 1 นาที / พูด 2 นาที)', brief:'morning-brief-13aug2026.md', url:'https://www.npr.org/transcripts/1227458687',
+    warmup:{ mode:'Shadowing', clip:'The cautionary tale of a recovering day trading addict — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/transcripts/1227458687',
+      steps:[
+        'เปิดคลิป 4 นาทีแรก (จุดเดิมที่ฟังมาตั้งแต่จันทร์)',
+        'พูดตามพร้อมเสียงทันที — ไม่ใช่ฟังแล้วหยุดพูด แต่พูดคลอไปพร้อมกัน ไล่ให้ทันจังหวะ น้ำเสียง การเน้นคำของผู้พูด',
+        'ทำ 2 รอบ: รอบแรกช้าหน่อยไม่เป็นไร ตามให้ทัน / รอบสองพยายามให้เนียนขึ้น',
+        'เป้าหมายคือฝึกกล้ามเนื้อปากกับจังหวะ ไม่ใช่ท่องจำเนื้อหา'
+      ] },
     questions:`Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์):
 
 Describe a business whose way of making money surprised you when you found out about it.
@@ -1572,6 +1625,7 @@ function renderIeltsPractice(){
   ieltsTasks.map(function(t,idx){
     const cfg = ieltsPart(t.part);
     let inner = '';
+    if(t.warmup) inner += renderWarmup(t.warmup);
     if(t.url) inner += '<div style="font-size:11px;margin-bottom:8px"><a href="'+t.url+'" target="_blank" style="color:#60a5fa;text-decoration:none">🔗 แหล่งอ้างอิงบทความ/คลิปต้นฉบับ (ภาษาอังกฤษเต็ม) ↗</a></div>';
     if(cfg.rule) inner += '<div style="font-size:11px;color:'+cfg.color+';margin-bottom:8px;font-weight:600">⏱️ '+cfg.rule+'</div>';
     if(t.sections){
@@ -1589,14 +1643,14 @@ function renderIeltsPractice(){
             '</div>';
           }).join('') + '</div>';
         } else {
-          if(s.text) inner += '<div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6;margin-bottom:8px">'+escH(s.text)+'</div>';
+          if(s.text) inner += '<div style="background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:8px">'+mdLite(s.text)+'</div>';
           inner += '<textarea oninput="saveIelts(\''+t.id+'\',\''+s.key+'\',this)" id="ita-'+t.id+'-'+s.key+'" placeholder="'+(s.placeholder||'พิมพ์คำตอบ...').replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:70px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
         }
       });
       inner += '<div style="font-size:11px;color:#64748b;margin:14px 0 5px">🤔 ข้อที่ไม่มั่นใจ + เหตุผล (ไม่บังคับ แต่ช่วยให้ตรวจแม่นขึ้นมาก)</div>' +
         '<textarea oninput="saveIelts(\''+t.id+'\',\'n\',this)" id="ita-'+t.id+'-n" placeholder="เช่น ข้อ 4 ลังเลระหว่าง FALSE กับ NOT GIVEN เพราะ..." style="width:100%;min-height:60px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
     } else {
-      if(t.questions) inner += '<div style="font-size:11px;color:#64748b;margin:6px 0 5px">📋 โจทย์</div><div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6;margin-bottom:10px">'+escH(t.questions)+'</div>';
+      if(t.questions) inner += '<div style="font-size:11px;color:#64748b;margin:6px 0 5px">📋 โจทย์</div><div style="background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:10px">'+mdLite(t.questions)+'</div>';
       cfg.boxes.forEach(function(b){
         inner += '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">'+b[1]+'</div>' +
           '<textarea oninput="saveIelts(\''+t.id+'\',\''+b[0]+'\',this)" id="ita-'+t.id+'-'+b[0]+'" placeholder="'+b[2].replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:90px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
