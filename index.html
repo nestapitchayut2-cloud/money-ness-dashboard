@@ -656,6 +656,7 @@
     <div class="card-title">🎓 Learning Hub</div>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('ielts')">🎯 IELTS</button>
+      <button class="tab-btn" onclick="switchTab('archive')">📁 ประวัติ IELTS</button>
       <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
       <button class="tab-btn" onclick="switchTab('week')">📅 สัปดาห์นี้</button>
       <button class="tab-btn" onclick="switchTab('briefs')">📖 Brief Archive</button>
@@ -759,6 +760,11 @@
           <div id="englishPractice"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Tab: IELTS Archive -->
+    <div class="tab-panel" id="tab-archive">
+      <div id="ieltsArchiveList"></div>
     </div>
 
     <!-- Tab: Vocabulary -->
@@ -1644,6 +1650,7 @@ function copyIelts(id){
     '\nโจทย์: ' + t.title + (t.brief ? '\nไฟล์โจทย์: ' + t.brief : '') + (t.url ? '\nแหล่ง: ' + t.url : '') +
     body + '\n\n[Vocab ที่เจอ (word = ความหมาย)]\n' + v +
     '\n\n' + ask + ' — แล้วบันทึกผลลง ENGLISH/ielts-progress.md, จด vocab ที่ควรจำลง ENGLISH/vocab-list.md และเพิ่มเข้า const vocab (cat:\'IELTS\') ในทั้ง SHARED/dashboard.html และ index.html ของ repo ให้ขึ้นในแท็บ 🔤 Vocabulary ด้วย, ' +
+    'เพิ่ม entry เต็ม (คำตอบที่เขียน + คำแนะนำเต็ม + เวอร์ชันแก้แล้ว) เข้า const ieltsArchive ที่บรรทัดแรกสุด ในทั้ง SHARED/dashboard.html และ index.html ของ repo ให้ขึ้นในแท็บ 📁 ประวัติ IELTS ด้วย, ' +
     'แล้วเอา task นี้ออกจาก ieltsTasks ทั้งใน SHARED/dashboard.html และ index.html ของ repo + push ด้วยครับ';
   navigator.clipboard.writeText(out).then(function(){ (typeof showToast==='function')?showToast('📋 คัดลอกแล้ว — วางใน Claude chat ได้เลย'):alert('คัดลอกแล้ว — วางใน Claude chat ได้เลย'); });
 }
@@ -1736,6 +1743,74 @@ function renderIeltsPractice(){
   });
 }
 renderIeltsPractice();
+
+// ── IELTS Archive — งานที่ตรวจครบแล้ว (คำตอบเต็ม + คำแนะนำเต็ม + เวอร์ชันแก้แล้ว เก็บถาวร) ──
+// Claude (ตอนตรวจงาน IELTS) เพิ่ม entry ใหม่ที่ "บรรทัดแรกสุด" ของ ieltsArchive ทุกครั้งที่ตรวจเสร็จ พร้อมกับที่เอา task ออกจาก ieltsTasks
+// schema: { id, date, day, part, title, bands:{TR/CC/LR/GRA/overall}, answer, feedback, corrected }
+const ieltsArchive = [
+  { id:'i0814', date:'14 ส.ค.', day:'ศุกร์', part:'Writing Task 2', title:'Opinion essay — Should prop trading firms be regulated like gambling products?',
+    bands:{TR:5.0, CC:5.0, LR:4.0, GRA:4.0, overall:4.5},
+    answer:`In my opinion view of The proprietary trading industry abount how The proprietary earns income majority form fee trader pay to join an evaluation challenge rather then sharing profits that has only 1-2% of total number of the trader who joined an evaluation challenge. this income stucture of the proprietary trading industry makes two side of people group makes a argued "Should the proprietary trading industry be regulated as strictly as gambling or lottery products.
+
+I am totally disagree that the proprietary trading industry be regulated as strictly as gambling or lottery products. first reason of my opption, Gambling or lottery products backbone systerm runs as stat of number of probability win as fixed ratio. But an evaluation challenge of trading program has an randomly probability and risk control depent on any trader. For Example, if i wolud to have more an probality to win in lottery only way i can do is buy more a lotterry number. However, an evaluation challenge of trading program i can manage to incarese my opportunity to win the evaluation challenge without spending more fee such as improving trading skills, Money management, trading risk management.
+
+Second reason of my opinion, Trading is not gambling. some people might think trading is just the way we pedics driraction of asset price. But trading allow trader more control and custom they own trading systerm. that gramblers can not adjust any of grambling games or lottery.
+
+So i am very strongly diagree that that the proprietary trading industry be regulated as strictly as gambling or lottery products. Becuse trader can incrase a probability to win in evaluation challenge by leaning and improving they trading skills. But gamblers can not adjust any to gain more an probability to win in gambling or lottery products.`,
+    feedback:`Band รวม 4.5 (TR 5.0 / CC 5.0 / LR 4.0 / GRA 4.0)
+
+TR 5.0 — จุดยืนชัดเจนและคงเส้นคงวาตลอดเรื่อง มี 2 เหตุผลพร้อมตัวอย่าง แต่ตัวอย่างยังบาง และย่อหน้าสรุปพูดซ้ำเหตุผลข้อ 1 แทนที่จะสังเคราะห์ใหม่
+CC 5.0 — แบ่ง 4 ย่อหน้าตามโครงสร้าง Opinion essay ถูกต้อง แต่มีประโยครวบ/comma splice เยอะ และมีประโยคขาดประธาน ("that gramblers can not adjust...")
+LR 4.0 — สะกดผิดหนาแน่นมาก ~15 คำ (abount, stucture, opption, systerm, depent, probality, wolud, lotterry, incarese, pedics, driraction, Becuse, diagree, incrase, leaning, gramblers/grambling) และประโยคหลัก "the proprietary trading industry be regulated as strictly as gambling or lottery products" ถูกพูดซ้ำเกือบคำต่อคำ 3 รอบแทนที่จะ paraphrase
+GRA 4.0 — ผิดพื้นฐานซ้ำๆ: "I am totally disagree" (ต้องเป็น disagree เฉยๆ ไม่มี am), article ผิด ("a argued", "an randomly probability"), preposition ผิด ("form fee" ควรเป็น from fees)
+
+3 จุดที่เสียคะแนนมากที่สุด:
+1. สะกดผิดหนาแน่น — กระทบ LR ตรงๆ เพราะผู้ตรวจอ่านลำบาก
+2. Grammar พื้นฐานผิดซ้ำ — subject-verb agreement, article, preposition
+3. พูดซ้ำแทนที่จะพัฒนาความคิด — ย่อหน้าสรุปเกือบก็อปย่อหน้าที่ 2 มาแปะ แทนที่จะ paraphrase ด้วยคำใหม่
+
+จุดดี: เขียนได้ ~295 คำ ผ่านเกณฑ์ 250+ เป็นครั้งแรก (ต่างจาก Task 1 ทั้ง 2 รอบที่สั้นไป) และจุดยืนแน่นกว่ารอบก่อนๆ
+
+หมายเหตุ: Vocab Review 5 ข้อของวันนี้ไม่ได้ส่งคำตอบมาด้วย`,
+    corrected:`The proprietary trading industry generates most of its income from fees traders pay to enter evaluation challenges, rather than from profit-sharing, since only 1-2% of applicants ever pass and get funded. This income model has sparked debate about whether the industry should be regulated as strictly as gambling or lottery products. In my opinion, I strongly disagree with this comparison, for two main reasons.
+
+Firstly, gambling and lottery products are built on fixed, unchangeable odds, whereas success in a trading evaluation depends largely on skill and risk management rather than pure chance. For example, a lottery player can only improve their odds by buying more tickets, and the probability of winning never changes no matter how skilled they are. In contrast, a trader can raise their chances of passing an evaluation challenge without spending any additional money, simply by improving their trading strategy, tightening their risk management, and practising discipline under pressure.
+
+Secondly, trading is fundamentally a skill-based activity rather than a game of chance. While some critics argue that predicting price movements is essentially guesswork, traders can analyse markets, backtest strategies, and adjust their own systems based on data and experience. Gamblers, by contrast, have no such control; the rules and odds of a casino game or lottery draw are fixed and cannot be influenced by the player's effort or knowledge.
+
+For these reasons, I believe prop trading firms should not face the same strict regulation as gambling companies. Because outcomes are tied to a trader's ability to learn and adapt, rather than to fixed probabilities beyond their control, the two industries are fundamentally different and should be treated accordingly.` },
+];
+function bandChips(b){
+  return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">' +
+    ['TR','CC','LR','GRA'].map(function(k){return '<span style="background:#1e293b;color:#93c5fd;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">'+k+' '+b[k].toFixed(1)+'</span>';}).join('') +
+    '<span style="background:#3b2f0d;color:#fbbf24;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:800">Band รวม '+b.overall.toFixed(1)+'</span>' +
+  '</div>';
+}
+function renderIeltsArchive(){
+  const box = document.getElementById('ieltsArchiveList'); if(!box) return;
+  if(!ieltsArchive.length){
+    box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:18px;text-align:center;border:1px dashed #2d3148;border-radius:10px">ยังไม่มีงานที่ตรวจแล้วเก็บไว้ที่นี่</div>';
+    return;
+  }
+  box.innerHTML = '<div style="font-size:12px;color:#64748b;margin-bottom:12px">📁 งาน IELTS ที่ตรวจครบแล้ว (' + ieltsArchive.length + ' ชิ้น) — คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ เก็บไว้ที่นี่ถาวร</div>' +
+  ieltsArchive.map(function(t,idx){
+    const cfg = ieltsPart(t.part);
+    return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'iab-'+t.id+'\').classList.toggle(\'open\')">'+
+      '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+(idx===0?'⭐ ':'')+cfg.icon+' '+t.date+' ('+t.day+') — '+t.part+'</div>'+
+      '<div style="font-size:11px;color:#64748b">'+escH(t.title)+(idx===0?' · ล่าสุด':'')+'</div></div>'+
+      '<span style="font-size:11px;color:#fbbf24;margin-right:8px;font-weight:700">Band '+t.bands.overall.toFixed(1)+'</span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div class="quiz-card-body" id="iab-'+t.id+'" style="padding:14px">'+
+        bandChips(t.bands) +
+        '<div style="font-size:11px;font-weight:700;color:#93c5fd;margin:14px 0 5px">✍️ คำตอบที่เขียนส่ง</div>'+
+        '<div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.answer)+'</div>'+
+        '<div style="font-size:11px;font-weight:700;color:#fbbf24;margin:14px 0 5px">💬 คำแนะนำ</div>'+
+        '<div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.feedback)+'</div>'+
+        '<div style="font-size:11px;font-weight:700;color:#34d399;margin:14px 0 5px">✅ เวอร์ชันที่แก้แล้ว</div>'+
+        '<div style="white-space:pre-wrap;background:#0c1a14;border:1px solid #164e37;border-radius:8px;color:#d1fae5;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.corrected)+'</div>'+
+      '</div></div>';
+  }).join('');
+}
+renderIeltsArchive();
 
 function toggleKey(id){
   const el = document.getElementById('key-'+id); const btn = document.getElementById('keybtn-'+id);
