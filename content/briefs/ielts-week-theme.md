@@ -5,19 +5,19 @@
 
 ---
 
-## สัปดาห์ปัจจุบัน: 10–16 ส.ค. 2026
+## สัปดาห์ปัจจุบัน: 17–23 ส.ค. 2026
 
-**ธีม:** How prop trading firms actually make money
-**ทำไมธีมนี้:** Ness กำลังสอบ The5ers High Stakes อยู่จริง — vocab และตัวเลขที่เจอจะเอาไปใช้ได้ทั้งใน EA project และคอนเทนต์ The Money Ness
+**ธีม:** Payment for order flow — โบรกเกอร์ "ฟรี" หากินยังไง
+**ทำไมธีมนี้:** ต่อยอดจาก prop trading firms ของสัปดาห์ก่อนแต่มองอีกมุมของอุตสาหกรรม trading เดียวกัน — Ness ใช้ broker จริงอยู่แล้วในการเทรด XAU/USD จะเข้าใจ vocab และตัวเลขได้ทันที
 
 **Angle รายวัน:**
 | วัน | ใช้ธีมยังไง |
 |---|---|
-| จันทร์ (Reading) | บทความเรื่องโมเดลรายได้ของ prop firm / funded trader programme |
-| อังคาร (Listening) | podcast หรือสัมภาษณ์เรื่อง prop trading / retail trading industry |
-| พุธ (Writing T1) | กราฟ pass rate หรือสัดส่วนรายได้ challenge fee vs profit split |
-| พฤหัส (Speaking) | Cue card: *Describe a business you find interesting* → ต่อยอดเป็นคลิปลงเพจ |
-| ศุกร์ (Writing T2) | เรียงความเชิงถกเถียงเรื่อง funded-trader programme / การกำกับดูแล retail trading |
+| จันทร์ (Reading) | บทความอธิบาย payment for order flow คืออะไร โบรกเกอร์ "commission-free" ได้เงินจากตรงไหนจริงๆ |
+| อังคาร (Listening) | podcast/สัมภาษณ์เรื่อง commission-free trading models / retail brokerage business |
+| พุธ (Writing T1) | ตาราง/กราฟ revenue breakdown ของ broker (spread vs PFOF vs interest on cash) |
+| พฤหัส (Speaking) | Cue card: *Describe a free service that actually makes money in an unexpected way* → ต่อยอดเป็นคลิปลงเพจ |
+| ศุกร์ (Writing T2) | เรียงความถกเถียง: ควรห้าม/กำกับดูแล payment for order flow หรือไม่ |
 
 **Vocab เป้าหมายของสัปดาห์:** *(Claude เติมเมื่อเจอจากบทความจันทร์)*
 
@@ -27,7 +27,6 @@
 
 - ทำไม gold ETF เก็บค่าธรรมเนียม 0.4% (expense ratio / custody cost)
 - Nasdaq หารายได้จากอะไรบ้าง (listing fees, data, technology)
-- Payment for order flow — โบรกเกอร์ "ฟรี" หากินยังไง
 - Subscription vs advertising business model
 - ธนาคารกลางกับทองคำสำรอง (central bank gold buying)
 - Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง
@@ -40,4 +39,4 @@
 
 ## ธีมที่ใช้ไปแล้ว
 
-*(ยังไม่มี)*
+- How prop trading firms actually make money (10–16 ส.ค. 2026)
