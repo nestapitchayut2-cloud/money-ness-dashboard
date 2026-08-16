@@ -667,32 +667,32 @@
     <!-- Tab: This Week -->
     <div class="tab-panel" id="tab-week">
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><button onclick="openBriefFile('ielts-week-theme.md')" style="background:#1e3a5f;color:#93c5fd;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📅 Weekly Topics — แผนสัปดาห์นี้</button><button onclick="openBriefFile('weekly-report-latest.md')" style="background:#2b230d;color:#fbbf24;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📊 Weekly Report — รายงานอาทิตย์ล่าสุด</button></div>
-      <div class="layer-badge">🎯 สัปดาห์นี้ (10–16 ส.ค.): IELTS — How prop trading firms actually make money</div>
+      <div class="layer-badge">🎯 สัปดาห์นี้ (17–23 ส.ค.): IELTS — Payment for order flow: โบรกเกอร์ "ฟรี" หากินยังไง</div>
       <div class="topic-grid">
         <div class="topic-card">
           <div class="t-day">จ.</div>
           <div class="t-content">📖 Reading</div>
-          <div class="t-learn">บทความโมเดลรายได้ prop firm / funded trader</div>
+          <div class="t-learn">payment for order flow คืออะไร โบรกเกอร์ commission-free ได้เงินจากไหน</div>
         </div>
         <div class="topic-card">
           <div class="t-day">อ.</div>
           <div class="t-content">🎧 Listening</div>
-          <div class="t-learn">Podcast/สัมภาษณ์ prop trading industry</div>
+          <div class="t-learn">Podcast/สัมภาษณ์ commission-free trading models</div>
         </div>
         <div class="topic-card">
           <div class="t-day">พ.</div>
           <div class="t-content">📊 Writing T1</div>
-          <div class="t-learn">กราฟ pass rate / challenge fee vs profit split</div>
+          <div class="t-learn">Revenue breakdown ของ broker (spread vs PFOF vs interest)</div>
         </div>
         <div class="topic-card post-day">
           <div class="t-day">พฤ.</div>
           <div class="t-content">🗣️ Speaking + คลิป</div>
-          <div class="t-learn">Cue card: Describe a business you find interesting</div>
+          <div class="t-learn">Cue card: Describe a free service that surprisingly makes money</div>
         </div>
         <div class="topic-card">
           <div class="t-day">ศ.</div>
           <div class="t-content">✍️ Writing T2</div>
-          <div class="t-learn">เรียงความ funded-trader programme / regulation</div>
+          <div class="t-learn">เรียงความถกเถียง: ควรกำกับดูแล payment for order flow ไหม</div>
         </div>
       </div>
       <div class="curriculum-box">
@@ -926,6 +926,7 @@ const contentDrafts = [
 ];
 
 const learningBriefs = [
+  { label:'16 ส.ค.', day:'อาทิตย์', topic:'IELTS Mock — Writing เต็มชุด (Task 1+2, หัวข้อนอกสายธุรกิจ) + SQL SELECT/WHERE/GROUP BY', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\sunday-lesson-2026-08-16.md' },
   { label:'10 ส.ค.', day:'อาทิตย์', topic:'English Lesson — SQL: เขียน SELECT/WHERE/GROUP BY เองครั้งแรก (Phase 1 / Week 7)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\sunday-lesson-2026-08-10.md' },
   { label:'9 ส.ค.', day:'อาทิตย์', topic:'English Lesson — SQL Concept: WHERE + Aggregate Functions (Phase 1 / Week 6)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\sunday-lesson-2026-08-09.md' },
   { label:'2 ส.ค.', day:'อาทิตย์', topic:'English Lesson — SQL Concept: Query คืออะไร (Phase 1 / Week 5)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\sunday-lesson-2026-08-02.md' },
@@ -1470,7 +1471,7 @@ function renderWarmup(w){
     '<div style="font-size:11px;color:#67e8f9;margin-top:10px;font-weight:600">👇 ฟังให้ครบก่อน แล้วค่อยลงมือทำโจทย์ด้านล่าง</div>' +
   '</div>';
 }
-const ieltsInfo = { goal:'IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027', theme:'How prop trading firms actually make money' };
+const ieltsInfo = { goal:'IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027', theme:'Payment for order flow — โบรกเกอร์ "ฟรี" หากินยังไง' };
 const ieltsGuides = [
   { label:'📖 Reading', file:'ielts-reading-strategy.md' },
   { label:'🎧 Listening', file:'ielts-listening-strategy.md' },
@@ -1493,6 +1494,63 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0816b', date:'16 ส.ค.', day:'อาทิตย์', part:'Writing Task 2', title:'🧪 Sunday Mock — Discussion essay: study what you like vs. study for the job market (250+ คำ / 40 นาที)', brief:'sunday-lesson-2026-08-16.md', url:'',
+    questions:`**Discussion (both views) — จับเวลา 40 นาที เขียน 250+ คำ:**
+
+Some people believe that university students should be free to study whatever subject they like. Others believe that they should only be allowed to study subjects that are useful to the job market.
+
+**Discuss both these views and give your own opinion.**
+
+Checklist
+1. ย่อหน้าเปิด = paraphrase โจทย์ + บอกว่าจะพูดถึงทั้งสองมุมมองแล้วให้ความเห็นตัวเอง
+2. Body 1 = มุมมองแรก (เรียนตามใจชอบ) พร้อมเหตุผล + ตัวอย่าง
+3. Body 2 = มุมมองที่สอง (เรียนตามตลาดงาน) พร้อมเหตุผล + ตัวอย่าง แล้วให้ความเห็นตัวเอง
+4. Conclusion = สรุปจุดยืนอีกครั้งแบบไม่ซ้ำคำเดิม
+
+⚠️ สภาพสอบจริง: จับเวลาไม่ต่อ ห้าม dict/Google/AI ช่วย พิมพ์รวดเดียวไม่ย้อนแก้`,
+    answerKey:`Writing Task 2 ไม่มีเฉลยตายตัว — เช็คตัวเองด้วยจุดนี้ก่อนส่ง:
+
+ฝั่ง "เรียนตามใจชอบ": motivation นำไปสู่ผลการเรียนที่ดีกว่า, ตลาดงานเปลี่ยนเร็วจนทำนายไม่ได้, มหาวิทยาลัยควรบ่มเพาะความคิดไม่ใช่แค่ผลิตแรงงาน
+
+ฝั่ง "เรียนตามตลาดงาน": ค่าเรียน + หนี้กยศ. ทำให้ความเสี่ยงตกงานสูงเกินไป, ประเทศต้องการแรงงานเฉพาะทางบางสาขา, "ตามใจชอบ" ไม่ได้แปลว่าไม่มีทักษะที่ใช้ได้จริง
+
+ตัวอย่างจุดยืน: เห็นด้วยบางส่วน — สนับสนุนความหลากหลาย แต่ควรมี career guidance ให้ตัดสินใจด้วยข้อมูลจริง ไม่ใช่บังคับ
+
+Checklist ให้ตัวเอง: พูดถึงทั้งสองมุมมองจริงไหม? ให้ความเห็นตัวเองชัดเจนไหม? ครบ 250 คำไหม? มี 4 ย่อหน้าจริงไหม?
+
+ส่งมาตรวจตามเกณฑ์ TR/CC/LR/GRA ได้เลย` },
+  { id:'i0816a', date:'16 ส.ค.', day:'อาทิตย์', part:'Writing Task 1', title:'🧪 Sunday Mock — Table: renewable electricity share, Germany/Brazil/India 2000–2020 (150+ คำ / 20 นาที)', brief:'sunday-lesson-2026-08-16.md', url:'',
+    questions:`**จับเวลา 20 นาที เขียน 150+ คำ:**
+
+The table below shows the percentage of electricity generated from renewable sources (solar, wind and hydropower combined) in three countries between 2000 and 2020.
+
+Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+
+Country|2000|2010|2020
+Germany|7%|17%|45%
+Brazil|83%|85%|79%
+India|15%|17%|21%
+
+(ตัวเลขสมมติเพื่อฝึก — ไม่ใช่ตัวเลขจริงของแต่ละประเทศ)
+
+Checklist
+1. ย่อหน้าเปิด = paraphrase โจทย์ (ห้ามลอกประโยคโจทย์ตรงๆ)
+2. Overview 1–2 ประโยคสรุปแนวโน้มใหญ่ที่สุด (ขาดข้อนี้ = ไม่เกิน band 5)
+3. 2 ย่อหน้าเปรียบเทียบตัวเลขที่เด่นที่สุด — ไม่ต้องไล่ทุกตัวเลข
+4. ห้ามใส่ความเห็นหรือเหตุผลว่าทำไมตัวเลขเป็นแบบนั้น
+
+💡 ใบ้: คำอธิบายแนวโน้มที่ใช้ได้ — surge, plateau, edge up, remain relatively stable, in contrast
+
+⚠️ สภาพสอบจริง: จับเวลาไม่ต่อ ห้าม dict/Google/AI ช่วย`,
+    answerKey:`Model overview: "Overall, the share of electricity from renewable sources rose substantially in Germany and, to a lesser extent, in India over the two decades, while Brazil's already-high proportion remained relatively stable, dipping slightly by 2020."
+
+จุดเปรียบเทียบที่ควรหยิบมาเขียน (เลือก 2 ย่อหน้า):
+- Germany: เติบโตชัดเจนที่สุด (7%→45%) — surge / rose sharply
+- Brazil: สูงสุดตลอด แต่ 2020 ลดจาก 85%→79% — remained the highest throughout + fell slightly
+- India: เพิ่มแบบสม่ำเสมอ (15%→21%) — increased gradually / edged up
+- ปี 2000 Germany ต่ำสุดในสามประเทศ แต่ปี 2020 แซง India ขึ้นใกล้เคียง Brazil
+
+Checklist ให้ตัวเอง: มี overview ถูกต้องไหม? ครบ 150 คำไหม? มีคำเชื่อม (in contrast, meanwhile, whereas) ไหม? มีความเห็น/เหตุผลแทรกไหม (ถ้ามี = ต้องตัดออก)?` },
   { id:'i0814', date:'14 ส.ค.', day:'ศุกร์', part:'Writing Task 2', title:'Opinion essay — Should prop trading firms be regulated like gambling products? (250+ คำ / 40 นาที) + Vocab Review 5 ข้อ', brief:'morning-brief-14aug2026.md', url:'',
     warmup:{ mode:'ถอดเทป (ปิด transcript)', clip:'The cautionary tale of a recovering day trading addict — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/transcripts/1227458687',
       steps:[
