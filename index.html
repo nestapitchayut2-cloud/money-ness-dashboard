@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'17 ส.ค.', day:'จันทร์', topic:'IELTS Reading (payment for order flow — SEC Rule 615) / EA: Volatile $4,381', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17aug2026.md' },
   { label:'14 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (opinion essay: prop firm regulation) + Vocab Review / EA: Volatile — pullback $4,408', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-14aug2026.md' },
   { label:'13 ส.ค.', day:'พฤหัส', topic:'IELTS Speaking (cue card: business that surprised you) / EA: Trending $4,396', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-13aug2026.md' },
   { label:'12 ส.ค.', day:'พุธ', topic:'IELTS Writing Task 1 (table: prop firm revenue breakdown) / EA: Volatile — CPI วันนี้ $4,396', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-12aug2026.md' },
@@ -1505,6 +1506,55 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0817', date:'17 ส.ค.', day:'จันทร์', part:'Reading', title:'Payment for order flow — SEC Rule 615 (CRS report, ~750 คำ, 13 ข้อ)', brief:'morning-brief-17aug2026.md', url:'https://www.everycrsreport.com/reports/IF12332.html',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'The price of free stock trading — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/2022/06/21/1106468243/the-price-of-free-stock-trading',
+      steps:['ฟัง 0:00–3:30 นาทีแรกเท่านั้น','ห้ามเปิด transcript','จับใจความว่า customer/broker/market maker เกี่ยวข้องกันยังไง'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านบทความจนจบหัวข้อ "Some of the Proposal\'s Plausible Outcomes" ก่อน แล้วค่อยตอบ',
+        items:['FINRA\'s Rule 5310 requires brokers to use "reasonable diligence" to find the best price for their customers.','Under the current rules, brokers must disclose their order-routing practices to regulators every month.','The SEC\'s proposed Rule 615 would apply to orders from accounts that trade more than 40 times a day on average.','The report states that if wholesalers earn less profit under the new rule, retail investors will definitely receive worse trade execution.'] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'จับคู่หมายเลขส่วน (5=ส่วนแรก...8=ส่วนสี่) กับหัวข้อ i–vi (มีเกินมา 2 อัน)',
+        text:`บทความแบ่งเป็น 4 ส่วนตามลำดับที่อ่าน: Opening/Context → Current Regulation → Proposed Rule 615 → Plausible Outcomes
+
+i. The rules already in place before the reform
+ii. Why retail investors began trading for free
+iii. A new competitive bidding process for smaller orders
+iv. What could happen if the reform is adopted
+v. How other countries have banned this practice
+vi. The exact profits market makers earn from spreads`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS)', note:'',
+        text:`In recent years, many retail investors have been able to trade stocks without paying a commission because brokers receive rebates from **(9)______** in exchange for routing customer orders to them. Under current rules, FINRA requires brokers to show **(10)______** when searching for the best price. In December 2022, the SEC proposed a new rule that would send smaller retail orders — defined as accounts with fewer than **(11)______** average daily trades — through a competitive auction instead of directly to a wholesaler.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'',
+        text:`**12.** According to the report, what is the main purpose of the SEC's proposed Rule 615?
+A) To ban payment for order flow completely
+B) To require certain retail orders to compete in open auctions before execution
+C) To increase the fees brokers charge retail customers
+D) To merge all wholesalers into a single exchange
+
+**13.** Which of the following is listed as a plausible outcome of the proposed reform?
+A) Guaranteed higher profits for wholesalers
+B) The complete elimination of retail trading
+C) Potentially better prices for retail investors alongside reduced wholesaler profits
+D) Mandatory trading commissions for all brokers`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — FINRA Rule 5310 requires "reasonable diligence" เพื่อหาราคาที่ดีที่สุดให้ลูกค้า ระบุตรงๆ ในบทความ
+
+2. FALSE — SEC Rules 606/607 กำหนดให้เปิดเผยแบบ quarterly (606) และ annual (607) ไม่ใช่รายเดือน
+
+3. FALSE — Rule 615 ใช้กับบัญชีที่เทรด**น้อยกว่า** 40 ครั้ง/วันโดยเฉลี่ย (segmented orders) ไม่ใช่มากกว่า
+
+4. NOT GIVEN — บทความพูดถึง "reduced wholesaler profits" เป็นหนึ่งใน plausible outcomes แต่ไม่เคยฟันธงว่าจะทำให้ execution แย่ลงสำหรับ retail investors แน่นอน — เป็นการอนุมานเกินจากที่บทความบอก ไม่ใช่บทความบอกตรงข้าม (จุดที่คนสับสน False กับ Not Given บ่อยสุด)
+
+5. ii · 6. i · 7. iii · 8. iv — (v และ vi ไม่ถูกใช้: v พูดถึงต่างประเทศซึ่งบทความไม่ได้พูดถึง, vi พูดถึงตัวเลขกำไรที่แน่นอนซึ่งไม่มีในบทความ)
+
+9. market makers — "rebates...that market makers...pay to broker-dealers"
+
+10. reasonable diligence — คำที่ใช้ตรงในกฎ FINRA 5310
+
+11. 40 — "accounts with fewer than 40 average daily trades in the prior six months"
+
+12. B — Rule 615 บังคับให้ order รายย่อยบางประเภทผ่านการประมูลแข่งขันก่อนส่งไป wholesaler
+
+13. C — บทความระบุ plausible outcomes ทั้งด้านดี (ราคาดีขึ้นสำหรับ retail) และด้านกระทบ wholesaler (กำไรลด) พร้อมกัน` },
   { id:'i0816b', date:'16 ส.ค.', day:'อาทิตย์', part:'Writing Task 2', title:'🧪 Sunday Mock — Discussion essay: study what you like vs. study for the job market (250+ คำ / 40 นาที)', brief:'sunday-lesson-2026-08-16.md', url:'',
     questions:`**Discussion (both views) — จับเวลา 40 นาที เขียน 250+ คำ:**
 
