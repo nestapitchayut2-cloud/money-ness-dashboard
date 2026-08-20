@@ -11,7 +11,7 @@ Volatile / Trending ขึ้นแรง — ราคาปัจจุบั�
 คลิป Speaking เทค 2 ของวันนี้ = content โดยอัตโนมัติ (ตามกฎ 12 ส.ค. 2026 ไม่ต้องคิดหัวข้อ content แยกอีก)
 
 ## 🧠 งานค้าง
-- **IELTS ค้างในแท็บ 🎯 IELTS: 4 ชิ้น** (เกิน 2 ชิ้นแล้ว) — Reading 17 ส.ค., Listening S2 18 ส.ค., Speaking cue card 13 ส.ค., Writing Task 2 14 ส.ค. รอ Ness ส่งกลับมาตรวจ
+- **IELTS ค้างในแท็บ 🎯 IELTS: 5 ชิ้น** (ไม่นับงานพูดของวันนี้) — Speaking cue card 13 ส.ค., Sunday Mock Writing Task 1 + Task 2 16 ส.ค., Reading 17 ส.ค., Listening S2 18 ส.ค. รอ Ness ส่งกลับมาตรวจ
 - Quiz ค้าง: **Quiz #1 Tax Planning** (พร้อมทำ ค้างนานสุด) และ **Quiz #6 Mutual Funds** (ปลดล็อกแล้ว) — ยังไม่ได้ทำทั้งคู่
 
 ---
