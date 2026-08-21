@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'21 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Discussion — payment for order flow regulation) / EA: Volatile $4,518', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-21aug2026.md' },
   { label:'20 ส.ค.', day:'พฤหัส', topic:'IELTS Speaking + Content (cue card: free service that makes money) / EA: Volatile $4,494', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20aug2026.md' },
   { label:'18 ส.ค.', day:'อังคาร', topic:'IELTS Listening S2 (ticket pricing/booking, 10 ข้อ + dictation) / EA: Trending $4,429', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18aug2026.md' },
   { label:'17 ส.ค.', day:'จันทร์', topic:'IELTS Reading (payment for order flow — SEC Rule 615) / EA: Volatile $4,381', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17aug2026.md' },
@@ -1508,6 +1509,39 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0821', date:'21 ส.ค.', day:'ศุกร์', part:'Writing Task 2', title:'Discussion essay — Should payment for order flow be allowed, given the conflict of interest it creates? (250+ คำ / 40 นาที)', brief:'morning-brief-21aug2026.md', url:'',
+    warmup:{ mode:'ถอดเทป (ปิด transcript)', clip:'The price of free stock trading — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/2022/06/21/1106468243/the-price-of-free-stock-trading',
+      steps:[
+        'ปิด transcript ให้สนิท',
+        'ฟังนาที 0:00–1:00 แล้วถอดเทปเขียนตามให้ได้มากที่สุด',
+        'เปิด transcript เทียบกับที่เขียนไว้ ขีดเส้นใต้คำที่พลาด',
+        'เทียบกับที่ฟังมาทั้งสัปดาห์ — จับได้มากขึ้นไหม'
+      ] },
+    questions:`**Part 2 — Discussion Essay (250+ คำ / จับเวลา 40 นาที)**
+
+Some people believe that payment for order flow benefits retail investors by making commission-free trading possible. Others believe that it creates a conflict of interest that can harm investors.
+
+Discuss both these views and give your own opinion.
+
+Checklist:
+- ย่อหน้า 1: paraphrase โจทย์ + บอกว่าจะพูดทั้ง 2 มุมมองแล้วให้ความเห็นท้ายเรื่อง
+- ย่อหน้า 2: มุมมองที่ 1 — PFOF ช่วยนักลงทุนรายย่อยได้จริงยังไง (commission-free trading)
+- ย่อหน้า 3: มุมมองที่ 2 — conflict of interest เกิดจากอะไร (broker ได้เงินจากที่ไหน ส่ง order ไปทางไหน)
+- ย่อหน้า 4: ความเห็นของตัวเอง ต้องมีจุดยืนชัดเจน ไม่ใช่แค่ "ทั้งคู่มีเหตุผล" — ห้ามพูดซ้ำประโยคจาก intro
+
+💡 2 ประโยคเปิดตัวอย่าง:
+1. "The debate over payment for order flow — a practice in which brokers receive compensation for directing client orders to particular market makers — has intensified as more retail investors trade without paying a visible commission."
+2. "Whether payment for order flow genuinely benefits ordinary investors or merely disguises a hidden cost has become a contentious issue in modern retail trading."
+
+**Vocab Review — เติมคำ 5 ข้อ** (คำให้เลือก: oversight · permissive · predatory · account for · in contrast)
+1. Critics argue that stricter regulatory ______ is needed to prevent brokers from routing orders based on payment rather than execution quality.
+2. Some jurisdictions have a more ______ regulatory environment, allowing brokers to accept payment for order flow with minimal disclosure requirements.
+3. Opponents call the practice ______, because it may encourage brokers to prioritise their own profit over getting the best price for clients.
+4. Payment for order flow can ______ for a significant share of a "commission-free" broker's total revenue.
+5. ______, supporters argue that PFOF allows brokers to offer zero-commission trading, which directly benefits retail investors.`,
+    answerKey:`Vocab Review เฉลย: 1. oversight  2. permissive  3. predatory  4. account for  5. In contrast
+
+(เรียงความไม่มีเฉลยตายตัว — ส่งมาให้ Claude ให้ band 4 เกณฑ์ TR/CC/LR/GRA แทน)` },
   { id:'i0820', date:'20 ส.ค.', day:'พฤหัส', part:'Speaking', title:'Cue card — Describe a free service that actually makes money in an unexpected way (เตรียม 1 นาที / พูด 2 นาที)', brief:'morning-brief-20aug2026.md', url:'https://www.npr.org/2022/06/21/1106468243/the-price-of-free-stock-trading',
     warmup:{ mode:'Shadowing', clip:'The price of free stock trading — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/2022/06/21/1106468243/the-price-of-free-stock-trading',
       steps:[
