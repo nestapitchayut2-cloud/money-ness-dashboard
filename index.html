@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'24 ส.ค.', day:'จันทร์', topic:'IELTS Reading (Physical Gold vs Gold ETFs, 13 ข้อ) / EA: Trending/Volatile $4,600', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24aug2026.md' },
   { label:'21 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Discussion — payment for order flow regulation) / EA: Volatile $4,518', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-21aug2026.md' },
   { label:'20 ส.ค.', day:'พฤหัส', topic:'IELTS Speaking + Content (cue card: free service that makes money) / EA: Volatile $4,494', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20aug2026.md' },
   { label:'18 ส.ค.', day:'อังคาร', topic:'IELTS Listening S2 (ticket pricing/booking, 10 ข้อ + dictation) / EA: Trending $4,429', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18aug2026.md' },
@@ -1509,6 +1510,55 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0824', date:'24 ส.ค.', day:'จันทร์', part:'Reading', title:'Physical Gold vs Gold ETFs — counterparty risk & fees (GoldSilver.com, ~730 คำ, 13 ข้อ)', brief:'morning-brief-24aug2026.md', url:'https://goldsilver.com/learn/investing-in-gold/physical-gold-vs-gold-etfs/',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'Sharing the road with driverless cars — BBC Learning English 6 Minute English', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260820',
+      steps:['ฟัง 0:00–2:00 นาทีแรกเท่านั้น','ห้ามเปิด transcript','จับใจความว่า Phil กับ Pippa เกริ่นเรื่อง driverless cars ยังไง'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านตั้งแต่หัวข้อ "Why Does Counterparty Risk Matter More Than You Think?" จนจบหัวข้อ "The Tax Angle Most Investors Miss" ก่อน แล้วค่อยตอบ',
+        items:['According to GLD\'s prospectus, investors may face delays and extra costs identifying their gold bars if the custodian becomes insolvent.','The three British property funds that suspended withdrawals in 2016 ultimately went out of business.','JPMorgan Chase has paid larger regulatory settlements than HSBC.','Central banks prefer physical gold bars over gold ETFs because ETF fees are too high.'] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'จับคู่หมายเลขส่วน (5=ส่วนแรก...8=ส่วนสี่) กับหัวข้อ i–vi (มีเกินมา 2 อัน)',
+        text:`บทความช่วงนี้แบ่งเป็น 4 ส่วนตามลำดับที่อ่าน: GLD's Custodians and Their Track Records → What "Zero Counterparty Risk" Actually Means → How Do ETF Annual Fees Add Up Over Time? → The Tax Angle Most Investors Miss
+
+i. Why paper gold and physical gold face identical tax treatment
+ii. The banks entrusted with GLD's gold and their regulatory history
+iii. How central banks approach gold ownership differently from retail investors
+iv. The cost of choosing a fund with a higher expense ratio
+v. A step-by-step guide to buying physical gold bars
+vi. Why ETFs carry more institutional dependencies than owning gold outright`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS)', note:'',
+        text:`GLD's custodians, HSBC and JPMorgan Chase, have both paid billions in **(9)______** over the past decade. The prospectus warns that if the custodian becomes insolvent, there could be a delay and **(10)______** in identifying the trust's gold bars. Because GLD and IAU are structured as **(11)______**, the IRS taxes gains on them at the collectibles rate of up to 28%.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'',
+        text:`**12.** According to the passage, what is the main reason physical gold has "zero counterparty risk"?
+A) It is cheaper to buy than ETF shares
+B) It does not depend on any institution continuing to function correctly
+C) It is stored in a London vault
+D) It provides better long-term investment returns
+
+**13.** Based on the passage, how does GLD's 0.40% annual fee actually reduce an investor's position?
+A) It is billed directly to the investor's brokerage account each year
+B) It is charged only when the investor sells their shares
+C) Through share dilution, as the trust sells gold to cover costs
+D) Through a one-time acquisition premium paid at purchase`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — บทความยกข้อความจาก prospectus ตรงๆ: "there may be a delay and costs incurred in identifying the gold bars held in the Trust's allocated gold account"
+
+2. FALSE — บทความระบุตรงๆ ว่า "The funds didn't fail. They just closed the door precisely when people needed it open"
+
+3. NOT GIVEN — บทความบอกว่าทั้ง HSBC และ JPMorgan ต่างจ่ายค่าปรับก้อนใหญ่ แต่ไม่เคยเปรียบเทียบว่าใครจ่ายมากกว่ากัน
+
+4. NOT GIVEN — บทความบอกว่าธนาคารกลางถือ bar จริงและ "insist on allocated, audited physical storage" แต่ไม่เคยระบุเหตุผลว่าเป็นเพราะค่าธรรมเนียม ETF แพงเกินไป — เป็นการอนุมานเกินจากที่บทความบอกจริง
+
+5. ii · 6. vi · 7. iv · 8. i — (iii และ v ไม่ถูกใช้: iii พูดถึงธนาคารกลางซึ่งไม่ใช่หัวข้อหลักของ 4 ส่วนนี้, v เป็นไกด์ซื้อทองจริงซึ่งบทความช่วงนี้ไม่ได้ลงรายละเอียด)
+
+9. regulatory settlements — "have paid billions in regulatory settlements"
+
+10. costs — "there may be a delay and costs incurred in identifying..."
+
+11. grantor trusts — "GLD and IAU are grantor trusts"
+
+12. B — หัวใจของ "zero counterparty risk" คือไม่มีสถาบันไหนต้องทำงานถูกต้องเพื่อให้เข้าถึงทองได้ ต่างจาก ETF ที่ต้อง "rely on nothing except the physical world"
+
+13. C — ค่าธรรมเนียมถูกดึงออก "through share dilution as the trust quietly sells gold to cover operating costs" ไม่ใช่การเรียกเก็บที่มองเห็นได้` },
   { id:'i0821', date:'21 ส.ค.', day:'ศุกร์', part:'Writing Task 2', title:'Discussion essay — Should payment for order flow be allowed, given the conflict of interest it creates? (250+ คำ / 40 นาที)', brief:'morning-brief-21aug2026.md', url:'',
     warmup:{ mode:'ถอดเทป (ปิด transcript)', clip:'The price of free stock trading — The Indicator from Planet Money (NPR)', url:'https://www.npr.org/2022/06/21/1106468243/the-price-of-free-stock-trading',
       steps:[
