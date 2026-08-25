@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'25 ส.ค.', day:'อังคาร', topic:'IELTS Listening Section 3 (assignment extension / journal recommendations, 10 ข้อ) / EA: Trending $4,645', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-25aug2026.md' },
   { label:'24 ส.ค.', day:'จันทร์', topic:'IELTS Reading (Physical Gold vs Gold ETFs, 13 ข้อ) / EA: Trending/Volatile $4,600', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24aug2026.md' },
   { label:'21 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Discussion — payment for order flow regulation) / EA: Volatile $4,518', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-21aug2026.md' },
   { label:'20 ส.ค.', day:'พฤหัส', topic:'IELTS Speaking + Content (cue card: free service that makes money) / EA: Volatile $4,494', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20aug2026.md' },
@@ -1510,6 +1511,44 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0825', date:'25 ส.ค.', day:'อังคาร', part:'Listening', title:'Section 3 — assignment extension & journal recommendations (ielts-up.com Test #7, 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-25aug2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-7.3.html',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'Sharing the road with driverless cars — BBC Learning English 6 Minute English', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260820',
+      steps:['ฟังคลิปเต็มอีกรอบ (ไม่เปิด transcript ก่อน)','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด','เปิด transcript เช็คเฉพาะจุดที่จดไว้'] },
+    sections:[
+      { key:'a1', type:'text', label:'Questions 21–22 · MULTIPLE CHOICE', note:'ฟังไฟล์เสียงรอบเดียว ห้ามหยุด ห้ามย้อน',
+        text:`**21.** Melanie says she has not started the assignment because
+A) she was doing work for another course
+B) it was a really big assignment
+C) she hasn't spent time in the library
+
+**22.** The lecturer says that reasonable excuses for extensions are
+A) planning problems
+B) problems with assignment deadlines
+C) personal illness or accident`, placeholder:'21. \n22. ' },
+      { key:'a2', type:'text', label:'Questions 23–27 · MATCHING', note:'จับคู่นักศึกษาแต่ละคนกับคำแนะนำของอาจารย์เรื่องบทความวิชาการ (เลือกจาก A–G ใช้ซ้ำได้)',
+        text:`A) must read  B) useful  C) limited value  D) read first section  E) read research methods  F) read conclusion  G) don't read
+
+23. Jackson
+24. Roberts
+25. Morris
+26. Cooper
+27. Forster`, placeholder:'23. \n24. \n25. \n26. \n27. ' },
+      { key:'a3', type:'text', label:'Questions 28–30 · CHART LABELLING — "Reasons for changing accommodation"', note:'เลือก 3 อันดับแรกที่พูดถึงบ่อยสุดจาก A–H',
+        text:`A) uncooperative landlord  B) environment  C) space  D) noisy neighbours  E) near city  F) work location  G) transport  H) rent`, placeholder:'28. \n29. \n30. ' },
+      { key:'a4', type:'text', label:'🎙️ Dictation (5 ประโยค)', note:'เว็บต้นทางไม่มี timestamp — ฟังซ้ำเฉพาะช่วงที่อาจารย์อธิบายเหตุผลเรื่องบทความของ Morris (คำตอบข้อ 25) แล้วเขียนตามคำต่อคำให้ได้ 5 ประโยคเต็ม',
+        text:``, placeholder:'1. \n2. \n3. \n4. \n5. ' }
+    ],
+    answerKey:`21. A — Melanie บอกว่าไปทำงานให้วิชาอื่นก่อน ไม่ใช่เพราะขนาดงานหรือไม่ได้เข้าห้องสมุด
+
+22. C — อาจารย์ยอมรับเฉพาะเหตุผลด้านสุขภาพ/อุบัติเหตุส่วนตัวเป็นเหตุผลขอเลื่อนที่สมเหตุสมผล ไม่รวมปัญหาการวางแผนเวลาเอง
+
+23. E · 24. B · 25. G · 26. F · 27. C — คำแนะนำของอาจารย์ต่อบทความของแต่ละคน
+
+28. D · 29. A · 30. B — 3 เหตุผลหลักที่พูดถึงบ่อยสุดสำหรับการย้ายที่พัก
+
+หมายเหตุ: Matching (23–27) และ Chart (28–30) เป็น subjective ต่อสิ่งที่ได้ยินจริงในคลิป — ถ้าตอบต่างจากเฉลยแต่มีเหตุผลจากสิ่งที่ได้ยิน ให้ส่งมาเช็คกับ Claude อีกที ไม่ต้องเชื่อเฉลยตายตัว 100%
+
+Dictation: ไม่มี transcript อย่างเป็นทางการจากแหล่งนี้ — ฟังซ้ำเฉพาะช่วงพูดถึง Morris เพื่อเช็คว่าเขียนคำต่อคำตรงกับที่ได้ยินจริงไหม` },
   { id:'i0824', date:'24 ส.ค.', day:'จันทร์', part:'Reading', title:'Physical Gold vs Gold ETFs — counterparty risk & fees (GoldSilver.com, ~730 คำ, 13 ข้อ)', brief:'morning-brief-24aug2026.md', url:'https://goldsilver.com/learn/investing-in-gold/physical-gold-vs-gold-etfs/',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'Sharing the road with driverless cars — BBC Learning English 6 Minute English', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260820',
       steps:['ฟัง 0:00–2:00 นาทีแรกเท่านั้น','ห้ามเปิด transcript','จับใจความว่า Phil กับ Pippa เกริ่นเรื่อง driverless cars ยังไง'] },
