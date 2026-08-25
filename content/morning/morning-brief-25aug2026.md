@@ -6,7 +6,7 @@ Sources: [XAU/USD - Investing.com](https://www.investing.com/currencies/xau-usd)
 
 ## 🧠 งานค้าง
 - Quiz #1 Tax Planning ค้างนานสุด (17+ วันจากล่าสุดที่อัปเดต) — บทเรียนพร้อมแล้ว ยังไม่ได้ทำ
-- งาน IELTS ค้างตรวจสะสมในแท็บ 🎯 IELTS: **7 ชิ้น** (Speaking 13 ส.ค., Writing T2 14 ส.ค., Reading 17 ส.ค., Listening S2 18 ส.ค., Speaking 20 ส.ค., Writing T2 21 ส.ค., Reading 24 ส.ค.)
+- งาน IELTS ค้างตรวจสะสมในแท็บ 🎯 IELTS: **8 ชิ้น** (Speaking 13 ส.ค., Sunday Mock Writing T1+T2 16 ส.ค., Reading 17 ส.ค., Listening S2 18 ส.ค., Speaking 20 ส.ค., Writing T2 21 ส.ค., Reading 24 ส.ค.)
 
 ---
 
