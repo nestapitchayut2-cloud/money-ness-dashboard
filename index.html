@@ -1515,6 +1515,69 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0831', date:'31 ส.ค.', day:'จันทร์', part:'Reading', title:'Central bank gold buying — the official sector & geopolitics (ECB, ~850 คำ, 13 ข้อ)', brief:'morning-brief-31aug2026.md', url:'https://www.ecb.europa.eu/press/other-publications/ire/focus/html/ecb.irebox202506_01~f93400a4aa.en.html',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
+      steps:['ฟังรอบแรกไม่เปิด transcript — จับ gist ว่าแต่ละคนชอบ/เกลียดกลิ่นอะไรและเหตุผล','ฟังรอบสอง จดคำอธิบายกลิ่น (stinky, fragrant, subjective ฯลฯ) ที่ได้ยิน','เปิด transcript เช็คเฉพาะจุดที่จดไว้ตอนท้าย'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านเนื้อความหลัก 6 ย่อหน้า (A–F) ข้ามเชิงอรรถและ note ใต้ chart ทั้งหมด · TRUE = ตรงกับบทความ / FALSE = ขัดแย้ง / NOT GIVEN = ไม่ได้พูดถึง',
+        items:['When adjusted for inflation, the price of gold in 2024 was higher than it had ever been before.','In 2024, gold became the largest global reserve asset when measured at market prices.','The drop in Chinese demand for gold jewellery in 2024 was balanced out by an increase in investment demand.','China is expected to buy more gold than any other country over the next few years.'] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'เลือกหัวข้อ i–vii ที่เหมาะที่สุดกับแต่ละย่อหน้า มีเกินมา 3 อัน',
+        text:`ย่อหน้า B–F เรียงตามลำดับในบทความ (A = ย่อหน้าแรก "In 2024 gold prices reached historical highs…")
+
+i. A return to gold's role under a system of fixed exchange rates
+ii. Survey findings on the motives behind official gold holdings
+iii. How a flexible supply could shape the market's future
+iv. Signs that political tensions now influence the gold price
+v. Disagreement among analysts over where gold prices are heading
+vi. Record official buying, yet consumers still account for most demand
+vii. The concentration of recent purchases among a handful of nations
+
+5. Paragraph B
+6. Paragraph C
+7. Paragraph E
+8. Paragraph F`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS)', note:'เติมช่องจากคำในบทความ',
+        text:`There are several signs that political factors now affect the gold price. For much of the period between 2008 and early 2022, the price of gold moved in the opposite direction to **(9)______**, but this relationship broke down after Russia's full-scale invasion of Ukraine in 2022. Research also links the use of **(10)______** to a rise in the proportion of reserves that countries hold as gold. In addition, states that are geopolitically close to China and Russia have raised their gold share more markedly since the **(11)______** of 2021.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'',
+        text:`**12.** According to the survey evidence in the passage, central banks hold gold mainly:
+A) to protect themselves against having their reserves frozen by other countries
+B) to diversify their portfolios and hedge against economic risks such as inflation and defaults
+C) to prepare for a breakdown of the international monetary system
+D) to make a profit from the rising price of gold
+
+**13.** The passage suggests that the future path of gold prices will depend largely on:
+A) whether geopolitical tensions continue or ease
+B) how many central banks take part in future surveys
+C) how easily the supply of gold can expand to meet higher demand
+D) the buying decisions of Türkiye, India and China`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — ย่อหน้า A: real gold prices 2024 "surpassed their previous peak" (1979) → สูงสุดเท่าที่เคยมีในราคาจริง
+
+2. FALSE — ย่อหน้า A: ทองเป็น "second largest global reserve asset… after the US dollar" ไม่ใช่อันดับหนึ่ง
+
+3. TRUE — ย่อหน้า B: "the decline in demand for jewellery consumption, particularly in China, was offset by higher demand for investment" (offset by = ถูกชดเชยด้วย)
+
+4. NOT GIVEN — ย่อหน้า D บอกแค่ผู้ซื้อรายใหญ่ที่ผ่านมา (Türkiye/India/China รวม >600 ตันตั้งแต่ปลายปี 2021) แต่ไม่พูดถึงการคาดการณ์อนาคตรายประเทศ · ไม่ใช่ FALSE เพราะ FALSE ต้องมีข้อความที่ขัดแย้ง (เช่นบอกว่าจีนจะซื้อน้อยลง) — บทความเงียบเรื่องอนาคต = NOT GIVEN
+
+5. vi — ย่อหน้า B: central bank demand แตะสถิติ >20% ของ demand โลก แต่ jewellery+investment ยัง "account for the bulk… remained at 70%"
+
+6. ii — ย่อหน้า C ทั้งย่อหน้าเป็นผลสำรวจ World Gold Council ว่าทำไมธนาคารกลางถือทอง
+
+7. iv — ย่อหน้า E: "further signs that geopolitical considerations influence decisions" + correlation ที่พังหลังปี 2022, งานวิจัย sanctions, ประเทศใกล้จีน-รัสเซีย
+
+8. iii — ย่อหน้า F: อนาคตราคาทอง "depend on the stickiness of gold supply" + supply ตอบสนอง "elastically" ต่อ demand
+
+   ตัวลวง: i (Bretton Woods อยู่ใน A ซึ่งไม่ถูกถาม เป็นแค่การเทียบระดับ) · v (บทความไม่มี "ความเห็นต่างของนักวิเคราะห์") · vii (การกระจุกตัวผู้ซื้ออยู่ใน D ซึ่งไม่ถูกถาม)
+
+9. real yields (รับ "US real yields" / "real long-term interest rates") — ย่อหน้า E: "negatively correlated with real yields"
+
+10. financial sanctions (รับ "sanctions") — ย่อหน้า E: "imposing financial sanctions is associated with increases in the share of central bank reserves held in gold"
+
+11. last quarter (รับ "fourth quarter") — ย่อหน้า E ประโยคสุดท้าย: "since the last quarter of 2021"
+
+12. B — ย่อหน้า C: "valued by reserve managers primarily as a portfolio diversifier to hedge against economic risks, including inflation, cyclical downturns and defaults" · A/C เป็นเหตุผลรอง (ย่อหน้า D, EMDE บางแห่ง) · D บทความไม่ได้ระบุ
+
+13. C — ย่อหน้า F: ผลต่อราคาขึ้นกับว่า supply จะยืดตาม demand ได้แค่ไหน · A เป็นตัวลวง (การเมืองสำคัญจริง แต่ F เจาะจงที่ supply)` },
   { id:'i0829mock', date:'29–30 ส.ค.', day:'เสาร์–อาทิตย์', part:'Mock', title:'🧪 Shared Mock #1 (ร่วมกับออม) — L + R + Writing T1+T2 + Speaking · ทำย้อนหลัง เสาร์–อาทิตย์ 5–6 ก.ย.', brief:'brief-2026-08-29-ielts-mock-01.md', url:'',
     sections:[
       { key:'m0', type:'text', label:'⚠️ กติกา — อ่านก่อนเริ่ม', note:'เลยกำหนดเพราะระบบพลาด (ชุดข้อสอบไม่ถูกเผยแพร่ทัน) ไม่ใช่ Ness ข้าม → ทำย้อนได้ baseline ยังมีความหมาย',
