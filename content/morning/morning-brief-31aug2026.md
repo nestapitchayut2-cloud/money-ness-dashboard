@@ -14,7 +14,7 @@
 
 ## 🧠 งานค้าง
 
-- **IELTS ค้างตรวจ 9 ชิ้น** ในแท็บ 🎯 IELTS (Speaking 13/14 ส.ค., Writing T2 14/21/28 ส.ค., Reading 17/24 ส.ค., Listening S2 18 ส.ค., S3 25 ส.ค.) — ทยอยส่งกลับมาตรวจได้เลย กด "📋 Copy ทุก Part" ในการ์ดแล้ววางในแชท
+- **IELTS ค้างตรวจ 11 ชิ้น** ในแท็บ 🎯 IELTS (สะสมตั้งแต่ 13 ส.ค. — Speaking, Writing T1/T2, Reading, Listening S2/S3, Sunday Mock + Shared Mock #1) — ยังไม่ส่งงานกลับมาตรวจเลยสักชิ้น ทยอยส่งได้เลย กด "📋 Copy ทุก Part" ในการ์ดแล้ววางในแชท ไม่งั้นไม่มี band วัดความคืบหน้า
 - **Quiz ค้าง:** Quiz #1 Tax Planning (ค้าง 17+ วัน — บทเรียน RMF + Thai ESG พร้อมแล้ว) · Quiz #6 Mutual Funds (ปลดล็อกแล้ว)
 
 ---
