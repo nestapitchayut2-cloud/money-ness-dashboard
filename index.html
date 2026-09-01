@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'1 ก.ย.', day:'อังคาร', topic:'IELTS Listening Section 4 (The Urban Landscape — trees & urban climate, 10 ข้อ + dictation) / EA: Sideways ~$4,442', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-01sep2026.md' },
   { label:'31 ส.ค.', day:'จันทร์', topic:'IELTS Reading (central bank gold buying — ECB, 13 ข้อ) / EA: Volatile ~$4,450–4,650', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-31aug2026.md' },
   { label:'28 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Adv/Disadv — investing in gold via ETFs) / EA: Sideways-Volatile $4,587', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-28aug2026.md' },
   { label:'25 ส.ค.', day:'อังคาร', topic:'IELTS Listening Section 3 (assignment extension / journal recommendations, 10 ข้อ) / EA: Trending $4,645', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-25aug2026.md' },
@@ -1515,6 +1516,70 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0901', date:'1 ก.ย.', day:'อังคาร', part:'Listening', title:'Section 4 — The Urban Landscape: trees & urban climate (ielts-up.com Test #7, 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-01sep2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-7.4.html',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
+      steps:['ฟังคลิปเต็มอีกรอบ (ไม่เปิด transcript ก่อน)','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เปิด transcript เช็คเฉพาะจุดที่จดไว้ — connected speech / คำไม่รู้จัก / ฟังตกพยางค์'] },
+    sections:[
+      { key:'a1', type:'text', label:'Questions 31–35 · NOTE COMPLETION', note:'เปิดเสียงบน ielts-up.com ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · Section 4 ไม่มีช่วงพักกลางทาง พูดยาวรวดเดียว ~5 นาที · Write NO MORE THAN TWO WORDS for each answer · สะกดผิด = ผิดทั้งข้อ',
+        text:`**THE URBAN LANDSCAPE**
+
+**Two areas of focus:**
+- the effect of vegetation on the urban climate
+- ways of planning our ______ (31) better
+
+**Large-scale impact of trees:**
+- they can make cities more or less ______ (32)
+- in summer they can make cities cooler
+- they can make inland cities more ______ (33)
+
+**Local impact of trees — they can make local areas:**
+- more ______ (34)
+- cooler / more humid / less windy
+- less ______ (35)`, placeholder:'31. \n32. \n33. \n34. \n35. ' },
+      { key:'a2', type:'text', label:'Questions 36–40 · NOTE COMPLETION', note:'ต่อจากไฟล์เสียงเดิม (ห้ามหยุดคั่น) · Write NO MORE THAN TWO WORDS for each answer',
+        text:`**Comparing trees and buildings**
+
+**Temperature regulation:**
+- trees evaporate water through their ______ (36)
+- building surfaces may reach high temperatures
+
+**Wind force:**
+- tall buildings cause more wind at ______ (37) level
+- trees ______ (38) the wind force
+
+**Noise:**
+- trees have a small effect on traffic noise
+- ______ (39) frequency noise passes through trees
+
+**Important points to consider:**
+- trees require a lot of sunlight, water and ______ (40) to grow`, placeholder:'36. \n37. \n38. \n39. \n40. ' },
+      { key:'a3', type:'text', label:'🎙️ Dictation (5 ประโยค)', note:'ฟังช่วงประมาณ 1:40–2:35 — เริ่มทันทีหลังผู้พูดถามว่า "How do trees do all that, you ask?" (ท่อนเทียบต้นไม้กับตึกเรื่องอุณหภูมิ) · ย้อนฟังซ้ำได้ เขียนตามให้ครบทุกคำทุกเครื่องหมาย',
+        text:`💡 คำที่สะกดยากในช่วงนี้: mechanism · evaporates · regulated · humidify · exploited — เขียนให้ครบ 5 ประโยค แล้วเทียบเฉลย`, placeholder:'1. \n2. \n3. \n4. \n5. ' }
+    ],
+    answerKey:`**Questions 31–40**
+
+31. cities — "how we can better plan our cities using trees"
+32. windy — "a bit less windy or a bit more windy" · โจทย์ "more or less ___" ต้องเป็น windy คำเดียว (เขียน "less windy"/"more windy" = เกิน 2 คำ ผิด)
+33. humid — "a bit more humid if it's a dry inland city"
+34. shady — "make the local area more shady, cooler, more humid and much less windy" (ตัวแรกของลิสต์)
+35. dangerous — "make city streets actually less dangerous"
+36. leaves — "It evaporates water through its leaves"
+37. ground — "high buildings make it windier at ground level"
+38. filter — "Trees filter the wind and considerably reduce it" · ตอบ "reduce" = ผิด เพราะ "reduce the wind force" อยู่ในโจทย์แล้ว ต้องเป็นกริยาที่ผู้พูดใช้จริง
+39. low — "Low-frequency noise, in particular, just goes through the trees" (frequency พิมพ์ในโจทย์แล้ว → ตอบ low คำเดียว)
+40. room — "you need room to put them" (sunlight + water พิมพ์ในโจทย์แล้ว)
+
+⚠️ กับดัก: 32 (เขียนทั้งวลี = เกิน 2 คำ) · 38 (ตอบ reduce ซ้ำโจทย์) · 40 (ได้ยิน water ซ้ำแล้วเขียน water)
+
+**Dictation — ฉบับเต็ม (Cambridge IELTS 4, Test 1, Section 4):**
+
+1. Well, the main difference between a tree and a building is a tree has got an internal mechanism to keep the temperature regulated.
+2. It evaporates water through its leaves and that means that the temperature of the leaves is never very far from our own body temperature.
+3. The temperature of a building surface on a hot sunny day can easily be twenty degrees more than our temperature.
+4. Trees, on the other hand, remain cooler than buildings because they sweat.
+5. This means that they can humidify the air and cool it — a property which can be exploited to improve the local climate.
+
+เช็ค: has got (ไม่ใช่ has) · evaporates/its (ไม่ใช่ it's) · degrees มี s · humidify · exploited · "a property which" (ผู้พูดใช้ which ไม่ใช่ that)` },
   { id:'i0831', date:'31 ส.ค.', day:'จันทร์', part:'Reading', title:'Central bank gold buying — the official sector & geopolitics (ECB, ~850 คำ, 13 ข้อ)', brief:'morning-brief-31aug2026.md', url:'https://www.ecb.europa.eu/press/other-publications/ire/focus/html/ecb.irebox202506_01~f93400a4aa.en.html',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
       steps:['ฟังรอบแรกไม่เปิด transcript — จับ gist ว่าแต่ละคนชอบ/เกลียดกลิ่นอะไรและเหตุผล','ฟังรอบสอง จดคำอธิบายกลิ่น (stinky, fragrant, subjective ฯลฯ) ที่ได้ยิน','เปิด transcript เช็คเฉพาะจุดที่จดไว้ตอนท้าย'] },
