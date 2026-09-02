@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'2 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (table — central bank net gold purchases by country 2019–2024, 150+ คำ / 20 นาที) / EA: Volatile ~$4,400–4,600 (hawkish Fed)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-02sep2026.md' },
   { label:'1 ก.ย.', day:'อังคาร', topic:'IELTS Listening Section 4 (The Urban Landscape — trees & urban climate, 10 ข้อ + dictation) / EA: Sideways ~$4,442', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-01sep2026.md' },
   { label:'31 ส.ค.', day:'จันทร์', topic:'IELTS Reading (central bank gold buying — ECB, 13 ข้อ) / EA: Volatile ~$4,450–4,650', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-31aug2026.md' },
   { label:'28 ส.ค.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Adv/Disadv — investing in gold via ETFs) / EA: Sideways-Volatile $4,587', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-28aug2026.md' },
@@ -1516,6 +1517,45 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0902', date:'2 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Table — net central bank gold purchases: China/India/Poland/Türkiye 2019–2024 (150+ คำ / 20 นาที)', brief:'morning-brief-02sep2026.md', url:'',
+    warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
+      steps:['เปิดเสียง + เปิด transcript คู่กัน ฟังรวดเดียวจบพร้อมอ่านตาม','ขีดจุดที่เสียงที่ได้ยินกับตัวสะกดไม่ตรงกับที่เดาไว้ 2 วันก่อน (connected speech, weak forms)','อ่านออกเสียงตามย่อหน้าสรุปศัพท์ท้ายรายการ 1 รอบ'] },
+    questions:`**Writing Task 1 — Academic (150+ คำ / จับเวลา 20 นาที)**
+
+The table below shows the net amount of gold (in tonnes) added to reserves by four central banks — China, India, Poland and Türkiye — in each year from 2019 to 2024, together with the total for all central banks worldwide.
+
+Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+
+Central bank | 2019 | 2020 | 2021 | 2022 | 2023 | 2024
+China (PBoC) | 96 | 0 | 0 | 62 | 225 | 44
+India (RBI) | 35 | 41 | 77 | 33 | 16 | 73
+Poland (NBP) | 100 | 0 | 0 | 0 | 130 | 90
+Türkiye (CBRT), net | 159 | 148 | −8 | 148 | −2 | 75
+All central banks (world total) | 605 | 255 | 450 | 1,082 | 1,037 | 1,045
+
+(ตัวเลขเรียบเรียง + ปัดจากข้อมูล World Gold Council เพื่อใช้ฝึก · ค่าติดลบ = ขายสุทธิปีนั้น)
+
+**Checklist ก่อนส่ง**
+
+1. ย่อหน้าเปิด = paraphrase โจทย์ ห้ามลอกประโยคโจทย์ตรงๆ
+2. Overview แยกเป็นประโยค/ย่อหน้าของตัวเองชัดเจน — 2 ภาพใหญ่: ยอดรวมทั่วโลกตกในปี 2020 แล้วพุ่งเกิน 1,000 ตันตั้งแต่ปี 2022 · อินเดียเป็นชาติเดียวที่ซื้อสุทธิทุกปี ส่วนจีนกับโปแลนด์กระจุกการซื้อไว้แค่ 2–3 ปี
+3. 2 ย่อหน้าเปรียบเทียบเฉพาะตัวเลขเด่นสุด ไม่ไล่ทุกช่อง — พีคจีน 225 (สูงสุดในตาราง) · โปแลนด์เด้งจาก 0 → 130 · ตุรกีผันผวนสุด ติดลบ 2 ปี · อินเดียนิ่งกว่าแต่แกว่งในกรอบ 16–77
+4. ห้ามมีย่อหน้าสรุปแบบเรียงความ · ห้ามใส่เหตุผล/ความเห็นว่าทำไมตัวเลขเป็นแบบนั้น
+
+💡 คำบรรยายแนวโน้ม 5 คำของสัปดาห์ (ใช้อย่างน้อย 3): surge · rebound · remain flat / negligible · fluctuate · account for
+
+⚠️ จุดพลาดเดิม 2 ครั้งติด: เขียนไม่ถึง 150 คำ + ไม่มี overview ที่ถูกต้อง — คราวนี้เขียนจนหมด 20 นาทีจริง และวาง overview เป็นประโยคเดี่ยวก่อนลงรายละเอียด`,
+    answerKey:`**Model answer (~190 คำ) — เทียบหลังเขียนเสร็จเท่านั้น**
+
+The table gives the yearly figures for gold bought, in tonnes, by the central banks of China, India, Poland and Türkiye between 2019 and 2024, alongside the combined total for all central banks around the world.
+
+Overall, worldwide official gold buying almost doubled across the period: after falling sharply to 255 tonnes in 2020, it surged past 1,000 tonnes from 2022 onwards. Among the four individual banks, India was the only one to add gold in every single year, whereas China and Poland concentrated almost all of their purchases into just two or three years.
+
+China and Poland followed a similar pattern. Both bought around 100 tonnes in 2019, then added little or nothing until 2023, when their purchases rebounded to 225 and 130 tonnes respectively before easing to 44 and 90 tonnes in 2024. China's 2023 figure was the highest single number in the table.
+
+Türkiye's activity fluctuated the most, ranging from 159 tonnes in 2019 to net sales in both 2021 and 2023. India's purchases were steadier but still varied, moving between a low of 16 tonnes in 2023 and a peak of 77 tonnes in 2021.
+
+(เรียงความไม่มีเฉลยตายตัว — ส่งมาให้ Claude ให้ band 4 เกณฑ์ TA/CC/LR/GRA + เวอร์ชันแก้เทียบ)` },
   { id:'i0901', date:'1 ก.ย.', day:'อังคาร', part:'Listening', title:'Section 4 — The Urban Landscape: trees & urban climate (ielts-up.com Test #7, 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-01sep2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-7.4.html',
     warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
       steps:['ฟังคลิปเต็มอีกรอบ (ไม่เปิด transcript ก่อน)','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เปิด transcript เช็คเฉพาะจุดที่จดไว้ — connected speech / คำไม่รู้จัก / ฟังตกพยางค์'] },
