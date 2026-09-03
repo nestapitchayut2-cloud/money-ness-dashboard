@@ -874,6 +874,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'3 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — a valuable thing your family has kept a long time; P3: gold as a store of value) + Content เทค 2 / EA: Trending-bullish + Volatile ~$4,388 (+2.75% วันเดียว)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-03sep2026.md' },
   { label:'2 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (table — central bank net gold purchases by country 2019–2024, 150+ คำ / 20 นาที) / EA: Volatile ~$4,400–4,600 (hawkish Fed)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-02sep2026.md' },
   { label:'1 ก.ย.', day:'อังคาร', topic:'IELTS Listening Section 4 (The Urban Landscape — trees & urban climate, 10 ข้อ + dictation) / EA: Sideways ~$4,442', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-01sep2026.md' },
   { label:'31 ส.ค.', day:'จันทร์', topic:'IELTS Reading (central bank gold buying — ECB, 13 ข้อ) / EA: Volatile ~$4,450–4,650', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-31aug2026.md' },
@@ -1517,6 +1518,34 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0903', date:'3 ก.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — Describe something valuable that you or your family have kept for a long time (เตรียม 1 นาที / พูด 2 นาที)', brief:'morning-brief-03sep2026.md', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
+    warmup:{ mode:'Shadowing', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
+      steps:[
+        'เปิดเสียง + เปิด transcript ควบคู่กัน (คลิปเดิมทั้งสัปดาห์)',
+        'พูดตามเสียงพร้อมกันแบบ real-time — ไล่ตามจังหวะ Neil กับ Georgie ห้ามหยุดรอ',
+        'เลียนเสียงหนัก-เบา (word stress) และจังหวะเชื่อมคำ (linking / weak forms) ให้เหมือนที่สุด',
+        'ตามไม่ทันช่วงไหน ปล่อยผ่านแล้วไล่ต่อทันที อย่าหยุดแก้',
+        'ทำ 2 รอบ — รอบสองต้องลื่นกว่ารอบแรก'
+      ] },
+    questions:`Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์):
+
+Describe something valuable that you or your family have kept for a long time.
+You should say:
+  - what it is
+  - how your family got it
+  - how it has been kept and looked after
+and explain why your family has kept it for so long.
+
+ใบ้: เลือกของจริงที่เล่าได้จากประสบการณ์ตัวเอง — สร้อยทอง/ทองรูปพรรณที่เก็บไว้ตั้งแต่แต่งงาน, เครื่องประดับส่งต่อรุ่นสู่รุ่น, พระเครื่อง, โฉนดที่ดิน, นาฬิกาเก่าของพ่อ
+
+Part 3 — ถกประเด็นต่อยอด (ตอบต่อจาก Part 2 ทันที ไม่ต้องเตรียมแยก):
+1. Why do people — and even governments — hold on to valuable physical things like gold, instead of keeping all of their wealth as money in a bank?
+2. Some people say that in the future, safe assets will look completely different — digital currencies or data rather than gold. To what extent do you agree?
+3. In terms of protecting value over many years, what is the real difference between keeping your savings in cash and keeping them in something like gold or property?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+🎯 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: reserves · diversification · bullion · safe-haven asset · de-dollarisation · geopolitical risk`,
+    answerKey:'' },
   { id:'i0902', date:'2 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Table — net central bank gold purchases: China/India/Poland/Türkiye 2019–2024 (150+ คำ / 20 นาที)', brief:'morning-brief-02sep2026.md', url:'',
     warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'How do we describe smells? — BBC Learning English 6 Minute English (EP 260827)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260827',
       steps:['เปิดเสียง + เปิด transcript คู่กัน ฟังรวดเดียวจบพร้อมอ่านตาม','ขีดจุดที่เสียงที่ได้ยินกับตัวสะกดไม่ตรงกับที่เดาไว้ 2 วันก่อน (connected speech, weak forms)','อ่านออกเสียงตามย่อหน้าสรุปศัพท์ท้ายรายการ 1 รอบ'] },
