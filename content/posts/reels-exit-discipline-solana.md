@@ -4,7 +4,7 @@
 **หัวข้อ:** Thesis Invalidation — ทำไมคนที่เชื่อถูกก็ยังเจ็บหนักได้ ถ้าไม่กำหนดจุดออกไว้ล่วงหน้า (เล่าผ่านเส้นทางราคา Solana)
 **Source:** ต่อยอดจาก Single Image เรื่อง High Conviction / Narrative-Driven (บรีฟเดียวกับคลิป CK Cheong x โช้ค — https://youtu.be/UMxAyoJfDL8) ตามระบบ "1 Brief = 4 Content" — Reel ตัวที่ 3 จากบรีฟนี้
 **สร้าง:** 4 กันยายน 2026
-**สถานะ:** ⏳ Draft — รอ Ness เลือก Hook
+**สถานะ:** ✅ Confirmed by Ness 4 ก.ย. 2026 ("ชอบทั้งหมดเลย") — push ขึ้น dashboard แล้ว (ยังไม่ได้ถ่ายจริง)
 
 ---
 

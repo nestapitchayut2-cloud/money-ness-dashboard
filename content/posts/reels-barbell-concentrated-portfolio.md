@@ -4,7 +4,7 @@
 **หัวข้อ:** Barbell Strategy — ทำไม "กระจายความเสี่ยงเยอะๆ" ไม่ใช่คำตอบเดียวเสมอไป และมันโยงกับ 50/35/15 ของผมเองยังไง
 **Source:** ต่อยอดจาก Single Image เรื่อง High Conviction / Narrative-Driven (บรีฟเดียวกับคลิป CK Cheong x โช้ค — https://youtu.be/UMxAyoJfDL8) ตามระบบ "1 Brief = 4 Content" — Reel ตัวที่ 4 จากบรีฟนี้
 **สร้าง:** 4 กันยายน 2026
-**สถานะ:** ⏳ Draft — รอ Ness เลือก Hook
+**สถานะ:** ✅ Confirmed by Ness 4 ก.ย. 2026 ("ชอบทั้งหมดเลย") — push ขึ้น dashboard แล้ว (ยังไม่ได้ถ่ายจริง)
 
 ---
 
