@@ -2676,11 +2676,11 @@ function generateContentPrompt() {
 
   const prompt = `🎯 Content Request — The Money Ness
 
-ก่อนเริ่ม: อ่านไฟล์เหล่านี้ก่อน
-- SHARED/ness-profile.md — ตัวตนและสไตล์ของ Ness
-- SHARED/weekly-topics.md — Layer + หัวข้อสัปดาห์นี้
-- MASTER-WORKFLOW.md (ที่ root ของ Claude Workspace) — กฎระบบ + format มาตรฐาน
-- SHARED/style-guide.md — Reel DNA, tone, โครงสร้าง, CTA rules
+ก่อนเริ่ม: อ่านไฟล์เหล่านี้ก่อน (อยู่ใน repo money-ness-dashboard → system/ — อ่านได้แม้ไม่เชื่อมต่อคอมนี้ ผ่าน GitHub raw URL)
+- system/ness-profile.md — ตัวตนและสไตล์ของ Ness
+- system/weekly-topics.md — Layer + หัวข้อสัปดาห์นี้
+- MASTER-WORKFLOW.md (ที่ root ของ Claude Workspace หรือ system/MASTER-WORKFLOW.md เป็น mirror) — กฎระบบ + format มาตรฐาน
+- system/style-guide.md — Reel DNA, tone, โครงสร้าง, CTA rules
 
 หัวข้อ: ${topic}
 Format: ${formatDesc}
