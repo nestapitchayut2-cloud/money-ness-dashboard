@@ -178,6 +178,8 @@
   .qc-copy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
   .qc-hint { font-size: 11px; color: #475569; line-height: 1.5; padding: 10px 12px; background: #12151f; border-radius: 8px; border: 1px solid #2d3148; }
   .qc-hint strong { color: #64748b; }
+  .qc-select { width: 100%; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; cursor: pointer; }
+  .qc-select:focus { border-color: #39ff14; }
 
   /* Quiz History */
   .quiz-stat { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 100px; }
@@ -809,6 +811,13 @@
         <button class="qc-type-btn active" id="qcBtn-post" onclick="selectQcType('โพสต์', this)">📸 โพสต์</button>
         <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
         <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
+      </div>
+      <div class="qc-row" id="qcStyleRow">
+        <select class="qc-select" id="qcImageStyle">
+          <option value="both" selected>🎨 Gemini Image Brief: ให้ Claude เสนอ 2 สไตล์ (default)</option>
+          <option value="moody">🌙 สไตล์เดียว: Moody / Still Life</option>
+          <option value="aggressive">🔥 สไตล์เดียว: Aggressive / Dramatic (Money Buffalo)</option>
+        </select>
       </div>
       <div class="qc-hint">
         <strong>วิธีใช้:</strong> พิมหัวข้อ → เลือก format → กด Copy → วาง prompt ใน Claude chat<br>
@@ -2619,6 +2628,8 @@ function selectQcType(type, btn) {
   qcType = type;
   document.querySelectorAll('.qc-type-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  const styleRow = document.getElementById('qcStyleRow');
+  if (styleRow) styleRow.style.display = (type === 'โพสต์') ? '' : 'none';
 }
 
 function generateContentPrompt() {
@@ -2627,6 +2638,19 @@ function generateContentPrompt() {
 
   let formatDesc = '';
   let instructions = '';
+
+  let imageStyleInstruction = '';
+  if (qcType === 'โพสต์') {
+    const styleSel = document.getElementById('qcImageStyle');
+    const styleVal = styleSel ? styleSel.value : 'both';
+    if (styleVal === 'moody') {
+      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🌙 Moody / Still Life (Conceptual Still Life, photorealistic render, Chiaroscuro lighting, มู้ดขรึม สัญลักษณ์ซ้อนทับ) ตามที่บันทึกไว้ใน style-guide.md';
+    } else if (styleVal === 'aggressive') {
+      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🔥 Aggressive / Dramatic (Money Buffalo style): Macro photography ของวัตถุจริง, Symbolic/Aggressive Object Scaling, Aggressive Directional Lighting, High-contrast chiaroscuro, สีสันสดจัดจ้าน ตามสูตรที่บันทึกไว้ใน style-guide.md';
+    } else {
+      imageStyleInstruction = 'Gemini Image Brief: ทำ 2 สไตล์ตาม format บังคับใน style-guide.md (### Style: 🌙 Moody / Still Life และ ### Style: 🔥 Aggressive / Dramatic) ให้ Ness เลือกทีหลังบนเว็บ';
+    }
+  }
 
   if (qcType === 'โพสต์') {
     formatDesc = 'Single Image + Long-form Caption (ภาษาไทย casual) + Gemini Image Brief';
@@ -2648,6 +2672,8 @@ function generateContentPrompt() {
     instructions = 'เนื้อหาเชิงลึก มีตาราง ตัวเลขจริง Fact-Check badge ถ้ามีข้อมูลที่ต้อง verify และ Reflective Question ท้าย';
   }
 
+  const styleBlock = imageStyleInstruction ? `\n${imageStyleInstruction}\n` : '';
+
   const prompt = `🎯 Content Request — The Money Ness
 
 ก่อนเริ่ม: อ่านไฟล์เหล่านี้ก่อน
@@ -2660,7 +2686,7 @@ function generateContentPrompt() {
 Format: ${formatDesc}
 
 คำแนะนำ: ${instructions}
-
+${styleBlock}
 Tone: ภาษาไทย casual — เหมือนเพื่อนที่ลงทุนจริงมาเล่าให้ฟัง
 เพจ: The Money Ness — สำหรับมนุษย์เงินเดือนไทยที่อยากสร้างความมั่งคั่ง`;
 
