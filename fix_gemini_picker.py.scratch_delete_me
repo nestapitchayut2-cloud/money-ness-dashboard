@@ -1,0 +1,95 @@
+import io, sys
+
+path = sys.argv[1] if len(sys.argv) > 1 else 'index.html'
+
+with io.open(path, encoding='utf-8') as f:
+    content = f.read()
+
+# First, undo the garbled patch if present (detect by the broken regex marker)
+broken_marker = "function extractGeminiBriefStyles(markdown) {\n  const re = /### Style: (.+?)"
+if broken_marker in content:
+    start = content.index("\n// ── Gemini Image Brief style picker ──")
+    end_marker = "  bar.appendChild(select);\n  bar.appendChild(btn);\n  targetHeading.insertAdjacentElement('afterend', bar);\n}"
+    end = content.index(end_marker) + len(end_marker)
+    content = content[:start] + content[end:]
+    # also remove the two lines calling the functions inside openBriefFile, restore original
+    called = "    bodyEl.innerHTML = marked.parse(content);\n    const geminiStyles = extractGeminiBriefStyles(content);\n    if (geminiStyles.length) injectGeminiStylePicker(bodyEl, geminiStyles);\n  } catch(e) {"
+    original_call = "    bodyEl.innerHTML = marked.parse(content);\n  } catch(e) {"
+    if called in content:
+        content = content.replace(called, original_call, 1)
+
+anchor = """  try {
+    const content = await fetchContent(fileName);
+    titleEl.textContent = fileName.replace('.md','').replace(/-/g,' ');
+    bodyEl.innerHTML = marked.parse(content);
+  } catch(e) {
+    bodyEl.innerHTML = '<p style="color:#ef4444">❌ ' + e.message + '</p>';
+  }
+}"""
+
+assert content.count(anchor) == 1, "anchor not found or not unique: " + str(content.count(anchor))
+
+new_block = r"""  try {
+    const content = await fetchContent(fileName);
+    titleEl.textContent = fileName.replace('.md','').replace(/-/g,' ');
+    bodyEl.innerHTML = marked.parse(content);
+    const geminiStyles = extractGeminiBriefStyles(content);
+    if (geminiStyles.length) injectGeminiStylePicker(bodyEl, geminiStyles);
+  } catch(e) {
+    bodyEl.innerHTML = '<p style="color:#ef4444">❌ ' + e.message + '</p>';
+  }
+}
+
+// ── Gemini Image Brief style picker ──
+// Convention (ดู style-guide.md → GEMINI IMAGE BRIEF FORMAT): เขียน prompt แต่ละสไตล์คั่นด้วย
+// '### Style: <emoji label>' ตามด้วย prompt ของสไตล์นั้น จบสไตล์เมื่อเจอ '### Style:' ถัดไป, 'ข้อความภาษาไทย', หรือ '---'
+function extractGeminiBriefStyles(markdown) {
+  const re = /### Style: (.+?)\r?\n([\s\S]*?)(?=\r?\n### Style:|\r?\nข้อความภาษาไทย|\r?\n---|$)/g;
+  const styles = [];
+  let m;
+  while ((m = re.exec(markdown)) !== null) {
+    const text = m[2].trim();
+    if (text) styles.push({ label: m[1].trim(), text: text });
+  }
+  return styles;
+}
+
+function injectGeminiStylePicker(bodyEl, styles) {
+  const headings = bodyEl.querySelectorAll('h2, h3');
+  let targetHeading = null;
+  headings.forEach(h => { if (h.textContent.includes('Gemini Image Brief')) targetHeading = h; });
+  if (!targetHeading) return;
+  const bar = document.createElement('div');
+  bar.style.cssText = 'margin:10px 0 16px;padding:10px 12px;background:#f1f5f9;border-radius:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px';
+  const label = document.createElement('span');
+  label.textContent = '🎨 เลือกสไตล์ภาพก่อน copy:';
+  label.style.cssText = 'font-weight:600;color:#334155';
+  const select = document.createElement('select');
+  select.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid #cbd5e1;font-size:14px';
+  styles.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = s.label;
+    select.appendChild(opt);
+  });
+  const btn = document.createElement('button');
+  btn.textContent = '📋 Copy Prompt';
+  btn.style.cssText = 'padding:6px 14px;border-radius:6px;border:none;background:#2563eb;color:#fff;cursor:pointer;font-weight:600;font-size:14px';
+  btn.onclick = () => {
+    const chosen = styles[select.value];
+    navigator.clipboard.writeText(chosen.text).then(() =>
+      (typeof showToast==='function') ? showToast('📋 คัดลอก Prompt สไตล์ "' + chosen.label + '" แล้ว') : alert('คัดลอกแล้ว')
+    );
+  };
+  bar.appendChild(label);
+  bar.appendChild(select);
+  bar.appendChild(btn);
+  targetHeading.insertAdjacentElement('afterend', bar);
+}"""
+
+content = content.replace(anchor, new_block, 1)
+
+with io.open(path, 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print("patched OK, new size", len(content))
