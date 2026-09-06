@@ -3,432 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- SNAPSHOT: copied from THE-MONEY-NESS/series-money-manual/01-topic-map-tracker.html — re-copy when the source changes -->
-</head>
-<body>
 <title>Topic Map Tracker</title>
-<meta name="description" content="ตัวติดตามสถานะ 70 หัวข้อของซีรีส์คู่มือการเงินมนุษย์เงินเดือน" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" />
-
+<meta name="description" content="ตัวติดตามสถานะ 70 หัวข้อของซีรีส์คู่มือการเงินมนุษย์เงินเดือน — ฝังใน The Money Ness Dashboard" />
+<!--
+  DASHBOARD-NATIVE build. Restyled dark to match The Money Ness Dashboard and
+  wired to Quick Content (postMessage). The stand-alone light version lives at
+  THE-MONEY-NESS/series-money-manual/01-topic-map-tracker.html — only the DATA
+  array needs to be kept in sync between the two; styling here is intentional.
+  Copy of this file also at SHARED/money-manual-tracker.html.
+-->
 <style>
-  :root {
-    --bg: #f3f6f2;
-    --surface: #ffffff;
-    --surface-2: #ecefe9;
-    --ink: #1a201c;
-    --ink-soft: #3c453f;
-    --muted: #67716a;
-    --line: #dce1da;
-    --line-strong: #c7cec5;
-    --accent: #1d7a58;
-    --accent-ink: #10432f;
-    --accent-soft: #e0efe7;
-
-    --idle: #97a19a;
-    --idle-soft: #e8ebe6;
-    --queued: #5f7d97;
-    --queued-soft: #e6edf2;
-    --writing: #b9781f;
-    --writing-soft: #f6ebd8;
-    --done: #1d7a58;
-    --done-soft: #d9ece2;
-
-    --shadow: 0 1px 2px rgba(20, 34, 27, .05), 0 6px 20px -12px rgba(20, 34, 27, .18);
-    --radius: 10px;
-    --step--1: .78rem;
-    --step-0: .94rem;
-    --step-1: 1.14rem;
-    --step-2: 1.5rem;
-    --step-3: 2.1rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #12160f;
-      --surface: #191f19;
-      --surface-2: #232a23;
-      --ink: #e7ede6;
-      --ink-soft: #c3ccc2;
-      --muted: #929c92;
-      --line: #2c342c;
-      --line-strong: #3b453b;
-      --accent: #57c095;
-      --accent-ink: #b8e6d2;
-      --accent-soft: #16352a;
-
-      --idle: #7c857d;
-      --idle-soft: #262d26;
-      --queued: #8fadc6;
-      --queued-soft: #1f2c36;
-      --writing: #e0a659;
-      --writing-soft: #382c19;
-      --done: #57c095;
-      --done-soft: #123528;
-
-      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 26px -14px rgba(0, 0, 0, .6);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #12160f;
-    --surface: #191f19;
-    --surface-2: #232a23;
-    --ink: #e7ede6;
-    --ink-soft: #c3ccc2;
-    --muted: #929c92;
-    --line: #2c342c;
-    --line-strong: #3b453b;
-    --accent: #57c095;
-    --accent-ink: #b8e6d2;
-    --accent-soft: #16352a;
-
-    --idle: #7c857d;
-    --idle-soft: #262d26;
-    --queued: #8fadc6;
-    --queued-soft: #1f2c36;
-    --writing: #e0a659;
-    --writing-soft: #382c19;
-    --done: #57c095;
-    --done-soft: #123528;
-
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 26px -14px rgba(0, 0, 0, .6);
-  }
-
   * { box-sizing: border-box; }
-
+  [hidden] { display: none !important; }
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "IBM Plex Sans Thai", "Anuphan", system-ui, sans-serif;
-    font-size: var(--step-0);
-    line-height: 1.6;
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
+  .wrap { padding: 2px 2px 18px; }
 
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px 96px; }
+  .intro { font-size: 11.5px; color: #64748b; margin: 0 0 12px; line-height: 1.6; }
+  .intro b { color: #94a3b8; }
 
-  /* ---------- header ---------- */
-  header.hero {
-    padding: 40px 0 22px;
-  }
-  .eyebrow {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: var(--step--1);
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 10px;
-  }
-  h1 {
-    font-family: "Anuphan", "IBM Plex Sans Thai", sans-serif;
-    font-weight: 700;
-    font-size: var(--step-3);
-    line-height: 1.15;
-    letter-spacing: -.01em;
-    text-wrap: balance;
-    margin: 0 0 8px;
-  }
-  .sub {
-    color: var(--muted);
-    max-width: 62ch;
-    margin: 0;
-  }
-
-  /* ---------- sticky progress ---------- */
-  .dash {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    margin: 22px 0 0;
-    padding: 16px 18px;
-    background: color-mix(in srgb, var(--surface) 88%, transparent);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
-  .bar {
-    display: flex;
-    height: 12px;
-    border-radius: 999px;
-    overflow: hidden;
-    background: var(--idle-soft);
-    border: 1px solid var(--line);
-  }
+  /* progress dash */
+  .dash { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 13px 15px; }
+  .bar { display: flex; height: 8px; border-radius: 99px; overflow: hidden; background: #2d3148; }
   .bar > span { display: block; transition: width .35s ease; }
-  .bar .s-done { background: var(--done); }
-  .bar .s-writing { background: var(--writing); }
-  .bar .s-queued { background: var(--queued); }
+  .bar .s-done { background: #39ff14; }
+  .bar .s-writing { background: #fb923c; }
+  .bar .s-queued { background: #60a5fa; }
+  .legend-counts { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 11px; font-size: 11px; }
+  .lc { display: inline-flex; align-items: center; gap: 6px; color: #94a3b8; }
+  .lc b { color: #e2e8f0; font-variant-numeric: tabular-nums; }
+  .dot { width: 8px; height: 8px; border-radius: 3px; flex: none; }
+  .dot.done { background: #39ff14; }
+  .dot.writing { background: #fb923c; }
+  .dot.queued { background: #60a5fa; }
+  .dot.idle { background: #64748b; }
 
-  .legend-counts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 18px;
-    margin-top: 12px;
-    font-size: var(--step--1);
-  }
-  .lc { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-soft); }
-  .lc b {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: var(--step-0);
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
-  .dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
-  .dot.done { background: var(--done); }
-  .dot.writing { background: var(--writing); }
-  .dot.queued { background: var(--queued); }
-  .dot.idle { background: var(--idle); }
-
-  /* ---------- toolbar ---------- */
-  .toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    margin: 20px 0 8px;
-  }
-  .search {
-    flex: 1 1 220px;
-    min-width: 180px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: var(--surface);
-    border: 1px solid var(--line-strong);
-    border-radius: 8px;
-  }
-  .search input {
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    font: inherit;
-    font-size: var(--step--1);
-    width: 100%;
-    outline: none;
-  }
-  .search svg { flex: none; color: var(--muted); }
+  /* toolbar */
+  .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 6px; }
+  .search { flex: 1 1 200px; min-width: 160px; display: flex; align-items: center; gap: 8px; padding: 7px 11px; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; }
+  .search input { border: 0; background: transparent; color: #e2e8f0; font: inherit; font-size: 12px; width: 100%; outline: none; }
+  .search input::placeholder { color: #475569; }
+  .search svg { flex: none; color: #64748b; }
 
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    font: inherit;
-    font-size: var(--step--1);
-    padding: 6px 11px;
-    border-radius: 999px;
-    border: 1px solid var(--line-strong);
-    background: var(--surface);
-    color: var(--ink-soft);
-    cursor: pointer;
-    transition: background .15s, border-color .15s, color .15s;
-    white-space: nowrap;
-  }
-  .chip:hover { border-color: var(--accent); }
-  .chip[aria-pressed="true"] {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-  :root[data-theme="dark"] .chip[aria-pressed="true"],
-  .chip[aria-pressed="true"] { color: #fff; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #0c1a13; }
-  }
-  :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #0c1a13; }
+  .chip { font: inherit; font-size: 11px; padding: 5px 10px; border-radius: 99px; border: 1px solid #2d3148; background: #12151f; color: #94a3b8; cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .chip:hover { border-color: #3d4468; color: #cbd5e1; }
+  .chip[aria-pressed="true"] { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
 
-  .ghost-btn {
-    font: inherit;
-    font-size: var(--step--1);
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--line-strong);
-    background: transparent;
-    color: var(--ink-soft);
-    cursor: pointer;
-  }
-  .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .ghost-btn { font: inherit; font-size: 11px; padding: 5px 11px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #94a3b8; cursor: pointer; transition: all .15s; }
+  .ghost-btn:hover { border-color: #3d4468; color: #cbd5e1; }
 
-  .meta-line {
-    font-size: var(--step--1);
-    color: var(--muted);
-    margin: 4px 0 26px;
-  }
-  .meta-line .key { color: var(--ink-soft); }
+  .meta-line { font-size: 11px; color: #64748b; margin: 4px 0 18px; line-height: 1.6; }
+  .meta-line .key { color: #94a3b8; }
+  .meta-line b { color: #94a3b8; }
 
-  /* ---------- category ---------- */
-  .cat { margin: 0 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
-  .cat-head {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 14px;
-    width: 100%;
-    text-align: left;
-    padding: 15px 18px;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    cursor: pointer;
-    font: inherit;
-    color: var(--ink);
-  }
+  /* category */
+  .cat { margin: 0 0 10px; border: 1px solid #2d3148; border-radius: 10px; background: #1a1d27; overflow: hidden; }
+  .cat-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 11px 14px; background: transparent; border: 0; border-bottom: 1px solid #2d3148; cursor: pointer; font: inherit; color: #e2e8f0; }
   .cat[data-open="false"] .cat-head { border-bottom-color: transparent; }
-  .cat-letter {
-    width: 34px; height: 34px;
-    display: grid; place-items: center;
-    border-radius: 9px;
-    background: var(--accent-soft);
-    color: var(--accent-ink);
-    font-family: "Anuphan", sans-serif;
-    font-weight: 700;
-    font-size: var(--step-1);
-  }
-  .cat-title { font-family: "Anuphan", sans-serif; font-weight: 600; font-size: var(--step-1); }
-  .cat-desc { color: var(--muted); font-size: var(--step--1); font-weight: 400; }
-  .cat-right { display: flex; align-items: center; gap: 14px; }
-  .cat-frac {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: var(--step--1);
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-  }
-  .cat-frac b { color: var(--done); }
-  .mini-bar { width: 74px; height: 6px; border-radius: 999px; background: var(--idle-soft); overflow: hidden; display: flex; }
+  .cat-letter { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; background: #1e3a5f; color: #93c5fd; font-weight: 700; font-size: 14px; }
+  .cat-title { font-weight: 600; font-size: 13px; }
+  .cat-desc { color: #64748b; font-size: 11px; font-weight: 400; }
+  .cat-right { display: flex; align-items: center; gap: 12px; }
+  .cat-frac { font-size: 11px; color: #64748b; font-variant-numeric: tabular-nums; }
+  .cat-frac b { color: #39ff14; }
+  .mini-bar { width: 64px; height: 5px; border-radius: 99px; background: #2d3148; overflow: hidden; display: flex; }
   .mini-bar span { display: block; }
-  .mini-bar .m-done { background: var(--done); }
-  .mini-bar .m-writing { background: var(--writing); }
-  .mini-bar .m-queued { background: var(--queued); }
-  .chev { color: var(--muted); transition: transform .2s; }
+  .mini-bar .m-done { background: #39ff14; }
+  .mini-bar .m-writing { background: #fb923c; }
+  .mini-bar .m-queued { background: #60a5fa; }
+  .chev { color: #64748b; transition: transform .2s; }
   .cat[data-open="false"] .chev { transform: rotate(-90deg); }
-
   .cat-body { display: block; }
   .cat[data-open="false"] .cat-body { display: none; }
 
-  /* ---------- topic row ---------- */
-  .row {
-    display: grid;
-    grid-template-columns: 46px 1fr auto;
-    gap: 6px 14px;
-    align-items: start;
-    padding: 13px 18px;
-    border-bottom: 1px solid var(--line);
-  }
+  /* topic row */
+  .row { display: grid; grid-template-columns: 42px 1fr auto; gap: 4px 12px; align-items: start; padding: 11px 14px; border-bottom: 1px solid #23283b; }
   .row:last-child { border-bottom: 0; }
-  .row.is-done .row-title { color: var(--muted); }
-
-  .code {
-    font-family: "IBM Plex Mono", monospace;
-    font-weight: 600;
-    font-size: var(--step--1);
-    padding: 2px 0;
-    color: var(--muted);
-  }
-  .row.is-done .code { color: var(--done); }
-  .row.is-writing .code { color: var(--writing); }
-  .row.is-queued .code { color: var(--queued); }
-
+  .row.is-done .row-title { color: #64748b; }
+  .code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-weight: 600; font-size: 11px; padding: 2px 0; color: #64748b; }
+  .row.is-done .code { color: #39ff14; }
+  .row.is-writing .code { color: #fb923c; }
+  .row.is-queued .code { color: #60a5fa; }
   .row-main { min-width: 0; }
-  .row-title { font-weight: 500; line-height: 1.45; }
+  .row-title { font-weight: 500; font-size: 12.5px; line-height: 1.45; color: #e2e8f0; }
   .row-title .flags { display: inline-flex; gap: 4px; margin-inline-start: 6px; vertical-align: baseline; }
-  .flag {
-    font-size: .72rem;
-    line-height: 1;
-    padding: 3px 5px;
-    border-radius: 5px;
-    background: var(--surface-2);
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-  .row-angle { color: var(--muted); font-size: var(--step--1); line-height: 1.5; margin-top: 3px; }
-  .lvl {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: .68rem;
-    padding: 2px 5px;
-    border-radius: 4px;
-    border: 1px solid var(--line-strong);
-    color: var(--muted);
-    margin-inline-start: 6px;
-  }
+  .flag { font-size: 10px; line-height: 1; padding: 3px 5px; border-radius: 5px; background: #12151f; color: #94a3b8; white-space: nowrap; }
+  .lvl { font-family: ui-monospace, Consolas, monospace; font-size: 10px; padding: 2px 5px; border-radius: 4px; border: 1px solid #2d3148; color: #64748b; margin-inline-start: 6px; }
+  .row-angle { color: #94a3b8; font-size: 11px; line-height: 1.5; margin-top: 3px; }
+  .mm-content-btn { margin-top: 7px; font: inherit; font-size: 10.5px; font-weight: 600; padding: 4px 10px; border-radius: 6px; border: 1px solid #2d3148; background: #12151f; color: #39ff14; cursor: pointer; transition: all .15s; }
+  .mm-content-btn:hover { background: #0d1f0d; border-color: #1a4d1a; }
 
-  .status {
-    grid-column: 3;
-    display: inline-flex;
-    border: 1px solid var(--line-strong);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--surface);
-  }
-  .status button {
-    font: inherit;
-    font-size: .74rem;
-    padding: 6px 9px;
-    border: 0;
-    border-inline-start: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background .12s, color .12s;
-  }
+  .status { grid-column: 3; display: inline-flex; border: 1px solid #2d3148; border-radius: 8px; overflow: hidden; background: #12151f; }
+  .status button { font: inherit; font-size: 10.5px; padding: 6px 9px; border: 0; border-inline-start: 1px solid #2d3148; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap; transition: background .12s, color .12s; }
   .status button:first-child { border-inline-start: 0; }
-  .status button:hover { background: var(--surface-2); }
-  .status button[aria-pressed="true"] { color: #fff; font-weight: 600; }
-  .status button.st-idle[aria-pressed="true"] { background: var(--idle); }
-  .status button.st-queued[aria-pressed="true"] { background: var(--queued); }
-  .status button.st-writing[aria-pressed="true"] { background: var(--writing); }
-  .status button.st-done[aria-pressed="true"] { background: var(--done); }
+  .status button:hover { background: #1a1d27; color: #94a3b8; }
+  .status button[aria-pressed="true"] { font-weight: 700; }
+  .status button.st-idle[aria-pressed="true"] { background: #334155; color: #e2e8f0; }
+  .status button.st-queued[aria-pressed="true"] { background: #1e3a5f; color: #93c5fd; }
+  .status button.st-writing[aria-pressed="true"] { background: #3a2a12; color: #fdba74; }
+  .status button.st-done[aria-pressed="true"] { background: #0d2b0d; color: #39ff14; }
 
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  :focus-visible { outline: 2px solid #39ff14; outline-offset: 2px; border-radius: 4px; }
+  .empty-cat { padding: 14px; color: #64748b; font-size: 11px; }
 
-  .empty-cat { padding: 16px 18px; color: var(--muted); font-size: var(--step--1); }
-
-  .foot {
-    margin-top: 34px;
-    padding-top: 18px;
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: var(--step--1);
-  }
-  .toast {
-    position: fixed;
-    left: 50%;
-    bottom: 26px;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--ink);
-    color: var(--bg);
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-size: var(--step--1);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s, transform .2s;
-    z-index: 50;
-  }
+  .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%) translateY(16px); background: #1a1d27; border: 1px solid #39ff14; color: #39ff14; padding: 9px 16px; border-radius: 10px; font-size: 12px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 640px) {
-    header.hero { padding-top: 28px; }
-    .row { grid-template-columns: 40px 1fr; }
+    .row { grid-template-columns: 36px 1fr; }
     .status { grid-column: 1 / -1; margin-top: 8px; width: 100%; }
     .status button { flex: 1; text-align: center; }
     .cat-head { grid-template-columns: auto 1fr; }
     .cat-right { grid-column: 2; justify-content: flex-start; margin-top: 4px; }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
-
+</head>
+<body>
 <div class="wrap">
-  <header class="hero">
-    <p class="eyebrow">The Money Ness · Series Planning</p>
-    <h1>คู่มือการเงินมนุษย์เงินเดือน — ตัวติดตามหัวข้อ</h1>
-    <p class="sub">70 หัวข้อจาก Topic Map · กดปุ่มสถานะแต่ละหัวข้อเพื่อบันทึกว่า <b>เข้าคิว</b> / <b>กำลังเขียน</b> / <b>เผยแพร่แล้ว</b> ความคืบหน้าถูกเก็บไว้ในเบราว์เซอร์นี้อัตโนมัติ</p>
-  </header>
+  <p class="intro">
+    70 หัวข้อจาก Topic Map · กดปุ่มสถานะแต่ละหัวข้อเพื่อบันทึกว่า <b>เข้าคิว / กำลังเขียน / เผยแพร่แล้ว</b>
+    · กด <b>✍️ ทำ content</b> เพื่อส่งหัวข้อ + มุมเล่าไปช่อง Quick Content ด้านล่าง · สถานะเก็บในเบราว์เซอร์นี้อัตโนมัติ
+  </p>
 
   <div class="dash" id="dash">
     <div class="bar" id="bar" role="img" aria-label="ความคืบหน้ารวม">
@@ -447,7 +151,7 @@
 
   <div class="toolbar">
     <label class="search">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input type="search" id="q" placeholder="ค้นหาหัวข้อ / มุมเล่า…" aria-label="ค้นหาหัวข้อ" />
     </label>
     <div class="chips" id="chips">
@@ -461,6 +165,7 @@
       <button class="chip" data-filter="state:done" aria-pressed="false">เผยแพร่แล้ว</button>
       <button class="chip" data-filter="state:idle" aria-pressed="false">ยังไม่เลือก</button>
     </div>
+    <button class="ghost-btn" id="expandBtn">กางทุกหมวด</button>
     <button class="ghost-btn" id="copyBtn">คัดลอกสรุป</button>
     <button class="ghost-btn" id="resetBtn">ล้างสถานะ</button>
   </div>
@@ -471,11 +176,6 @@
   </p>
 
   <div id="cats"></div>
-
-  <p class="foot">
-    สถานะบันทึกเฉพาะในเบราว์เซอร์ที่เปิดหน้านี้ (localStorage) — ไม่ซิงก์ข้ามเครื่อง ·
-    ขั้นถัดไปเมื่อเลือกหัวข้อแล้ว: สร้างไฟล์ <code>article-YYYY-MM-DD-slug.md</code> ตามโครง 8 ส่วนใน 00-series-plan.md
-  </p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -601,6 +301,39 @@
   }
   function stateOf(id) { return store[id] || "idle"; }
 
+  /* ── send a topic to the dashboard's Quick Content box (falls back to clipboard) ── */
+  function sendToQuickContent(t, a) {
+    const payload = { type: "mm-quickcontent", topic: t, angle: a };
+    let sent = false;
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage(payload, "*");
+        sent = true;
+      }
+    } catch (e) {}
+    const txt = a ? (t + " — " + a) : t;
+    try { if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(function(){}); } catch (e) {}
+    toast(sent ? "✍️ ส่งไป Quick Content แล้ว" : "📋 คัดลอกหัวข้อแล้ว — วางใน Quick Content");
+  }
+
+  /* ── tell the parent how tall we are so the iframe can grow with the content ── */
+  let heightTimer;
+  function reportHeight() {
+    clearTimeout(heightTimer);
+    heightTimer = setTimeout(function () {
+      try {
+        if (window.parent && window.parent !== window) {
+          const wrap = document.querySelector(".wrap");
+          const h = Math.ceil(Math.max(
+            document.body.scrollHeight,
+            wrap ? wrap.getBoundingClientRect().height + 4 : 0
+          ));
+          window.parent.postMessage({ type: "mm-height", height: h }, "*");
+        }
+      } catch (e) {}
+    }, 40);
+  }
+
   const catsEl = document.getElementById("cats");
 
   function build() {
@@ -608,13 +341,13 @@
     DATA.forEach(cat => {
       const wrap = document.createElement("section");
       wrap.className = "cat";
-      wrap.dataset.open = "true";
+      wrap.dataset.open = "false";
       wrap.dataset.cat = cat.c;
 
       const head = document.createElement("button");
       head.className = "cat-head";
       head.type = "button";
-      head.setAttribute("aria-expanded", "true");
+      head.setAttribute("aria-expanded", "false");
       head.innerHTML = `
         <span class="cat-letter">${cat.c}</span>
         <span>
@@ -632,6 +365,7 @@
         const open = wrap.dataset.open === "true";
         wrap.dataset.open = open ? "false" : "true";
         head.setAttribute("aria-expanded", open ? "false" : "true");
+        reportHeight();
       });
 
       const body = document.createElement("div");
@@ -649,10 +383,13 @@
           <span class="row-main">
             <span class="row-title">${tp.t}<span class="flags">${flagsHtml}</span><span class="lvl" title="ระดับ ${LVL_LABEL[tp.lvl]}">${tp.lvl}</span></span>
             <span class="row-angle">${tp.a}</span>
+            <button type="button" class="mm-content-btn">✍️ ทำ content จากหัวข้อนี้</button>
           </span>
           <span class="status" role="group" aria-label="สถานะ ${tp.id}">
             ${STATES.map(s => `<button type="button" class="st-${s.k}" data-state="${s.k}" aria-pressed="false" title="${s.label}">${s.short}</button>`).join("")}
           </span>`;
+
+        row.querySelector(".mm-content-btn").addEventListener("click", () => sendToQuickContent(tp.t, tp.a));
 
         row.querySelector(".status").addEventListener("click", e => {
           const btn = e.target.closest("button");
@@ -724,8 +461,12 @@
     bar.setAttribute("aria-label", `เผยแพร่ ${c.done}, กำลังเขียน ${c.writing}, เข้าคิว ${c.queued}, จาก ${TOTAL} หัวข้อ`);
   }
 
+  let wasFiltered = false;
   function applyFilters() {
     const q = filters.q.trim().toLowerCase();
+    const anyFilter = !!(q || filters.flag || filters.level || filters.state);
+    const clearedNow = wasFiltered && !anyFilter;
+    wasFiltered = anyFilter;
     document.querySelectorAll(".cat").forEach(wrap => {
       const cat = DATA.find(d => d.c === wrap.dataset.cat);
       let visible = 0;
@@ -740,9 +481,17 @@
         if (show) visible++;
       });
       wrap.querySelector(".empty-cat").hidden = visible !== 0;
-      const anyFilter = q || filters.flag || filters.level || filters.state;
       wrap.hidden = anyFilter && visible === 0;
+      // open matching categories while filtering; re-collapse once filters are cleared
+      if (anyFilter && visible > 0) {
+        wrap.dataset.open = "true";
+        wrap.querySelector(".cat-head").setAttribute("aria-expanded", "true");
+      } else if (clearedNow) {
+        wrap.dataset.open = "false";
+        wrap.querySelector(".cat-head").setAttribute("aria-expanded", "false");
+      }
     });
+    reportHeight();
   }
 
   document.getElementById("q").addEventListener("input", e => {
@@ -761,6 +510,17 @@
       if (!on) chip.setAttribute("aria-pressed", "true");
     }
     applyFilters();
+  });
+
+  document.getElementById("expandBtn").addEventListener("click", (e) => {
+    const cats = [...document.querySelectorAll(".cat")];
+    const anyClosed = cats.some(w => w.dataset.open !== "true");
+    cats.forEach(w => {
+      w.dataset.open = anyClosed ? "true" : "false";
+      w.querySelector(".cat-head").setAttribute("aria-expanded", String(anyClosed));
+    });
+    e.target.textContent = anyClosed ? "พับทุกหมวด" : "กางทุกหมวด";
+    reportHeight();
   });
 
   document.getElementById("resetBtn").addEventListener("click", () => {
@@ -802,6 +562,13 @@
 
   build();
   applyFilters();
+  window.addEventListener("resize", reportHeight);
+  window.addEventListener("load", reportHeight);
+  window.addEventListener("message", function (e) {
+    if (e.data && e.data.type === "mm-ping") reportHeight();
+  });
+  setTimeout(reportHeight, 300);
+  setTimeout(reportHeight, 1200);
 </script>
 </body>
 </html>

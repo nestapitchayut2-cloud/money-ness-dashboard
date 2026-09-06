@@ -39,11 +39,10 @@
   .c-row .c-topic { font-size: 13.5px; color: #e2e8f0; font-weight: 500; flex: 1; line-height: 1.45; }
   .c-row .c-badges { flex-shrink: 0; display: flex; gap: 4px; align-self: center; }
   .c-row .c-badges span { font-size: 10px; padding: 2px 7px; border-radius: 99px; white-space: nowrap; }
-  .mm-frame { width: 100%; height: 640px; border: 1px solid #2d3148; border-radius: 10px; background: #fff; }
+  .mm-frame { width: 100%; height: 620px; min-height: 340px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
   @media (max-width: 768px) {
     .c-row { flex-wrap: wrap; gap: 4px 10px; }
     .c-row .c-topic { flex-basis: 100%; order: 3; }
-    .mm-frame { height: 560px; }
   }
 
   /* Card */
@@ -1102,8 +1101,37 @@ function switchPage(name) {
   });
   try { localStorage.setItem('mnd_page', name); } catch (e) {}
   window.scrollTo(0, 0);
+  if (name === 'content') {
+    var mf = document.querySelector('.mm-frame');
+    if (mf && mf.contentWindow) {
+      [60, 400, 900].forEach(function(ms){ setTimeout(function(){ try { mf.contentWindow.postMessage({ type: 'mm-ping' }, '*'); } catch (e) {} }, ms); });
+    }
+  }
 }
 (function(){ try { var p = localStorage.getItem('mnd_page'); if (p && p !== 'monitor') switchPage(p); } catch (e) {} })();
+
+// ── Money-manual tracker iframe ↔ dashboard bridge ──
+window.addEventListener('message', function(e){
+  var d = e.data || {};
+  if (d.type === 'mm-height') {
+    var f = document.querySelector('.mm-frame');
+    if (f && d.height) f.style.height = Math.max(340, d.height + 4) + 'px';
+  } else if (d.type === 'mm-quickcontent') {
+    var inp = document.getElementById('qcTopic');
+    if (!inp) return;
+    inp.value = d.angle ? (d.topic + ' — ' + d.angle) : (d.topic || '');
+    try { switchPage('content'); } catch (err) {}
+    var card = inp.closest('.card');
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.style.transition = 'box-shadow .25s';
+      card.style.boxShadow = '0 0 0 2px #39ff14';
+      setTimeout(function(){ card.style.boxShadow = ''; }, 1700);
+    }
+    try { inp.focus(); } catch (err) {}
+    if (typeof showToast === 'function') showToast('✍️ ใส่หัวข้อใน Quick Content แล้ว — เลือก format แล้วกด Copy Prompt');
+  }
+});
 
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
