@@ -814,9 +814,10 @@
       </div>
       <div class="qc-row" id="qcStyleRow">
         <select class="qc-select" id="qcImageStyle">
-          <option value="both" selected>🎨 Gemini Image Brief: ให้ Claude เสนอ 2 สไตล์ (default)</option>
+          <option value="both" selected>🎨 Gemini Image Brief: ให้ Claude เสนอ 3 สไตล์ (default)</option>
           <option value="moody">🌙 สไตล์เดียว: Moody / Still Life</option>
           <option value="aggressive">🔥 สไตล์เดียว: Aggressive / Dramatic (Money Buffalo)</option>
+          <option value="herovillain">🛡️ สไตล์เดียว: Hero vs Villain Object (สไตล์โปรดของ Ness)</option>
         </select>
       </div>
       <div class="qc-hint">
@@ -2647,8 +2648,10 @@ function generateContentPrompt() {
       imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🌙 Moody / Still Life (Conceptual Still Life, photorealistic render, Chiaroscuro lighting, มู้ดขรึม สัญลักษณ์ซ้อนทับ) ตามที่บันทึกไว้ใน style-guide.md';
     } else if (styleVal === 'aggressive') {
       imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🔥 Aggressive / Dramatic (Money Buffalo style): Macro photography ของวัตถุจริง, Symbolic/Aggressive Object Scaling, Aggressive Directional Lighting, High-contrast chiaroscuro, สีสันสดจัดจ้าน ตามสูตรที่บันทึกไว้ใน style-guide.md';
+    } else if (styleVal === 'herovillain') {
+      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🛡️ Symbolic Hero vs Villain Object Formula: วัตถุตัวเอก (Hero Object) เชิงสัญลักษณ์ปะทะวัตถุตัวร้าย (Villain Object) ตามสูตรที่บันทึกไว้ใน style-guide.md (ทางเลือกที่ 3) — สไตล์โปรดของ Ness ใช้ได้กับแทบทุกแนว Content';
     } else {
-      imageStyleInstruction = 'Gemini Image Brief: ทำ 2 สไตล์ตาม format บังคับใน style-guide.md (### Style: 🌙 Moody / Still Life และ ### Style: 🔥 Aggressive / Dramatic) ให้ Ness เลือกทีหลังบนเว็บ';
+      imageStyleInstruction = 'Gemini Image Brief: ทำ 3 สไตล์ตาม format บังคับใน style-guide.md (### Style: 🌙 Moody / Still Life, ### Style: 🔥 Aggressive / Dramatic, และ ### Style: 🛡️ Hero vs Villain Object) ให้ Ness เลือกทีหลังบนเว็บ';
     }
   }
 
