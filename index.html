@@ -876,6 +876,7 @@
         <button class="qc-type-btn active" id="qcBtn-post" onclick="selectQcType('โพสต์', this)">📸 โพสต์</button>
         <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
         <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
+        <button class="qc-type-btn" id="qcBtn-quote" onclick="selectQcType('คำคม', this)">💬 คำคม/ปลุกใจ</button>
       </div>
       <div id="qcStyleRow">
         <div style="font-size:12px;color:#64748b;font-weight:700;margin-bottom:8px">🎨 Gemini Image Brief — ปรับได้ทีละส่วน (เว้นว่างข้อไหนได้ ให้ Claude เลือกเอง):</div>
@@ -2934,6 +2935,15 @@ function generateContentPrompt() {
   } else if (qcType === 'บทเรียน') {
     formatDesc = 'Learning Brief ยาว 15-20 นาที (Markdown format)';
     instructions = 'เนื้อหาเชิงลึก มีตาราง ตัวเลขจริง Fact-Check badge ถ้ามีข้อมูลที่ต้อง verify และ Reflective Question ท้าย';
+  } else if (qcType === 'คำคม') {
+    formatDesc = 'Quote / Philosophy Image — รูปเดี่ยว ข้อความสั้นปลุกใจ/ปรัชญา (ทำเพื่อ engagement + retention ให้คนเซฟ/แชร์/ผูกพันกับเพจ)';
+    instructions = `ยึด "CONTENT FORMAT — QUOTE / PHILOSOPHY IMAGE" ใน style-guide.md เป็นหลัก
+- โพสต์นี้ขายอารมณ์ + มุมมอง ไม่ใช่สอน ไม่ใช่ขาย — ห้ามมีตัวเลข/ทฤษฎี/how-to/personal story ยาว
+- ส่ง 3 ส่วนพร้อมกันเสมอ:
+  (1) ข้อความบนรูป — หัวข้อหลัก 1–2 บรรทัดที่กระแทกหยุด scroll ได้ + บทขยาย 3–5 บรรทัดสั้น ๆ ภาษากวี เว้นวรรคเยอะ · เสนอหัวข้อหลัก 2–3 แบบให้ Ness เลือก
+  (2) Caption สั้น 2 เวอร์ชัน (FB / IG) — ทวนแก่นความคิด 1–2 บรรทัด + soft CTA ("เซฟไว้เตือนตัวเอง" หรือคำถามปลายเปิดสั้น ๆ)
+  (3) Image Brief — ภาพ line art ขาวเส้นเดียวต่อเนื่อง มินิมอล บนพื้นดำสนิท (#000) ฉากเชิงสัญลักษณ์ที่ตรงกับข้อความ มีกรอบเส้นบางล้อม ไม่มีข้อความใด ๆ ในภาพ อารมณ์สงบ ครุ่นคิด อบอุ่น · สัดส่วนแนวตั้ง 4:5 (กำกับคำว่า portrait 4:5 ทั้งต้นและท้ายพรอมต์) · ให้ Gemini prompt เต็ม + Design/Layout Direction (ตำแหน่งข้อความ น้ำหนักฟอนต์ ฟุตเตอร์ The Money Ness + handle มีเส้นคั่นบาง)
+- อ้างอิงสไตล์: โพสต์แนว โซ๊ค โชกุล (@shokshogun) — พื้นดำ ข้อความน้อยคำ ภาพลายเส้นมินิมอล — แต่ปรับแก่นเป็นเรื่องเงิน/ความอดทน/ความพอ/เวลา/วินัย/ทบต้น/ไม่เทียบกับคนอื่น ในน้ำเสียง The Money Ness`;
   }
 
   const styleBlock = imageStyleInstruction ? `\n${imageStyleInstruction}\n` : '';
