@@ -37,8 +37,10 @@
   .c-row:hover { border-color: #39ff14; background: #0d1f0d; }
   .c-row .c-date { font-size: 11px; color: #64748b; flex-shrink: 0; width: 66px; line-height: 1.35; }
   .c-row .c-topic { font-size: 13.5px; color: #e2e8f0; font-weight: 500; flex: 1; line-height: 1.45; }
-  .c-row .c-badges { flex-shrink: 0; display: flex; gap: 4px; align-self: center; }
+  .c-row .c-badges { flex-shrink: 0; display: flex; align-items: center; gap: 4px; align-self: center; }
   .c-row .c-badges span { font-size: 10px; padding: 2px 7px; border-radius: 99px; white-space: nowrap; }
+  .c-yt-btn { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 6px; border: 1px solid #2d3148; background: #12151f; color: #c084fc; cursor: pointer; transition: all 0.15s; white-space: nowrap; margin-left: 4px; }
+  .c-yt-btn:hover { background: #1e1b2e; border-color: #7c3aed; }
   .mm-frame { width: 100%; height: 620px; min-height: 340px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
   @media (max-width: 768px) {
     .c-row { flex-wrap: wrap; gap: 4px 10px; }
@@ -1385,8 +1387,13 @@ function renderContentGrid() {
       <div class="c-badges">
         <span style="background:#1e3a5f;color:#60a5fa">${typeIcon} ${b.type}</span>
         <span style="background:#1e2d1e;color:#86efac">${b.cat}</span>
+        <button class="c-yt-btn" title="สร้าง prompt: แตกเนื้อหานี้เป็นภาพประกอบคลิปยาว YouTube">🎥 → คลิปยาว</button>
       </div>`;
     el.onclick = () => openBriefFile(b.path);
+    el.querySelector('.c-yt-btn').addEventListener('click', ev => {
+      ev.stopPropagation();
+      contentToYoutubePrompt(b.topic, b.path, b.type, b.cat);
+    });
     grid.appendChild(el);
   });
 }
@@ -1414,6 +1421,44 @@ function filterContent(dimension, value, btn) {
 }
 
 renderContentGrid();
+
+// ── Content เดิม → ภาพประกอบคลิปยาว YouTube ──
+function contentToYoutubePrompt(topic, path, type, cat) {
+  const fname = (path || '').split(/[\\/]/).pop();
+  const slug = fname.replace(/\.md$/, '');
+  const prompt = `🎥 แปลง Content เดิม → Visual Shot List สำหรับคลิปยาว YouTube — The Money Ness
+
+Content ต้นทาง: ${topic}
+ประเภทเดิม: ${type || '-'} · หมวด: ${cat || '-'}
+ไฟล์: ${path}
+
+ก่อนเริ่ม อ่าน:
+- ไฟล์ต้นทางด้านบน (${fname})
+- SHARED/ness-profile.md — ตัวตน/สไตล์ Ness
+- SHARED/style-guide.md — Reel DNA, โทน, สูตรภาพ Gemini (Moody / Aggressive / Hero vs Villain), Thai currency safety rule
+(ถ้าไม่ได้เชื่อมเครื่อง Ness ใช้ https://raw.githubusercontent.com/nestapitchayut2-cloud/money-ness-dashboard/main/system/<ชื่อไฟล์>)
+
+เป้าหมาย: ผมจะขยาย content นี้เป็นคลิปยาว YouTube พูดอธิบายเอง (16:9) และอยากได้ภาพ/กราฟิกไป insert ระหว่างที่ผมพูดแต่ละช่วง
+
+ช่วยทำ "Visual Shot List" — แตกเนื้อหาเป็นช่วงพูด (segment) เรียงตามลำดับการเล่า แต่ละ segment เขียน:
+1. ⏱️ ช่วง / ประโยคหลักที่กำลังพูด (1–2 บรรทัด จากบทหรือที่ควรพูด)
+2. 🖼️ ภาพที่ควรขึ้นจอ (บรรยาย 1 บรรทัด)
+3. 🏷️ ใครทำ:
+   - [DIAGRAM = Claude ทำ] เมื่อภาพต้องมีตัวเลข/ข้อความ/โครงสร้างที่แม่นยำ — กราฟ, ตารางเทียบ, timeline, flow, number card, before/after, bullet build. ระบุ: ข้อความ/ตัวเลขทุกตัวที่ต้องอยู่ในภาพ + สไตล์ (พื้นมืด #0f1117, ตัวอักษรขาว, accent เขียวนีออน #39ff14, ฟอนต์หนา, โลโก้/มุมพูด "The Money Ness")
+   - [PHOTO = Gemini ทำ] เมื่อเป็นภาพบรรยากาศ/สัญลักษณ์/emotional b-roll — เขียน Gemini prompt เต็มตาม 1 ใน 3 สูตรใน style-guide + lock aspect ratio 16:9
+4. 📝 ข้อความ overlay บนจอ (ถ้ามี — สั้น ๆ)
+
+ท้ายไฟล์ทำ 2 อย่าง:
+A) สรุปรายการ [DIAGRAM] ทั้งหมดเป็น checklist — ผมจะกดสั่งให้ทำทีละอัน
+B) สรุปรายการ [PHOTO] พร้อม Gemini prompt ก๊อปได้เลย
+
+เกณฑ์: ~1 ภาพต่อ 15–30 วิของคลิป · ภาพต้องเสริมสิ่งที่พูด ไม่ใช่ประดับ · เลี่ยงภาพ stock ทั่วไป
+บันทึกไฟล์: THE-MONEY-NESS/youtube/${slug}-visual-shotlist.md`;
+  navigator.clipboard.writeText(prompt).then(
+    () => showToast('🎥 Copy prompt แล้ว — วางใน Claude chat (Claude ทำกราฟ, Gemini ทำภาพบรรยากาศ)'),
+    () => showToast('⚠️ copy ไม่สำเร็จ')
+  );
+}
 
 function switchSubTab(name) {
   document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
