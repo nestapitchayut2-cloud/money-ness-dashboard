@@ -5,25 +5,25 @@
 
 ---
 
-## สัปดาห์ปัจจุบัน: 31 ส.ค. – 6 ก.ย. 2026
+## สัปดาห์ปัจจุบัน: 7 – 13 ก.ย. 2026
 
-**ธีม:** ทำไมธนาคารกลางแห่ซื้อทองคำเป็นสถิติ (central bank gold buying)
-**ทำไมธีมนี้:** ต่อยอดจากสัปดาห์ก่อน (gold ETF fees — มุมกลไกกองทุน) ขึ้นไปมุมมหภาค — Ness เทรด XAU/USD อยู่แล้ว การเข้าใจว่า "ใครเป็นผู้ซื้อรายใหญ่ฝั่ง demand และซื้อเพราะอะไร" เป็นพื้นฐานที่ใช้ได้ทั้งการเทรดและคอนเทนต์ The Money Ness · vocab สายมหภาค (reserves, diversification, safe-haven, de-dollarisation) จะเจอซ้ำในบริบทที่ใช้จริง และเป็นคนละชุดกับ vocab กลไกกองทุนของสัปดาห์ก่อน
+**ธีม:** ทำไมทองคำไม่ให้ดอกเบี้ย แต่คนยังถือ — ต้นทุนค่าเสียโอกาสของการถือทอง (opportunity cost of holding gold)
+**ทำไมธีมนี้:** ต่อยอดจากสัปดาห์ก่อน (central bank gold buying — ใครซื้อ + ซื้อทำไม) มาที่มุมกลับ — การถือทองมี "ราคา" ที่มองไม่เห็นคือดอกเบี้ยพันธบัตรที่ควรได้แต่ไม่ได้ · ความสัมพันธ์ทอง ↔ real yield คือแกนหลักที่คนเทรด XAU/USD ต้องเข้าใจ (Ness เทรดตัวนี้อยู่) · vocab สาย yield/interest rate เป็นคนละชุดกับ vocab มหภาคของสัปดาห์ก่อน
 
 **Angle รายวัน:**
 | วัน | ใช้ธีมยังไง |
 |---|---|
-| จันทร์ (Reading) | บทความว่าทำไมธนาคารกลาง (จีน โปแลนด์ ตุรกี อินเดีย คาซัคสถาน) ซื้อทองคำเป็นสถิติตั้งแต่ปี 2022 — reserve diversification, ลดการพึ่งพาดอลลาร์, ความเสี่ยงที่สินทรัพย์สำรองถูกอายัด (sanctions/freezing) |
-| อังคาร (Listening) | สัมภาษณ์/พอดแคสต์ของ World Gold Council หรือนักวิเคราะห์ เรื่อง central bank gold demand — ตัวเลขซื้อสุทธิรายปี เหตุผลเชิงนโยบาย |
-| พุธ (Writing T1) | ตาราง/กราฟ — ปริมาณทองคำที่ธนาคารกลางซื้อสุทธิรายปี 2019–2024 (หน่วยตัน) แยกราย 4–5 ประเทศ → บรรยาย 150 คำ จับเวลา 20 นาที |
-| พฤหัส (Speaking) | Cue card: *Describe something valuable that you or your family have kept for a long time.* (P3 ต่อยอด: ทำไมคน/ประเทศถึงเก็บของมีค่าไว้เป็นหลักประกัน · "safe asset" ในอนาคตจะเปลี่ยนไปไหม · เงินสดกับทองคำต่างกันยังไงในแง่การเก็บมูลค่า) |
-| ศุกร์ (Writing T2) | เรียงความ (agree/disagree): *"Some people believe countries should keep a larger share of their national reserves in gold rather than in foreign currencies such as the US dollar. To what extent do you agree or disagree?"* → 250 คำ จับเวลา 40 นาที |
+| จันทร์ (Reading) | บทความว่าทำไมทองไม่จ่ายดอกเบี้ย/ปันผล แต่ยังเป็นสินทรัพย์หลัก — opportunity cost, real interest rate, ปรากฏการณ์ผิดปกติปี 2022–2024 (ทองขึ้นทั้งที่ดอกเบี้ยสูง) |
+| อังคาร (Listening) | พอดแคสต์/สัมภาษณ์ เรื่อง gold vs bonds — เมื่ออัตราดอกเบี้ยแท้จริง (real yield) ติดลบ ทำไมทองได้เปรียบ |
+| พุธ (Writing T1) | กราฟเส้น — ราคาทอง vs อัตราผลตอบแทนพันธบัตรสหรัฐ 10 ปี (แบบ real/TIPS) ปี 2015–2024 → บรรยาย 150 คำ จับเวลา 20 นาที |
+| พฤหัส (Speaking) | Cue card: *Describe a decision you made where you had to give something up.* (P3 ต่อยอด: ต้นทุนค่าเสียโอกาสในชีวิตประจำวัน · ออมเงินกับใช้เงิน · คนให้ค่าเวลากับเงินต่างกันยังไง) |
+| ศุกร์ (Writing T2) | เรียงความ (agree/disagree): *"Some people think it is unwise to keep savings in assets that produce no income. To what extent do you agree or disagree?"* → 250 คำ จับเวลา 40 นาที |
 
-**Vocab เป้าหมายของสัปดาห์:** reserves · diversification · bullion · safe-haven asset · de-dollarisation · geopolitical risk
+**Vocab เป้าหมายของสัปดาห์:** opportunity cost · yield · real interest rate · cost of carry · hedge · non-yielding asset
 
 **Listening warm-up ของสัปดาห์นี้ (ใช้คลิปเดียวกันทั้ง จ.-ศ.):**
-- ⏳ **ยังไม่เลือก** — `morning-study-brief` เช้าวันจันทร์เป็นคนเลือกคลิป 3–4 นาที ที่สำเนียง British/Australian + มี transcript เผยแพร่จริง แล้วบันทึก URL กลับมาที่หัวข้อนี้
-- ถ้าหาคลิปที่ตรงธีม (central bank gold / reserves) ที่มี transcript ยืนยันได้ไม่เจอ → ใช้ BBC Learning English 6 Minute English ตอนล่าสุดแทนตามกฎ fallback ใน SKILL (สำเนียงถูก สำคัญกว่าหัวข้อตรง) — **ห้ามแต่ง URL**
+- ⏳ **ยังไม่เลือก** — `morning-study-brief` เช้าจันทร์ 7 ก.ย. เป็นคนเลือกคลิป (ห้ามแต่ง URL)
+- **กฎ fallback:** ถ้าหาคลิปสำเนียง British/Australian ตรงธีม opportunity cost / gold vs bonds ที่มี transcript เผยแพร่จริงไม่เจอ → ใช้ BBC Learning English 6 Minute English ตอนล่าสุดที่มี transcript ในหน้าเดียวกัน
 
 ---
 
@@ -36,7 +36,6 @@
 - ต้นทุนจริงของ AI data center กับผลต่อหุ้นพลังงาน
 - Freemium ใน fintech ไทย
 - ทำไม insurance ถึงเป็นธุรกิจ "เงินลอยตัว" (float)
-- ทำไมทองคำถึงไม่ให้ดอกเบี้ย แต่คนยังถือ (opportunity cost of holding gold)
 - SWIFT กับระบบชำระเงินระหว่างประเทศ ทำงานยังไงและใครคุม
 - Sovereign wealth fund — กองทุนความมั่งคั่งแห่งชาติลงทุนอะไร
 - ทำไมหุ้น dividend กับหุ้น growth ถึงเหมาะกับนักลงทุนคนละแบบ
@@ -49,3 +48,4 @@
 - How prop trading firms actually make money (10–16 ส.ค. 2026)
 - Payment for order flow — โบรกเกอร์ "ฟรี" หากินยังไง (17–23 ส.ค. 2026)
 - ทำไม gold ETF เก็บค่าธรรมเนียม ~0.4% (expense ratio / custody cost) (24–30 ส.ค. 2026)
+- ทำไมธนาคารกลางแห่ซื้อทองคำเป็นสถิติ (central bank gold buying) (31 ส.ค.–6 ก.ย. 2026)
