@@ -23,6 +23,29 @@
   .col-2 { grid-column: span 2; }
   .col-3 { grid-column: span 3; }
 
+  /* Page nav */
+  .page-nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .page-btn { padding: 9px 20px; border-radius: 10px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+  .page-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
+  .page-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Content list (long rows) */
+  .content-list { display: flex; flex-direction: column; gap: 6px; }
+  .c-row { display: flex; align-items: baseline; gap: 12px; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 11px 14px; cursor: pointer; transition: all 0.15s; }
+  .c-row:hover { border-color: #39ff14; background: #0d1f0d; }
+  .c-row .c-date { font-size: 11px; color: #64748b; flex-shrink: 0; width: 66px; line-height: 1.35; }
+  .c-row .c-topic { font-size: 13.5px; color: #e2e8f0; font-weight: 500; flex: 1; line-height: 1.45; }
+  .c-row .c-badges { flex-shrink: 0; display: flex; gap: 4px; align-self: center; }
+  .c-row .c-badges span { font-size: 10px; padding: 2px 7px; border-radius: 99px; white-space: nowrap; }
+  .mm-frame { width: 100%; height: 640px; border: 1px solid #2d3148; border-radius: 10px; background: #fff; }
+  @media (max-width: 768px) {
+    .c-row { flex-wrap: wrap; gap: 4px 10px; }
+    .c-row .c-topic { flex-basis: 100%; order: 3; }
+    .mm-frame { height: 560px; }
+  }
+
   /* Card */
   .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 20px; }
   .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 14px; }
@@ -379,6 +402,13 @@
   <div class="date" id="currentDate"></div>
 </div>
 
+<div class="page-nav">
+  <button class="page-btn active" onclick="switchPage('monitor')">📊 Monitor</button>
+  <button class="page-btn" onclick="switchPage('content')">✍️ Content</button>
+  <button class="page-btn" onclick="switchPage('learning')">🎓 Learning · IELTS</button>
+</div>
+
+<section class="page active" id="page-monitor">
 <div class="grid">
 
   <!-- EA Progress -->
@@ -659,18 +689,37 @@
     </div>
   </div>
 
+  <!-- Habits (moved from Learning Hub tab) -->
+  <div class="card col-1">
+    <div class="card-title">📋 Habits</div>
+    <div style="font-size:11px;color:#64748b;margin-bottom:12px">คลิกที่วงกลมเพื่อบันทึก · กดซ้ำเพื่อเปลี่ยนสถานะ (✓ ทำแล้ว → ✗ ข้าม → ว่าง)</div>
+    <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
+    <div id="missed-tasks-list" style="font-size:13px;color:#64748b"></div>
+  </div>
+
+  <!-- Quiz History (moved from Learning Hub tab) -->
+  <div class="card col-2">
+    <div class="card-title">🧠 Quiz History</div>
+    <div id="pendingQuizzes" style="margin-bottom:20px"></div>
+    <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
+    <div id="quizCards"></div>
+  </div>
+
+</div>
+</section>
+
+<section class="page" id="page-learning">
+<div class="grid">
+
   <!-- Learning Hub -->
-  <div class="card col-3" style="order:-1">
+  <div class="card col-3">
     <div class="card-title">🎓 Learning Hub</div>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('ielts')">🎯 IELTS</button>
-      <button class="tab-btn" onclick="switchTab('archive')">📁 ประวัติ IELTS</button>
       <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
       <button class="tab-btn" onclick="switchTab('week')">📅 สัปดาห์นี้</button>
       <button class="tab-btn" onclick="switchTab('briefs')">📖 Brief Archive</button>
-      <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz History</button>
-      <button class="tab-btn" onclick="switchTab('habits')">📋 Habits</button>
-      <button class="tab-btn" onclick="switchTab('ideas')">💡 Ideas</button>
     </div>
 
     <!-- Tab: This Week -->
@@ -715,7 +764,6 @@
       <div class="sub-tabs">
         <button class="sub-tab-btn active" onclick="switchSubTab('morning')">🌅 Morning Brief</button>
         <button class="sub-tab-btn" onclick="switchSubTab('learning')">📚 บทเรียน</button>
-        <button class="sub-tab-btn" onclick="switchSubTab('content')">✍️ Content Drafts</button>
       </div>
       <p style="font-size:11px;color:#475569;margin-bottom:12px">คลิกเพื่อเปิดในหน้าต่างใหม่ — ถ้าเปิดไม่ได้ให้กด Shift+คลิก หรือ copy path วางใน Explorer</p>
       <div class="sub-panel active" id="sub-morning">
@@ -724,35 +772,6 @@
       <div class="sub-panel" id="sub-learning">
         <div class="brief-grid" id="briefGridLearning"></div>
       </div>
-      <div class="sub-panel" id="sub-content">
-        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="contentFilters">
-          <span style="font-size:11px;color:#64748b;align-self:center">ประเภท:</span>
-          <button class="filter-btn active" onclick="filterContent('type','All',this)">ทั้งหมด</button>
-          <button class="filter-btn" onclick="filterContent('type','โพสต์',this)">📸 โพสต์</button>
-          <button class="filter-btn" onclick="filterContent('type','Reels',this)">🎬 Reels</button>
-          <span style="font-size:11px;color:#64748b;align-self:center;margin-left:8px">หมวด:</span>
-          <button class="filter-btn active" id="catAll" onclick="filterContent('cat','All',this)">ทั้งหมด</button>
-          <button class="filter-btn" onclick="filterContent('cat','Forex',this)">Forex</button>
-          <button class="filter-btn" onclick="filterContent('cat','หุ้น',this)">หุ้น</button>
-          <button class="filter-btn" onclick="filterContent('cat','กองทุน',this)">กองทุน</button>
-          <button class="filter-btn" onclick="filterContent('cat','BTC',this)">BTC</button>
-        </div>
-        <div class="brief-grid" id="briefGridContent"></div>
-      </div>
-    </div>
-
-    <!-- Tab: Quiz History -->
-    <div class="tab-panel" id="tab-quiz">
-      <div id="pendingQuizzes" style="margin-bottom:20px"></div>
-      <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
-      <div id="quizCards"></div>
-    </div>
-
-        <!-- Tab: Ideas -->
-    <div class="tab-panel" id="tab-ideas">
-      <div id="ideaInbox" style="margin-bottom:16px"></div>
-      <div id="ideaFilters"></div>
-      <div id="ideaCards"></div>
     </div>
 
     <!-- Tab: IELTS -->
@@ -768,11 +787,15 @@
           <div id="englishPractice"></div>
         </div>
       </div>
-    </div>
-
-    <!-- Tab: IELTS Archive -->
-    <div class="tab-panel" id="tab-archive">
-      <div id="ieltsArchiveList"></div>
+      <div class="quiz-card" style="margin-top:14px">
+        <div class="quiz-card-header" onclick="document.getElementById('ieltsArchiveBox').classList.toggle('open')">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">📁 ประวัติ IELTS — งานที่ตรวจครบแล้ว</div>
+          <div style="font-size:11px;color:#64748b">คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ ของทุกงานที่ส่งตรวจแล้ว</div></div>
+          <span style="font-size:11px;color:#475569">▼</span></div>
+        <div class="quiz-card-body" id="ieltsArchiveBox" style="padding:14px">
+          <div id="ieltsArchiveList"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Tab: Vocabulary -->
@@ -795,14 +818,49 @@
       </div>
     </div>
 
-    <!-- Tab: Habits -->
-    <div class="tab-panel" id="tab-habits">
-      <div style="font-size:11px;color:#64748b;margin-bottom:12px">คลิกที่วงกลมเพื่อบันทึก · กดซ้ำเพื่อเปลี่ยนสถานะ (✓ ทำแล้ว → ✗ ข้าม → ว่าง)</div>
-      <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
-      <div id="missed-tasks-list" style="font-size:13px;color:#64748b"></div>
-    </div>
+  </div>
+</div>
+</section>
 
+<section class="page" id="page-content">
+<div class="grid">
+
+  <!-- Money Manual — Topic Map Tracker -->
+  <div class="card col-3">
+    <div class="card-title">📘 คู่มือการเงินมนุษย์เงินเดือน — Topic Map Tracker</div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+      <a href="money-manual-tracker.html" target="_blank" rel="noopener" style="background:#1e3a5f;color:#93c5fd;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;text-decoration:none">↗ เปิดเต็มจอ</a>
+      <button onclick="openBriefFile('money-manual-topic-map.md')" style="background:#12151f;color:#fbbf24;border:1px solid #2d3148;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📄 Topic Map (.md)</button>
+      <button onclick="openBriefFile('money-manual-series-plan.md')" style="background:#12151f;color:#86efac;border:1px solid #2d3148;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📋 แผนซีรีส์</button>
+    </div>
+    <iframe class="mm-frame" src="money-manual-tracker.html" title="Topic Map Tracker" loading="lazy"></iframe>
+  </div>
+
+  <!-- Content Drafts -->
+  <div class="card col-3">
+    <div class="card-title">✍️ Content Drafts</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="contentFilters">
+      <span style="font-size:11px;color:#64748b;align-self:center">ประเภท:</span>
+      <button class="filter-btn active" onclick="filterContent('type','All',this)">ทั้งหมด</button>
+      <button class="filter-btn" onclick="filterContent('type','โพสต์',this)">📸 โพสต์</button>
+      <button class="filter-btn" onclick="filterContent('type','Reels',this)">🎬 Reels</button>
+      <span style="font-size:11px;color:#64748b;align-self:center;margin-left:8px">หมวด:</span>
+      <button class="filter-btn active" id="catAll" onclick="filterContent('cat','All',this)">ทั้งหมด</button>
+      <button class="filter-btn" onclick="filterContent('cat','Forex',this)">Forex</button>
+      <button class="filter-btn" onclick="filterContent('cat','หุ้น',this)">หุ้น</button>
+      <button class="filter-btn" onclick="filterContent('cat','กองทุน',this)">กองทุน</button>
+      <button class="filter-btn" onclick="filterContent('cat','BTC',this)">BTC</button>
+      <button class="filter-btn" onclick="filterContent('cat','Mindset',this)">Mindset</button>
+    </div>
+    <div class="content-list" id="briefGridContent"></div>
+  </div>
+
+  <!-- Ideas (moved from Learning Hub tab) -->
+  <div class="card col-3">
+    <div class="card-title">💡 Ideas — คลังไอเดีย content</div>
+    <div id="ideaInbox" style="margin-bottom:16px"></div>
+    <div id="ideaFilters"></div>
+    <div id="ideaCards"></div>
   </div>
 
   <!-- Quick Content -->
@@ -870,6 +928,7 @@
   </div>
 
 </div>
+</section>
 
 <div class="toast" id="toast"></div>
 
@@ -1033,12 +1092,24 @@ const learningBriefs = [
 ];
 
 // ── Tabs ──
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+  var pg = document.getElementById('page-' + name);
+  if (pg) pg.classList.add('active');
+  document.querySelectorAll('.page-btn').forEach(function(b){
+    if ((b.getAttribute('onclick') || '').indexOf("'" + name + "'") >= 0) b.classList.add('active');
+  });
+  try { localStorage.setItem('mnd_page', name); } catch (e) {}
+  window.scrollTo(0, 0);
+}
+(function(){ try { var p = localStorage.getItem('mnd_page'); if (p && p !== 'monitor') switchPage(p); } catch (e) {} })();
+
 function switchTab(name) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   event.target.classList.add('active');
-  if (name === 'habits') renderHabits();
 }
 
 // ── Habit Tracker ──
@@ -1278,17 +1349,15 @@ function renderContentGrid() {
   }
   filtered.forEach(b => {
     const el = document.createElement('div');
-    el.className = 'brief-item';
+    el.className = 'c-row';
     const typeIcon = b.type === 'Reels' ? '🎬' : '📸';
     el.innerHTML = `
-      <div class="b-date">${b.label}</div>
-      <div class="b-day">${b.day}</div>
-      <div style="font-size:10px;margin-bottom:4px">
-        <span style="background:#1e3a5f;color:#60a5fa;padding:2px 6px;border-radius:99px;margin-right:4px">${typeIcon} ${b.type}</span>
-        <span style="background:#1e2d1e;color:#86efac;padding:2px 6px;border-radius:99px">${b.cat}</span>
-      </div>
-      <div class="b-topic">${b.topic}</div>
-      <div class="b-action">↗ เปิดอ่าน</div>`;
+      <div class="c-date">${b.label}<br>${b.day}</div>
+      <div class="c-topic">${b.topic}</div>
+      <div class="c-badges">
+        <span style="background:#1e3a5f;color:#60a5fa">${typeIcon} ${b.type}</span>
+        <span style="background:#1e2d1e;color:#86efac">${b.cat}</span>
+      </div>`;
     el.onclick = () => openBriefFile(b.path);
     grid.appendChild(el);
   });
@@ -1306,7 +1375,7 @@ function filterContent(dimension, value, btn) {
   // simpler: just toggle active on same-group buttons
   const allBtns = document.querySelectorAll('#contentFilters .filter-btn');
   const typeLabels = ['ทั้งหมด','โพสต์','Reels'];
-  const catLabels = ['ทั้งหมด','Forex','หุ้น','กองทุน','BTC'];
+  const catLabels = ['ทั้งหมด','Forex','หุ้น','กองทุน','BTC','Mindset'];
   allBtns.forEach(b => {
     const txt = b.textContent.replace('📸 ','').replace('🎬 ','');
     if (dimension === 'type' && typeLabels.includes(txt)) b.classList.remove('active');
@@ -1546,6 +1615,7 @@ function renderPendingQuizzes(){
   });
 }
 renderPendingQuizzes();
+renderHabits();
 
 
 

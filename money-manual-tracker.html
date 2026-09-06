@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- SNAPSHOT: copied from THE-MONEY-NESS/series-money-manual/01-topic-map-tracker.html — re-copy when the source changes -->
+</head>
+<body>
+<title>Topic Map Tracker</title>
+<meta name="description" content="ตัวติดตามสถานะ 70 หัวข้อของซีรีส์คู่มือการเงินมนุษย์เงินเดือน" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anuphan:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" />
+
+<style>
+  :root {
+    --bg: #f3f6f2;
+    --surface: #ffffff;
+    --surface-2: #ecefe9;
+    --ink: #1a201c;
+    --ink-soft: #3c453f;
+    --muted: #67716a;
+    --line: #dce1da;
+    --line-strong: #c7cec5;
+    --accent: #1d7a58;
+    --accent-ink: #10432f;
+    --accent-soft: #e0efe7;
+
+    --idle: #97a19a;
+    --idle-soft: #e8ebe6;
+    --queued: #5f7d97;
+    --queued-soft: #e6edf2;
+    --writing: #b9781f;
+    --writing-soft: #f6ebd8;
+    --done: #1d7a58;
+    --done-soft: #d9ece2;
+
+    --shadow: 0 1px 2px rgba(20, 34, 27, .05), 0 6px 20px -12px rgba(20, 34, 27, .18);
+    --radius: 10px;
+    --step--1: .78rem;
+    --step-0: .94rem;
+    --step-1: 1.14rem;
+    --step-2: 1.5rem;
+    --step-3: 2.1rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12160f;
+      --surface: #191f19;
+      --surface-2: #232a23;
+      --ink: #e7ede6;
+      --ink-soft: #c3ccc2;
+      --muted: #929c92;
+      --line: #2c342c;
+      --line-strong: #3b453b;
+      --accent: #57c095;
+      --accent-ink: #b8e6d2;
+      --accent-soft: #16352a;
+
+      --idle: #7c857d;
+      --idle-soft: #262d26;
+      --queued: #8fadc6;
+      --queued-soft: #1f2c36;
+      --writing: #e0a659;
+      --writing-soft: #382c19;
+      --done: #57c095;
+      --done-soft: #123528;
+
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 26px -14px rgba(0, 0, 0, .6);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #12160f;
+    --surface: #191f19;
+    --surface-2: #232a23;
+    --ink: #e7ede6;
+    --ink-soft: #c3ccc2;
+    --muted: #929c92;
+    --line: #2c342c;
+    --line-strong: #3b453b;
+    --accent: #57c095;
+    --accent-ink: #b8e6d2;
+    --accent-soft: #16352a;
+
+    --idle: #7c857d;
+    --idle-soft: #262d26;
+    --queued: #8fadc6;
+    --queued-soft: #1f2c36;
+    --writing: #e0a659;
+    --writing-soft: #382c19;
+    --done: #57c095;
+    --done-soft: #123528;
+
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 26px -14px rgba(0, 0, 0, .6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans Thai", "Anuphan", system-ui, sans-serif;
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px 96px; }
+
+  /* ---------- header ---------- */
+  header.hero {
+    padding: 40px 0 22px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: var(--step--1);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: "Anuphan", "IBM Plex Sans Thai", sans-serif;
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.15;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+    margin: 0 0 8px;
+  }
+  .sub {
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  /* ---------- sticky progress ---------- */
+  .dash {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: 22px 0 0;
+    padding: 16px 18px;
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .bar {
+    display: flex;
+    height: 12px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--idle-soft);
+    border: 1px solid var(--line);
+  }
+  .bar > span { display: block; transition: width .35s ease; }
+  .bar .s-done { background: var(--done); }
+  .bar .s-writing { background: var(--writing); }
+  .bar .s-queued { background: var(--queued); }
+
+  .legend-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 12px;
+    font-size: var(--step--1);
+  }
+  .lc { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-soft); }
+  .lc b {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: var(--step-0);
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+  .dot.done { background: var(--done); }
+  .dot.writing { background: var(--writing); }
+  .dot.queued { background: var(--queued); }
+  .dot.idle { background: var(--idle); }
+
+  /* ---------- toolbar ---------- */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 8px;
+  }
+  .search {
+    flex: 1 1 220px;
+    min-width: 180px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+  }
+  .search input {
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--step--1);
+    width: 100%;
+    outline: none;
+  }
+  .search svg { flex: none; color: var(--muted); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font: inherit;
+    font-size: var(--step--1);
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+    white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  :root[data-theme="dark"] .chip[aria-pressed="true"],
+  .chip[aria-pressed="true"] { color: #fff; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #0c1a13; }
+  }
+  :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #0c1a13; }
+
+  .ghost-btn {
+    font: inherit;
+    font-size: var(--step--1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .ghost-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .meta-line {
+    font-size: var(--step--1);
+    color: var(--muted);
+    margin: 4px 0 26px;
+  }
+  .meta-line .key { color: var(--ink-soft); }
+
+  /* ---------- category ---------- */
+  .cat { margin: 0 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .cat-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    text-align: left;
+    padding: 15px 18px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    font: inherit;
+    color: var(--ink);
+  }
+  .cat[data-open="false"] .cat-head { border-bottom-color: transparent; }
+  .cat-letter {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    font-family: "Anuphan", sans-serif;
+    font-weight: 700;
+    font-size: var(--step-1);
+  }
+  .cat-title { font-family: "Anuphan", sans-serif; font-weight: 600; font-size: var(--step-1); }
+  .cat-desc { color: var(--muted); font-size: var(--step--1); font-weight: 400; }
+  .cat-right { display: flex; align-items: center; gap: 14px; }
+  .cat-frac {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .cat-frac b { color: var(--done); }
+  .mini-bar { width: 74px; height: 6px; border-radius: 999px; background: var(--idle-soft); overflow: hidden; display: flex; }
+  .mini-bar span { display: block; }
+  .mini-bar .m-done { background: var(--done); }
+  .mini-bar .m-writing { background: var(--writing); }
+  .mini-bar .m-queued { background: var(--queued); }
+  .chev { color: var(--muted); transition: transform .2s; }
+  .cat[data-open="false"] .chev { transform: rotate(-90deg); }
+
+  .cat-body { display: block; }
+  .cat[data-open="false"] .cat-body { display: none; }
+
+  /* ---------- topic row ---------- */
+  .row {
+    display: grid;
+    grid-template-columns: 46px 1fr auto;
+    gap: 6px 14px;
+    align-items: start;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .row:last-child { border-bottom: 0; }
+  .row.is-done .row-title { color: var(--muted); }
+
+  .code {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-size: var(--step--1);
+    padding: 2px 0;
+    color: var(--muted);
+  }
+  .row.is-done .code { color: var(--done); }
+  .row.is-writing .code { color: var(--writing); }
+  .row.is-queued .code { color: var(--queued); }
+
+  .row-main { min-width: 0; }
+  .row-title { font-weight: 500; line-height: 1.45; }
+  .row-title .flags { display: inline-flex; gap: 4px; margin-inline-start: 6px; vertical-align: baseline; }
+  .flag {
+    font-size: .72rem;
+    line-height: 1;
+    padding: 3px 5px;
+    border-radius: 5px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .row-angle { color: var(--muted); font-size: var(--step--1); line-height: 1.5; margin-top: 3px; }
+  .lvl {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: .68rem;
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--line-strong);
+    color: var(--muted);
+    margin-inline-start: 6px;
+  }
+
+  .status {
+    grid-column: 3;
+    display: inline-flex;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .status button {
+    font: inherit;
+    font-size: .74rem;
+    padding: 6px 9px;
+    border: 0;
+    border-inline-start: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .12s, color .12s;
+  }
+  .status button:first-child { border-inline-start: 0; }
+  .status button:hover { background: var(--surface-2); }
+  .status button[aria-pressed="true"] { color: #fff; font-weight: 600; }
+  .status button.st-idle[aria-pressed="true"] { background: var(--idle); }
+  .status button.st-queued[aria-pressed="true"] { background: var(--queued); }
+  .status button.st-writing[aria-pressed="true"] { background: var(--writing); }
+  .status button.st-done[aria-pressed="true"] { background: var(--done); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .empty-cat { padding: 16px 18px; color: var(--muted); font-size: var(--step--1); }
+
+  .foot {
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: var(--step--1);
+  }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: var(--step--1);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 640px) {
+    header.hero { padding-top: 28px; }
+    .row { grid-template-columns: 40px 1fr; }
+    .status { grid-column: 1 / -1; margin-top: 8px; width: 100%; }
+    .status button { flex: 1; text-align: center; }
+    .cat-head { grid-template-columns: auto 1fr; }
+    .cat-right { grid-column: 2; justify-content: flex-start; margin-top: 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">The Money Ness · Series Planning</p>
+    <h1>คู่มือการเงินมนุษย์เงินเดือน — ตัวติดตามหัวข้อ</h1>
+    <p class="sub">70 หัวข้อจาก Topic Map · กดปุ่มสถานะแต่ละหัวข้อเพื่อบันทึกว่า <b>เข้าคิว</b> / <b>กำลังเขียน</b> / <b>เผยแพร่แล้ว</b> ความคืบหน้าถูกเก็บไว้ในเบราว์เซอร์นี้อัตโนมัติ</p>
+  </header>
+
+  <div class="dash" id="dash">
+    <div class="bar" id="bar" role="img" aria-label="ความคืบหน้ารวม">
+      <span class="s-done" style="width:0"></span>
+      <span class="s-writing" style="width:0"></span>
+      <span class="s-queued" style="width:0"></span>
+    </div>
+    <div class="legend-counts">
+      <span class="lc"><span class="dot done"></span>เผยแพร่แล้ว <b id="c-done">0</b></span>
+      <span class="lc"><span class="dot writing"></span>กำลังเขียน <b id="c-writing">0</b></span>
+      <span class="lc"><span class="dot queued"></span>เข้าคิว <b id="c-queued">0</b></span>
+      <span class="lc"><span class="dot idle"></span>ยังไม่เลือก <b id="c-idle">0</b></span>
+      <span class="lc">รวม <b id="c-total">70</b></span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="ค้นหาหัวข้อ / มุมเล่า…" aria-label="ค้นหาหัวข้อ" />
+    </label>
+    <div class="chips" id="chips">
+      <button class="chip" data-filter="flag:star" aria-pressed="false">⭐ 5 หัวข้อแรก</button>
+      <button class="chip" data-filter="flag:tool" aria-pressed="false">🔧 มีเครื่องมือ</button>
+      <button class="chip" data-filter="flag:insurance" aria-pressed="false">🎯 โยงประกัน</button>
+      <button class="chip" data-filter="level:B" aria-pressed="false">[B] เริ่มต้น</button>
+      <button class="chip" data-filter="level:M" aria-pressed="false">[M] กลาง</button>
+      <button class="chip" data-filter="state:queued" aria-pressed="false">เข้าคิว</button>
+      <button class="chip" data-filter="state:writing" aria-pressed="false">กำลังเขียน</button>
+      <button class="chip" data-filter="state:done" aria-pressed="false">เผยแพร่แล้ว</button>
+      <button class="chip" data-filter="state:idle" aria-pressed="false">ยังไม่เลือก</button>
+    </div>
+    <button class="ghost-btn" id="copyBtn">คัดลอกสรุป</button>
+    <button class="ghost-btn" id="resetBtn">ล้างสถานะ</button>
+  </div>
+  <p class="meta-line">
+    <span class="key">ที่มา:</span> series-money-manual/01-topic-map.md ·
+    <span class="key">กลุ่มเป้าหมาย:</span> พนักงานประจำ อายุงาน 0–5 ปี เงินเดือน ~18,000–45,000 ·
+    เริ่มต้นด้วย 6 หัวข้อจาก “5 หัวข้อแรกของ Ness” ตั้งเป็น <b>เข้าคิว</b> ไว้ให้แล้ว
+  </p>
+
+  <div id="cats"></div>
+
+  <p class="foot">
+    สถานะบันทึกเฉพาะในเบราว์เซอร์ที่เปิดหน้านี้ (localStorage) — ไม่ซิงก์ข้ามเครื่อง ·
+    ขั้นถัดไปเมื่อเลือกหัวข้อแล้ว: สร้างไฟล์ <code>article-YYYY-MM-DD-slug.md</code> ตามโครง 8 ส่วนใน 00-series-plan.md
+  </p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DATA = [
+    { c: "A", name: "เข้าใจเงินของตัวเอง", desc: "รู้ว่าเงินเข้า-ออกเท่าไร ไปไหน", topics: [
+      { id: "A1", t: "อ่านสลิปเงินเดือนให้ออก", a: "เงินเดือน ≠ เงินที่ได้จริง · ช่องที่ไม่เคยอ่าน (ประกันสังคม/PF/ภาษีหัก ณ ที่จ่าย/YTD) คือของที่ได้คืน", lvl: "B", flags: ["star"] },
+      { id: "A2", t: "คำนวณ “ความมั่งคั่งสุทธิ” ของตัวเอง", a: "ทรัพย์สิน − หนี้สิน = ตัวเลขจริงที่ต้องรู้ก่อนวางแผน", lvl: "B", flags: [] },
+      { id: "A3", t: "track รายจ่าย 1 เดือนโดยไม่ต้องจดทุกบาท", a: "3 วิธีที่ทำได้จริงสำหรับคนขี้เกียจจด", lvl: "B", flags: [] },
+      { id: "A4", t: "เงินเดือนขึ้น 3,000 แต่ทำไมรู้สึกไม่มีอะไรเปลี่ยน", a: "lifestyle inflation — รายจ่ายวิ่งตามรายได้", lvl: "B", flags: [] },
+      { id: "A5", t: "“อัตราการออม” — ตัวเลขเดียวที่บอกสุขภาพการเงินคุณ", a: "savings rate สำคัญกว่าจำนวนเงินในบัญชี", lvl: "M", flags: [] },
+      { id: "A6", t: "รายจ่ายคงที่ vs ผันแปร — แยกให้ออกก่อนตัดอะไร", a: "ตัดผิดช่องเหนื่อยฟรี", lvl: "B", flags: [] },
+    ]},
+    { c: "B", name: "ตั้งหลัก + ป้องกันความเสี่ยง", desc: "กันชนก่อนเจ็บ (เงินสำรอง หนี้ ประกัน)", topics: [
+      { id: "B1", t: "เงินสำรองฉุกเฉิน ควรมีเท่าไร เก็บไว้ไหน", a: "3–6 เท่าค่าใช้จ่าย · บัญชีแยก/กองตลาดเงิน · ไม่ใช่เงินลงทุน", lvl: "B", flags: [] },
+      { id: "B2", t: "ลำดับการล้างหนี้ — จ่ายก้อนไหนก่อน", a: "avalanche (ดอกสูงก่อน) vs snowball (ก้อนเล็กก่อน) แบบไทยๆ", lvl: "B", flags: [] },
+      { id: "B3", t: "หนี้ กยศ. จ่ายก่อนหรือลงทุนก่อน", a: "เทียบดอกเบี้ย กยศ. กับผลตอบแทนที่คาดหวัง", lvl: "M", flags: [] },
+      { id: "B4", t: "การเลือกประกัน — ประกันคือโอนความเสี่ยง ไม่ใช่ลงทุน", a: "เปิดด้วย “ตัวที่ดีสุดมักเป็นตัวที่ตัวแทนได้คอมน้อยสุด”", lvl: "B", flags: ["star", "insurance"] },
+      { id: "B5", t: "ประกันสุขภาพ vs สวัสดิการบริษัท — ต้องซื้อเพิ่มไหม", a: "เช็กวงเงิน/ห้อง/เหมาจ่ายของสวัสดิการก่อนซื้อ", lvl: "M", flags: ["insurance"] },
+      { id: "B6", t: "ประกันชีวิตต้องมีทุนเท่าไร", a: "คำนวณจากภาระจริง (คนพึ่งพา/หนี้) ไม่ใช่จากที่ตัวแทนเสนอ", lvl: "M", flags: ["insurance"] },
+      { id: "B7", t: "ระวังประกันควบการลงทุน / สะสมทรัพย์", a: "ค่าธรรมเนียมช่วงต้นสูง ผลตอบแทนจริงมักแพ้ลงทุนเอง", lvl: "M", flags: ["insurance"] },
+      { id: "B8", t: "ประกันอะไรที่ “ไม่ต้องซื้อ” สำหรับคนเงินเดือน", a: "ประกันของหาย/เที่ยวบิน/อุปกรณ์ — เสี่ยงเล็กจ่ายเองได้", lvl: "B", flags: ["insurance"] },
+      { id: "B9", t: "คนโสดไม่มีภาระ ต้องมีประกันชีวิตไหม", a: "ถ้าไม่มีใครเดือดร้อนถ้าเราหายไป อาจไม่ต้อง", lvl: "B", flags: ["insurance"] },
+    ]},
+    { c: "C", name: "บริหารรายรับ-รายจ่าย", desc: "ทำให้เหลือเงินทุกเดือน", topics: [
+      { id: "C1", t: "งบประมาณที่ไม่ต้องจดทุกบาท", a: "จ่ายตัวเองก่อน + ตั้งโอนอัตโนมัติวันเงินเดือนออก", lvl: "B", flags: [] },
+      { id: "C2", t: "ระบบบัญชี 3 ก้อน (ใช้จ่าย / เป้าหมาย / ลงทุน)", a: "แยกบัญชีจริง ไม่ใช่แยกในหัว", lvl: "B", flags: [] },
+      { id: "C3", t: "สูตร 50/30/20 ใช้กับเงินเดือนไทยได้จริงไหม", a: "ปรับสัดส่วนตามค่าครองชีพ/ภาระจริง", lvl: "B", flags: [] },
+      { id: "C4", t: "ตัดค่าใช้จ่ายตรงไหนได้เงินคืนเยอะสุด", a: "subscription ที่ลืม · ค่าธรรมเนียมบัญชี/บัตร · ดอกเบี้ยหนี้", lvl: "B", flags: [] },
+      { id: "C5", t: "โบนัส/เงินก้อน มาแล้วทำไงไม่ให้หายใน 2 เดือน", a: "แบ่งล่วงหน้าก่อนเงินเข้า (หนี้/สำรอง/ลงทุน/รางวัลตัวเอง)", lvl: "B", flags: [] },
+      { id: "C6", t: "เพิ่มรายได้ทางที่ 2 — เริ่มยังไงไม่กระทบงานหลัก", a: "ขายเวลา vs ขายของ vs ขายความรู้ · ระวังเรื่องภาษี", lvl: "M", flags: [] },
+      { id: "C7", t: "ค่ากาแฟ/ค่ากับข้าว — เรื่องเล็กที่ไม่เล็ก แต่ไม่ใช่ที่ควรโฟกัสก่อน", a: "latte factor จริง แต่ตัดดอกเบี้ยหนี้ได้เยอะกว่า", lvl: "B", flags: [] },
+    ]},
+    { c: "D", name: "เครดิตและหนี้", desc: "ใช้เครดิตเป็นเครื่องมือ ไม่ใช่กับดัก", topics: [
+      { id: "D1", t: "บัตรเครดิตใบแรก — เครื่องมือ ไม่ใช่เงินเพิ่ม", a: "“บัตรเครดิตไม่ใช่เงินเพิ่ม 50,000 มันคือบิลที่ยังมาไม่ถึง”", lvl: "B", flags: ["star"] },
+      { id: "D2", t: "กับดักจ่ายขั้นต่ำ 8% — คณิตศาสตร์ดอกเบี้ยทบ", a: "หนี้ 20,000 จ่ายขั้นต่ำอย่างเดียว ปลดเกิน 2 ปี", lvl: "B", flags: [] },
+      { id: "D3", t: "ผ่อน 0% ฟรีจริงไหม — เมื่อไรควรใช้ เมื่อไรไม่", a: "ไม่ฟรีถ้าทำให้ซื้อของที่ไม่ได้ตั้งใจซื้อ", lvl: "B", flags: [] },
+      { id: "D4", t: "เครดิตบูโร (NCB) คืออะไร ทำไมสำคัญตอนขอสินเชื่อบ้าน", a: "เก็บประวัติ 3 ปี · ตกงวดครั้งเดียวติดยาว", lvl: "M", flags: [] },
+      { id: "D5", t: "เครดิตสกอร์ดีขึ้นได้ยังไง", a: "จ่ายตรงเวลา · ใช้วงเงินไม่เต็ม · อย่าเปิดบัตรรัวๆ", lvl: "M", flags: [] },
+      { id: "D6", t: "บัตรกดเงินสด / สินเชื่อส่วนบุคคล ต่างกับบัตรเครดิตยังไง", a: "ดอกเบี้ยแพงกว่า · คิดดอกตั้งแต่วันแรก", lvl: "B", flags: [] },
+      { id: "D7", t: "รีไฟแนนซ์บ้าน/รถ ประหยัดได้เท่าไร ทำตอนไหน", a: "ปีที่ 3 ของบ้าน · เทียบดอกเบี้ย + ค่าดำเนินการ", lvl: "M", flags: [] },
+      { id: "D8", t: "หนี้ดี vs หนี้ไม่ดี — เส้นแบ่งอยู่ตรงไหน", a: "หนี้ที่สร้างรายได้/สินทรัพย์ที่โต vs หนี้ที่ซื้อของเสื่อมค่า", lvl: "B", flags: [] },
+    ]},
+    { c: "E", name: "ภาษีและสิทธิประโยชน์", desc: "เอาเงินที่เป็นสิทธิของตัวเองกลับมา", topics: [
+      { id: "E1", t: "วิธีลดหย่อนภาษี — ไล่จากค่าลดหย่อนฟรี → ที่ต้องจ่ายซื้อ", a: "“เงินคืนภาษีไม่ใช่โบนัสจากรัฐ มันคือเงินคุณที่จ่ายเกิน”", lvl: "B", flags: ["star", "tool"] },
+      { id: "E2", t: "รู้ก่อนว่าตัวเองอยู่ขั้นภาษีกี่ %", a: "ลดหย่อน 1 บาท ได้คืนกี่สตางค์ (5–35%)", lvl: "B", flags: [] },
+      { id: "E3", t: "ยื่นภาษีออนไลน์เอง 15 นาที — ภ.ง.ด.91", a: "ไม่ต้องจ้าง ไม่ต้องกลัว · เอกสารที่ต้องมี", lvl: "B", flags: [] },
+      { id: "E4", t: "RMF / ThaiESG / ThaiESGX — อันไหนเหมาะกับใคร (SSF หมดแล้ว)", a: "เพดาน/ระยะถือครอง/ความเสี่ยงต่างกัน", lvl: "M", flags: ["tool"] },
+      { id: "E5", t: "เงินคืนภาษี เอาไปทำอะไรให้คุ้มสุด", a: "หนี้ดอกสูง → สำรอง → ลงทุนลดหย่อนปีหน้า (วนลูป)", lvl: "M", flags: [] },
+      { id: "E6", t: "กองทุนสำรองเลี้ยงชีพ (PF) — เลือก % สมทบ + นโยบายลงทุนใน PF", a: "เพิ่ม % = นายจ้างสมทบเพิ่ม = เงินเดือนขึ้นฟรี", lvl: "M", flags: [] },
+      { id: "E7", t: "แจ้งลดหย่อนกับ HR (ล.ย.01) ให้ตรงจริง", a: "แจ้งเกิน → ปลายปีโดนเรียกเก็บก้อนใหญ่", lvl: "M", flags: [] },
+      { id: "E8", t: "ประกันสังคม ม.33 — สิทธิที่จ่ายทุกเดือนแต่ไม่เคยใช้", a: "ทันตกรรม 900/ปี · ว่างงาน · ชราภาพ · เลือก รพ.", lvl: "B", flags: [] },
+      { id: "E9", t: "มาตรการช้อปลดภาษี (Easy E-Receipt) คุ้มจริงไหม", a: "ลดหย่อนได้จริง แต่อย่าซื้อเพราะอยากลดภาษี", lvl: "B", flags: [] },
+      { id: "E10", t: "โบนัสโดนหักภาษีเยอะ ทำไม แล้วได้คืนไหม", a: "บริษัทหักแบบ non-recurring · ได้คืนตอนยื่นถ้าลดหย่อนพอ", lvl: "B", flags: [] },
+    ]},
+    { c: "F", name: "การลงทุน", desc: "ให้เงินที่เหลือทำงาน", topics: [
+      { id: "F1", t: "เริ่มลงทุนจากเงินเดือน — ต้องมีเท่าไรถึงเริ่มได้", a: "คำตอบ: หลักร้อย · แต่ต้องผ่านหมวด B ก่อน", lvl: "B", flags: [] },
+      { id: "F2", t: "กองทุนดัชนี (index fund) คืออะไร ทำไมเหมาะกับคนไม่มีเวลา", a: "ซื้อทั้งตลาด · ค่าธรรมเนียมต่ำ · ไม่ต้องเลือกหุ้น", lvl: "B", flags: [] },
+      { id: "F3", t: "ค่าธรรมเนียมกองทุน 1–2%/ปี — 20 ปีกินกำไรไปเท่าไร", a: "ตัวเลขจริง: ต่างกันเป็นแสน", lvl: "M", flags: [] },
+      { id: "F4", t: "DCA คืออะไร ทำไมเหมาะกับคนเงินเดือน", a: "ลงทุนตามจังหวะเงินเดือนออก · ไม่ต้องจับจังหวะตลาด", lvl: "B", flags: [] },
+      { id: "F5", t: "DCA แบบไหน — ทุกเดือน vs ตอนตลาดตก vs ปรับตามสถานการณ์", a: "3 สไตล์ ข้อดี-ข้อเสีย (มี content brief เดิมอยู่แล้ว)", lvl: "M", flags: [] },
+      { id: "F6", t: "รับความเสี่ยงได้แค่ไหน — หาคำตอบก่อนเสียเงินจริง", a: "ถามตัวเอง: ถ้าพอร์ตตก 30% พรุ่งนี้ยังนอนหลับไหม", lvl: "B", flags: [] },
+      { id: "F7", t: "จัดพอร์ตแบบ core — หุ้น/ตราสารหนี้/เงินสด สัดส่วนเท่าไร", a: "ยึดสัดส่วนเป้า · อย่าตามอารมณ์ตลาด", lvl: "M", flags: ["star", "tool"] },
+      { id: "F8", t: "rebalance คืออะไร ทำตอนไหน", a: "ขายส่วนเกิน เติมส่วนขาด · วินัยไม่ให้พอร์ตเสี่ยงเกินแผน", lvl: "M", flags: ["tool"] },
+      { id: "F9", t: "สินทรัพย์แต่ละแบบ (หุ้น/กองทุน/ทอง/คริปโต/อสังหา)", a: "เสี่ยง–ผลตอบแทน–สภาพคล่อง เทียบให้เห็นภาพ", lvl: "B", flags: [] },
+      { id: "F10", t: "พอร์ตตกหนัก 20% ควรทำไง", a: "จิตวิทยา · ทำไมการไม่ทำอะไรมักถูก", lvl: "M", flags: [] },
+      { id: "F11", t: "ลงทุนในไทย vs ต่างประเทศ — เริ่มที่ไหนก่อน", a: "ภาษี · ค่าธรรมเนียม · การกระจายความเสี่ยงประเทศ", lvl: "M", flags: [] },
+      { id: "F12", t: "เงินก้อนมา ควร DCA หรือใส่ทีเดียว (lump sum)", a: "สถิติ vs ความสบายใจ", lvl: "M", flags: [] },
+    ]},
+    { c: "G", name: "เป้าหมายใหญ่ในชีวิต", desc: "บ้าน รถ แต่งงาน ลูก เกษียณ", topics: [
+      { id: "G1", t: "ซื้อบ้าน VS เช่า ซื้อตอนไหนดี", a: "ต้นทุนแฝงของการซื้อ · ค่าเสียโอกาสของเงินดาวน์", lvl: "M", flags: ["star", "tool"] },
+      { id: "G2", t: "ผ่อนบ้านไหวไหม — กฎ 1 ใน 3 ของรายได้ + ค่าใช้จ่ายแฝง", a: "ค่าส่วนกลาง/ประกัน/ซ่อม/ภาษีที่ดิน", lvl: "M", flags: [] },
+      { id: "G3", t: "ดาวน์บ้านเท่าไรดี — 10% vs 20% vs มากกว่า", a: "ดอกเบี้ยที่ประหยัด vs สภาพคล่องที่เสียไป", lvl: "M", flags: [] },
+      { id: "G4", t: "ซื้อรถ — เงินสด vs ผ่อน + ต้นทุนจริงต่อเดือน", a: "ค่างวดไม่ใช่ต้นทุนทั้งหมด (เสื่อมราคา/ประกัน/บำรุง/น้ำมัน)", lvl: "B", flags: [] },
+      { id: "G5", t: "ค่าใช้จ่ายแต่งงาน — วางแผนล่วงหน้ากี่ปี", a: "ตั้งเป้า + DCA เข้าเป้านั้นแยกจากพอร์ตลงทุน", lvl: "B", flags: [] },
+      { id: "G6", t: "มีลูก 1 คน ต้องเตรียมเงินเท่าไร (แรกเกิด → ป.ตรี)", a: "ช่วงไหนจ่ายหนัก · เริ่มออมเพื่อการศึกษาเมื่อไร", lvl: "M", flags: [] },
+      { id: "G7", t: "เรียนต่อ ป.โท คุ้มไหม — คำนวณ ROI ยังไง", a: "เงินเดือนที่เพิ่ม vs ค่าเรียน + รายได้ที่หายไป", lvl: "M", flags: [] },
+      { id: "G8", t: "เกษียณต้องมีเท่าไร — กฎ 4% / ค่าใช้จ่ายต่อปี × 25", a: "PF + ประกันสังคมชราภาพ ไม่พอ ต้องเสริมเอง", lvl: "M", flags: [] },
+      { id: "G9", t: "ย้ายไปทำงานต่างประเทศ — การเงินต้องเตรียมอะไร", a: "ปิดหนี้ · เงินสำรองสกุลปลายทาง · PF/ประกันสังคมทำยังไง", lvl: "M", flags: [] },
+    ]},
+    { c: "H", name: "วางแผนภาพรวม + mindset", desc: "ร้อยทุกเรื่องเข้าด้วยกัน", topics: [
+      { id: "H1", t: "ตั้งเป้าหมายการเงิน — เริ่มจาก “เอาไว้ทำอะไร” ไม่ใช่ตัวเลข", a: "เป้าที่ดีเริ่มจากคำถามหลัง ไม่ใช่ตัวเลขหน้า", lvl: "B", flags: ["star"] },
+      { id: "H2", t: "ออกแบบการเงินส่วนบุคคล — ร้อยทุกเรื่องเข้าด้วยกัน (6 ขั้น)", a: "กระแสเงินสด → กันชน → ป้องกัน → ภาษี → ลงทุน → เป้าใหญ่", lvl: "M", flags: ["star"] },
+      { id: "H3", t: "พลังดอกเบี้ยทบต้น — เริ่มเร็ว 5 ปีชนะใส่เงินเยอะ", a: "ตัวเลขจริง: DCA 3,000/ด. 7%/ปี 20 ปี ≈ 1.5 ล้าน (ใส่จริง 720k)", lvl: "B", flags: [] },
+      { id: "H4", t: "อิสรภาพการเงิน / FIRE แบบมนุษย์เงินเดือนไทย — เป็นไปได้ไหม", a: "คณิตศาสตร์ตรงไปตรงมา + ข้อจำกัดจริง", lvl: "M", flags: [] },
+      { id: "H5", t: "นิสัยการเงินที่ทำให้คนเงินเดือนเท่ากันจบไม่เท่ากัน", a: "automate · จ่ายตัวเองก่อน · ไม่กู้มาลงทุน · ทบทวนปีละครั้ง", lvl: "B", flags: [] },
+      { id: "H6", t: "เงินกับความสุข — จุดที่เงินเพิ่มแล้วสุขไม่เพิ่ม", a: "ใช้เงินซื้อเวลา/ประสบการณ์ > ของ", lvl: "B", flags: [] },
+      { id: "H7", t: "คุยเรื่องเงินกับแฟน/คู่ชีวิต — บัญชีรวมหรือแยก", a: "3 โมเดล (รวม/แยก/ผสม) · คุยอะไรก่อนแต่ง", lvl: "M", flags: [] },
+      { id: "H8", t: "เทียบตัวเองกับคนอื่นในโซเชียล — กับดักที่ทำให้ใช้เงินเกินตัว", a: "เห็นแต่ผลลัพธ์ ไม่เห็นหนี้ · nobody posts their bills", lvl: "B", flags: [] },
+      { id: "H9", t: "รีวิวการเงินตัวเองปีละครั้ง — เช็กลิสต์ 10 ข้อ", a: "net worth · savings rate · หนี้ · ประกัน · พอร์ต · ภาษี", lvl: "M", flags: [] },
+    ]},
+  ];
+
+  const STATES = [
+    { k: "idle", label: "ยังไม่เลือก", short: "ว่าง" },
+    { k: "queued", label: "เข้าคิว", short: "เข้าคิว" },
+    { k: "writing", label: "กำลังเขียน", short: "กำลังเขียน" },
+    { k: "done", label: "เผยแพร่แล้ว", short: "เผยแพร่" },
+  ];
+  const FLAG_LABEL = { star: "⭐ 5 หัวข้อแรก", tool: "🔧 มีเครื่องมือ", insurance: "🎯 โยงประกัน" };
+  const LVL_LABEL = { B: "เริ่มต้น", M: "กลาง" };
+  const SEED_QUEUED = ["G1", "B4", "E1", "D1", "H1", "H2"];
+  const KEY = "money-manual-topic-tracker-v1";
+
+  const ALL = DATA.flatMap(cat => cat.topics.map(tp => ({ ...tp, cat: cat.c })));
+  const TOTAL = ALL.length;
+
+  let store = load();
+  const filters = { q: "", flag: null, level: null, state: null };
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    const seed = {};
+    SEED_QUEUED.forEach(id => { seed[id] = "queued"; });
+    return seed;
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {}
+  }
+  function stateOf(id) { return store[id] || "idle"; }
+
+  const catsEl = document.getElementById("cats");
+
+  function build() {
+    catsEl.innerHTML = "";
+    DATA.forEach(cat => {
+      const wrap = document.createElement("section");
+      wrap.className = "cat";
+      wrap.dataset.open = "true";
+      wrap.dataset.cat = cat.c;
+
+      const head = document.createElement("button");
+      head.className = "cat-head";
+      head.type = "button";
+      head.setAttribute("aria-expanded", "true");
+      head.innerHTML = `
+        <span class="cat-letter">${cat.c}</span>
+        <span>
+          <span class="cat-title">${cat.name}</span><br>
+          <span class="cat-desc">${cat.desc}</span>
+        </span>
+        <span class="cat-right">
+          <span class="mini-bar" data-mini>
+            <span class="m-done"></span><span class="m-writing"></span><span class="m-queued"></span>
+          </span>
+          <span class="cat-frac" data-frac></span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m6 9 6 6 6-6"/></svg>
+        </span>`;
+      head.addEventListener("click", () => {
+        const open = wrap.dataset.open === "true";
+        wrap.dataset.open = open ? "false" : "true";
+        head.setAttribute("aria-expanded", open ? "false" : "true");
+      });
+
+      const body = document.createElement("div");
+      body.className = "cat-body";
+
+      cat.topics.forEach(tp => {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.dataset.id = tp.id;
+
+        const flagsHtml = tp.flags.map(f => `<span class="flag" title="${FLAG_LABEL[f]}">${FLAG_LABEL[f].split(" ")[0]}</span>`).join("");
+
+        row.innerHTML = `
+          <span class="code">${tp.id}</span>
+          <span class="row-main">
+            <span class="row-title">${tp.t}<span class="flags">${flagsHtml}</span><span class="lvl" title="ระดับ ${LVL_LABEL[tp.lvl]}">${tp.lvl}</span></span>
+            <span class="row-angle">${tp.a}</span>
+          </span>
+          <span class="status" role="group" aria-label="สถานะ ${tp.id}">
+            ${STATES.map(s => `<button type="button" class="st-${s.k}" data-state="${s.k}" aria-pressed="false" title="${s.label}">${s.short}</button>`).join("")}
+          </span>`;
+
+        row.querySelector(".status").addEventListener("click", e => {
+          const btn = e.target.closest("button");
+          if (!btn) return;
+          const next = btn.dataset.state;
+          store[tp.id] = (stateOf(tp.id) === next) ? "idle" : next;
+          save();
+          syncRow(row);
+          syncCat(wrap);
+          syncDash();
+        });
+
+        body.appendChild(row);
+      });
+
+      const empty = document.createElement("p");
+      empty.className = "empty-cat";
+      empty.hidden = true;
+      empty.textContent = "ไม่มีหัวข้อที่ตรงกับตัวกรอง";
+      body.appendChild(empty);
+
+      wrap.appendChild(head);
+      wrap.appendChild(body);
+      catsEl.appendChild(wrap);
+
+      syncCat(wrap);
+      wrap.querySelectorAll(".row").forEach(syncRow);
+    });
+    syncDash();
+  }
+
+  function syncRow(row) {
+    const st = stateOf(row.dataset.id);
+    row.classList.toggle("is-done", st === "done");
+    row.classList.toggle("is-writing", st === "writing");
+    row.classList.toggle("is-queued", st === "queued");
+    row.querySelectorAll(".status button").forEach(b => {
+      b.setAttribute("aria-pressed", String(b.dataset.state === st));
+    });
+  }
+
+  function countIn(ids) {
+    const c = { idle: 0, queued: 0, writing: 0, done: 0 };
+    ids.forEach(id => { c[stateOf(id)]++; });
+    return c;
+  }
+
+  function syncCat(wrap) {
+    const ids = DATA.find(d => d.c === wrap.dataset.cat).topics.map(t => t.id);
+    const c = countIn(ids);
+    const n = ids.length;
+    wrap.querySelector("[data-frac]").innerHTML = `<b>${c.done}</b>/${n}`;
+    const mini = wrap.querySelector("[data-mini]");
+    mini.querySelector(".m-done").style.width = (c.done / n * 100) + "%";
+    mini.querySelector(".m-writing").style.width = (c.writing / n * 100) + "%";
+    mini.querySelector(".m-queued").style.width = (c.queued / n * 100) + "%";
+  }
+
+  function syncDash() {
+    const c = countIn(ALL.map(t => t.id));
+    document.getElementById("c-done").textContent = c.done;
+    document.getElementById("c-writing").textContent = c.writing;
+    document.getElementById("c-queued").textContent = c.queued;
+    document.getElementById("c-idle").textContent = c.idle;
+    const bar = document.getElementById("bar");
+    bar.querySelector(".s-done").style.width = (c.done / TOTAL * 100) + "%";
+    bar.querySelector(".s-writing").style.width = (c.writing / TOTAL * 100) + "%";
+    bar.querySelector(".s-queued").style.width = (c.queued / TOTAL * 100) + "%";
+    bar.setAttribute("aria-label", `เผยแพร่ ${c.done}, กำลังเขียน ${c.writing}, เข้าคิว ${c.queued}, จาก ${TOTAL} หัวข้อ`);
+  }
+
+  function applyFilters() {
+    const q = filters.q.trim().toLowerCase();
+    document.querySelectorAll(".cat").forEach(wrap => {
+      const cat = DATA.find(d => d.c === wrap.dataset.cat);
+      let visible = 0;
+      wrap.querySelectorAll(".row").forEach(row => {
+        const tp = cat.topics.find(t => t.id === row.dataset.id);
+        let show = true;
+        if (q && !(tp.t.toLowerCase().includes(q) || tp.a.toLowerCase().includes(q) || tp.id.toLowerCase().includes(q))) show = false;
+        if (filters.flag && !tp.flags.includes(filters.flag)) show = false;
+        if (filters.level && tp.lvl !== filters.level) show = false;
+        if (filters.state && stateOf(tp.id) !== filters.state) show = false;
+        row.hidden = !show;
+        if (show) visible++;
+      });
+      wrap.querySelector(".empty-cat").hidden = visible !== 0;
+      const anyFilter = q || filters.flag || filters.level || filters.state;
+      wrap.hidden = anyFilter && visible === 0;
+    });
+  }
+
+  document.getElementById("q").addEventListener("input", e => {
+    filters.q = e.target.value;
+    applyFilters();
+  });
+
+  document.getElementById("chips").addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    const [type, val] = chip.dataset.filter.split(":");
+    const on = filters[type] === val;
+    if (type === "flag" || type === "level" || type === "state") {
+      filters[type] = on ? null : val;
+      document.querySelectorAll(`.chip[data-filter^="${type}:"]`).forEach(c => c.setAttribute("aria-pressed", "false"));
+      if (!on) chip.setAttribute("aria-pressed", "true");
+    }
+    applyFilters();
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (!confirm("ล้างสถานะทุกหัวข้อกลับเป็น “ยังไม่เลือก”?")) return;
+    store = {};
+    save();
+    build();
+    applyFilters();
+    toast("ล้างสถานะแล้ว");
+  });
+
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const c = countIn(ALL.map(t => t.id));
+    const lines = [];
+    lines.push("คู่มือการเงินมนุษย์เงินเดือน — สรุปสถานะหัวข้อ");
+    lines.push(`เผยแพร่แล้ว ${c.done} · กำลังเขียน ${c.writing} · เข้าคิว ${c.queued} · ยังไม่เลือก ${c.idle} (รวม ${TOTAL})`);
+    [["done", "เผยแพร่แล้ว"], ["writing", "กำลังเขียน"], ["queued", "เข้าคิว"]].forEach(([k, label]) => {
+      const items = ALL.filter(t => stateOf(t.id) === k);
+      if (!items.length) return;
+      lines.push("");
+      lines.push(`■ ${label}`);
+      items.forEach(t => lines.push(`- ${t.id} ${t.t}`));
+    });
+    const text = lines.join("\n");
+    navigator.clipboard?.writeText(text).then(
+      () => toast("คัดลอกสรุปแล้ว"),
+      () => toast("คัดลอกไม่สำเร็จ")
+    );
+  });
+
+  let toastTimer;
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 1900);
+  }
+
+  build();
+  applyFilters();
+</script>
+</body>
+</html>
