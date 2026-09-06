@@ -180,6 +180,12 @@
   .qc-hint strong { color: #64748b; }
   .qc-select { width: 100%; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; cursor: pointer; }
   .qc-select:focus { border-color: #39ff14; }
+  .qc-style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .qc-style-field label { display: block; font-size: 11px; color: #64748b; margin-bottom: 4px; font-weight: 600; }
+  .qc-textarea { width: 100%; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; resize: vertical; min-height: 60px; }
+  .qc-textarea:focus { border-color: #39ff14; }
+  .qc-textarea::placeholder { color: #475569; }
+  @media (max-width: 640px) { .qc-style-grid { grid-template-columns: 1fr; } }
 
   /* Quiz History */
   .quiz-stat { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 100px; }
@@ -812,13 +818,49 @@
         <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
         <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
       </div>
-      <div class="qc-row" id="qcStyleRow">
-        <select class="qc-select" id="qcImageStyle">
-          <option value="both" selected>🎨 Gemini Image Brief: ให้ Claude เสนอ 3 สไตล์ (default)</option>
-          <option value="moody">🌙 สไตล์เดียว: Moody / Still Life</option>
-          <option value="aggressive">🔥 สไตล์เดียว: Aggressive / Dramatic (Money Buffalo)</option>
-          <option value="herovillain">🛡️ สไตล์เดียว: Hero vs Villain Object (สไตล์โปรดของ Ness)</option>
-        </select>
+      <div id="qcStyleRow">
+        <div style="font-size:12px;color:#64748b;font-weight:700;margin-bottom:8px">🎨 Gemini Image Brief — ปรับได้ทีละส่วน (เว้นว่างข้อไหนได้ ให้ Claude เลือกเอง):</div>
+        <div class="qc-style-grid" style="margin-bottom:10px">
+          <div class="qc-style-field">
+            <label>1. แนวภาพ</label>
+            <select class="qc-select" id="qcVisualApproach">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="แนวภาพ: Conceptual Still Life สมจริง-เหนือจริง เชิงสัญลักษณ์แฝงนัย (Moody base)">🌙 Conceptual Still Life (สมจริง-เหนือจริง)</option>
+              <option value="แนวภาพ: Macro Photography วัตถุจริงจัดสัดส่วนเกินจริงเชิงสัญลักษณ์ (Money Buffalo base)">📸 Macro Photography (วัตถุจริงจัดเกินจริง)</option>
+              <option value="แนวภาพ: Symbolic Object Scene จัดฉากวัตถุเชิงสัญลักษณ์มีเรื่องราว (Hero vs Villain base)">🛡️ Symbolic Object Scene (มีเรื่องราวในภาพ)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>2. จำนวนองค์ประกอบ</label>
+            <select class="qc-select" id="qcElementCount">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="จำนวนองค์ประกอบ: วัตถุหลักชิ้นเดียวเด่น โฟกัสจุดเดียว (Single Hero Object)">1️⃣ วัตถุหลักชิ้นเดียว (โฟกัสจุดเดียว)</option>
+              <option value="จำนวนองค์ประกอบ: หลายองค์ประกอบเล่าเรื่องภาพรวม เช่น มีตัวเอกและตัวร้ายในฉากเดียวกัน (Multi-element scene)">🖼️ หลายองค์ประกอบ (พูดถึงภาพรวม)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>3. แสงและโทน</label>
+            <select class="qc-select" id="qcLighting">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="แสงและโทน: Chiaroscuro นุ่มนวล ขรึม สงบ">🕯️ นุ่มนวล ขรึม (Soft Chiaroscuro)</option>
+              <option value="แสงและโทน: แสงจัดจ้าน ดราม่า High-contrast สีสดจัดจ้าน">⚡ จัดจ้าน ดราม่า (Aggressive Lighting)</option>
+              <option value="แสงและโทน: Low-angle directional light เงายาวดราม่า cinematic">🌇 Low-angle เงายาว (Cinematic)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>4. ความรู้สึกที่ได้</label>
+            <select class="qc-select" id="qcFeeling">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="ความรู้สึกที่ต้องการ: สงบ น่าเชื่อถือ ครุ่นคิด">😌 สงบ น่าเชื่อถือ</option>
+              <option value="ความรู้สึกที่ต้องการ: ดุ กวนๆ กระแทกอารมณ์">😠 ดุ กระแทกอารมณ์</option>
+              <option value="ความรู้สึกที่ต้องการ: มีชัยชนะ/ทางออกชัดเจน ดูมีความหวัง">🏆 มีชัยชนะ/ทางออก</option>
+            </select>
+          </div>
+        </div>
+        <div class="qc-style-field">
+          <label>5. บรีฟเพิ่มเติม (ไม่บังคับ)</label>
+          <textarea class="qc-textarea" id="qcExtraBrief" placeholder="พิมพ์รายละเอียดเพิ่มเติม เช่น วัตถุที่อยากให้ใช้, สี, ของประกอบฉาก ฯลฯ — ถ้าไม่ใส่ Claude จะคิดรายละเอียดให้เอง"></textarea>
+        </div>
       </div>
       <div class="qc-hint">
         <strong>วิธีใช้:</strong> พิมหัวข้อ → เลือก format → กด Copy → วาง prompt ใน Claude chat<br>
@@ -2642,17 +2684,28 @@ function generateContentPrompt() {
 
   let imageStyleInstruction = '';
   if (qcType === 'โพสต์') {
-    const styleSel = document.getElementById('qcImageStyle');
-    const styleVal = styleSel ? styleSel.value : 'both';
-    if (styleVal === 'moody') {
-      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🌙 Moody / Still Life (Conceptual Still Life, photorealistic render, Chiaroscuro lighting, มู้ดขรึม สัญลักษณ์ซ้อนทับ) ตามที่บันทึกไว้ใน style-guide.md';
-    } else if (styleVal === 'aggressive') {
-      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🔥 Aggressive / Dramatic (Money Buffalo style): Macro photography ของวัตถุจริง, Symbolic/Aggressive Object Scaling, Aggressive Directional Lighting, High-contrast chiaroscuro, สีสันสดจัดจ้าน ตามสูตรที่บันทึกไว้ใน style-guide.md';
-    } else if (styleVal === 'herovillain') {
-      imageStyleInstruction = 'Gemini Image Brief: ทำสไตล์เดียว — 🛡️ Symbolic Hero vs Villain Object Formula: วัตถุตัวเอก (Hero Object) เชิงสัญลักษณ์ปะทะวัตถุตัวร้าย (Villain Object) ตามสูตรที่บันทึกไว้ใน style-guide.md (ทางเลือกที่ 3) — สไตล์โปรดของ Ness ใช้ได้กับแทบทุกแนว Content';
+    const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : 'auto'; };
+    const va = getVal('qcVisualApproach');
+    const ec = getVal('qcElementCount');
+    const lt = getVal('qcLighting');
+    const fl = getVal('qcFeeling');
+    const extraEl = document.getElementById('qcExtraBrief');
+    const extra = extraEl ? extraEl.value.trim() : '';
+
+    const parts = [va, ec, lt, fl].filter(v => v !== 'auto');
+
+    imageStyleInstruction = 'Gemini Image Brief: ';
+    if (parts.length) {
+      imageStyleInstruction += 'ทำตามสเปกที่ Ness เลือกเจาะจงต่อไปนี้ — ' + parts.join(' / ') + '. ส่วนที่ Ness ไม่ได้ระบุ ให้ Claude เลือกให้เหมาะกับหัวข้อเอง. ';
     } else {
-      imageStyleInstruction = 'Gemini Image Brief: ทำ 3 สไตล์ตาม format บังคับใน style-guide.md (### Style: 🌙 Moody / Still Life, ### Style: 🔥 Aggressive / Dramatic, และ ### Style: 🛡️ Hero vs Villain Object) ให้ Ness เลือกทีหลังบนเว็บ';
+      imageStyleInstruction += 'Ness ไม่ได้ระบุสเปกภาพเจาะจง ให้ Claude เลือกแนวภาพ/จำนวนองค์ประกอบ/แสงและโทน/ความรู้สึกที่เหมาะกับหัวข้อเองทั้งหมด (อาจเสนอ 2-3 สไตล์ให้ Ness เลือกทีหลังบนเว็บตาม format ### Style: ใน style-guide.md ก็ได้). ';
     }
+    if (extra) {
+      imageStyleInstruction += 'บรีฟเพิ่มเติมจาก Ness: ' + extra + '. ';
+    } else {
+      imageStyleInstruction += 'ไม่มีบรีฟเพิ่มเติม ให้ Claude คิดรายละเอียดวัตถุ/ฉาก/สัญลักษณ์ที่เหมาะกับหัวข้อเอง. ';
+    }
+    imageStyleInstruction += 'ยึดเทคนิคและกฎถาวรทั้งหมดใน style-guide.md เสมอ (เทคนิคล็อก aspect ratio, กฎความปลอดภัยธนบัตรไทย, Strict System Rules)';
   }
 
   if (qcType === 'โพสต์') {
