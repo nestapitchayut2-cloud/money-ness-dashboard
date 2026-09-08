@@ -1,5 +1,3 @@
-> ⚠️ **ไฟล์นี้เป็นสำเนา (mirror)** ของ `MASTER-WORKFLOW.md` ที่ root ของ Claude Workspace ซึ่งยังเป็นต้นฉบับตัวจริงอยู่ (ใช้กับหลายโปรเจกต์ ไม่ใช่แค่ The Money Ness) ก๊อปปี้มาไว้ที่นี่เพื่อให้ Claude อ่านได้ตอนไม่ได้เชื่อมต่อคอม แต่ **อาจไม่ทันสมัยที่สุด** ถ้าแก้ MASTER-WORKFLOW.md ตัวจริงเมื่อไหร่ ให้ก๊อปปี้มาทับไฟล์นี้อีกครั้งด้วย
-
 # MASTER WORKFLOW INSTRUCTIONS
 # ไฟล์นี้ Cowork ต้องอ่านทุกครั้งก่อนเริ่มงาน
 # Owner: Ness | The Money Ness System
@@ -653,6 +651,15 @@ FINANCE-LEARNING/market-research/
 - ถ้าคำตอบคือ "ไม่" (แค่ตอบคำถามในแชท อธิบายสั้นๆ ไม่ได้ตั้งใจให้เป็นบทเรียนถาวร) → ไม่ต้องสร้างไฟล์เลย ตอบในแชทพอ วิธีนี้ลดโอกาสไฟล์กำพร้าไปในตัว เพราะไม่มีไฟล์ก็ไม่มีอะไรให้ลืม link
 - ถ้าตัดสินใจเองไม่ได้ว่าเนื้อหานี้ควรเก็บถาวรหรือแค่คุยผ่านไป → ถาม Ness ตรงๆ ก่อนเซฟไฟล์ ("อยากให้บันทึกเป็นบทเรียนเก็บไว้ใน Dashboard ด้วยไหม")
 - ก่อนปิด task ใดๆ ที่มีการเขียนไฟล์ลง 2 โฟลเดอร์ข้างบน ให้เช็คว่าทำครบ 3 ข้อ Brief Archive แล้วหรือยัง — ถ้ายัง ถือว่า task ยังไม่เสร็จ
+
+**Content Drafts (โพสต์/Reels) — สร้างไฟล์ใหม่ต้องทำครบทั้ง 4 ข้อ (เพิ่ม 8 ก.ย. 2569 — ไม่งั้นไม่ขึ้น dashboard local!):**
+1. บันทึกไฟล์ในตำแหน่งที่ถูกต้องตาม File Save Rules ของแต่ละ Project (เช่น `FINANCE-LEARNING/market-research/` หรือ `THE-MONEY-NESS/reels-scripts/`)
+2. **เพิ่ม entry ใน `SHARED/dashboard.html` array `contentDrafts`** — schema: `{ label, day, topic, type:'โพสต์'|'Reels', cat, path }` — การ์ดในแท็บ Content Drafts (dashboard local ที่ Ness เปิดดูจริง) จะไม่ขึ้นถ้าลืมข้อนี้ ต่อให้ sync GitHub ครบแล้วก็ตาม
+3. Sync ขึ้น GitHub: copy ไฟล์ไป `content/posts/` + เพิ่มชื่อไฟล์ใน `content/index.json` + git commit + push origin main
+4. อัปเดต `SHARED/content-calendar.md`
+
+**เกิดขึ้นจริง 8 ก.ย. 2569:** สร้างโพสต์ `post-2026-09-08-life-harder-real-or-feeling.md` ทำครบข้อ 1, 3, 4 แต่ลืมข้อ 2 — ผลคือ push ขึ้น GitHub ผ่านหมดไม่มี error แต่หน้า dashboard local ที่ Ness เปิดดูจริงไม่โผล่โพสต์ใหม่ ทำให้ดูเหมือนยังไม่ได้ push ทั้งที่จริง sync ครบแล้ว — บทเรียน: ต้องเช็คทั้ง 2 dashboard (local `SHARED/dashboard.html` และ GitHub-hosted `index.html`) แยกกันเสมอ ไม่ใช่เช็คแค่ git push สำเร็จแล้วถือว่าจบ
+- ก่อนปิด task ใดๆ ที่สร้างไฟล์โพสต์/reels ใหม่ ให้เช็คว่าทำครบ 4 ข้อ Content Drafts แล้วหรือยัง — ถ้ายัง ถือว่า task ยังไม่เสร็จ
 
 **🧹 กฎกันไฟล์ซ้ำ / ไฟล์ผิดที่ (เขียน 26 ก.ค. 2569 หลังล้างไฟล์ซ้ำ 50 ไฟล์ออกจากระบบ):**
 
