@@ -1,7 +1,9 @@
-# 🌅 Morning Brief — จันทร์ 8 กันยายน 2026
+# 🌅 Morning Brief — อังคาร 8 กันยายน 2026
 
-**บล็อกวันนี้:** 📖 IELTS Reading (Academic)
+**บล็อกวันนี้:** 📖 IELTS Reading (Academic) — *ทำบล็อกวันจันทร์ที่ตกไป*
 **ธีมสัปดาห์ (7–13 ก.ย.):** ทำไมทองคำไม่ให้ดอกเบี้ย แต่คนยังถือ — ต้นทุนค่าเสียโอกาสของการถือทอง (opportunity cost of holding gold)
+
+> ⚠️ **จันทร์ 7 ก.ย. ไม่มี morning brief** (ระบบไม่รัน) — วันนี้เป็น brief แรกของสัปดาห์ จึงจับ **บล็อก Reading ของวันจันทร์** มาทำก่อน เพราะเป็นตัวตั้งธีมทั้งสัปดาห์ + เป็นวันที่ต้องเลือกคลิป Listening warm-up · **Listening (บล็อกอังคาร) เลื่อนไปทำกลางสัปดาห์** ถ้ามีเวลา หรือทบใน Sunday Mock
 
 ---
 
@@ -168,4 +170,5 @@ viii. Government rules on importing and taxing gold
 - **Vocab เป้าหมาย:** opportunity cost · yield · real interest rate · cost of carry · hedge · non-yielding asset
 - คำจากบทความ Reading ที่ควรจด: opportunity cost of holding non-yielding assets · inverse relationship · consolidation / consolidating pattern · higher for longer · accommodative monetary policy · safe-haven asset · hedge against inflation · store of value · low correlation · diversification benefits
 - จด vocab 5 คำ + collocation → `ENGLISH/vocab-list.md` แล้วติ๊ก log ใน `ENGLISH/ielts-progress.md`
-- พรุ่งนี้ (อังคาร): Listening เต็มรูปแบบ หมุนกลับไป **Section 1** (รอบก่อนจบที่ S4) + warm-up คลิปเดิม โหมดฟังซ้ำ+จดคำที่จับไม่ได้
+- Listening เต็มรูปแบบของสัปดาห์นี้ = หมุนกลับไป **Section 1** (รอบก่อนจบที่ S4) + warm-up คลิปเดิม โหมดฟังซ้ำ+จดคำที่จับไม่ได้ — ทำวันไหนก็ได้ที่ว่างกลางสัปดาห์
+- พุธ: Writing Task 1 (กราฟเส้น ราคาทอง vs US 10y real/TIPS yield 2015–2024) · พฤหัส: Speaking (cue card เรื่องการตัดสินใจที่ต้องยอมเสียอะไร) · ศุกร์: Writing Task 2 (agree/disagree — เก็บเงินในสินทรัพย์ที่ไม่มีรายได้)
