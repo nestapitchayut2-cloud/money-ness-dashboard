@@ -987,6 +987,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'8 ก.ย.', day:'จันทร์', topic:'IELTS Reading (The Royal Mint — gold, interest rates & the opportunity cost of a non-yielding asset, ~800 คำ, 13 ข้อ) / EA: Volatile — ย่อจาก ATH ~$4,511 ลงมา ~$4,408 (jobs สหรัฐแรง + เฟดเหยี่ยว)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-08sep2026.md' },
   { label:'4 ก.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (opinion essay — should countries hold more gold than USD in reserves? 250+ คำ / 40 นาที) + Vocab review + Content ชิ้นที่ 2 / EA: Trending-bullish + Volatile จัด ~$4,481 (ATH ใหม่แตะ ~$4,511)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-04sep2026.md' },
   { label:'3 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — a valuable thing your family has kept a long time; P3: gold as a store of value) + Content เทค 2 / EA: Trending-bullish + Volatile ~$4,388 (+2.75% วันเดียว)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-03sep2026.md' },
   { label:'2 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (table — central bank net gold purchases by country 2019–2024, 150+ คำ / 20 นาที) / EA: Volatile ~$4,400–4,600 (hawkish Fed)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-02sep2026.md' },
@@ -1771,6 +1772,70 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0908', date:'8 ก.ย.', day:'จันทร์', part:'Reading', title:'Gold, interest rates & the opportunity cost of a non-yielding asset (The Royal Mint, ~800 คำ, 13 ข้อ)', brief:'morning-brief-08sep2026.md', url:'https://www.royalmint.com/invest/discover/gold-market/Gold-Price-Action-Relative-Lows-and-the-Role-of-Interest-Rates/',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'Living with debt — BBC Learning English 6 Minute English (EP 260528)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260528',
+      steps:['ฟังรอบแรกไม่เปิด transcript — จับ gist: Jason เป็นหนี้เพราะอะไร และรู้สึกยังไงกับการต้องใช้หนี้','ฟังรอบสอง จดวลีเรื่องเงินที่ได้ยิน (debt · pay off · in arrears · make ends meet · the never-never · financial strain)','เปิด transcript เช็คเฉพาะจุดที่จดไว้ตอนท้าย — อย่าเพิ่งอ่านทั้งหน้า (เก็บไว้วันพุธ)'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านย่อหน้าเปิด + 4 หัวข้อ (Relative Lows / Monetary Policy / Long-Term Case / Conclusion) · ข้าม disclaimer และส่วนขายสินค้าท้ายหน้า · TRUE = ตรงกับบทความ / FALSE = ขัดแย้ง / NOT GIVEN = บทความไม่พูดถึงเลย',
+        items:['Holding gold, which pays no interest, means giving up the income that other investments could provide.','When the article was written, the gold price had recently reached a three-month high.','Gold has produced higher returns than shares over the past decade.','The author expects the gold price to fall during 2024.'] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'เลือกหัวข้อ i–viii ที่เหมาะที่สุดกับแต่ละย่อหน้า · มีเกินมา 4 อัน · A = ตัวอย่าง ไม่ต้องตอบ',
+        text:`A = ย่อหน้าเปิด · B = "Relative Lows and Interest Rates" · C = "The Role of Monetary Policy" · D = "The Long-Term Investment Case for Gold" · E = "Conclusion"
+
+i.    Central banks' rate decisions and the current policy outlook
+ii.   How gold is mined, refined and brought to market
+iii.  Falling prices, higher rates and the pull of income-paying assets
+iv.   The enduring reasons to own gold through the cycle
+v.    Weighing short-term pressure against gold's lasting role
+vi.   A detailed price forecast for the year ahead
+vii.  Gold compared with other precious metals
+viii. Government rules on importing and taxing gold
+
+5. Paragraph B
+6. Paragraph C
+7. Paragraph D
+8. Paragraph E`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS)', note:'เติมช่องจากคำในบทความ ห้ามเกิน 3 คำต่อช่อง',
+        text:`For centuries, gold has been seen as a **(9)______** asset and a store of value, holding its worth in periods of economic uncertainty. Because inflation eats away at the **(10)______** of fiat currencies, investors use gold to protect their wealth. Gold is also easy to buy and sell, since it is traded on global exchanges **(11)______**, and it has a low correlation with traditional financial instruments.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'',
+        text:`**12.** According to the article, when central banks raise interest rates, gold prices tend to face downward pressure because:
+A) mining companies produce more gold
+B) investors move capital towards assets that offer a yield
+C) central banks sell the gold in their reserves
+D) the cost of storing gold increases
+
+**13.** Which statement best reflects the article's overall position?
+A) Higher interest rates have permanently damaged the case for owning gold
+B) Gold should make up the majority of a sensible investment portfolio
+C) Despite short-term pressure from interest rates, gold's long-term role is unchanged
+D) Investors should wait until interest rates fall before buying any gold`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — B: "the opportunity cost of holding non-yielding assets like gold increases, leading investors to favour interest-bearing instruments"; bonds/equities "offer potential income or dividend payments"
+
+2. FALSE — B: ราคาทอง "hovering at 3-month **lows**" — ขัดแย้งตรงกับ "three-month high"
+
+3. NOT GIVEN — บทความบอกว่าทองมี "low correlation with traditional financial instruments" + ให้ diversification เทียบ stocks/bonds แต่ไม่เคยเทียบ *ผลตอบแทน* ของทองกับหุ้นช่วงเวลาใดเลย · ไม่ใช่ FALSE เพราะไม่มีประโยคในบทความที่บอกตรงข้าม (การเชียร์ทอง ≠ การบอกว่าทองชนะหุ้น)
+
+4. NOT GIVEN — กับดัก: "before falling in 2024" ในย่อหน้า C ขยาย "interest rates" (ดอกเบี้ย UK) ไม่ใช่ราคาทอง · บทความไม่เคยพยากรณ์ราคาทองปี 2024 → ไม่ใช่ TRUE (falling = ดอกเบี้ย) และไม่ใช่ FALSE (ไม่มีการคาดการณ์ราคาทองให้ขัดแย้ง)
+
+5. iii — ย่อหน้า B ทั้งหมด: 3-month lows + ดอกเบี้ยขาขึ้นดัน opportunity cost + เงินย้ายไป bonds/equities ที่จ่าย income
+
+6. i — ย่อหน้า C: "Central banks play a pivotal role in determining interest rates" + เฟด "getting close to the end of the rate hiking cycle" + UK rates → 6%
+
+7. iv — ย่อหน้า D: safe-haven, store of value, hedge against inflation, liquidity, diversification, low correlation
+
+8. v — ย่อหน้า E: "While short-term fluctuations… it is essential to consider gold's long-term investment case" → ชั่งน้ำหนักสั้น vs ยาว
+
+   ตัวลวง: ii (ไม่พูดเรื่องเหมือง/การผลิตทอง) · vi (บทความบอกเองว่า short-term คาดเดายาก ไม่มี forecast ละเอียด) · vii (ไม่เทียบทองกับเงิน/แพลตินัม) · viii (ไม่พูดกฎนำเข้า/ภาษีทอง)
+
+9. safe-haven (รับ "safe haven") — D: "revered as a safe-haven asset and a store of value"
+
+10. purchasing power — D: "Inflation erodes the purchasing power of fiat currencies"
+
+11. around the clock — D: "traded on global exchanges around the clock"
+
+12. B — C: "divert their capital towards higher-yielding assets, putting downward pressure on gold prices" · A ไม่พูดเรื่องผลิต · C ในบทความธนาคารกลาง *ซื้อ* ทองเป็นสถิติ · D ไม่พูดต้นทุนเก็บรักษา
+
+13. C — E: short-term ผันผวนจากดอกเบี้ย แต่ long-term case "remains intact" · A ตรงข้ามกับบทความ · B ไม่เคยระบุสัดส่วนพอร์ต · D บทความว่าตอนนี้ "may present an opportunity to accumulate" ไม่ใช่ให้รอ` },
   { id:'i0906', date:'6 ก.ย.', day:'อาทิตย์', part:'Listening', title:'🧪 Sunday Mock — Listening เต็มชุด (ielts-up.com Test #8 · S1–S4 · 40 ข้อ)', brief:'sunday-lesson-2026-09-06.md', url:'https://ielts-up.com/listening/ielts-listening-sample-8.1.html',
     warmup:{ mode:'—', clip:'ไม่มี warm-up (วันนี้คือวันสอบซ้อม)', url:'', steps:['วันอาทิตย์ = mock day ไม่มี warm-up — เข้า mock เลย'] },
     sections:[
