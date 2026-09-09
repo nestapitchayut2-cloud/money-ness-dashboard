@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<title>Content OS — The Money Ness</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0f1117; --surface:#1a1d27; --surface-2:#12151f; --line:#2d3148;
+    --text:#e2e8f0; --text-dim:#94a3b8; --muted:#64748b;
+    --accent:#39ff14; --accent-ink:#0a1f0a;
+    --warn:#fbbf24; --over:#f87171; --ok:#39ff14; --info:#38bdf8;
+    --s-flagship:#a78bfa; --s-vlog:#38bdf8; --s-manual:#34d399; --s-post:#e879f9;
+    --radius:12px;
+  }
+  body{font-family:"Segoe UI",Tahoma,"Sarabun",sans-serif;background:var(--bg);color:var(--text);
+    min-height:100vh;padding:18px;-webkit-font-smoothing:antialiased;font-size:14px}
+  a{color:var(--info);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1500px;margin:0 auto}
+  button{font-family:inherit;cursor:pointer}
+  h1{font-size:19px;font-weight:800;color:#fff}
+  h1 span{color:var(--accent)}
+  .lede{font-size:12px;color:var(--muted);margin-top:2px}
+
+  .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+  .actions{display:flex;gap:7px;flex-wrap:wrap}
+  .btn{background:var(--surface);border:1px solid var(--line);color:var(--text-dim);padding:7px 12px;
+    border-radius:8px;font-size:12px;font-weight:600;transition:.15s;white-space:nowrap}
+  .btn:hover{border-color:var(--muted);color:var(--text)}
+  .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.sm{padding:4px 9px;font-size:11px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* tabs */
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+  .tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);
+    padding:9px 14px;font-size:13px;font-weight:700;white-space:nowrap}
+  .tab[data-on="1"]{color:var(--text);border-bottom-color:var(--accent)}
+  .tab:hover{color:var(--text-dim)}
+  .view{display:none} .view[data-on="1"]{display:block}
+
+  /* cards / panels */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .panel + .panel{margin-top:14px}
+  .panel-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+  /* monitor tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+  .tile .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .tile .v{font-size:29px;font-weight:800;line-height:1.1;margin-top:5px;font-variant-numeric:tabular-nums}
+  .tile .v small{font-size:13px;font-weight:600;color:var(--muted)}
+  .tile .foot{font-size:11px;color:var(--text-dim);margin-top:5px}
+  .tile.alert{border-color:#3d3148;background:#1e1a2e}
+  .tile.alert .v{font-size:15px;font-weight:700;color:var(--warn);line-height:1.3}
+  .pbar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+  .pbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#00d4aa);border-radius:99px}
+  .link-btn{background:none;border:none;color:var(--muted);font-size:11px;text-decoration:underline;padding:0;margin-top:4px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,1fr)}}
+
+  .brow{display:flex;align-items:center;gap:9px;font-size:12px;padding:4px 0}
+  .brow .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+  .brow .nm{flex:1;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brow .track{width:90px;height:6px;background:var(--line);border-radius:99px;overflow:hidden;flex-shrink:0}
+  .brow .track>i{display:block;height:100%;border-radius:99px}
+  .brow .ct{width:22px;text-align:right;font-variant-numeric:tabular-nums;color:var(--text);font-weight:700}
+
+  .upnext{display:flex;flex-direction:column;gap:7px}
+  .un-item{display:flex;gap:10px;align-items:baseline;font-size:12.5px;padding:7px 10px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;border-left:3px solid var(--muted)}
+  .un-item .d{font-size:11px;color:var(--muted);width:52px;flex-shrink:0}
+  .un-item .t{flex:1;color:var(--text);line-height:1.4}
+
+  /* reference (details) */
+  details.ref{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;margin-top:10px;overflow:hidden}
+  details.ref>summary{list-style:none;cursor:pointer;padding:11px 14px;font-size:12.5px;font-weight:700;color:var(--text)}
+  details.ref>summary::-webkit-details-marker{display:none}
+  details.ref>summary::before{content:"▸ ";color:var(--muted)}
+  details.ref[open]>summary::before{content:"▾ "}
+  details.ref .rb{padding:0 16px 14px;font-size:12px;line-height:1.7;color:var(--text-dim)}
+  details.ref .rb ol{margin:4px 0 4px 18px} details.ref .rb b{color:var(--text)}
+
+  /* database table */
+  .db-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .db-tools input[type=search]{background:var(--surface-2);border:1px solid var(--line);color:var(--text);
+    border-radius:8px;padding:7px 11px;font-size:12.5px;font-family:inherit;min-width:180px;flex:1}
+  .fchip{background:var(--surface-2);border:1px solid var(--line);color:var(--text-dim);padding:4px 10px;
+    border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .fchip[data-on="1"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+  .db-wrap{overflow-x:auto}
+  table.db{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.db th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+    font-weight:700;padding:8px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface)}
+  table.db td{padding:9px 10px;border-bottom:1px solid var(--surface-2);vertical-align:top}
+  table.db tr:hover td{background:var(--surface-2)}
+  .t-title{font-weight:600;color:var(--text);line-height:1.4;cursor:pointer}
+  .t-title:hover{color:var(--accent)}
+  .pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+  .pill.st{border:1px solid var(--line);color:var(--text-dim);background:var(--surface-2)}
+  .pill.st.published{color:var(--accent);border-color:#1f5c1f;background:#0d1f0d}
+  .pill.st.parked{color:var(--muted)}
+  .pill.st.scheduled{color:var(--info);border-color:#1e4a63;background:#0d1a24}
+  .s-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px}
+  .flavtag{font-size:10px;color:var(--muted)}
+  .rowops{display:flex;gap:4px;white-space:nowrap}
+  .miniop{background:var(--surface-2);border:1px solid var(--line);color:var(--text-dim);border-radius:6px;
+    padding:2px 7px;font-size:11px;font-weight:600}
+  .miniop:hover{color:var(--text);border-color:var(--muted)}
+  .miniop.go{color:var(--accent);border-color:#1f5c1f}
+
+  /* kanban */
+  .board{display:flex;gap:11px;overflow-x:auto;padding-bottom:12px}
+  .col{flex:0 0 250px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
+  .col.drop{border-color:var(--accent)}
+  .col-h{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+  .col-h .cn{font-size:12px;font-weight:700}
+  .col-h .cc{font-size:11px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
+  .col-b{padding:9px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;flex:1 1 auto;min-height:0}
+  .kc{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--muted);border-radius:8px;padding:9px 10px;position:relative;cursor:grab}
+  .kc .kst{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  .kc .kti{font-size:12.5px;font-weight:600;line-height:1.35;margin:3px 0 5px;color:var(--text)}
+  .kc .kna{font-size:10.5px;color:var(--text-dim);line-height:1.4}
+  .kc .kna b{color:var(--muted)}
+  .kc .kf{display:flex;justify-content:space-between;gap:6px;margin-top:7px;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .kc .kdue.soon{color:var(--warn)} .kc .kdue.late{color:var(--over)}
+  .kage::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:3px;vertical-align:1px}
+  .kage.mid::before{background:var(--warn)} .kage.old::before{background:var(--over)}
+  .kc .kops{position:absolute;top:6px;right:6px;display:flex;gap:3px;opacity:0}
+  .kc:hover .kops{opacity:1}
+  .kop{width:21px;height:21px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);color:var(--text-dim);font-size:10px}
+  .kempty{font-size:11px;color:var(--muted);text-align:center;padding:14px 6px}
+  .col-add{margin:0 9px 9px;background:none;border:1px dashed var(--line);color:var(--muted);border-radius:7px;padding:6px;font-size:11.5px;font-weight:600}
+
+  /* calendar */
+  .cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .cal-h .m{font-size:15px;font-weight:800}
+  .cal-nav{display:flex;gap:6px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cal-dow{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px}
+  .cal-cell{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;min-height:92px;padding:6px;display:flex;flex-direction:column;gap:3px}
+  .cal-cell.dim{opacity:.35}
+  .cal-cell.today{border-color:var(--accent)}
+  .cal-cell .cd{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cal-cell.today .cd{color:var(--accent)}
+  .cev{font-size:10px;line-height:1.3;padding:2px 5px;border-radius:4px;border-left:2px solid var(--muted);background:var(--surface);color:var(--text-dim);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cev.done{opacity:.7;text-decoration:line-through}
+  .cal-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
+
+  /* review */
+  .rv-item{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin-bottom:9px}
+  .rv-item .rvh{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer}
+  .rv-item .rvh .rvd{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
+  .rv-body{margin-top:10px;display:none}
+  .rv-body.open{display:block}
+  .rv-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .rv-metrics input{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:6px 8px;font-size:12px;width:100%;font-family:inherit}
+  .rv-metrics label{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:3px}
+  .rv-learn{margin-top:9px}
+  .rv-learn textarea{width:100%;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:7px 9px;font-size:12.5px;font-family:inherit;resize:vertical;min-height:44px}
+  .learn-log{display:flex;flex-direction:column;gap:7px}
+  .learn-log .ll{font-size:12px;line-height:1.5;padding:8px 11px;background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:7px;color:var(--text-dim)}
+  .learn-log .ll b{color:var(--text)}
+
+  /* modal */
+  .ovl{position:fixed;inset:0;background:rgba(6,8,14,.75);display:none;align-items:flex-start;justify-content:center;padding:36px 14px;z-index:60;overflow-y:auto}
+  .ovl.open{display:flex}
+  .dlg{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);width:100%;max-width:460px}
+  .dlg h2{font-size:15px;font-weight:700;padding:15px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .dlg .x{background:var(--surface-2);border:1px solid var(--line);color:var(--text-dim);width:27px;height:27px;border-radius:7px;font-size:13px}
+  .form{padding:15px 18px;display:flex;flex-direction:column;gap:11px}
+  .form2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .fld label{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+  .fld input,.fld select,.fld textarea{width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit}
+  .fld textarea{resize:vertical;min-height:52px}
+  .form .go{display:flex;gap:8px;justify-content:flex-end;padding-top:2px}
+  .form .del{margin-right:auto;color:var(--over);background:none;border:none;font-size:12px;font-weight:600}
+  .chkrow{display:flex;gap:14px;font-size:12px;color:var(--text-dim)}
+  .chkrow label{display:flex;gap:5px;align-items:center;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>Content <span>OS</span> · The Money Ness</h1>
+      <div class="lede">คลิปยาว 3–6 นาที 1/สัปดาห์ให้ตกผลึก → ที่เหลือคือของแถม · Database · Plan · Monitor · Calendar · Review</div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="btnExport">Export</button>
+      <button class="btn" id="btnImport">Import</button>
+      <button class="btn" id="btnReseed">รีเซ็ตตัวอย่าง</button>
+      <button class="btn primary" id="btnAdd">+ เพิ่ม</button>
+      <input type="file" id="fileImport" accept="application/json" hidden />
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab" data-v="monitor">📊 Monitor</button>
+    <button class="tab" data-v="db">📥 คลัง (Database)</button>
+    <button class="tab" data-v="board">📋 คิว (Pipeline)</button>
+    <button class="tab" data-v="cal">📅 ปฏิทิน</button>
+    <button class="tab" data-v="review">🔁 Review</button>
+  </div>
+
+  <!-- MONITOR -->
+  <section class="view" data-v="monitor">
+    <div class="tiles" id="mTiles"></div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-h">7 วันข้างหน้า — ตามปฏิทิน</div>
+        <div class="upnext" id="mUpnext"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-h">สมดุลสตรีม · งานที่ยัง active</div>
+        <div id="mStreamBal"></div>
+        <div class="panel-h" style="margin-top:14px">สมดุลรสชาติ · คลิปยาว (active)</div>
+        <div id="mFlavBal"></div>
+      </div>
+    </div>
+
+    <details class="ref" open>
+      <summary>🧭 หลักการเดียว</summary>
+      <div class="rb">
+        <p><b>คลิปยาว 3–6 นาที 1 ชิ้น/สัปดาห์ให้ตกผลึก → short + การ์ดคำคม คือของแถมที่ตัดออกมา ไม่ใช่งานใหม่</b></p>
+        <ol>
+          <li><b>คลิปยาว (flagship):</b> 1 ตอน = 1 ความคิด · หมุน 4 รส 🔧 กลไก / 🔍 แกะ / ❓ คำถาม / 📚 บทเรียน · ลง YouTube + พอดแคสต์</li>
+          <li><b>English Vlog:</b> สัปดาห์ละครั้ง คนละกลุ่ม</li>
+          <li><b>คู่มือการเงิน:</b> งานเขียน ช้าๆ 1–2 บท/เดือน</li>
+          <li><b>โพสต์/ของแถม:</b> ตัดจากคลิปยาว ไม่เขียนสคริปต์ใหม่ · เลิก Reel เดี่ยว</li>
+        </ol>
+        <p style="color:var(--muted)">แผน 8 สัปดาห์เต็ม + คลังหัวข้อ: <a href="content-strategy.md" target="_blank" rel="noopener">content-strategy.md</a></p>
+      </div>
+    </details>
+    <details class="ref">
+      <summary>🔍 แกะหุ้น 1 ตัว — เช็คลิสต์ 7 ข้อ (ทำทุกตอน = ได้เรียนจริง)</summary>
+      <div class="rb"><ol>
+        <li><b>ธุรกิจทำเงินจากอะไร</b> — รายได้แยก segment, ลูกค้า, คู่แข่ง, moat</li>
+        <li><b>ตัวเลข 5 ปี</b> — รายได้/EPS โต, margin, ROE/ROIC, หนี้/EBITDA, FCF</li>
+        <li><b>มูลค่า</b> — P/E เทียบอดีต+คู่แข่ง, PEG, reverse: ราคานี้คาดโตปีละกี่ %</li>
+        <li><b>Bull case 3 ข้อ</b></li><li><b>Bear case 3 ข้อ</b> (ความเสี่ยงจริง)</li>
+        <li><b>อะไรทำให้ thesis พัง</b> — สัญญาณต้องขาย</li>
+        <li><b>สรุปของผม</b> — ซื้อไหม / ราคาเท่าไหร่ / ไซซ์ + <b style="color:var(--s-post)">1 คอนเซ็ปต์ใหม่ที่เรียนได้</b></li>
+      </ol></div>
+    </details>
+  </section>
+
+  <!-- DATABASE -->
+  <section class="view" data-v="db">
+    <div class="panel">
+      <div class="db-tools" id="dbFilters"></div>
+      <div class="db-tools" style="margin-bottom:14px">
+        <input type="search" id="dbSearch" placeholder="ค้นหาหัวข้อ..." />
+        <a href="money-manual-tracker.html" target="_blank" rel="noopener" class="btn sm">↗ Topic Map 70 หัวข้อ (คู่มือการเงิน)</a>
+      </div>
+      <div class="db-wrap">
+        <table class="db">
+          <thead><tr><th>หัวข้อ</th><th>สตรีม</th><th>รูปแบบ</th><th>สถานะ</th><th>ที่มา</th><th></th></tr></thead>
+          <tbody id="dbBody"></tbody>
+        </table>
+      </div>
+      <div id="dbCount" style="font-size:11px;color:var(--muted);margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="view" data-v="board">
+    <div class="db-tools" id="boardFilters" style="margin-bottom:12px"></div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="view" data-v="cal">
+    <div class="panel">
+      <div class="cal-h">
+        <div class="m" id="calMonth"></div>
+        <div class="cal-nav">
+          <button class="btn sm" id="calPrev">◀</button>
+          <button class="btn sm" id="calToday">วันนี้</button>
+          <button class="btn sm" id="calNext">▶</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend">
+        <span>เป้ารายสัปดาห์: <b style="color:var(--s-flagship)">คลิปยาว ×1</b> + <b style="color:var(--s-vlog)">Vlog ×1</b></span>
+        <span>เส้นทึบ = ลงแล้ว · เส้นจาง = วางแผนไว้</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section class="view" data-v="review">
+    <div class="panel">
+      <div class="panel-h">หลังโพสต์ 48 ชม. — บันทึกผล + 1 บทเรียน (feed กลับเข้า planning)</div>
+      <div id="rvList"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-h">📓 บทเรียนสะสม (จากทุกชิ้นที่รีวิว)</div>
+      <div class="learn-log" id="rvLearnLog"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-h">🔁 สรุปทุก 2 สัปดาห์ — format/รส/หัวข้อไหนเวิร์ก → เอียงไปทางนั้น</div>
+      <textarea id="rv2wk" placeholder="เช่น: คลิปรส ❓ คำถาม engagement สูงกว่า 🔧 กลไก 2 เท่า → เดือนหน้าเพิ่มสัดส่วนคำถาม / Vlog EP.2 (บิล) คนต่างชาติ comment เยอะ → ทำ cost-of-living ต่อ"
+        style="width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;resize:vertical;min-height:90px"></textarea>
+    </div>
+  </section>
+</div>
+
+<div class="ovl" id="ovl">
+  <div class="dlg" role="dialog" aria-modal="true">
+    <h2 id="dlgTitle">เพิ่ม<button class="x" id="dlgX" aria-label="ปิด">✕</button></h2>
+    <form class="form" id="itemForm">
+      <div class="fld"><label for="fTitle">หัวข้อ</label><input id="fTitle" required maxlength="160" /></div>
+      <div class="form2">
+        <div class="fld"><label for="fStream">สตรีม</label><select id="fStream"></select></div>
+        <div class="fld"><label for="fFlavor">รสชาติ (คลิปยาว)</label><select id="fFlavor"></select></div>
+        <div class="fld"><label for="fFormat">รูปแบบ</label><select id="fFormat">
+          <option>YouTube</option><option>Reel</option><option>Carousel</option><option>Single Image</option>
+          <option>Quote card</option><option>บทความ</option><option>Live / Stream</option><option>อื่นๆ</option></select></div>
+        <div class="fld"><label for="fStatus">สถานะ</label><select id="fStatus"></select></div>
+        <div class="fld"><label for="fSched">วันลงแพลน</label><input id="fSched" type="date" /></div>
+        <div class="fld"><label for="fDue">เดดไลน์ทำเสร็จ</label><input id="fDue" type="date" /></div>
+      </div>
+      <div class="fld"><label for="fNext">ทำอะไรต่อ</label><input id="fNext" maxlength="140" placeholder="next action" /></div>
+      <div class="fld"><label for="fNotes">โน้ต</label><textarea id="fNotes" maxlength="800"></textarea></div>
+      <div class="fld"><label>ของแถมที่ตัดออกมาแล้ว</label><div class="chkrow">
+        <label><input type="checkbox" id="fdShort" /> short</label>
+        <label><input type="checkbox" id="fdQuote" /> การ์ดคำคม</label>
+        <label><input type="checkbox" id="fdImage" /> โพสต์ภาพ</label>
+      </div></div>
+      <div class="go">
+        <button type="button" class="del" id="dlgDel" hidden>ลบ</button>
+        <button type="button" class="btn" id="dlgCancel">ยกเลิก</button>
+        <button type="submit" class="btn primary">บันทึก</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var LS="contentOS.v1", OLD="contentPipeline.v1";
+  var STREAMS=[
+    {id:"flagship",name:"คลิปยาว",v:"--s-flagship"},
+    {id:"vlog",name:"English Vlog",v:"--s-vlog"},
+    {id:"manual",name:"คู่มือการเงิน",v:"--s-manual"},
+    {id:"post",name:"โพสต์ / ของแถม",v:"--s-post"}
+  ];
+  var SM={}; STREAMS.forEach(function(s){SM[s.id]=s;});
+  var FLAVORS=[{id:"",name:"—"},{id:"กลไก",name:"🔧 กลไก"},{id:"แกะ",name:"🔍 แกะ"},{id:"คำถาม",name:"❓ คำถาม"},{id:"บทเรียน",name:"📚 บทเรียน"}];
+  var FM={}; FLAVORS.forEach(function(f){FM[f.id]=f.name;});
+  var STATUS=[
+    {id:"backlog",name:"📥 คลัง",board:false},
+    {id:"idea",name:"💡 ไอเดีย",board:true},
+    {id:"research",name:"🔬 หาข้อมูล",board:true},
+    {id:"script",name:"✍️ เขียนบท",board:true},
+    {id:"record",name:"🎥 ถ่าย/อัด",board:true},
+    {id:"edit",name:"✂️ ตัดต่อ",board:true},
+    {id:"scheduled",name:"🗓️ ลงแพลน",board:true},
+    {id:"published",name:"✅ โพสต์แล้ว",board:true},
+    {id:"parked",name:"🅿️ พัก",board:true}
+  ];
+  var STM={}; STATUS.forEach(function(s){STM[s.id]=s;});
+  var BOARD_ST=STATUS.filter(function(s){return s.board;}).map(function(s){return s.id;});
+  var cssv=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();};
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m];});};
+  var today=function(){return new Date().toISOString().slice(0,10);};
+  var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);};
+  var dbet=function(a,b){return Math.round((new Date(b)-new Date(a))/864e5);};
+  var addDays=function(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
+
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null;
+
+  function load(){
+    try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
+    // migrate from old pipeline
+    try{var o=JSON.parse(localStorage.getItem(OLD));
+      if(o&&o.cards){return norm({items:o.cards.map(function(c){
+        return {id:c.id||uid(),title:c.title,stream:c.stream==="flagship"?"flagship":(c.stream==="vlog"?"vlog":(c.stream==="manual"?"manual":"post")),
+          flavor:c.flavor||"",format:c.format||"YouTube",
+          status:c.stage==="published"?"published":(c.stage||"idea"),
+          source:"manual",next:c.next||"",due:c.due||"",notes:c.notes||"",
+          sched:"",pub:c.publishedAt||"",movedAt:c.movedAt||today(),createdAt:c.createdAt||today(),
+          derived:{},review:{}};
+      }),targets:o.targets||{week:2,month:8},meta:{}});}
+    }catch(e){}
+    return norm({items:seed(),targets:{week:2,month:8},meta:{}});
+  }
+  function norm(d){
+    d.targets=d.targets||{week:2,month:8}; d.meta=d.meta||{};
+    d.items.forEach(function(it){
+      it.derived=it.derived||{}; it.review=it.review||{};
+      it.movedAt=it.movedAt||it.createdAt||today();
+      if(!it.status)it.status="idea";
+    });
+    return d;
+  }
+  function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+  function byId(id){return state.items.filter(function(i){return i.id===id;})[0];}
+  function active(){return state.items.filter(function(i){return ["published","parked","backlog"].indexOf(i.status)<0;});}
+
+  /* ---------- seed ---------- */
+  function seed(){
+    var t=today(), n=0;
+    var mk=function(o){o.id=uid();o.createdAt=t;o.movedAt=t;o.derived=o.derived||{};o.review={};
+      o.source=o.source||"plan";o.flavor=o.flavor||"";o.format=o.format||"YouTube";o.next=o.next||"";o.due=o.due||"";o.notes=o.notes||"";o.sched=o.sched||"";o.pub=o.pub||"";return o;};
+    var flag=function(title,flavor,status,next,notes,sched){return mk({title:title,stream:"flagship",flavor:flavor,status:status||"backlog",next:next,notes:notes,sched:sched||""});};
+    return [
+      // --- flagship: 8-week plan ---
+      flag("เท่าไหร่ถึงจะพอ — แล้วทำไมเราไม่เคยรู้สึกว่าพอ","คำถาม","script","เขียนบท 3–6 นาที คิดจนทะลุ","W1 · เริ่มด้วยรสที่เป็นตัวเรามากสุด",addDays(t,4)),
+      flag("ค่าธรรมเนียมกองทุน 1%/ปี 30 ปี กินเงินคุณไปเท่าไหร่","กลไก","idea","คำนวณตัวเลขจริง + ผูกเครื่องมือ","W2 · ของแถม: โพสต์ตารางเทียบ TER",addDays(t,11)),
+      flag("ทำไมต้องพยายามแข่งขันหาเงิน ทั้งที่มันไม่ทำให้เรามีความสุข","คำถาม","idea","","W3 · หัวข้อธงของทิศทางใหม่",addDays(t,18)),
+      flag("แกะพอร์ตตัวเอง — ทำไมถือแบบนี้ ปรับอะไรปีนี้","แกะ","idea","","W4 · โปร่งใส = trust · ผูก Portfolio Dashboard",addDays(t,25)),
+      flag("Bezos กับคำถามเดียวที่ทำให้ลาออกมาทำ Amazon (regret minimization)","บทเรียน","idea","","W5"),
+      flag("เงินเดือนขึ้นแล้วทำไมไม่รู้สึกรวยขึ้น (hedonic treadmill)","คำถาม","idea","","W6"),
+      flag("ทำไมข่าวดี (คนมีงานทำเยอะ) กลับทำหุ้นร่วง — good news is bad news","กลไก","backlog","","W7"),
+      flag("แกะ NVIDIA — รายได้มาจากไหนจริงๆ + ราคาแพงไปไหม","แกะ","backlog","อ่าน 10-K จริง จดรายได้แยก segment","W8 · ตอนแรกที่ต้องอ่านงบจริง = เริ่มเรียนลงทุนจริงจัง"),
+      // --- flagship: topic bank ---
+      flag("ความมั่นคง vs อิสรภาพทางการเงิน — เราอยากได้อันไหนกันแน่","คำถาม","backlog","","คลังหัวข้อ"),
+      flag("FIRE คือการหนีจากงาน หรือหนีจากชีวิตที่ออกแบบผิด","คำถาม","backlog","","คลังหัวข้อ"),
+      flag("เท่ากับต้องแลกอะไรบ้าง กว่าจะได้เงินก้อนนั้น (ค่าเสียโอกาสของชีวิต)","คำถาม","backlog","","คลังหัวข้อ"),
+      flag("แกะ CPALL (7-Eleven) — โมเดลธุรกิจ + หนี้ + ทำไมหุ้นไม่ไปไหน","แกะ","backlog","ดึงงบ 5 ปีจาก SET","คลังหัวข้อ"),
+      flag("แกะ Costco — ทำไมกำไรเกือบทั้งหมดมาจากค่าสมาชิก","แกะ","backlog","","คลังหัวข้อ · สอน unit economics"),
+      flag("สิ่งที่ Munger พูดซ้ำๆ ทั้งชีวิต","บทเรียน","backlog","","คลังหัวข้อ"),
+      flag("ดอกเบี้ยทบต้นให้รางวัลคนที่รอเป็น — ด้วยตัวเลขจริง","กลไก","backlog","","คลังหัวข้อ"),
+      // --- English Vlog ---
+      mk({title:"EP.2 — My monthly bills (ค่าครองชีพต่อเดือน)",stream:"vlog",status:"idea",next:"ถ่าย: นั่งเล่ารายการบิล + b-roll บ้าน + เดินรอบซอย",notes:"⭐ คุ้มสุดกับกลุ่มต่างชาติ",sched:addDays(t,4)}),
+      mk({title:"EP.3 — A week of food (ค่าอาหารทั้งสัปดาห์ + ทำกับข้าว 1 มื้อ)",stream:"vlog",status:"backlog",sched:addDays(t,11)}),
+      mk({title:"EP.4 — A day trip by motorbike",stream:"vlog",status:"backlog",next:"เลือกจุดหมายใกล้ๆ",sched:addDays(t,18)}),
+      // --- Money Manual 11 chapters ---
+      mk({title:"MM บท 2 — บัตรเครดิตใบแรก (เครื่องมือ ไม่ใช่เงินเพิ่ม)",stream:"manual",format:"บทความ",status:"research",source:"series",mm:2,next:"เขียนบทจากบรีฟที่มีแล้ว",notes:"⭐ เปิดซีรีส์ · บรีฟครบใน 00-series-plan.md"}),
+      mk({title:"MM บท 1 — อ่านสลิปเงินเดือนให้ออก (gross ≠ net)",stream:"manual",format:"บทความ",status:"research",source:"series",mm:1,next:"เขียนบทจากบรีฟ"}),
+      mk({title:"MM บท 6 — วิธีลดหย่อนภาษี (RMF/ThaiESG · ยื่นเอง)",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:6,due:"2026-11-15",notes:"⏰ โพส พ.ย.–ธ.ค. · ผูกเว็บวางแผนภาษี 2569"}),
+      mk({title:"MM บท 5 — การเลือกประกัน (โอนความเสี่ยง ไม่ใช่ลงทุน)",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:5,notes:"soft lead-gen"}),
+      mk({title:"MM บท 10 — ซื้อบ้าน vs เช่า ซื้อตอนไหนดี",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:10,notes:"หัวข้อธง · ผูกเครื่องคำนวณซื้อ/เช่า · เอาไปทำคลิปยาวได้"}),
+      mk({title:"MM บท 11 — ตั้งเป้าหมายการเงิน + ออกแบบการเงินส่วนบุคคล",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:11,notes:"บทปิด"}),
+      mk({title:"MM บท 3 — เงินสำรองฉุกเฉิน + จัดการหนี้",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:3}),
+      mk({title:"MM บท 4 — งบประมาณที่ไม่ต้องจดทุกบาท",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:4}),
+      mk({title:"MM บท 7 — สวัสดิการบริษัท + กองทุนสำรองเลี้ยงชีพ",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:7}),
+      mk({title:"MM บท 8 — เริ่มลงทุนจากเงินเดือน",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:8}),
+      mk({title:"MM บท 9 — จัดพอร์ต + rebalance",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:9,notes:"ผูก Portfolio Dashboard 50/25/20/5"}),
+      // --- โพสต์ / ของแถม ---
+      mk({title:"ตัด short 45–60 วิ จากคลิปยาว W1",stream:"post",format:"Reel",status:"backlog",next:"รอ W1 ตัดเสร็จ",notes:"ของแถม — ไม่เขียนสคริปต์ใหม่"}),
+      mk({title:"การ์ดคำคมชุด 2 (26–50)",stream:"post",format:"Quote card",status:"backlog",next:"เลือกน้ำหนักหมวด แล้วให้ Claude เขียน + render",notes:"ชุด 1 = 25 การ์ดเสร็จ"}),
+      // --- published ---
+      mk({title:"English Vlog EP.1 — A Simple Weekend (Not Bangkok)",stream:"vlog",status:"published",pub:t,movedAt:t,notes:"คลิปแรกพูดอังกฤษ"})
+    ];
+  }
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll(".tab").forEach(function(b){
+    b.onclick=function(){ view=b.dataset.v; try{localStorage.setItem("contentOS.tab",view);}catch(e){} render(); };
+  });
+  try{var sv=localStorage.getItem("contentOS.tab"); if(sv)view=sv;}catch(e){}
+
+  /* ---------- MONITOR ---------- */
+  function renderMonitor(){
+    var now=new Date();
+    var wkAgo=addDays(today(),-7);
+    var moStart=new Date(now.getFullYear(),now.getMonth(),1).toISOString().slice(0,10);
+    var pub=state.items.filter(function(i){return i.status==="published"&&i.pub;});
+    var wk=pub.filter(function(i){return i.pub>=wkAgo;}).length;
+    var mo=pub.filter(function(i){return i.pub>=moStart;}).length;
+    var streak=0;
+    for(var w=0;w<52;w++){var hi=addDays(today(),-7*w),lo=addDays(today(),-7*(w+1));
+      if(pub.some(function(i){return i.pub>lo&&i.pub<=hi;}))streak++;else break;}
+    var stuck=active().slice().sort(function(a,b){return (a.movedAt||"")<(b.movedAt||"")?-1:1;})[0];
+    var sTxt="—",sSub="ไม่มีงานค้าง";
+    if(stuck){var dd=dbet(stuck.movedAt,today());
+      sTxt=stuck.title.length>32?stuck.title.slice(0,32)+"…":stuck.title;
+      sSub='ค้างที่ "'+(STM[stuck.status]||{}).name+'" '+dd+' วัน';}
+    var tw=state.targets.week||1,tm=state.targets.month||1;
+    document.getElementById("mTiles").innerHTML=[
+      tl("โพสต์ 7 วัน",wk+' <small>/ '+tw+'</small>',pb(wk/tw),"เป้า/สัปดาห์ · แก้",1),
+      tl("โพสต์เดือนนี้",mo+' <small>/ '+tm+'</small>',pb(mo/tm),"เป้า/เดือน · แก้",2),
+      tl("สตรีค",streak+' <small>สัปดาห์</small>','',"ลงต่อเนื่อง ≥1/สัปดาห์",0),
+      '<div class="tile alert"><div class="k">⚠️ ค้างนานสุด</div><div class="v">'+esc(sTxt)+'</div><div class="foot">'+esc(sSub)+'</div></div>'
+    ].join("");
+    document.querySelectorAll("#mTiles .link-btn").forEach(function(b){
+      b.onclick=function(){var k=b.dataset.k,cur=k==="1"?state.targets.week:state.targets.month;
+        var n=prompt("เป้าโพสต์ต่อ"+(k==="1"?"สัปดาห์":"เดือน"),cur);
+        if(n&&+n>0){if(k==="1")state.targets.week=+n;else state.targets.month=+n;save();renderMonitor();}};
+    });
+    // up next 7d
+    var soon=state.items.filter(function(i){return i.sched&&i.sched>=today()&&i.sched<=addDays(today(),7)&&i.status!=="published";})
+      .sort(function(a,b){return a.sched<b.sched?-1:1;});
+    document.getElementById("mUpnext").innerHTML=soon.length?soon.map(function(i){
+      var s=SM[i.stream]||{};
+      return '<div class="un-item" style="border-left-color:'+cssv(s.v)+'"><span class="d">'+i.sched.slice(5)+'</span><span class="t">'+esc(i.title)+'</span></div>';
+    }).join(""):'<div class="kempty">ยังไม่มีอะไรลงแพลนใน 7 วัน — ไปตั้งวันในแท็บปฏิทิน</div>';
+    // stream balance
+    var act=active();
+    var smax=Math.max(1,Math.max.apply(null,STREAMS.map(function(s){return act.filter(function(i){return i.stream===s.id;}).length;})));
+    document.getElementById("mStreamBal").innerHTML=STREAMS.map(function(s){
+      var c=act.filter(function(i){return i.stream===s.id;}).length,col=cssv(s.v);
+      return brow(s.name,c,c/smax,col);
+    }).join("");
+    // flavor balance (flagship active)
+    var fl=act.filter(function(i){return i.stream==="flagship";});
+    var fmax=Math.max(1,Math.max.apply(null,FLAVORS.slice(1).map(function(f){return fl.filter(function(i){return i.flavor===f.id;}).length;})));
+    document.getElementById("mFlavBal").innerHTML=FLAVORS.slice(1).map(function(f){
+      var c=fl.filter(function(i){return i.flavor===f.id;}).length;
+      return brow(f.name,c,c/fmax,cssv("--s-flagship"));
+    }).join("");
+  }
+  function tl(k,v,bar,foot,kn){return '<div class="tile"><div class="k">'+k+'</div><div class="v">'+v+'</div>'+(bar||"")+
+    (kn?'<button class="link-btn" data-k="'+kn+'">'+foot+'</button>':'<div class="foot">'+foot+'</div>')+'</div>';}
+  function pb(f){f=Math.max(0,Math.min(1,f||0));return '<div class="pbar"><i style="width:'+(f*100).toFixed(0)+'%"></i></div>';}
+  function brow(nm,ct,frac,col){return '<div class="brow"><span class="dot" style="background:'+col+'"></span>'+
+    '<span class="nm">'+esc(nm)+'</span><span class="track"><i style="width:'+(Math.max(0,Math.min(1,frac))*100).toFixed(0)+'%;background:'+col+'"></i></span>'+
+    '<span class="ct">'+ct+'</span></div>';}
+
+  /* ---------- DATABASE ---------- */
+  function renderDB(){
+    var fc=document.getElementById("dbFilters");
+    var sChips='<span style="font-size:10px;color:var(--muted);align-self:center">สตรีม:</span>'+
+      ['all'].concat(STREAMS.map(function(s){return s.id;})).map(function(id){
+        var nm=id==="all"?"ทั้งหมด":SM[id].name;
+        return '<button class="fchip" data-t="stream" data-val="'+id+'" data-on="'+(dbFilter.stream===id?1:0)+'">'+esc(nm)+'</button>';}).join("");
+    var stChips='<span style="font-size:10px;color:var(--muted);align-self:center;margin-left:6px">สถานะ:</span>'+
+      ['all','backlog','active','published','parked'].map(function(id){
+        var nm={all:"ทั้งหมด",backlog:"📥 คลัง",active:"กำลังทำ",published:"✅ โพสต์แล้ว",parked:"🅿️ พัก"}[id];
+        return '<button class="fchip" data-t="status" data-val="'+id+'" data-on="'+(dbFilter.status===id?1:0)+'">'+esc(nm)+'</button>';}).join("");
+    fc.innerHTML=sChips+stChips;
+    fc.querySelectorAll(".fchip").forEach(function(b){b.onclick=function(){dbFilter[b.dataset.t]=b.dataset.val;renderDB();};});
+    document.getElementById("dbSearch").oninput=function(){dbFilter.q=this.value.toLowerCase();renderDBRows();};
+    renderDBRows();
+  }
+  function dbMatch(i){
+    if(dbFilter.stream!=="all"&&i.stream!==dbFilter.stream)return false;
+    if(dbFilter.status==="backlog"&&i.status!=="backlog")return false;
+    if(dbFilter.status==="published"&&i.status!=="published")return false;
+    if(dbFilter.status==="parked"&&i.status!=="parked")return false;
+    if(dbFilter.status==="active"&&["backlog","published","parked"].indexOf(i.status)>=0)return false;
+    if(dbFilter.q&&i.title.toLowerCase().indexOf(dbFilter.q)<0)return false;
+    return true;
+  }
+  function renderDBRows(){
+    var rows=state.items.filter(dbMatch).sort(function(a,b){
+      var oa=STATUS.findIndex(function(s){return s.id===a.status;}),ob=STATUS.findIndex(function(s){return s.id===b.status;});
+      return oa-ob || (a.createdAt<b.createdAt?-1:1);
+    });
+    var SRC={manual:"เพิ่มเอง",series:"ซีรีส์คู่มือ",angles:"ข่าวรายสัปดาห์",inbox:"ไอเดีย",plan:"แผน 8 สัปดาห์"};
+    document.getElementById("dbBody").innerHTML=rows.map(function(i){
+      var s=SM[i.stream]||{name:i.stream,v:"--muted"},col=cssv(s.v);
+      var fv=i.flavor?' <span class="flavtag">'+esc(FM[i.flavor]||i.flavor)+'</span>':'';
+      return '<tr>'+
+        '<td><span class="t-title" data-id="'+i.id+'">'+esc(i.title)+'</span>'+fv+
+          (i.notes?'<div style="font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.4">'+esc(i.notes.slice(0,90))+'</div>':'')+'</td>'+
+        '<td><span class="s-tag" style="background:'+col+'22;color:'+col+'">'+esc(s.name)+'</span></td>'+
+        '<td style="color:var(--text-dim)">'+esc(i.format||"—")+'</td>'+
+        '<td><span class="pill st '+i.status+'">'+esc((STM[i.status]||{}).name||i.status)+'</span>'+
+          (i.sched?'<div style="font-size:10px;color:var(--info);margin-top:2px">🗓️ '+i.sched.slice(5)+'</div>':'')+
+          (i.pub?'<div style="font-size:10px;color:var(--accent);margin-top:2px">✅ '+i.pub.slice(5)+'</div>':'')+'</td>'+
+        '<td style="color:var(--muted);font-size:11px">'+esc(SRC[i.source]||i.source||"—")+'</td>'+
+        '<td><div class="rowops">'+
+          (i.status==="backlog"?'<button class="miniop go" data-act="promote" data-id="'+i.id+'">→ ทำ</button>':'')+
+          '<button class="miniop" data-act="edit" data-id="'+i.id+'">แก้</button>'+
+        '</div></td>'+
+      '</tr>';
+    }).join("")||'<tr><td colspan="6" class="kempty">ไม่มีรายการ</td></tr>';
+    document.getElementById("dbCount").textContent=rows.length+" รายการ · ทั้งหมดในคลัง "+state.items.length;
+    document.querySelectorAll("#dbBody .t-title,#dbBody .miniop[data-act=edit]").forEach(function(el){
+      el.onclick=function(){openItem(el.dataset.id);};
+    });
+    document.querySelectorAll('#dbBody .miniop[data-act=promote]').forEach(function(el){
+      el.onclick=function(){var it=byId(el.dataset.id);if(it){it.status="idea";it.movedAt=today();save();render();}};
+    });
+  }
+
+  /* ---------- PIPELINE (kanban) ---------- */
+  function renderBoard(){
+    var bf=document.getElementById("boardFilters");
+    bf.innerHTML='<span style="font-size:10px;color:var(--muted);align-self:center">สตรีม:</span>'+
+      ['all'].concat(STREAMS.map(function(s){return s.id;})).map(function(id){
+        var nm=id==="all"?"ทั้งหมด":SM[id].name;
+        return '<button class="fchip" data-val="'+id+'" data-on="'+(boardFilter===id?1:0)+'">'+esc(nm)+'</button>';}).join("");
+    bf.querySelectorAll(".fchip").forEach(function(b){b.onclick=function(){boardFilter=b.dataset.val;renderBoard();};});
+    var items=state.items.filter(function(i){return (boardFilter==="all"||i.stream===boardFilter)&&i.status!=="backlog";});
+    var board=document.getElementById("board");
+    board.innerHTML=BOARD_ST.map(function(sid){
+      var st=STM[sid];
+      var list=items.filter(function(i){return i.status===sid;});
+      if(sid==="published"){list.sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});list=list.slice(0,10);}
+      var body=list.length?list.map(kc).join(""):'<div class="kempty">—</div>';
+      return '<div class="col" data-st="'+sid+'"><div class="col-h"><span class="cn">'+st.name+'</span>'+
+        '<span class="cc">'+list.length+(sid==="published"?"+":"")+'</span></div>'+
+        '<div class="col-b">'+body+'</div>'+
+        '<button class="col-add" data-st="'+sid+'">+ เพิ่ม</button></div>';
+    }).join("");
+    wireBoard();
+  }
+  function kc(i){
+    var s=SM[i.stream]||{name:i.stream,v:"--muted"},col=cssv(s.v);
+    var showAge=["published","parked","scheduled"].indexOf(i.status)<0;
+    var age="";
+    if(showAge&&i.movedAt){var d=dbet(i.movedAt,today());age='<span class="kage '+(d>=14?"old":d>=7?"mid":"")+'">'+d+'d</span>';}
+    var due="";
+    if(i.due&&i.status!=="published"){var dd=dbet(today(),i.due);due='<span class="kdue '+(dd<0?"late":dd<=3?"soon":"")+'">📅 '+i.due.slice(5)+'</span>';}
+    if(i.status==="scheduled"&&i.sched)due='<span class="kdue">🗓️ '+i.sched.slice(5)+'</span>';
+    if(i.status==="published"&&i.pub)due='<span class="kdue">✅ '+i.pub.slice(5)+'</span>';
+    var fv=i.flavor?' <span style="color:var(--muted)">· '+esc(FM[i.flavor]||i.flavor)+'</span>':'';
+    return '<div class="kc" draggable="true" data-id="'+i.id+'" style="border-left-color:'+col+'">'+
+      '<div class="kops"><button class="kop" data-a="l">◀</button><button class="kop" data-a="r">▶</button><button class="kop" data-a="e">✎</button></div>'+
+      '<div class="kst" style="color:'+col+'">'+esc(s.name)+fv+'</div>'+
+      '<div class="kti">'+esc(i.title)+'</div>'+
+      (i.next?'<div class="kna"><b>ต่อ:</b> '+esc(i.next)+'</div>':'')+
+      '<div class="kf"><span>'+esc(i.format||"")+'</span><span style="display:flex;gap:7px">'+due+age+'</span></div>'+
+    '</div>';
+  }
+  function wireBoard(){
+    document.querySelectorAll(".col-add").forEach(function(b){b.onclick=function(){openItem(null,b.dataset.st);};});
+    document.querySelectorAll(".kc .kop").forEach(function(o){
+      o.onclick=function(e){e.stopPropagation();var id=o.closest(".kc").dataset.id,a=o.dataset.a;
+        if(a==="e")return openItem(id);
+        var it=byId(id);if(!it)return;
+        var idx=BOARD_ST.indexOf(it.status);
+        var ni=Math.max(0,Math.min(BOARD_ST.length-1,idx+(a==="r"?1:-1)));
+        if(BOARD_ST[ni]==="parked"&&a==="r")return;
+        setStatus(id,BOARD_ST[ni]);
+      };
+    });
+    var drag=null;
+    document.querySelectorAll(".kc").forEach(function(c){
+      c.addEventListener("dragstart",function(){drag=c.dataset.id;});
+      c.addEventListener("dragend",function(){drag=null;document.querySelectorAll(".col").forEach(function(x){x.classList.remove("drop");});});
+    });
+    document.querySelectorAll(".col").forEach(function(col){
+      col.addEventListener("dragover",function(e){e.preventDefault();col.classList.add("drop");});
+      col.addEventListener("dragleave",function(){col.classList.remove("drop");});
+      col.addEventListener("drop",function(e){e.preventDefault();col.classList.remove("drop");if(drag)setStatus(drag,col.dataset.st);});
+    });
+  }
+  function setStatus(id,st){
+    var i=byId(id);if(!i||i.status===st)return;
+    i.status=st;i.movedAt=today();
+    if(st==="published"&&!i.pub)i.pub=today();
+    if(st!=="published")i.pub="";
+    if(st==="scheduled"&&!i.sched)i.sched=today();
+    save();render();
+  }
+
+  /* ---------- CALENDAR ---------- */
+  function renderCal(){
+    var y=calRef.getFullYear(),m=calRef.getMonth();
+    var months=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+    document.getElementById("calMonth").textContent=months[m]+" "+(y+543);
+    var first=new Date(y,m,1), start=first.getDay(), dim=new Date(y,m+1,0).getDate();
+    var dow=["อา","จ","อ","พ","พฤ","ศ","ส"];
+    var cells=dow.map(function(d){return '<div class="cal-dow">'+d+'</div>';});
+    var byDate={};
+    state.items.forEach(function(i){
+      [["sched",i.sched,false],["pub",i.pub,true]].forEach(function(p){
+        if(!p[1])return;(byDate[p[1]]=byDate[p[1]]||[]).push({i:i,done:p[2]});
+      });
+    });
+    var tot=start+dim, weeks=Math.ceil(tot/7)*7;
+    for(var c=0;c<weeks;c++){
+      var dn=c-start+1;
+      if(dn<1||dn>dim){cells.push('<div class="cal-cell dim"></div>');continue;}
+      var ds=y+"-"+String(m+1).padStart(2,"0")+"-"+String(dn).padStart(2,"0");
+      var evs=(byDate[ds]||[]).map(function(e){
+        var s=SM[e.i.stream]||{},col=cssv(s.v);
+        return '<div class="cev'+(e.done?" done":"")+'" style="border-left-color:'+col+'" data-id="'+e.i.id+'" title="'+esc(e.i.title)+'">'+esc(e.i.title)+'</div>';
+      }).join("");
+      cells.push('<div class="cal-cell'+(ds===today()?" today":"")+'"><span class="cd">'+dn+'</span>'+evs+'</div>');
+    }
+    document.getElementById("calGrid").innerHTML=cells.join("");
+    document.querySelectorAll("#calGrid .cev").forEach(function(el){el.onclick=function(){openItem(el.dataset.id);};});
+  }
+  document.getElementById("calPrev").onclick=function(){calRef.setMonth(calRef.getMonth()-1);renderCal();};
+  document.getElementById("calNext").onclick=function(){calRef.setMonth(calRef.getMonth()+1);renderCal();};
+  document.getElementById("calToday").onclick=function(){calRef=new Date();renderCal();};
+
+  /* ---------- REVIEW ---------- */
+  function renderReview(){
+    var pub=state.items.filter(function(i){return i.status==="published";}).sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});
+    document.getElementById("rvList").innerHTML=pub.length?pub.map(function(i){
+      var r=i.review||{};
+      return '<div class="rv-item" data-id="'+i.id+'">'+
+        '<div class="rvh"><span>'+esc(i.title)+'</span><span class="rvd">'+(i.pub||"")+'</span></div>'+
+        '<div class="rv-body">'+
+          '<div class="rv-metrics">'+
+            m("reach","Reach",r.reach)+m("saves","Saves",r.saves)+m("comments","Comments",r.comments)+m("inquiry","IB/สอบถาม",r.inquiry)+
+          '</div>'+
+          '<div class="rv-learn"><label style="font-size:9.5px;text-transform:uppercase;color:var(--muted)">1 บทเรียน</label>'+
+          '<textarea data-f="learning" placeholder="อะไรเวิร์ก/ไม่เวิร์ก · เอาไปทำอะไรต่อ">'+esc(r.learning||"")+'</textarea></div>'+
+        '</div></div>';
+      function m(f,lbl,val){return '<div><label>'+lbl+'</label><input data-f="'+f+'" value="'+esc(val||"")+'" /></div>';}
+    }).join(""):'<div class="kempty">ยังไม่มีชิ้นที่โพสต์แล้ว</div>';
+    document.querySelectorAll("#rvList .rvh").forEach(function(h){
+      h.onclick=function(){h.parentElement.querySelector(".rv-body").classList.toggle("open");};
+    });
+    document.querySelectorAll("#rvList .rv-item").forEach(function(it){
+      var id=it.dataset.id;
+      it.querySelectorAll("input,textarea").forEach(function(f){
+        f.onchange=function(){var i=byId(id);i.review=i.review||{};i.review[f.dataset.f]=f.value;save();renderLearnLog();};
+      });
+    });
+    renderLearnLog();
+    var t2=document.getElementById("rv2wk");
+    t2.value=state.meta.review2wk||"";
+    t2.onchange=function(){state.meta.review2wk=t2.value;save();};
+  }
+  function renderLearnLog(){
+    var ll=state.items.filter(function(i){return i.review&&i.review.learning;})
+      .sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});
+    document.getElementById("rvLearnLog").innerHTML=ll.length?ll.map(function(i){
+      return '<div class="ll"><b>'+esc(i.title)+'</b><br>'+esc(i.review.learning)+'</div>';
+    }).join(""):'<div class="kempty">ยังไม่มีบทเรียนที่บันทึก</div>';
+  }
+
+  /* ---------- item modal ---------- */
+  var ovl=document.getElementById("ovl"),form=document.getElementById("itemForm");
+  document.getElementById("fStream").innerHTML=STREAMS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
+  document.getElementById("fFlavor").innerHTML=FLAVORS.map(function(f){return '<option value="'+f.id+'">'+esc(f.name)+'</option>';}).join("");
+  document.getElementById("fStatus").innerHTML=STATUS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
+  function openItem(id,presetStatus){
+    editId=id||null;
+    document.getElementById("dlgTitle").firstChild.textContent=id?"แก้รายการ":"เพิ่มรายการ";
+    var d=id?byId(id):null;
+    form.fTitle.value=d?d.title:"";
+    form.fStream.value=d?d.stream:(boardFilter!=="all"&&view==="board"?boardFilter:(dbFilter.stream!=="all"&&view==="db"?dbFilter.stream:"flagship"));
+    form.fFlavor.value=d?(d.flavor||""):"";
+    form.fFormat.value=d?(d.format||"YouTube"):"YouTube";
+    form.fStatus.value=d?d.status:(presetStatus||"backlog");
+    form.fSched.value=d?(d.sched||""):"";
+    form.fDue.value=d?(d.due||""):"";
+    form.fNext.value=d?(d.next||""):"";
+    form.fNotes.value=d?(d.notes||""):"";
+    var dv=d&&d.derived||{};
+    form.fdShort.checked=!!dv.short; form.fdQuote.checked=!!dv.quote; form.fdImage.checked=!!dv.image;
+    document.getElementById("dlgDel").hidden=!id;
+    ovl.classList.add("open"); setTimeout(function(){form.fTitle.focus();},30);
+  }
+  function closeItem(){ovl.classList.remove("open");editId=null;}
+  document.getElementById("dlgX").onclick=closeItem;
+  document.getElementById("dlgCancel").onclick=closeItem;
+  ovl.addEventListener("click",function(e){if(e.target===ovl)closeItem();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ovl.classList.contains("open"))closeItem();});
+  document.getElementById("dlgDel").onclick=function(){
+    if(editId&&confirm("ลบรายการนี้?")){state.items=state.items.filter(function(i){return i.id!==editId;});save();closeItem();render();}
+  };
+  form.onsubmit=function(e){
+    e.preventDefault();
+    var v={title:form.fTitle.value.trim(),stream:form.fStream.value,flavor:form.fFlavor.value,format:form.fFormat.value,
+      status:form.fStatus.value,sched:form.fSched.value,due:form.fDue.value,next:form.fNext.value.trim(),notes:form.fNotes.value.trim(),
+      derived:{short:form.fdShort.checked,quote:form.fdQuote.checked,image:form.fdImage.checked}};
+    if(!v.title)return;
+    if(editId){var i=byId(editId);var ch=i.status!==v.status;Object.assign(i,v);
+      if(ch)i.movedAt=today();
+      if(v.status==="published"&&!i.pub)i.pub=today();
+      if(v.status!=="published")i.pub="";
+    }else{v.id=uid();v.createdAt=today();v.movedAt=today();v.source="manual";v.review={};
+      if(v.status==="published")v.pub=today();
+      state.items.push(v);}
+    save();closeItem();render();
+  };
+
+  /* ---------- toolbar ---------- */
+  document.getElementById("btnAdd").onclick=function(){openItem(null);};
+  document.getElementById("btnReseed").onclick=function(){
+    if(!confirm("ลบข้อมูลทั้งหมดแล้วโหลดตัวอย่างใหม่?"))return;
+    state=norm({items:seed(),targets:{week:2,month:8},meta:{}});save();render();
+  };
+  document.getElementById("btnExport").onclick=function(){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));
+    a.download="content-os-"+today()+".json";a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},800);
+  };
+  document.getElementById("btnImport").onclick=function(){document.getElementById("fileImport").click();};
+  document.getElementById("fileImport").onchange=function(e){
+    var f=e.target.files[0];if(!f)return;var r=new FileReader();
+    r.onload=function(){try{var d=JSON.parse(r.result);if(!d.items)throw 0;
+      if(!confirm("แทนที่ข้อมูลทั้งหมด? ("+d.items.length+" รายการ)"))return;
+      state=norm(d);save();render();
+    }catch(err){alert("ไฟล์ไม่ถูกต้อง");}};
+    r.readAsText(f);e.target.value="";
+  };
+
+  /* ---------- render ---------- */
+  function render(){
+    document.querySelectorAll(".tab").forEach(function(t){t.dataset.on=t.dataset.v===view?"1":"0";});
+    document.querySelectorAll(".view").forEach(function(s){s.dataset.on=s.dataset.v===view?"1":"0";});
+    if(view==="monitor")renderMonitor();
+    else if(view==="db")renderDB();
+    else if(view==="board")renderBoard();
+    else if(view==="cal")renderCal();
+    else if(view==="review")renderReview();
+  }
+  render();
+})();
+</script>
+</body>
+</html>
