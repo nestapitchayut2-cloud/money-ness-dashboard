@@ -652,14 +652,15 @@ FINANCE-LEARNING/market-research/
 - ถ้าตัดสินใจเองไม่ได้ว่าเนื้อหานี้ควรเก็บถาวรหรือแค่คุยผ่านไป → ถาม Ness ตรงๆ ก่อนเซฟไฟล์ ("อยากให้บันทึกเป็นบทเรียนเก็บไว้ใน Dashboard ด้วยไหม")
 - ก่อนปิด task ใดๆ ที่มีการเขียนไฟล์ลง 2 โฟลเดอร์ข้างบน ให้เช็คว่าทำครบ 3 ข้อ Brief Archive แล้วหรือยัง — ถ้ายัง ถือว่า task ยังไม่เสร็จ
 
-**Content Drafts (โพสต์/Reels) — สร้างไฟล์ใหม่ต้องทำครบทั้ง 4 ข้อ (เพิ่ม 8 ก.ย. 2569 — ไม่งั้นไม่ขึ้น dashboard local!):**
+**Content Drafts (โพสต์/Reels) — สร้างไฟล์ใหม่ต้องทำครบทั้ง 5 ข้อ (เพิ่ม 8 ก.ย. 2569, แก้ไขเพิ่มข้อ 3 หลังพลาดซ้ำวันเดียวกัน — ไม่งั้นไม่ขึ้น dashboard!):**
 1. บันทึกไฟล์ในตำแหน่งที่ถูกต้องตาม File Save Rules ของแต่ละ Project (เช่น `FINANCE-LEARNING/market-research/` หรือ `THE-MONEY-NESS/reels-scripts/`)
 2. **เพิ่ม entry ใน `SHARED/dashboard.html` array `contentDrafts`** — schema: `{ label, day, topic, type:'โพสต์'|'Reels', cat, path }` — การ์ดในแท็บ Content Drafts (dashboard local ที่ Ness เปิดดูจริง) จะไม่ขึ้นถ้าลืมข้อนี้ ต่อให้ sync GitHub ครบแล้วก็ตาม
-3. Sync ขึ้น GitHub: copy ไฟล์ไป `content/posts/` + เพิ่มชื่อไฟล์ใน `content/index.json` + git commit + push origin main
-4. อัปเดต `SHARED/content-calendar.md`
+3. **เพิ่ม entry เดียวกันซ้ำใน repo `index.html` array `contentDrafts` ด้วย (คนละไฟล์ คนละก็อปปี้จาก dashboard.html แต่ schema เหมือนกันเป๊ะ)** — นี่คือ array ที่ทำให้การ์ดขึ้นบนเว็บจริง https://nestapitchayut2-cloud.github.io/money-ness-dashboard/ ไม่ใช่ `content/index.json` (index.json ใช้แค่ตอนเปิดอ่านเนื้อไฟล์ ไม่ได้ใช้สร้างการ์ดในหน้ารายการ) — ลืมข้อนี้แล้ว push content/index.json ผ่านก็ยังไม่ขึ้นเว็บจริงอยู่ดี
+4. Sync ขึ้น GitHub: copy ไฟล์ไป `content/posts/` + เพิ่มชื่อไฟล์ใน `content/index.json` + git commit + push origin main
+5. อัปเดต `SHARED/content-calendar.md`
 
-**เกิดขึ้นจริง 8 ก.ย. 2569:** สร้างโพสต์ `post-2026-09-08-life-harder-real-or-feeling.md` ทำครบข้อ 1, 3, 4 แต่ลืมข้อ 2 — ผลคือ push ขึ้น GitHub ผ่านหมดไม่มี error แต่หน้า dashboard local ที่ Ness เปิดดูจริงไม่โผล่โพสต์ใหม่ ทำให้ดูเหมือนยังไม่ได้ push ทั้งที่จริง sync ครบแล้ว — บทเรียน: ต้องเช็คทั้ง 2 dashboard (local `SHARED/dashboard.html` และ GitHub-hosted `index.html`) แยกกันเสมอ ไม่ใช่เช็คแค่ git push สำเร็จแล้วถือว่าจบ
-- ก่อนปิด task ใดๆ ที่สร้างไฟล์โพสต์/reels ใหม่ ให้เช็คว่าทำครบ 4 ข้อ Content Drafts แล้วหรือยัง — ถ้ายัง ถือว่า task ยังไม่เสร็จ
+**เกิดขึ้นจริง 8-9 ก.ย. 2569 (พลาด 2 รอบติดกันเรื่องเดียวกัน):** สร้างโพสต์ `post-2026-09-08-life-harder-real-or-feeling.md` — รอบแรกทำข้อ 1, 4, 5 (ตอนนั้นยังไม่ใช่เลข 5 ข้อ) แต่ลืมเพิ่มเข้า `dashboard.html` ทำให้ dashboard local ไม่ขึ้นโพสต์ใหม่ → แก้แล้วเพิ่มเข้า `dashboard.html` แต่ลืมว่า repo มี `index.html` เก็บ array `contentDrafts` แยกอีกชุดหนึ่งที่ต้องแก้คู่กันเสมอ (เหมือนกฎที่มีอยู่แล้วสำหรับ `morningBriefs`/`learningBriefs`) ทำให้เว็บจริงยังไม่ขึ้นโพสต์อยู่ดีแม้ push สำเร็จหลายรอบแล้ว — บทเรียน: **ทุกครั้งที่แก้ `contentDrafts` ใน `dashboard.html` ต้องแก้ `index.html` คู่กันเสมอ ห้ามแก้แค่ไฟล์เดียว** และต้องเช็ค 3 จุดแยกกันก่อนบอกว่า "ขึ้นแล้ว": (ก) `dashboard.html` local (ข) `index.html` ในเว็บจริง (ค) `content/index.json` — GitHub Pages อาจใช้เวลา redeploy 1-2 นาทีหลัง push ด้วย ก่อนบอกว่ายังไม่ขึ้นให้รอสักครู่แล้ว hard refresh ก่อน
+- ก่อนปิด task ใดๆ ที่สร้างไฟล์โพสต์/reels ใหม่ ให้เช็คว่าทำครบ 5 ข้อ Content Drafts แล้วหรือยัง — ถ้ายัง ถือว่า task ยังไม่เสร็จ
 
 **🧹 กฎกันไฟล์ซ้ำ / ไฟล์ผิดที่ (เขียน 26 ก.ค. 2569 หลังล้างไฟล์ซ้ำ 50 ไฟล์ออกจากระบบ):**
 
