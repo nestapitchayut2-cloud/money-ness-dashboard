@@ -42,6 +42,7 @@
   .c-yt-btn { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 6px; border: 1px solid #2d3148; background: #12151f; color: #c084fc; cursor: pointer; transition: all 0.15s; white-space: nowrap; margin-left: 4px; }
   .c-yt-btn:hover { background: #1e1b2e; border-color: #7c3aed; }
   .mm-frame { width: 100%; height: 620px; min-height: 340px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
+  .pipe-frame { width: 100%; height: 780px; min-height: 440px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
   @media (max-width: 768px) {
     .c-row { flex-wrap: wrap; gap: 4px 10px; }
     .c-row .c-topic { flex-basis: 100%; order: 3; }
@@ -825,6 +826,20 @@
 
 <section class="page" id="page-content">
 <div class="grid">
+
+  <!-- Content Pipeline — คิวคอนเทนต์ (source of truth) -->
+  <div class="card col-3">
+    <div class="card-title">📋 Content Pipeline — คิวคอนเทนต์ทั้งหมด</div>
+    <div style="font-size:12px;color:#94a3b8;line-height:1.65;margin-bottom:10px">
+      หลักการเดียว: <b style="color:#39ff14">ทำคลิปยาว 3–6 นาที 1 ชิ้น/สัปดาห์ให้ตกผลึก</b> → short + การ์ดคำคม คือ "ของแถม" ที่ตัดออกมา ไม่ใช่งานใหม่ · เลิก Reel เดี่ยว
+      <br>4 สตรีม: <b>คลิปยาว</b> (🔧กลไก / 🔍แกะ / ❓คำถาม / 📚บทเรียน) · <b>English Vlog</b> · <b>คู่มือการเงิน</b> · <b>โพสต์/ของแถม</b>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+      <a href="pipeline.html" target="_blank" rel="noopener" style="background:#1e3a5f;color:#93c5fd;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;text-decoration:none">↗ เปิดเต็มจอ</a>
+      <a href="content-strategy.md" target="_blank" rel="noopener" style="background:#12151f;color:#86efac;border:1px solid #2d3148;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;text-decoration:none">📋 แผน 8 สัปดาห์ + คลังหัวข้อ</a>
+    </div>
+    <iframe class="pipe-frame" src="pipeline.html" title="Content Pipeline" loading="lazy"></iframe>
+  </div>
 
   <!-- Money Manual — Topic Map Tracker -->
   <div class="card col-3">
