@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'10 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking + Content (cue card — a decision where you had to give something up / opportunity cost; Part 3 trade-offs, saving vs spending, time vs money) / EA: Trending-bullish + Volatile ~$4,380 ใกล้ ATH — real yield ต่ำ + ธนาคารกลางซื้อ หนุน; ระวัง spike รอบ US PPI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10sep2026.md' },
   { label:'9 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (line graph — annual gold price vs US 10-year real yield 2015–2024, 150+ คำ / 20 นาที) / EA: pullback วันที่ 3 ~$4,350–4,390 เข้าใกล้ 100-day SMA $4,346 เป้าถัดไป $4,300', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-09sep2026.md' },
   { label:'8 ก.ย.', day:'อังคาร', topic:'IELTS Reading — ทำบล็อกจันทร์ที่ตกไป (The Royal Mint — gold, interest rates & the opportunity cost of a non-yielding asset, ~800 คำ, 13 ข้อ) / EA: Volatile — ย่อจาก ATH ~$4,511 ลงมา ~$4,408 (jobs สหรัฐแรง + เฟดเหยี่ยว)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-08sep2026.md' },
   { label:'4 ก.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (opinion essay — should countries hold more gold than USD in reserves? 250+ คำ / 40 นาที) + Vocab review + Content ชิ้นที่ 2 / EA: Trending-bullish + Volatile จัด ~$4,481 (ATH ใหม่แตะ ~$4,511)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-04sep2026.md' },
@@ -1779,6 +1780,35 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0910', date:'10 ก.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — a decision where you had to give something up (opportunity cost) · เตรียม 1 นาที / พูด 2 นาที', brief:'morning-brief-10sep2026.md', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260528',
+    warmup:{ mode:'Shadowing', clip:'Living with debt — BBC Learning English 6 Minute English (EP 260528)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260528',
+      steps:[
+        'เปิดเสียง + เปิด transcript ควบคู่กัน (คลิปเดิมทั้งสัปดาห์)',
+        'พูดตามเสียงพร้อมกันแบบ real-time — ไล่ตามจังหวะ Neil กับ Pippa ห้ามหยุดรอ',
+        'เลียนเสียงหนัก-เบา (word stress) และจังหวะเชื่อมคำ (linking / weak forms) — เพ่งวลี make ends meet · the never-never · in arrears · financial strain',
+        'ตามไม่ทันช่วงไหน ปล่อยผ่านแล้วไล่ต่อทันที อย่าหยุดแก้',
+        'ทำ 2 รอบ — รอบสองต้องลื่นกว่ารอบแรก'
+      ] },
+    questions:`Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์):
+
+Describe a decision you made where you had to give something up in order to get something else.
+You should say:
+  - what the decision was
+  - what you had to give up
+  - what you gained or hoped to gain instead
+and explain how you feel about that decision now.
+
+ใบ้ (โยงธีมสัปดาห์ = opportunity cost): เลือกของจริงที่เล่าได้จากประสบการณ์ตัวเอง — เลือกเก็บ/ลงทุนเงินก้อนแทนที่จะเอาไปเที่ยว · ยอมถือเงินสด/ทองที่ไม่งอกเงยเพื่อความอุ่นใจ แลกกับดอกเบี้ยที่ควรได้ · ลาออกจาก NFT ที่ all-in มาโฟกัส 3 โปรเจกต์ · ตัดเวลาคอนเทนต์/EA ลงมาทุ่มให้ IELTS · ย้ายกลับขอนแก่นแทนกรุงเทพ · หัวใจ = พูดให้ชัดว่า "สิ่งที่เสียไป" มีค่าแค่ไหน นั่นคือ opportunity cost
+
+Part 3 — ถกประเด็นต่อยอด (ตอบต่อจาก Part 2 ทันที ไม่ต้องเตรียมแยก):
+1. In everyday life, people constantly give up one thing to get another — time, money, comfort. Why do you think many people are still bad at weighing these trade-offs?
+2. Some people save aggressively while others prefer to spend and enjoy life now. Is one of these approaches wiser than the other, or does it simply depend on the person?
+3. People seem to value their time and their money very differently. Why is that, and should governments or employers do anything about how people trade their time for money?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+
+🎯 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: opportunity cost · yield · real interest rate · cost of carry · hedge · non-yielding asset`,
+    answerKey:'' },
   { id:'i0909', date:'9 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Line graph — annual gold price vs US 10-year real yield, 2015–2024 (150+ คำ / 20 นาที)', brief:'morning-brief-09sep2026.md', url:'',
     warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'Living with debt — BBC Learning English 6 Minute English (EP 260528)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260528',
       steps:['เปิดเสียง + เปิด transcript คู่กัน ฟังรวดเดียวจบพร้อมกวาดตาอ่านตามทุกบรรทัด','ขีดจุดที่เสียงที่ได้ยินไม่ตรงกับตัวสะกด โดยเฉพาะ connected speech / weak forms (make ends meet · the never-never · in arrears)','อ่านออกเสียงย่อหน้าสรุปศัพท์ท้ายรายการ 1 รอบ แล้วจดคำโยงธีม opportunity cost ลง vocab-list.md'] },
