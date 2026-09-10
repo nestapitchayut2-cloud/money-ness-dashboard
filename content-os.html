@@ -285,8 +285,11 @@
       </div>
       <div class="cal-grid" id="calGrid"></div>
       <div class="cal-legend">
-        <span>เป้ารายสัปดาห์: <b style="color:var(--s-flagship)">คลิปยาว ×1</b> + <b style="color:var(--s-vlog)">Vlog ×1</b></span>
-        <span>เส้นทึบ = ลงแล้ว · เส้นจาง = วางแผนไว้</span>
+        <span><b style="color:var(--s-flagship)">■ คลิปยาว</b></span>
+        <span><b style="color:var(--s-vlog)">■ English Vlog</b></span>
+        <span><b style="color:var(--s-manual)">■ คู่มือการเงิน</b></span>
+        <span><b style="color:var(--s-post)">■ โพสต์ / คำคม / short</b></span>
+        <span style="color:var(--muted)">· ขีดฆ่า = ลงแล้ว · คลิกวันว่างเพื่อเพิ่ม</span>
       </div>
     </div>
   </section>
@@ -443,9 +446,14 @@
       mk({title:"MM บท 7 — สวัสดิการบริษัท + กองทุนสำรองเลี้ยงชีพ",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:7}),
       mk({title:"MM บท 8 — เริ่มลงทุนจากเงินเดือน",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:8}),
       mk({title:"MM บท 9 — จัดพอร์ต + rebalance",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:9,notes:"ผูก Portfolio Dashboard 50/25/20/5"}),
-      // --- โพสต์ / ของแถม ---
-      mk({title:"ตัด short 45–60 วิ จากคลิปยาว W1",stream:"post",format:"Reel",status:"backlog",next:"รอ W1 ตัดเสร็จ",notes:"ของแถม — ไม่เขียนสคริปต์ใหม่"}),
-      mk({title:"การ์ดคำคมชุด 2 (26–50)",stream:"post",format:"Quote card",status:"backlog",next:"เลือกน้ำหนักหมวด แล้วให้ Claude เขียน + render",notes:"ชุด 1 = 25 การ์ดเสร็จ"}),
+      // --- โพสต์ / ของแถม (มีวันลงแพลนครบ — คำคม/short/ภาพ) ---
+      mk({title:"ตัด short 45–60 วิ จากคลิปยาว W1 (เท่าไหร่ถึงจะพอ)",stream:"post",format:"Reel",status:"backlog",next:"รอ W1 ตัดเสร็จ",notes:"ของแถม — ไม่เขียนสคริปต์ใหม่",sched:addDays(t,6)}),
+      mk({title:"การ์ดคำคม — จากประโยคเด็ดคลิป W1",stream:"post",format:"Quote card",status:"backlog",notes:"ของแถม",sched:addDays(t,7)}),
+      mk({title:"การ์ดคำคม — หมวดการเงิน (ชุด 2)",stream:"post",format:"Quote card",status:"backlog",next:"ให้ Claude เขียน + render 3:4",notes:"ชุด 1 = 25 การ์ดเสร็จ",sched:addDays(t,3)}),
+      mk({title:"การ์ดคำคม — หมวดปล่อยวาง/ธรรมะ",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,10)}),
+      mk({title:"การ์ดคำคม — จากคลิป W2 (ค่าธรรมเนียมกองทุน)",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,14)}),
+      mk({title:"โพสต์ภาพเดียว — ตารางเทียบ TER (ของแถมคลิป W2)",stream:"post",format:"Single Image",status:"backlog",notes:"ทำจากคลิป W2",sched:addDays(t,13)}),
+      mk({title:"การ์ดคำคม — หมวดธุรกิจ",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,17)}),
       // --- published ---
       mk({title:"English Vlog EP.1 — A Simple Weekend (Not Bangkok)",stream:"vlog",status:"published",pub:t,movedAt:t,notes:"คลิปแรกพูดอังกฤษ"})
     ];
@@ -665,12 +673,17 @@
       var ds=y+"-"+String(m+1).padStart(2,"0")+"-"+String(dn).padStart(2,"0");
       var evs=(byDate[ds]||[]).map(function(e){
         var s=SM[e.i.stream]||{},col=cssv(s.v);
-        return '<div class="cev'+(e.done?" done":"")+'" style="border-left-color:'+col+'" data-id="'+e.i.id+'" title="'+esc(e.i.title)+'">'+esc(e.i.title)+'</div>';
+        var tag=e.i.format==="Quote card"?"💬 ":(e.i.format==="Reel"?"🎬 ":(e.i.format==="Single Image"?"📸 ":""));
+        return '<div class="cev'+(e.done?" done":"")+'" style="border-left-color:'+col+'" data-id="'+e.i.id+'" title="'+esc(e.i.title)+'">'+tag+esc(e.i.title)+'</div>';
       }).join("");
-      cells.push('<div class="cal-cell'+(ds===today()?" today":"")+'"><span class="cd">'+dn+'</span>'+evs+'</div>');
+      cells.push('<div class="cal-cell'+(ds===today()?" today":"")+'" data-d="'+ds+'"><span class="cd">'+dn+'</span>'+evs+'</div>');
     }
     document.getElementById("calGrid").innerHTML=cells.join("");
-    document.querySelectorAll("#calGrid .cev").forEach(function(el){el.onclick=function(){openItem(el.dataset.id);};});
+    document.querySelectorAll("#calGrid .cev").forEach(function(el){el.onclick=function(e){e.stopPropagation();openItem(el.dataset.id);};});
+    document.querySelectorAll("#calGrid .cal-cell[data-d]").forEach(function(cell){
+      cell.style.cursor="pointer";
+      cell.onclick=function(){openItem(null,"scheduled",cell.dataset.d);};
+    });
   }
   document.getElementById("calPrev").onclick=function(){calRef.setMonth(calRef.getMonth()-1);renderCal();};
   document.getElementById("calNext").onclick=function(){calRef.setMonth(calRef.getMonth()+1);renderCal();};
@@ -719,16 +732,16 @@
   document.getElementById("fStream").innerHTML=STREAMS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
   document.getElementById("fFlavor").innerHTML=FLAVORS.map(function(f){return '<option value="'+f.id+'">'+esc(f.name)+'</option>';}).join("");
   document.getElementById("fStatus").innerHTML=STATUS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
-  function openItem(id,presetStatus){
+  function openItem(id,presetStatus,presetSched){
     editId=id||null;
     document.getElementById("dlgTitle").firstChild.textContent=id?"แก้รายการ":"เพิ่มรายการ";
     var d=id?byId(id):null;
     form.fTitle.value=d?d.title:"";
-    form.fStream.value=d?d.stream:(boardFilter!=="all"&&view==="board"?boardFilter:(dbFilter.stream!=="all"&&view==="db"?dbFilter.stream:"flagship"));
+    form.fStream.value=d?d.stream:(presetSched?"post":(boardFilter!=="all"&&view==="board"?boardFilter:(dbFilter.stream!=="all"&&view==="db"?dbFilter.stream:"flagship")));
     form.fFlavor.value=d?(d.flavor||""):"";
-    form.fFormat.value=d?(d.format||"YouTube"):"YouTube";
+    form.fFormat.value=d?(d.format||"YouTube"):(presetSched?"Quote card":"YouTube");
     form.fStatus.value=d?d.status:(presetStatus||"backlog");
-    form.fSched.value=d?(d.sched||""):"";
+    form.fSched.value=d?(d.sched||""):(presetSched||"");
     form.fDue.value=d?(d.due||""):"";
     form.fNext.value=d?(d.next||""):"";
     form.fNotes.value=d?(d.notes||""):"";
