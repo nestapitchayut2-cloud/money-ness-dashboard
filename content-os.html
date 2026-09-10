@@ -12,7 +12,7 @@
     --text:#e2e8f0; --text-dim:#94a3b8; --muted:#64748b;
     --accent:#39ff14; --accent-ink:#0a1f0a;
     --warn:#fbbf24; --over:#f87171; --ok:#39ff14; --info:#38bdf8;
-    --s-flagship:#a78bfa; --s-vlog:#38bdf8; --s-manual:#34d399; --s-post:#e879f9;
+    --s-flagship:#a78bfa; --s-vlog:#38bdf8; --s-quote:#fbbf24; --s-post:#fb923c;
     --radius:12px;
   }
   body{font-family:"Segoe UI",Tahoma,"Sarabun",sans-serif;background:var(--bg);color:var(--text);
@@ -22,7 +22,7 @@
   button{font-family:inherit;cursor:pointer}
   h1{font-size:19px;font-weight:800;color:#fff}
   h1 span{color:var(--accent)}
-  .lede{font-size:12px;color:var(--muted);margin-top:2px}
+  .lede{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
 
   .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
   .actions{display:flex;gap:7px;flex-wrap:wrap}
@@ -34,7 +34,6 @@
   .btn.sm{padding:4px 9px;font-size:11px}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-  /* tabs */
   .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
   .tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);
     padding:9px 14px;font-size:13px;font-weight:700;white-space:nowrap}
@@ -42,12 +41,10 @@
   .tab:hover{color:var(--text-dim)}
   .view{display:none} .view[data-on="1"]{display:block}
 
-  /* cards / panels */
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
   .panel + .panel{margin-top:14px}
   .panel-h{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 
-  /* monitor tiles */
   .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   .tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
   .tile .k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -75,7 +72,6 @@
   .un-item .d{font-size:11px;color:var(--muted);width:52px;flex-shrink:0}
   .un-item .t{flex:1;color:var(--text);line-height:1.4}
 
-  /* reference (details) */
   details.ref{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;margin-top:10px;overflow:hidden}
   details.ref>summary{list-style:none;cursor:pointer;padding:11px 14px;font-size:12.5px;font-weight:700;color:var(--text)}
   details.ref>summary::-webkit-details-marker{display:none}
@@ -83,8 +79,10 @@
   details.ref[open]>summary::before{content:"▾ "}
   details.ref .rb{padding:0 16px 14px;font-size:12px;line-height:1.7;color:var(--text-dim)}
   details.ref .rb ol{margin:4px 0 4px 18px} details.ref .rb b{color:var(--text)}
+  details.ref .rb table{width:100%;border-collapse:collapse;font-size:12px}
+  details.ref .rb th{text-align:left;color:var(--muted);padding:6px 8px;font-weight:700}
+  details.ref .rb td{padding:6px 8px;border-top:1px solid var(--line)}
 
-  /* database table */
   .db-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
   .db-tools input[type=search]{background:var(--surface-2);border:1px solid var(--line);color:var(--text);
     border-radius:8px;padding:7px 11px;font-size:12.5px;font-family:inherit;min-width:180px;flex:1}
@@ -106,13 +104,21 @@
   .pill.st.scheduled{color:var(--info);border-color:#1e4a63;background:#0d1a24}
   .s-tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px}
   .flavtag{font-size:10px;color:var(--muted)}
+  .otag{font-size:9.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:3px}
+  .otag.done{color:var(--accent);border-color:#1f5c1f}
   .rowops{display:flex;gap:4px;white-space:nowrap}
   .miniop{background:var(--surface-2);border:1px solid var(--line);color:var(--text-dim);border-radius:6px;
     padding:2px 7px;font-size:11px;font-weight:600}
   .miniop:hover{color:var(--text);border-color:var(--muted)}
   .miniop.go{color:var(--accent);border-color:#1f5c1f}
 
-  /* kanban */
+  .inbox{background:#181a12;border:1px solid #3a3a1e;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+  .inbox-h{font-size:12px;font-weight:700;color:var(--warn);margin-bottom:8px}
+  .ib-item{display:flex;gap:10px;align-items:baseline;font-size:12px;padding:6px 0;border-top:1px solid #2a2a18}
+  .ib-item:first-of-type{border-top:none}
+  .ib-item .ib-t{flex:1;color:var(--text-dim);line-height:1.4}
+  .ib-item .grade{font-size:10px;font-weight:700;flex-shrink:0}
+
   .board{display:flex;gap:11px;overflow-x:auto;padding-bottom:12px}
   .col{flex:0 0 250px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;max-height:calc(100vh - 40px)}
   .col.drop{border-color:var(--accent)}
@@ -135,7 +141,6 @@
   .kempty{font-size:11px;color:var(--muted);text-align:center;padding:14px 6px}
   .col-add{margin:0 9px 9px;background:none;border:1px dashed var(--line);color:var(--muted);border-radius:7px;padding:6px;font-size:11.5px;font-weight:600}
 
-  /* calendar */
   .cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
   .cal-h .m{font-size:15px;font-weight:800}
   .cal-nav{display:flex;gap:6px}
@@ -147,15 +152,13 @@
   .cal-cell .cd{font-size:10.5px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
   .cal-cell.today .cd{color:var(--accent)}
   .cev{font-size:9.5px;line-height:1.25;padding:1px 5px;border-radius:4px;border-left:2px solid var(--muted);background:var(--surface);color:var(--text-dim);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .cev.done{opacity:.7;text-decoration:line-through}
+  .cev.done{opacity:.65;text-decoration:line-through}
   .cal-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
 
-  /* review */
   .rv-item{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin-bottom:9px}
   .rv-item .rvh{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;font-weight:600;color:var(--text);cursor:pointer}
   .rv-item .rvh .rvd{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap}
-  .rv-body{margin-top:10px;display:none}
-  .rv-body.open{display:block}
+  .rv-body{margin-top:10px;display:none} .rv-body.open{display:block}
   .rv-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .rv-metrics input{background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:6px 8px;font-size:12px;width:100%;font-family:inherit}
   .rv-metrics label{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:block;margin-bottom:3px}
@@ -165,7 +168,6 @@
   .learn-log .ll{font-size:12px;line-height:1.5;padding:8px 11px;background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:7px;color:var(--text-dim)}
   .learn-log .ll b{color:var(--text)}
 
-  /* modal */
   .ovl{position:fixed;inset:0;background:rgba(6,8,14,.75);display:none;align-items:flex-start;justify-content:center;padding:36px 14px;z-index:60;overflow-y:auto}
   .ovl.open{display:flex}
   .dlg{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);width:100%;max-width:460px}
@@ -178,7 +180,7 @@
   .fld textarea{resize:vertical;min-height:52px}
   .form .go{display:flex;gap:8px;justify-content:flex-end;padding-top:2px}
   .form .del{margin-right:auto;color:var(--over);background:none;border:none;font-size:12px;font-weight:600}
-  .chkrow{display:flex;gap:14px;font-size:12px;color:var(--text-dim)}
+  .chkrow{display:flex;gap:14px;font-size:12px;color:var(--text-dim);flex-wrap:wrap}
   .chkrow label{display:flex;gap:5px;align-items:center;cursor:pointer}
 </style>
 </head>
@@ -187,7 +189,7 @@
   <div class="topbar">
     <div>
       <h1>Content <span>OS</span> · The Money Ness</h1>
-      <div class="lede">คลิปยาว 3–6 นาที 1/สัปดาห์ให้ตกผลึก → ที่เหลือคือของแถม · Database · Plan · Monitor · Calendar · Review</div>
+      <div class="lede">4 คลิปยาว/สัปดาห์ (1 ต่อรส 🔧🔍❓📚) + English Vlog 1 · 1 เรื่อง → คลิป + บทความ + short + โพสต์ภาพ · การ์ดคำคมแยกอิสระ · Ness อัด+โพสต์ · Claude ทำที่เหลือ</div>
     </div>
     <div class="actions">
       <button class="btn" id="btnExport">Export</button>
@@ -206,7 +208,6 @@
     <button class="tab" data-v="review">🔁 Review</button>
   </div>
 
-  <!-- MONITOR -->
   <section class="view" data-v="monitor">
     <div class="tiles" id="mTiles"></div>
     <div class="grid2">
@@ -217,22 +218,22 @@
       <div class="panel">
         <div class="panel-h">สมดุลสตรีม · งานที่ยัง active</div>
         <div id="mStreamBal"></div>
-        <div class="panel-h" style="margin-top:14px">สมดุลรสชาติ · คลิปยาว (active)</div>
+        <div class="panel-h" style="margin-top:14px">สมดุลรสชาติ · คลิปยาว (active + scheduled)</div>
         <div id="mFlavBal"></div>
       </div>
     </div>
 
     <details class="ref" open>
-      <summary>🧭 หลักการเดียว</summary>
+      <summary>🧭 หลักการ v2</summary>
       <div class="rb">
-        <p><b>คลิปยาว 3–6 นาที 1 ชิ้น/สัปดาห์ให้ตกผลึก → short + การ์ดคำคม คือของแถมที่ตัดออกมา ไม่ใช่งานใหม่</b></p>
+        <p><b>4 คลิปยาว/สัปดาห์ = 1 ต่อรส (🔧🔍❓📚) + English Vlog 1 · 1 เรื่อง → คลิป + บทความ + short + โพสต์ภาพ</b></p>
         <ol>
-          <li><b>คลิปยาว (flagship):</b> 1 ตอน = 1 ความคิด · หมุน 4 รส 🔧 กลไก / 🔍 แกะ / ❓ คำถาม / 📚 บทเรียน · ลง YouTube + พอดแคสต์</li>
+          <li><b>คลิปยาว (flagship):</b> 3–6 นาที · 1 ตอน = 1 ความคิด · รสหมุนครบทุกสัปดาห์ · <b>รวมคู่มือการเงิน 11 บท</b> (ลงช่อง 🔧 → +บทความ)</li>
           <li><b>English Vlog:</b> สัปดาห์ละครั้ง คนละกลุ่ม</li>
-          <li><b>คู่มือการเงิน:</b> งานเขียน ช้าๆ 1–2 บท/เดือน</li>
-          <li><b>โพสต์/ของแถม:</b> ตัดจากคลิปยาว ไม่เขียนสคริปต์ใหม่ · เลิก Reel เดี่ยว</li>
+          <li><b>การ์ดคำคม:</b> แยกอิสระ ~3/สัปดาห์ ไม่อ้างอิงคลิป · จากคลัง Quick Content quotes</li>
+          <li><b>short + โพสต์ภาพ:</b> ตัดจากคลิปยาว (checklist ในการ์ด) ไม่เขียนสคริปต์ใหม่ · เลิก Reel เดี่ยว</li>
         </ol>
-        <p style="color:var(--muted)">แผน 8 สัปดาห์เต็ม + คลังหัวข้อ: <a href="content-strategy.md" target="_blank" rel="noopener">content-strategy.md</a></p>
+        <p style="color:var(--muted)"><b>Ness:</b> อัด (batch 4/สัปดาห์) + โพสต์ · <b>Claude:</b> research + สคริปต์ทั้ง 4 + ตัดต่อ + ซับ + ปก + ชื่อ + บทความ + short + การ์ด · แผนเต็ม: <a href="content-strategy.md" target="_blank" rel="noopener">content-strategy.md</a> · <a href="workflow.md" target="_blank" rel="noopener">workflow.md</a></p>
       </div>
     </details>
     <details class="ref">
@@ -248,13 +249,13 @@
     </details>
   </section>
 
-  <!-- DATABASE -->
   <section class="view" data-v="db">
     <div class="panel">
+      <div id="dbInbox"></div>
       <div class="db-tools" id="dbFilters"></div>
       <div class="db-tools" style="margin-bottom:14px">
         <input type="search" id="dbSearch" placeholder="ค้นหาหัวข้อ..." />
-        <a href="money-manual-tracker.html" target="_blank" rel="noopener" class="btn sm">↗ Topic Map 70 หัวข้อ (คู่มือการเงิน)</a>
+        <a href="money-manual-tracker.html" target="_blank" rel="noopener" class="btn sm">↗ Topic Map 70 หัวข้อ</a>
       </div>
       <div class="db-wrap">
         <table class="db">
@@ -266,13 +267,11 @@
     </div>
   </section>
 
-  <!-- PIPELINE -->
   <section class="view" data-v="board">
     <div class="db-tools" id="boardFilters" style="margin-bottom:12px"></div>
     <div class="board" id="board"></div>
   </section>
 
-  <!-- CALENDAR -->
   <section class="view" data-v="cal">
     <div class="panel">
       <div class="cal-h">
@@ -287,47 +286,40 @@
       <div class="cal-legend">
         <span><b style="color:var(--s-flagship)">■ คลิปยาว</b></span>
         <span><b style="color:var(--s-vlog)">■ English Vlog</b></span>
-        <span><b style="color:var(--s-manual)">■ คู่มือการเงิน</b></span>
-        <span><b style="color:var(--s-post)">■ โพสต์ / คำคม / short</b></span>
+        <span><b style="color:var(--s-quote)">■ การ์ดคำคม</b></span>
+        <span><b style="color:var(--s-post)">■ โพสต์เดี่ยว</b></span>
         <span style="color:var(--muted)">· ขีดฆ่า = ลงแล้ว · คลิกวันว่างเพื่อเพิ่ม</span>
       </div>
     </div>
-
     <details class="ref" open>
-      <summary>📅 แผน 8 สัปดาห์ — กางดู</summary>
+      <summary>📅 แผน 4 สัปดาห์แรก — 4 คลิป/สัปดาห์ (1 ต่อรส)</summary>
       <div class="rb">
-        <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">
-          <thead><tr style="color:var(--muted);text-align:left">
-            <th style="padding:6px 8px">สัปดาห์</th><th style="padding:6px 8px">คลิปยาว (รส)</th><th style="padding:6px 8px">English Vlog</th></tr></thead>
-          <tbody style="color:var(--text-dim)">
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W1</b></td><td style="padding:6px 8px">❓ เท่าไหร่ถึงจะพอ — ทำไมไม่เคยรู้สึกพอ</td><td style="padding:6px 8px">EP.2 My monthly bills</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W2</b></td><td style="padding:6px 8px">🔧 ค่าธรรมเนียมกองทุน 1%/ปี 30 ปี กินเท่าไหร่</td><td style="padding:6px 8px">EP.3 A week of food</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W3</b></td><td style="padding:6px 8px">❓ ทำไมต้องแข่งขันหาเงิน ทั้งที่ไม่มีความสุข</td><td style="padding:6px 8px">EP.4 Motorbike day trip</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W4</b></td><td style="padding:6px 8px">🔍 แกะพอร์ตตัวเอง — ปรับอะไรปีนี้</td><td style="padding:6px 8px">EP.5</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W5</b></td><td style="padding:6px 8px">📚 Bezos — regret minimization</td><td style="padding:6px 8px">EP.6</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W6</b></td><td style="padding:6px 8px">❓ เงินเดือนขึ้นแต่ไม่รู้สึกรวยขึ้น (hedonic treadmill)</td><td style="padding:6px 8px">EP.7</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W7</b></td><td style="padding:6px 8px">🔧 ทำไมข่าวดีทำหุ้นร่วง (good news is bad news)</td><td style="padding:6px 8px">EP.8</td></tr>
-          <tr><td style="padding:6px 8px"><b style="color:var(--text)">W8</b></td><td style="padding:6px 8px">🔍 แกะ NVIDIA — เริ่มอ่านงบจริง</td><td style="padding:6px 8px">EP.9</td></tr>
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th>สัปดาห์</th><th>🔧 กลไก</th><th>🔍 แกะ</th><th>❓ คำถาม</th><th>📚 บทเรียน</th></tr></thead>
+          <tbody>
+          <tr><td><b>W1</b></td><td>ค่าธรรมเนียมกองทุน 1%/ปี 30 ปี กินเท่าไหร่</td><td>แกะพอร์ตตัวเอง</td><td>เท่าไหร่ถึงจะพอ</td><td>Bezos — regret minimization</td></tr>
+          <tr><td><b>W2</b></td><td>ทำไมข่าวดีทำหุ้นร่วง</td><td>แกะ CPALL (7-Eleven)</td><td>ทำไมต้องแข่งขันหาเงิน ทั้งที่ไม่มีความสุข</td><td>Munger — สิ่งที่พูดซ้ำๆ</td></tr>
+          <tr><td><b>W3</b></td><td>📝 คู่มือ บท 1 — อ่านสลิปเงินเดือน</td><td>แกะ NVIDIA</td><td>เงินเดือนขึ้นแต่ไม่รู้สึกรวยขึ้น</td><td>Naval — เป็นเจ้าของสิ่งที่ทำงานตอนหลับ</td></tr>
+          <tr><td><b>W4</b></td><td>📝 คู่มือ บท 2 — บัตรเครดิตใบแรก</td><td>แกะ Costco — กำไรจากค่าสมาชิก</td><td>ความมั่นคง vs อิสรภาพทางการเงิน</td><td>คนที่เกษียณเร็วแล้วเบื่อ</td></tr>
           </tbody>
         </table></div>
-        <p style="margin-top:8px">ส่วนผสมรส 8 สัปดาห์: <b>❓ คำถาม ×3</b> · 🔧 กลไก ×2 · 🔍 แกะ ×2 · 📚 บทเรียน ×1 &nbsp;(ตั้งใจหนักไปทางคำถาม = จุดแข็ง + ทิศทางใหม่) · ทุกตอนตัด <b>short + การ์ดคำคม</b> เป็นของแถม · <a href="content-strategy.md" target="_blank" rel="noopener">รายละเอียด + คลังหัวข้อ 28 อัน</a></p>
+        <p style="margin-top:8px">การ์ดคำคม ~3/สัปดาห์ (แยกอิสระ หมุน 7 หมวด) · <b>Input ข่าว:</b> ถ้ามีเรื่อง <b style="color:var(--over)">🔴 ต้องพูดถึง</b> ในกล่อง 📥 คลัง → สลับเข้า slot 🔧/🔍 สัปดาห์นั้น · ไม่มี = ทำตามแผน</p>
       </div>
     </details>
   </section>
 
-  <!-- REVIEW -->
   <section class="view" data-v="review">
     <div class="panel">
       <div class="panel-h">หลังโพสต์ 48 ชม. — บันทึกผล + 1 บทเรียน (feed กลับเข้า planning)</div>
       <div id="rvList"></div>
     </div>
     <div class="panel">
-      <div class="panel-h">📓 บทเรียนสะสม (จากทุกชิ้นที่รีวิว)</div>
+      <div class="panel-h">📓 บทเรียนสะสม</div>
       <div class="learn-log" id="rvLearnLog"></div>
     </div>
     <div class="panel">
-      <div class="panel-h">🔁 สรุปทุก 2 สัปดาห์ — format/รส/หัวข้อไหนเวิร์ก → เอียงไปทางนั้น</div>
-      <textarea id="rv2wk" placeholder="เช่น: คลิปรส ❓ คำถาม engagement สูงกว่า 🔧 กลไก 2 เท่า → เดือนหน้าเพิ่มสัดส่วนคำถาม / Vlog EP.2 (บิล) คนต่างชาติ comment เยอะ → ทำ cost-of-living ต่อ"
+      <div class="panel-h">🔁 สรุปทุก 2 สัปดาห์ — รส/หัวข้อ/format ไหนเวิร์ก → เอียงไปทางนั้น</div>
+      <textarea id="rv2wk" placeholder="เช่น: คลิปรส ❓ engagement สูงกว่า 🔧 2 เท่า → เดือนหน้าเพิ่มคำถาม / บทความคู่มือ บท 1 ยอดอ่านดี → ดันบทถัดไปเร็วขึ้น"
         style="width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:10px 12px;font-size:13px;font-family:inherit;resize:vertical;min-height:90px"></textarea>
     </div>
   </section>
@@ -350,10 +342,10 @@
       </div>
       <div class="fld"><label for="fNext">ทำอะไรต่อ</label><input id="fNext" maxlength="140" placeholder="next action" /></div>
       <div class="fld"><label for="fNotes">โน้ต</label><textarea id="fNotes" maxlength="800"></textarea></div>
-      <div class="fld"><label>ของแถมที่ตัดออกมาแล้ว</label><div class="chkrow">
-        <label><input type="checkbox" id="fdShort" /> short</label>
-        <label><input type="checkbox" id="fdQuote" /> การ์ดคำคม</label>
-        <label><input type="checkbox" id="fdImage" /> โพสต์ภาพ</label>
+      <div class="fld" id="outWrap"><label>output ที่ทำแล้ว (คลิปยาว)</label><div class="chkrow">
+        <label><input type="checkbox" id="foArticle" /> 📝 บทความ</label>
+        <label><input type="checkbox" id="foShort" /> 🎬 short</label>
+        <label><input type="checkbox" id="foImage" /> 📸 โพสต์ภาพ</label>
       </div></div>
       <div class="go">
         <button type="button" class="del" id="dlgDel" hidden>ลบ</button>
@@ -371,8 +363,8 @@
   var STREAMS=[
     {id:"flagship",name:"คลิปยาว",v:"--s-flagship"},
     {id:"vlog",name:"English Vlog",v:"--s-vlog"},
-    {id:"manual",name:"คู่มือการเงิน",v:"--s-manual"},
-    {id:"post",name:"โพสต์ / ของแถม",v:"--s-post"}
+    {id:"quote",name:"การ์ดคำคม",v:"--s-quote"},
+    {id:"post",name:"โพสต์เดี่ยว",v:"--s-post"}
   ];
   var SM={}; STREAMS.forEach(function(s){SM[s.id]=s;});
   var FLAVORS=[{id:"",name:"—"},{id:"กลไก",name:"🔧 กลไก"},{id:"แกะ",name:"🔍 แกะ"},{id:"คำถาม",name:"❓ คำถาม"},{id:"บทเรียน",name:"📚 บทเรียน"}];
@@ -396,100 +388,129 @@
   var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);};
   var dbet=function(a,b){return Math.round((new Date(b)-new Date(a))/864e5);};
   var addDays=function(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
+  var mondayOffset=function(base,wk,dow){ // wk 0=this week; dow 1=Mon..7=Sun
+    var d=new Date(base); var day=(d.getDay()+6)%7; // 0=Mon
+    d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
+  };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null;
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
-    // migrate from old pipeline
     try{var o=JSON.parse(localStorage.getItem(OLD));
       if(o&&o.cards){return norm({items:o.cards.map(function(c){
-        return {id:c.id||uid(),title:c.title,stream:c.stream==="flagship"?"flagship":(c.stream==="vlog"?"vlog":(c.stream==="manual"?"manual":"post")),
-          flavor:c.flavor||"",format:c.format||"YouTube",
-          status:c.stage==="published"?"published":(c.stage||"idea"),
-          source:"manual",next:c.next||"",due:c.due||"",notes:c.notes||"",
-          sched:"",pub:c.publishedAt||"",movedAt:c.movedAt||today(),createdAt:c.createdAt||today(),
-          derived:{},review:{}};
-      }),targets:o.targets||{week:2,month:8},meta:{}});}
+        var st=c.stream==="vlog"?"vlog":(c.stream==="quick"||c.format==="Quote card"?"quote":(c.stream==="manual"?"flagship":(c.stream==="flagship"?"flagship":"post")));
+        return {id:c.id||uid(),title:c.title,stream:st,flavor:c.flavor||(c.stream==="manual"?"กลไก":""),format:c.format||"YouTube",
+          status:c.stage==="published"?"published":(c.stage||"idea"),source:c.stream==="manual"?"series":"manual",
+          next:c.next||"",due:c.due||"",notes:c.notes||"",sched:"",pub:c.publishedAt||"",
+          movedAt:c.movedAt||today(),createdAt:c.createdAt||today(),
+          outputs:c.stream==="manual"?{article:false}:{},review:{}};
+      }),targets:o.targets||{},meta:{}});}
     }catch(e){}
-    return norm({items:seed(),targets:{week:2,month:8},meta:{}});
+    return norm({items:seed(),targets:{},meta:{}});
   }
   function norm(d){
-    d.targets=d.targets||{week:2,month:8}; d.meta=d.meta||{};
+    d.targets=d.targets||{}; if(!d.targets.flagWk)d.targets.flagWk=4; if(!d.targets.month)d.targets.month=20;
+    d.meta=d.meta||{};
     d.items.forEach(function(it){
-      it.derived=it.derived||{}; it.review=it.review||{};
+      it.outputs=it.outputs||{}; it.review=it.review||{};
       it.movedAt=it.movedAt||it.createdAt||today();
       if(!it.status)it.status="idea";
+      if(it.stream==="manual")it.stream="flagship";
     });
     return d;
   }
   function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
   function byId(id){return state.items.filter(function(i){return i.id===id;})[0];}
   function active(){return state.items.filter(function(i){return ["published","parked","backlog"].indexOf(i.status)<0;});}
+  function schedActive(){return state.items.filter(function(i){return ["published","parked","backlog"].indexOf(i.status)<0||i.status==="scheduled";});}
 
-  /* ---------- seed ---------- */
   function seed(){
-    var t=today(), n=0;
-    var mk=function(o){o.id=uid();o.createdAt=t;o.movedAt=t;o.derived=o.derived||{};o.review={};
+    var t=today();
+    var mk=function(o){o.id=uid();o.createdAt=t;o.movedAt=t;o.outputs=o.outputs||{};o.review={};
       o.source=o.source||"plan";o.flavor=o.flavor||"";o.format=o.format||"YouTube";o.next=o.next||"";o.due=o.due||"";o.notes=o.notes||"";o.sched=o.sched||"";o.pub=o.pub||"";return o;};
-    var flag=function(title,flavor,status,next,notes,sched){return mk({title:title,stream:"flagship",flavor:flavor,status:status||"backlog",next:next,notes:notes,sched:sched||""});};
-    return [
-      // --- flagship: 8-week plan ---
-      flag("เท่าไหร่ถึงจะพอ — แล้วทำไมเราไม่เคยรู้สึกว่าพอ","คำถาม","script","เขียนบท 3–6 นาที คิดจนทะลุ","W1 · เริ่มด้วยรสที่เป็นตัวเรามากสุด",addDays(t,4)),
-      flag("ค่าธรรมเนียมกองทุน 1%/ปี 30 ปี กินเงินคุณไปเท่าไหร่","กลไก","idea","คำนวณตัวเลขจริง + ผูกเครื่องมือ","W2 · ของแถม: โพสต์ตารางเทียบ TER",addDays(t,11)),
-      flag("ทำไมต้องพยายามแข่งขันหาเงิน ทั้งที่มันไม่ทำให้เรามีความสุข","คำถาม","idea","","W3 · หัวข้อธงของทิศทางใหม่",addDays(t,18)),
-      flag("แกะพอร์ตตัวเอง — ทำไมถือแบบนี้ ปรับอะไรปีนี้","แกะ","idea","","W4 · โปร่งใส = trust · ผูก Portfolio Dashboard",addDays(t,25)),
-      flag("Bezos กับคำถามเดียวที่ทำให้ลาออกมาทำ Amazon (regret minimization)","บทเรียน","idea","","W5"),
-      flag("เงินเดือนขึ้นแล้วทำไมไม่รู้สึกรวยขึ้น (hedonic treadmill)","คำถาม","idea","","W6"),
-      flag("ทำไมข่าวดี (คนมีงานทำเยอะ) กลับทำหุ้นร่วง — good news is bad news","กลไก","backlog","","W7"),
-      flag("แกะ NVIDIA — รายได้มาจากไหนจริงๆ + ราคาแพงไปไหม","แกะ","backlog","อ่าน 10-K จริง จดรายได้แยก segment","W8 · ตอนแรกที่ต้องอ่านงบจริง = เริ่มเรียนลงทุนจริงจัง"),
-      // --- flagship: topic bank ---
-      flag("ความมั่นคง vs อิสรภาพทางการเงิน — เราอยากได้อันไหนกันแน่","คำถาม","backlog","","คลังหัวข้อ"),
-      flag("FIRE คือการหนีจากงาน หรือหนีจากชีวิตที่ออกแบบผิด","คำถาม","backlog","","คลังหัวข้อ"),
-      flag("เท่ากับต้องแลกอะไรบ้าง กว่าจะได้เงินก้อนนั้น (ค่าเสียโอกาสของชีวิต)","คำถาม","backlog","","คลังหัวข้อ"),
-      flag("แกะ CPALL (7-Eleven) — โมเดลธุรกิจ + หนี้ + ทำไมหุ้นไม่ไปไหน","แกะ","backlog","ดึงงบ 5 ปีจาก SET","คลังหัวข้อ"),
-      flag("แกะ Costco — ทำไมกำไรเกือบทั้งหมดมาจากค่าสมาชิก","แกะ","backlog","","คลังหัวข้อ · สอน unit economics"),
-      flag("สิ่งที่ Munger พูดซ้ำๆ ทั้งชีวิต","บทเรียน","backlog","","คลังหัวข้อ"),
-      flag("ดอกเบี้ยทบต้นให้รางวัลคนที่รอเป็น — ด้วยตัวเลขจริง","กลไก","backlog","","คลังหัวข้อ"),
-      // --- English Vlog ---
-      mk({title:"EP.2 — My monthly bills (ค่าครองชีพต่อเดือน)",stream:"vlog",status:"idea",next:"ถ่าย: นั่งเล่ารายการบิล + b-roll บ้าน + เดินรอบซอย",notes:"⭐ คุ้มสุดกับกลุ่มต่างชาติ",sched:addDays(t,4)}),
-      mk({title:"EP.3 — A week of food (ค่าอาหารทั้งสัปดาห์ + ทำกับข้าว 1 มื้อ)",stream:"vlog",status:"backlog",sched:addDays(t,11)}),
-      mk({title:"EP.4 — A day trip by motorbike",stream:"vlog",status:"backlog",next:"เลือกจุดหมายใกล้ๆ",sched:addDays(t,18)}),
-      // --- Money Manual 11 chapters ---
-      mk({title:"MM บท 2 — บัตรเครดิตใบแรก (เครื่องมือ ไม่ใช่เงินเพิ่ม)",stream:"manual",format:"บทความ",status:"research",source:"series",mm:2,next:"เขียนบทจากบรีฟที่มีแล้ว",notes:"⭐ เปิดซีรีส์ · บรีฟครบใน 00-series-plan.md"}),
-      mk({title:"MM บท 1 — อ่านสลิปเงินเดือนให้ออก (gross ≠ net)",stream:"manual",format:"บทความ",status:"research",source:"series",mm:1,next:"เขียนบทจากบรีฟ"}),
-      mk({title:"MM บท 6 — วิธีลดหย่อนภาษี (RMF/ThaiESG · ยื่นเอง)",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:6,due:"2026-11-15",notes:"⏰ โพส พ.ย.–ธ.ค. · ผูกเว็บวางแผนภาษี 2569"}),
-      mk({title:"MM บท 5 — การเลือกประกัน (โอนความเสี่ยง ไม่ใช่ลงทุน)",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:5,notes:"soft lead-gen"}),
-      mk({title:"MM บท 10 — ซื้อบ้าน vs เช่า ซื้อตอนไหนดี",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:10,notes:"หัวข้อธง · ผูกเครื่องคำนวณซื้อ/เช่า · เอาไปทำคลิปยาวได้"}),
-      mk({title:"MM บท 11 — ตั้งเป้าหมายการเงิน + ออกแบบการเงินส่วนบุคคล",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:11,notes:"บทปิด"}),
-      mk({title:"MM บท 3 — เงินสำรองฉุกเฉิน + จัดการหนี้",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:3}),
-      mk({title:"MM บท 4 — งบประมาณที่ไม่ต้องจดทุกบาท",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:4}),
-      mk({title:"MM บท 7 — สวัสดิการบริษัท + กองทุนสำรองเลี้ยงชีพ",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:7}),
-      mk({title:"MM บท 8 — เริ่มลงทุนจากเงินเดือน",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:8}),
-      mk({title:"MM บท 9 — จัดพอร์ต + rebalance",stream:"manual",format:"บทความ",status:"backlog",source:"series",mm:9,notes:"ผูก Portfolio Dashboard 50/25/20/5"}),
-      // --- โพสต์ / ของแถม (มีวันลงแพลนครบ — คำคม/short/ภาพ) ---
-      mk({title:"ตัด short 45–60 วิ จากคลิปยาว W1 (เท่าไหร่ถึงจะพอ)",stream:"post",format:"Reel",status:"backlog",next:"รอ W1 ตัดเสร็จ",notes:"ของแถม — ไม่เขียนสคริปต์ใหม่",sched:addDays(t,6)}),
-      mk({title:"การ์ดคำคม — จากประโยคเด็ดคลิป W1",stream:"post",format:"Quote card",status:"backlog",notes:"ของแถม",sched:addDays(t,7)}),
-      mk({title:"การ์ดคำคม — หมวดการเงิน (ชุด 2)",stream:"post",format:"Quote card",status:"backlog",next:"ให้ Claude เขียน + render 3:4",notes:"ชุด 1 = 25 การ์ดเสร็จ",sched:addDays(t,3)}),
-      mk({title:"การ์ดคำคม — หมวดปล่อยวาง/ธรรมะ",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,10)}),
-      mk({title:"การ์ดคำคม — จากคลิป W2 (ค่าธรรมเนียมกองทุน)",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,14)}),
-      mk({title:"โพสต์ภาพเดียว — ตารางเทียบ TER (ของแถมคลิป W2)",stream:"post",format:"Single Image",status:"backlog",notes:"ทำจากคลิป W2",sched:addDays(t,13)}),
-      mk({title:"การ์ดคำคม — หมวดธุรกิจ",stream:"post",format:"Quote card",status:"backlog",sched:addDays(t,17)}),
-      // --- published ---
-      mk({title:"English Vlog EP.1 — A Simple Weekend (Not Bangkok)",stream:"vlog",status:"published",pub:t,movedAt:t,notes:"คลิปแรกพูดอังกฤษ"})
+    // flagship slot on a given week: Mon(🔧) Tue(🔍) Thu(❓) Fri(📚); vlog Sat; quotes Mon/Wed/Fri
+    var fdow={"กลไก":1,"แกะ":2,"คำถาม":4,"บทเรียน":5};
+    var flag=function(wk,flavor,title,status,notes,article){
+      return mk({title:title,stream:"flagship",flavor:flavor,status:status||"backlog",notes:notes||"",
+        sched:wk!=null?mondayOffset(t,wk,fdow[flavor]):"",outputs:article?{article:false}:{}});
+    };
+    var W=[
+      ["กลไก","ค่าธรรมเนียมกองทุน 1%/ปี 30 ปี กินเงินคุณไปเท่าไหร่",false],
+      ["แกะ","แกะพอร์ตตัวเอง — ทำไมถือแบบนี้ ปรับอะไรปีนี้",false],
+      ["คำถาม","เท่าไหร่ถึงจะพอ — แล้วทำไมไม่เคยรู้สึกว่าพอ",false],
+      ["บทเรียน","Bezos กับคำถามเดียวที่ทำให้ลาออกมาทำ Amazon",false],
+      ["กลไก","ทำไมข่าวดี (คนมีงานทำเยอะ) กลับทำหุ้นร่วง",false],
+      ["แกะ","แกะ CPALL (7-Eleven) — โมเดล + หนี้ + ทำไมหุ้นไม่ไปไหน",false],
+      ["คำถาม","ทำไมต้องพยายามแข่งขันหาเงิน ทั้งที่มันไม่ทำให้เรามีความสุข",false],
+      ["บทเรียน","Munger — สิ่งที่พูดซ้ำๆ ทั้งชีวิต",false],
+      ["กลไก","📝 คู่มือ บท 1 — อ่านสลิปเงินเดือนให้ออก (gross ≠ net)",true],
+      ["แกะ","แกะ NVIDIA — รายได้มาจากไหนจริงๆ + ราคาแพงไปไหม",false],
+      ["คำถาม","เงินเดือนขึ้นแล้วทำไมไม่รู้สึกรวยขึ้น (hedonic treadmill)",false],
+      ["บทเรียน","Naval — คนรวยเป็นเจ้าของสิ่งที่ทำงานตอนหลับ",false],
+      ["กลไก","📝 คู่มือ บท 2 — บัตรเครดิตใบแรก (เครื่องมือ ไม่ใช่เงินเพิ่ม)",true],
+      ["แกะ","แกะ Costco — ทำไมกำไรเกือบทั้งหมดมาจากค่าสมาชิก",false],
+      ["คำถาม","ความมั่นคง vs อิสรภาพทางการเงิน — เราอยากได้อันไหนกันแน่",false],
+      ["บทเรียน","บทเรียนจากคนที่เกษียณเร็วแล้วเบื่อ",false]
     ];
+    var out=[];
+    W.forEach(function(r,i){
+      var wk=Math.floor(i/4);
+      var status = wk===0 ? (r[0]==="กลไก"?"script":"research") : "backlog";
+      out.push(flag(wk, r[0], (wk<4?("W"+(wk+1)+" · "):"")+r[1], status, "", r[2]));
+    });
+    // topic bank (no date)
+    [["คำถาม","FIRE คือการหนีจากงาน หรือหนีจากชีวิตที่ออกแบบผิด"],
+     ["คำถาม","เราเป็นเจ้าของเงิน หรือเงินเป็นเจ้าของเวลาเรา"],
+     ["กลไก","เงินเฟ้อกินเงินสดในบัญชีคุณยังไง (เห็นภาพ 10 ปี)"],
+     ["แกะ","อ่านงบธนาคารยังไง — NIM, NPL, CET1 ผ่าน KBANK/SCB"],
+     ["บทเรียน","หนังสือที่กำลังอ่าน — 3 ข้อที่เอามาใช้จริง"]
+    ].forEach(function(r){out.push(flag(null,r[0],r[1],"backlog","คลังหัวข้อ"));});
+    // MM chapters 3-11 (backlog, flagship, กลไก, +article)
+    [3,4,5,6,7,8,9,10,11].forEach(function(n){
+      var nm={3:"เงินสำรองฉุกเฉิน + จัดการหนี้",4:"งบประมาณที่ไม่ต้องจดทุกบาท",5:"การเลือกประกัน",6:"วิธีลดหย่อนภาษี (RMF/ThaiESG)",7:"สวัสดิการบริษัท + กองทุนสำรองเลี้ยงชีพ",8:"เริ่มลงทุนจากเงินเดือน",9:"จัดพอร์ต + rebalance",10:"ซื้อบ้าน vs เช่า",11:"ตั้งเป้าหมายการเงิน (บทปิด)"}[n];
+      out.push(mk({title:"📝 คู่มือ บท "+n+" — "+nm,stream:"flagship",flavor:"กลไก",format:"YouTube",status:"backlog",source:"series",mm:n,outputs:{article:false},
+        notes:n===6?"⏰ โพส พ.ย.–ธ.ค.":""}));
+    });
+    // English Vlog
+    [["EP.2 — My monthly bills (ค่าครองชีพต่อเดือน)",0,"⭐ คุ้มสุดกับกลุ่มต่างชาติ"],
+     ["EP.3 — A week of food + ทำกับข้าว 1 มื้อ",1,""],
+     ["EP.4 — A day trip by motorbike",2,""],
+     ["EP.5 — (เลือกจากคลัง)",3,""]
+    ].forEach(function(v){
+      out.push(mk({title:v[0],stream:"vlog",status:v[1]===0?"idea":"backlog",notes:v[2],sched:mondayOffset(t,v[1],6)}));
+    });
+    // การ์ดคำคม — 3/สัปดาห์ (จ/พ/ศ) 4 สัปดาห์ = 12
+    var qcat=["การเงิน","ปล่อยวาง","ธุรกิจ","ปรัชญาชีวิต","คติสอนใจ","คนที่ทำสำเร็จ","ธรรมะ"];
+    var qi=0;
+    for(var w=0;w<4;w++){[1,3,5].forEach(function(dw){
+      var cat=qcat[qi%qcat.length];qi++;
+      out.push(mk({title:"การ์ดคำคม — หมวด"+cat,stream:"quote",format:"Quote card",status:"backlog",
+        source:"quote",sched:mondayOffset(t,w,dw),notes:"จากคลัง Quick Content quotes (ชุด 1 = 25 การ์ด)"}));
+    });}
+    // published
+    out.push(mk({title:"English Vlog EP.1 — A Simple Weekend (Not Bangkok)",stream:"vlog",status:"published",pub:t,movedAt:t,notes:"คลิปแรกพูดอังกฤษ"}));
+    return out;
   }
 
-  /* ---------- tabs ---------- */
+  /* tabs */
   document.querySelectorAll(".tab").forEach(function(b){
     b.onclick=function(){ view=b.dataset.v; try{localStorage.setItem("contentOS.tab",view);}catch(e){} render(); };
   });
   try{var sv=localStorage.getItem("contentOS.tab"); if(sv)view=sv;}catch(e){}
 
-  /* ---------- MONITOR ---------- */
+  /* fetch news inbox (github.io only) */
+  function loadInbox(){
+    try{
+      fetch("content/os-inbox.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(d&&d.ideas){inbox=d.ideas;if(view==="db")renderInbox();}
+      }).catch(function(){});
+    }catch(e){}
+  }
+
+  /* MONITOR */
   function renderMonitor(){
-    var now=new Date();
-    var wkAgo=addDays(today(),-7);
+    var now=new Date(), wkAgo=addDays(today(),-7);
     var moStart=new Date(now.getFullYear(),now.getMonth(),1).toISOString().slice(0,10);
     var pub=state.items.filter(function(i){return i.status==="published"&&i.pub;});
     var wk=pub.filter(function(i){return i.pub>=wkAgo;}).length;
@@ -502,34 +523,32 @@
     if(stuck){var dd=dbet(stuck.movedAt,today());
       sTxt=stuck.title.length>32?stuck.title.slice(0,32)+"…":stuck.title;
       sSub='ค้างที่ "'+(STM[stuck.status]||{}).name+'" '+dd+' วัน';}
-    var tw=state.targets.week||1,tm=state.targets.month||1;
+    var tf=state.targets.flagWk||4,tm=state.targets.month||20;
+    var flagWk=pub.filter(function(i){return i.pub>=wkAgo&&i.stream==="flagship";}).length;
     document.getElementById("mTiles").innerHTML=[
-      tl("โพสต์ 7 วัน",wk+' <small>/ '+tw+'</small>',pb(wk/tw),"เป้า/สัปดาห์ · แก้",1),
-      tl("โพสต์เดือนนี้",mo+' <small>/ '+tm+'</small>',pb(mo/tm),"เป้า/เดือน · แก้",2),
+      tl("คลิปยาว 7 วัน",flagWk+' <small>/ '+tf+'</small>',pb(flagWk/tf),"เป้า/สัปดาห์ · แก้",1),
+      tl("โพสต์เดือนนี้ (ทุกชนิด)",mo+' <small>/ '+tm+'</small>',pb(mo/tm),"เป้า/เดือน · แก้",2),
       tl("สตรีค",streak+' <small>สัปดาห์</small>','',"ลงต่อเนื่อง ≥1/สัปดาห์",0),
       '<div class="tile alert"><div class="k">⚠️ ค้างนานสุด</div><div class="v">'+esc(sTxt)+'</div><div class="foot">'+esc(sSub)+'</div></div>'
     ].join("");
     document.querySelectorAll("#mTiles .link-btn").forEach(function(b){
-      b.onclick=function(){var k=b.dataset.k,cur=k==="1"?state.targets.week:state.targets.month;
-        var n=prompt("เป้าโพสต์ต่อ"+(k==="1"?"สัปดาห์":"เดือน"),cur);
-        if(n&&+n>0){if(k==="1")state.targets.week=+n;else state.targets.month=+n;save();renderMonitor();}};
+      b.onclick=function(){var k=b.dataset.k,cur=k==="1"?(state.targets.flagWk||4):(state.targets.month||20);
+        var n=prompt(k==="1"?"เป้าคลิปยาวต่อสัปดาห์":"เป้าโพสต์ทุกชนิดต่อเดือน",cur);
+        if(n&&+n>0){if(k==="1")state.targets.flagWk=+n;else state.targets.month=+n;save();renderMonitor();}};
     });
-    // up next 7d
     var soon=state.items.filter(function(i){return i.sched&&i.sched>=today()&&i.sched<=addDays(today(),7)&&i.status!=="published";})
       .sort(function(a,b){return a.sched<b.sched?-1:1;});
     document.getElementById("mUpnext").innerHTML=soon.length?soon.map(function(i){
       var s=SM[i.stream]||{};
       return '<div class="un-item" style="border-left-color:'+cssv(s.v)+'"><span class="d">'+i.sched.slice(5)+'</span><span class="t">'+esc(i.title)+'</span></div>';
-    }).join(""):'<div class="kempty">ยังไม่มีอะไรลงแพลนใน 7 วัน — ไปตั้งวันในแท็บปฏิทิน</div>';
-    // stream balance
+    }).join(""):'<div class="kempty">ยังไม่มีอะไรลงแพลนใน 7 วัน</div>';
     var act=active();
     var smax=Math.max(1,Math.max.apply(null,STREAMS.map(function(s){return act.filter(function(i){return i.stream===s.id;}).length;})));
     document.getElementById("mStreamBal").innerHTML=STREAMS.map(function(s){
       var c=act.filter(function(i){return i.stream===s.id;}).length,col=cssv(s.v);
       return brow(s.name,c,c/smax,col);
     }).join("");
-    // flavor balance (flagship active)
-    var fl=act.filter(function(i){return i.stream==="flagship";});
+    var fl=schedActive().filter(function(i){return i.stream==="flagship";});
     var fmax=Math.max(1,Math.max.apply(null,FLAVORS.slice(1).map(function(f){return fl.filter(function(i){return i.flavor===f.id;}).length;})));
     document.getElementById("mFlavBal").innerHTML=FLAVORS.slice(1).map(function(f){
       var c=fl.filter(function(i){return i.flavor===f.id;}).length;
@@ -543,8 +562,32 @@
     '<span class="nm">'+esc(nm)+'</span><span class="track"><i style="width:'+(Math.max(0,Math.min(1,frac))*100).toFixed(0)+'%;background:'+col+'"></i></span>'+
     '<span class="ct">'+ct+'</span></div>';}
 
-  /* ---------- DATABASE ---------- */
+  /* DATABASE */
+  function renderInbox(){
+    var el=document.getElementById("dbInbox");
+    var fresh=inbox.filter(function(x){return !state.items.some(function(i){return i.fromInbox===x.id;});});
+    if(!fresh.length){el.innerHTML="";return;}
+    el.innerHTML='<div class="inbox"><div class="inbox-h">📥 ไอเดียใหม่จากข่าวสัปดาห์นี้ ('+fresh.length+') — เลือกเพิ่มเข้าคลัง</div>'+
+      fresh.map(function(x){
+        var g=x.grade==="red"?'<span class="grade" style="color:var(--over)">🔴 ต้องพูดถึง</span>':
+              x.grade==="yellow"?'<span class="grade" style="color:var(--warn)">🟡 น่าสนใจ</span>':
+              '<span class="grade" style="color:var(--muted)">⚪ เก็บ</span>';
+        return '<div class="ib-item">'+g+'<span class="ib-t"><b style="color:var(--text)">'+esc(x.title)+'</b>'+
+          (x.flavor?' · '+esc(FM[x.flavor]||x.flavor):'')+(x.why?'<br><span style="color:var(--muted)">ทำไมตอนนี้: '+esc(x.why)+'</span>':'')+'</span>'+
+          '<button class="miniop go" data-ib="'+esc(x.id)+'">+ คลัง</button></div>';
+      }).join("")+'</div>';
+    el.querySelectorAll(".miniop[data-ib]").forEach(function(b){
+      b.onclick=function(){
+        var x=inbox.filter(function(z){return z.id===b.dataset.ib;})[0]; if(!x)return;
+        state.items.push({id:uid(),title:x.title,stream:x.stream||"flagship",flavor:x.flavor||"",format:"YouTube",
+          status:"backlog",source:"angles",fromInbox:x.id,next:"",due:"",notes:x.why?("จากข่าว: "+x.why):"จากข่าวสัปดาห์นี้",
+          sched:"",pub:"",movedAt:today(),createdAt:today(),outputs:{},review:{}});
+        save();render();
+      };
+    });
+  }
   function renderDB(){
+    renderInbox();
     var fc=document.getElementById("dbFilters");
     var sChips='<span style="font-size:10px;color:var(--muted);align-self:center">สตรีม:</span>'+
       ['all'].concat(STREAMS.map(function(s){return s.id;})).map(function(id){
@@ -571,14 +614,18 @@
   function renderDBRows(){
     var rows=state.items.filter(dbMatch).sort(function(a,b){
       var oa=STATUS.findIndex(function(s){return s.id===a.status;}),ob=STATUS.findIndex(function(s){return s.id===b.status;});
-      return oa-ob || (a.createdAt<b.createdAt?-1:1);
+      return oa-ob || ((a.sched||"z")<(b.sched||"z")?-1:1);
     });
-    var SRC={manual:"เพิ่มเอง",series:"ซีรีส์คู่มือ",angles:"ข่าวรายสัปดาห์",inbox:"ไอเดีย",plan:"แผน 8 สัปดาห์"};
+    var SRC={manual:"เพิ่มเอง",series:"ซีรีส์คู่มือ",angles:"ข่าวรายสัปดาห์",quote:"Quick Content",plan:"แผน"};
     document.getElementById("dbBody").innerHTML=rows.map(function(i){
       var s=SM[i.stream]||{name:i.stream,v:"--muted"},col=cssv(s.v);
       var fv=i.flavor?' <span class="flavtag">'+esc(FM[i.flavor]||i.flavor)+'</span>':'';
+      var outs=i.stream==="flagship"?["article","short","image"].map(function(o){
+        var d=i.outputs&&i.outputs[o];var lbl={article:"บทความ",short:"short",image:"ภาพ"}[o];
+        return '<span class="otag'+(d?" done":"")+'">'+(d?"✓ ":"")+lbl+'</span>';}).join(""):"";
       return '<tr>'+
         '<td><span class="t-title" data-id="'+i.id+'">'+esc(i.title)+'</span>'+fv+
+          (outs?'<div style="margin-top:3px">'+outs+'</div>':'')+
           (i.notes?'<div style="font-size:10.5px;color:var(--muted);margin-top:2px;line-height:1.4">'+esc(i.notes.slice(0,90))+'</div>':'')+'</td>'+
         '<td><span class="s-tag" style="background:'+col+'22;color:'+col+'">'+esc(s.name)+'</span></td>'+
         '<td style="color:var(--text-dim)">'+esc(i.format||"—")+'</td>'+
@@ -601,7 +648,7 @@
     });
   }
 
-  /* ---------- PIPELINE (kanban) ---------- */
+  /* PIPELINE */
   function renderBoard(){
     var bf=document.getElementById("boardFilters");
     bf.innerHTML='<span style="font-size:10px;color:var(--muted);align-self:center">สตรีม:</span>'+
@@ -612,8 +659,7 @@
     var items=state.items.filter(function(i){return (boardFilter==="all"||i.stream===boardFilter)&&i.status!=="backlog";});
     var board=document.getElementById("board");
     board.innerHTML=BOARD_ST.map(function(sid){
-      var st=STM[sid];
-      var list=items.filter(function(i){return i.status===sid;});
+      var st=STM[sid], list=items.filter(function(i){return i.status===sid;});
       if(sid==="published"){list.sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});list=list.slice(0,10);}
       var body=list.length?list.map(kc).join(""):'<div class="kempty">—</div>';
       return '<div class="col" data-st="'+sid+'"><div class="col-h"><span class="cn">'+st.name+'</span>'+
@@ -673,7 +719,7 @@
     save();render();
   }
 
-  /* ---------- CALENDAR ---------- */
+  /* CALENDAR */
   function renderCal(){
     var y=calRef.getFullYear(),m=calRef.getMonth();
     var months=["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
@@ -683,18 +729,18 @@
     var cells=dow.map(function(d){return '<div class="cal-dow">'+d+'</div>';});
     var byDate={};
     state.items.forEach(function(i){
-      [["sched",i.sched,false],["pub",i.pub,true]].forEach(function(p){
-        if(!p[1])return;(byDate[p[1]]=byDate[p[1]]||[]).push({i:i,done:p[2]});
+      [[i.sched,false],[i.pub,true]].forEach(function(p){
+        if(!p[0])return;(byDate[p[0]]=byDate[p[0]]||[]).push({i:i,done:p[1]});
       });
     });
-    var tot=start+dim, weeks=Math.ceil(tot/7)*7;
+    var weeks=Math.ceil((start+dim)/7)*7;
     for(var c=0;c<weeks;c++){
       var dn=c-start+1;
       if(dn<1||dn>dim){cells.push('<div class="cal-cell dim"></div>');continue;}
       var ds=y+"-"+String(m+1).padStart(2,"0")+"-"+String(dn).padStart(2,"0");
       var evs=(byDate[ds]||[]).map(function(e){
         var s=SM[e.i.stream]||{},col=cssv(s.v);
-        var tag=e.i.format==="Quote card"?"💬 ":(e.i.format==="Reel"?"🎬 ":(e.i.format==="Single Image"?"📸 ":""));
+        var tag=e.i.format==="Quote card"?"💬 ":(e.i.format==="Reel"?"🎬 ":(e.i.format==="Single Image"?"📸 ":(e.i.stream==="vlog"?"📹 ":"🎥 ")));
         return '<div class="cev'+(e.done?" done":"")+'" style="border-left-color:'+col+'" data-id="'+e.i.id+'" title="'+esc(e.i.title)+'">'+tag+esc(e.i.title)+'</div>';
       }).join("");
       cells.push('<div class="cal-cell'+(ds===today()?" today":"")+'" data-d="'+ds+'"><span class="cd">'+dn+'</span>'+evs+'</div>');
@@ -710,21 +756,18 @@
   document.getElementById("calNext").onclick=function(){calRef.setMonth(calRef.getMonth()+1);renderCal();};
   document.getElementById("calToday").onclick=function(){calRef=new Date();renderCal();};
 
-  /* ---------- REVIEW ---------- */
+  /* REVIEW */
   function renderReview(){
     var pub=state.items.filter(function(i){return i.status==="published";}).sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});
     document.getElementById("rvList").innerHTML=pub.length?pub.map(function(i){
       var r=i.review||{};
       return '<div class="rv-item" data-id="'+i.id+'">'+
         '<div class="rvh"><span>'+esc(i.title)+'</span><span class="rvd">'+(i.pub||"")+'</span></div>'+
-        '<div class="rv-body">'+
-          '<div class="rv-metrics">'+
-            m("reach","Reach",r.reach)+m("saves","Saves",r.saves)+m("comments","Comments",r.comments)+m("inquiry","IB/สอบถาม",r.inquiry)+
-          '</div>'+
-          '<div class="rv-learn"><label style="font-size:9.5px;text-transform:uppercase;color:var(--muted)">1 บทเรียน</label>'+
-          '<textarea data-f="learning" placeholder="อะไรเวิร์ก/ไม่เวิร์ก · เอาไปทำอะไรต่อ">'+esc(r.learning||"")+'</textarea></div>'+
-        '</div></div>';
-      function m(f,lbl,val){return '<div><label>'+lbl+'</label><input data-f="'+f+'" value="'+esc(val||"")+'" /></div>';}
+        '<div class="rv-body"><div class="rv-metrics">'+
+          mm("reach","Reach",r.reach)+mm("saves","Saves",r.saves)+mm("comments","Comments",r.comments)+mm("inquiry","IB/สอบถาม",r.inquiry)+
+        '</div><div class="rv-learn"><label style="font-size:9.5px;text-transform:uppercase;color:var(--muted)">1 บทเรียน</label>'+
+        '<textarea data-f="learning" placeholder="อะไรเวิร์ก/ไม่เวิร์ก · เอาไปทำอะไรต่อ">'+esc(r.learning||"")+'</textarea></div></div></div>';
+      function mm(f,lbl,val){return '<div><label>'+lbl+'</label><input data-f="'+f+'" value="'+esc(val||"")+'" /></div>';}
     }).join(""):'<div class="kempty">ยังไม่มีชิ้นที่โพสต์แล้ว</div>';
     document.querySelectorAll("#rvList .rvh").forEach(function(h){
       h.onclick=function(){h.parentElement.querySelector(".rv-body").classList.toggle("open");};
@@ -748,26 +791,29 @@
     }).join(""):'<div class="kempty">ยังไม่มีบทเรียนที่บันทึก</div>';
   }
 
-  /* ---------- item modal ---------- */
+  /* modal */
   var ovl=document.getElementById("ovl"),form=document.getElementById("itemForm");
   document.getElementById("fStream").innerHTML=STREAMS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
   document.getElementById("fFlavor").innerHTML=FLAVORS.map(function(f){return '<option value="'+f.id+'">'+esc(f.name)+'</option>';}).join("");
   document.getElementById("fStatus").innerHTML=STATUS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
+  function syncOutVis(){document.getElementById("outWrap").style.display=form.fStream.value==="flagship"?"":"none";}
+  form.fStream.onchange=syncOutVis;
   function openItem(id,presetStatus,presetSched){
     editId=id||null;
     document.getElementById("dlgTitle").firstChild.textContent=id?"แก้รายการ":"เพิ่มรายการ";
     var d=id?byId(id):null;
     form.fTitle.value=d?d.title:"";
-    form.fStream.value=d?d.stream:(presetSched?"post":(boardFilter!=="all"&&view==="board"?boardFilter:(dbFilter.stream!=="all"&&view==="db"?dbFilter.stream:"flagship")));
+    form.fStream.value=d?d.stream:(presetSched?"quote":(boardFilter!=="all"&&view==="board"?boardFilter:(dbFilter.stream!=="all"&&view==="db"?dbFilter.stream:"flagship")));
     form.fFlavor.value=d?(d.flavor||""):"";
-    form.fFormat.value=d?(d.format||"YouTube"):(presetSched?"Quote card":"YouTube");
+    form.fFormat.value=d?(d.format||"YouTube"):(form.fStream.value==="quote"?"Quote card":"YouTube");
     form.fStatus.value=d?d.status:(presetStatus||"backlog");
     form.fSched.value=d?(d.sched||""):(presetSched||"");
     form.fDue.value=d?(d.due||""):"";
     form.fNext.value=d?(d.next||""):"";
     form.fNotes.value=d?(d.notes||""):"";
-    var dv=d&&d.derived||{};
-    form.fdShort.checked=!!dv.short; form.fdQuote.checked=!!dv.quote; form.fdImage.checked=!!dv.image;
+    var o=d&&d.outputs||{};
+    form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
+    syncOutVis();
     document.getElementById("dlgDel").hidden=!id;
     ovl.classList.add("open"); setTimeout(function(){form.fTitle.focus();},30);
   }
@@ -783,7 +829,7 @@
     e.preventDefault();
     var v={title:form.fTitle.value.trim(),stream:form.fStream.value,flavor:form.fFlavor.value,format:form.fFormat.value,
       status:form.fStatus.value,sched:form.fSched.value,due:form.fDue.value,next:form.fNext.value.trim(),notes:form.fNotes.value.trim(),
-      derived:{short:form.fdShort.checked,quote:form.fdQuote.checked,image:form.fdImage.checked}};
+      outputs:{article:form.foArticle.checked,short:form.foShort.checked,image:form.foImage.checked}};
     if(!v.title)return;
     if(editId){var i=byId(editId);var ch=i.status!==v.status;Object.assign(i,v);
       if(ch)i.movedAt=today();
@@ -795,11 +841,11 @@
     save();closeItem();render();
   };
 
-  /* ---------- toolbar ---------- */
+  /* toolbar */
   document.getElementById("btnAdd").onclick=function(){openItem(null);};
   document.getElementById("btnReseed").onclick=function(){
     if(!confirm("ลบข้อมูลทั้งหมดแล้วโหลดตัวอย่างใหม่?"))return;
-    state=norm({items:seed(),targets:{week:2,month:8},meta:{}});save();render();
+    state=norm({items:seed(),targets:{},meta:{}});save();render();
   };
   document.getElementById("btnExport").onclick=function(){
     var a=document.createElement("a");
@@ -817,7 +863,6 @@
     r.readAsText(f);e.target.value="";
   };
 
-  /* ---------- render ---------- */
   function render(){
     document.querySelectorAll(".tab").forEach(function(t){t.dataset.on=t.dataset.v===view?"1":"0";});
     document.querySelectorAll(".view").forEach(function(s){s.dataset.on=s.dataset.v===view?"1":"0";});
@@ -828,6 +873,7 @@
     else if(view==="review")renderReview();
   }
   render();
+  loadInbox();
 })();
 </script>
 </body>
