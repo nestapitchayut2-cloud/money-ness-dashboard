@@ -349,6 +349,7 @@
       </div></div>
       <div class="go">
         <button type="button" class="del" id="dlgDel" hidden>ลบ</button>
+        <button type="button" class="btn" id="dlgCopy">📋 คัดลอกคำสั่ง</button>
         <button type="button" class="btn" id="dlgCancel">ยกเลิก</button>
         <button type="submit" class="btn primary">บันทึก</button>
       </div>
@@ -820,6 +821,28 @@
   function closeItem(){ovl.classList.remove("open");editId=null;}
   document.getElementById("dlgX").onclick=closeItem;
   document.getElementById("dlgCancel").onclick=closeItem;
+  function buildClaudePrompt(){
+    var streamName=SM[form.fStream.value]?SM[form.fStream.value].name:"";
+    var flavorName=FM[form.fFlavor.value]||"";
+    var meta=["สตรีม: "+streamName];
+    if(flavorName)meta.push("รส: "+flavorName);
+    meta.push("รูปแบบ: "+form.fFormat.value);
+    var lines=['เขียน/ทำ Content ให้หน่อย: "'+form.fTitle.value.trim()+'"','('+meta.join(" · ")+')'];
+    if(form.fNext.value.trim())lines.push("ทำอะไรต่อ: "+form.fNext.value.trim());
+    if(form.fNotes.value.trim())lines.push("โน้ต: "+form.fNotes.value.trim());
+    return lines.join("\n");
+  }
+  document.getElementById("dlgCopy").onclick=function(){
+    var txt=buildClaudePrompt(),btn=document.getElementById("dlgCopy"),orig=btn.textContent;
+    function done(ok){btn.textContent=ok?"✅ คัดลอกแล้ว":"⚠️ คัดลอกไม่ได้";setTimeout(function(){btn.textContent=orig;},1600);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(false);});
+    }else{
+      try{var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+        document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);done(true);
+      }catch(e){done(false);}
+    }
+  };
   ovl.addEventListener("click",function(e){if(e.target===ovl)closeItem();});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ovl.classList.contains("open"))closeItem();});
   document.getElementById("dlgDel").onclick=function(){
