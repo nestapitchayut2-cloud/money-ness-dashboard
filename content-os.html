@@ -186,6 +186,8 @@
   .form .go{display:flex;gap:8px;justify-content:flex-end;padding-top:2px}
   .form .del{margin-right:auto;color:var(--over);background:none;border:none;font-size:12px;font-weight:600}
   .chkrow{display:flex;gap:14px;font-size:12px;color:var(--text-dim);flex-wrap:wrap}
+  .script-body{white-space:pre-wrap;max-height:280px;overflow:auto;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.7;color:var(--text-dim);font-family:inherit}
   .chkrow label{display:flex;gap:5px;align-items:center;cursor:pointer}
 </style>
 </head>
@@ -354,6 +356,7 @@
         <label><input type="checkbox" id="foShort" /> 🎬 short</label>
         <label><input type="checkbox" id="foImage" /> 📸 โพสต์ภาพ</label>
       </div></div>
+      <div class="fld" id="scriptWrap" hidden><label>📄 สคริปต์ที่ Claude เขียนไว้</label><pre id="scriptBody" class="script-body"></pre></div>
       <div class="go">
         <button type="button" class="del" id="dlgDel" hidden>ลบ</button>
         <button type="button" class="btn" id="dlgCopy">📋 คัดลอกคำสั่ง</button>
@@ -401,7 +404,7 @@
     d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
   };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[], statusUpdates=[];
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
@@ -516,6 +519,16 @@
       }).catch(function(){});
     }catch(e){}
   }
+
+  /* fetch full script text Claude wrote for items, so Ness can read it right in the modal (github.io only) */
+  function loadScripts(){
+    try{
+      fetch("content/os-scripts.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(d&&d.scripts)scripts=d.scripts;
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function findScript(title){return scripts.filter(function(s){return s.title===title;})[0];}
 
   /* fetch status updates Claude wrote after finishing work on an item (github.io only) */
   function loadStatusUpdates(){
@@ -858,6 +871,9 @@
     var o=d&&d.outputs||{};
     form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
     syncOutVis();
+    var sc=d?findScript(d.title):null;
+    document.getElementById("scriptWrap").hidden=!sc;
+    if(sc)document.getElementById("scriptBody").textContent=sc.body;
     document.getElementById("dlgDel").hidden=!id;
     ovl.classList.add("open"); setTimeout(function(){form.fTitle.focus();},30);
   }
@@ -941,6 +957,7 @@
   render();
   loadInbox();
   loadStatusUpdates();
+  loadScripts();
 })();
 </script>
 </body>
