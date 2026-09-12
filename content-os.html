@@ -114,6 +114,11 @@
 
   .inbox{background:#181a12;border:1px solid #3a3a1e;border-radius:10px;padding:12px 14px;margin-bottom:14px}
   .inbox-h{font-size:12px;font-weight:700;color:var(--warn);margin-bottom:8px}
+  .syncbar{background:#0f1f14;border:1px solid #1f5c1f;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+  .syncbar-h{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .sync-item{display:flex;align-items:center;gap:8px;font-size:12px;padding:4px 0;color:var(--text-dim)}
+  .sync-item b{color:var(--text)}
+  .sync-arrow{color:var(--muted)}
   .ib-item{display:flex;gap:10px;align-items:baseline;font-size:12px;padding:6px 0;border-top:1px solid #2a2a18}
   .ib-item:first-of-type{border-top:none}
   .ib-item .ib-t{flex:1;color:var(--text-dim);line-height:1.4}
@@ -199,6 +204,8 @@
       <input type="file" id="fileImport" accept="application/json" hidden />
     </div>
   </div>
+
+  <div id="statusSync"></div>
 
   <div class="tabs" id="tabs">
     <button class="tab" data-v="monitor">📊 Monitor</button>
@@ -394,7 +401,7 @@
     d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
   };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[];
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[], statusUpdates=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
@@ -413,6 +420,7 @@
   function norm(d){
     d.targets=d.targets||{}; if(!d.targets.flagWk)d.targets.flagWk=4; if(!d.targets.month)d.targets.month=20;
     d.meta=d.meta||{};
+    d.meta.statusSyncSeen=d.meta.statusSyncSeen||[];
     d.items.forEach(function(it){
       it.outputs=it.outputs||{}; it.review=it.review||{};
       it.movedAt=it.movedAt||it.createdAt||today();
@@ -507,6 +515,41 @@
         if(d&&d.ideas){inbox=d.ideas;if(view==="db")renderInbox();}
       }).catch(function(){});
     }catch(e){}
+  }
+
+  /* fetch status updates Claude wrote after finishing work on an item (github.io only) */
+  function loadStatusUpdates(){
+    try{
+      fetch("content/os-status.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(d&&d.items){statusUpdates=d.items;renderStatusSync();}
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function renderStatusSync(){
+    var el=document.getElementById("statusSync");if(!el)return;
+    var pend=statusUpdates.filter(function(u){
+      if(state.meta.statusSyncSeen.indexOf(u.id)>=0)return false;
+      var it=state.items.filter(function(i){return i.title===u.title;})[0];
+      return it&&it.status!==u.setStatus;
+    });
+    if(!pend.length){el.innerHTML="";return;}
+    el.innerHTML='<div class="syncbar"><div class="syncbar-h"><span>🔄 Claude อัปเดตความคืบหน้า ('+pend.length+' รายการ) — ขยับสถานะให้ตรงของจริงไหม</span>'+
+      '<span><button class="btn sm" id="syncApplyAll">✅ ขยับให้หมด</button> <button class="btn sm" id="syncDismissAll">ไม่ต้อง</button></span></div>'+
+      pend.map(function(u){return '<div class="sync-item"><b>'+esc(u.title)+'</b><span class="sync-arrow">→</span>'+esc((STM[u.setStatus]||{}).name||u.setStatus)+
+        (u.note?' <span style="color:var(--muted)">('+esc(u.note)+')</span>':'')+'</div>';}).join("")+
+      '</div>';
+    document.getElementById("syncApplyAll").onclick=function(){
+      pend.forEach(function(u){
+        var it=state.items.filter(function(i){return i.title===u.title;})[0];
+        if(it){it.status=u.setStatus;it.movedAt=today();}
+        state.meta.statusSyncSeen.push(u.id);
+      });
+      save();render();renderStatusSync();
+    };
+    document.getElementById("syncDismissAll").onclick=function(){
+      pend.forEach(function(u){state.meta.statusSyncSeen.push(u.id);});
+      save();renderStatusSync();
+    };
   }
 
   /* MONITOR */
@@ -897,6 +940,7 @@
   }
   render();
   loadInbox();
+  loadStatusUpdates();
 })();
 </script>
 </body>
