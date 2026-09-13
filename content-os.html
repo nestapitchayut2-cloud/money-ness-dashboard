@@ -221,7 +221,7 @@
     <div class="tiles" id="mTiles"></div>
     <div class="grid2">
       <div class="panel">
-        <div class="panel-h">7 วันข้างหน้า — ตามปฏิทิน</div>
+        <div class="panel-h">⚠️ ค้างเกินกำหนด + 7 วันข้างหน้า</div>
         <div class="upnext" id="mUpnext"></div>
       </div>
       <div class="panel">
@@ -593,12 +593,18 @@
         var n=prompt(k==="1"?"เป้าคลิปยาวต่อสัปดาห์":"เป้าโพสต์ทุกชนิดต่อเดือน",cur);
         if(n&&+n>0){if(k==="1")state.targets.flagWk=+n;else state.targets.month=+n;save();renderMonitor();}};
     });
+    var overdue=state.items.filter(function(i){return i.sched&&i.sched<today()&&i.status!=="published"&&i.status!=="parked";})
+      .sort(function(a,b){return a.sched<b.sched?-1:1;});
     var soon=state.items.filter(function(i){return i.sched&&i.sched>=today()&&i.sched<=addDays(today(),7)&&i.status!=="published";})
       .sort(function(a,b){return a.sched<b.sched?-1:1;});
-    document.getElementById("mUpnext").innerHTML=soon.length?soon.map(function(i){
+    var od=overdue.map(function(i){
+      return '<div class="un-item" style="border-left-color:var(--over)"><span class="d" style="width:auto;color:var(--over)">⚠️ เลย '+dbet(i.sched,today())+'วัน</span><span class="t">'+esc(i.title)+'</span></div>';
+    }).join("");
+    var sn=soon.map(function(i){
       var s=SM[i.stream]||{};
       return '<div class="un-item" style="border-left-color:'+cssv(s.v)+'"><span class="d">'+i.sched.slice(5)+'</span><span class="t">'+esc(i.title)+'</span></div>';
-    }).join(""):'<div class="kempty">ยังไม่มีอะไรลงแพลนใน 7 วัน</div>';
+    }).join("");
+    document.getElementById("mUpnext").innerHTML=(od+sn)||'<div class="kempty">ยังไม่มีอะไรลงแพลนใน 7 วัน</div>';
     var act=active();
     var smax=Math.max(1,Math.max.apply(null,STREAMS.map(function(s){return act.filter(function(i){return i.stream===s.id;}).length;})));
     document.getElementById("mStreamBal").innerHTML=STREAMS.map(function(s){
