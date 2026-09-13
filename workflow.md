@@ -55,7 +55,8 @@ Claude ทำให้ ไม่ต้องรอ Ness สั่ง:
 7. ส่งกลับ Ness ทีละเรื่อง
 
 ### 📹 พฤหัส–ศุกร์ — Vlog
-8. Ness ถ่าย 2–4 กิจกรรมตามเช็คลิสต์ 6 ช็อต (English-Weekend-Vlog/content-plan.md) → ส่ง Claude + บอกว่าถ่ายอะไร + ราคาที่จ่าย → Claude ตัด + เขียน VO → Ness อัด VO + เพลง + ลง
+8. Claude เขียน **บรีฟถ่ายคลิป** ไว้ล่วงหน้าใน `content/os-vlogbriefs.json` (schema: `{title, body}` เหมือน os-scripts.json) — บอกว่าถ่ายที่ไหน ถ่ายอะไรบ้าง (checklist) พูดเรื่องอะไรบ้าง อ้างอิงฟอร์แมตจาก English-Weekend-Vlog/content-plan.md — ในหน้าแก้รายการของ item สตรีม "English Vlog" มีกล่อง 🎬 บรีฟถ่ายคลิป (ถ้าเขียนแล้ว) หรือปุ่ม ✍️ คัดลอกข้อความขอให้เขียน (ถ้ายังไม่มี) เพิ่มเมื่อ 14 ก.ย. 2569 หลัง Ness ชี้ว่าไม่มีปุ่ม/หน้าให้ขอบรีฟเลย
+9. Ness เปิดอ่านบรีฟ ถ่าย 2–4 กิจกรรมตามนั้น (เช็คลิสต์ในบรีฟ) → ส่ง Claude + บอกว่าถ่ายอะไรจริง + ราคาที่จ่าย → Claude ตัด + เขียน VO → Ness อัด VO + เพลง + ลง
 
 ### 📤 ทั้งสัปดาห์ — Ness โพสต์ตามวันในปฏิทิน
 9. เปิด CapCut ปรับจุดตัด + เพลง + **export** *(ปิด CapCut ให้สุดก่อนบอก Claude แก้ JSON · เช็ค auto-beauty ด้วย `strip_pro.js` ถ้า export ฟรีไม่ได้)*
@@ -107,5 +108,6 @@ output รวม ~17 ชิ้น/สัปดาห์ = หนัก · **ถ�
 - **Content OS:** dashboard → Content → ปุ่มเขียว (หรือ `content-os.html`)
 - **แผน + คลังหัวข้อ:** `content-strategy.md`
 - **เช็คลิสต์ถ่าย Vlog:** `Projects/English-Weekend-Vlog/content-plan.md`
+- **บรีฟถ่ายคลิปรายตอน (English Vlog):** `content/os-vlogbriefs.json` — โผล่เป็นกล่องในหน้าแก้รายการของ Content OS อัตโนมัติ
 - **คู่มือการเงิน 11 บท:** `THE-MONEY-NESS/series-money-manual/` — ใน OS อยู่แท็บคลัง (สตรีม flagship, รส 🔧)
 - **Quick Content prompt-builder:** ปุ่มบนหน้า Content (ยังอยู่)

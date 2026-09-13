@@ -390,10 +390,25 @@
           <div class="sb-sub">Claude เขียนไว้แล้ว — เปิดอ่านตอนอัด</div>
           <button type="button" class="sb-btn" id="btnOpenScript">เปิดอ่านสคริปต์</button>
         </div>
+        <div class="stagebox" id="sbVlogBrief" hidden>
+          <div class="sb-h">🎬 บรีฟถ่ายคลิป</div>
+          <div class="sb-sub">Claude เขียนไว้แล้ว — ที่ไหน ถ่ายอะไร พูดเรื่องอะไรบ้าง เปิดอ่านก่อนออกไปถ่าย</div>
+          <button type="button" class="sb-btn" id="btnOpenVlogBrief">เปิดอ่านบรีฟ</button>
+        </div>
+        <div class="stagebox notify" id="sbVlogBriefRequest" hidden>
+          <div class="sb-h">✍️ ยังไม่มีบรีฟถ่ายคลิป</div>
+          <div class="sb-sub">กดคัดลอกแล้ววางในแชทบอก Claude ได้เลย</div>
+          <button type="button" class="sb-btn warn" id="btnCopyVlogBriefRequest">📋 คัดลอกข้อความขอให้เขียนบรีฟ</button>
+        </div>
         <div class="stagebox" id="sbArticle" hidden>
           <div class="sb-h">📝 บทความพร้อมโพสต์</div>
           <div class="sb-sub">บทความ FB (เต็ม) + IG (≤2,200 ตัวอักษร) + Gemini image prompt (ไม่มีข้อความในภาพ) + ข้อความพิมพ์เองใน Canva + แฮชแท็ก — คัดลอกเป็นก้อนๆ ไปโพสต์ได้เลย</div>
           <button type="button" class="sb-btn" id="btnOpenArticle">เปิดดูบทความ</button>
+        </div>
+        <div class="stagebox notify" id="sbArticleRequest" hidden>
+          <div class="sb-h">✍️ ยังไม่มีบทความ</div>
+          <div class="sb-sub">มีสคริปต์แล้ว แต่ยังไม่ได้แปลงเป็นบทความ — กดคัดลอกแล้ววางในแชทบอก Claude ได้เลย</div>
+          <button type="button" class="sb-btn warn" id="btnCopyArticleRequest">📋 คัดลอกข้อความขอให้เขียนบทความ</button>
         </div>
         <div class="stagebox notify">
           <div class="sb-h">🎥 แจ้ง Claude ว่าอัดเสร็จแล้ว</div>
@@ -472,7 +487,7 @@
     d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
   };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", rvFilter={stream:"all"}, calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[], articles=[];
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", rvFilter={stream:"all"}, calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[], articles=[], vlogBriefs=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
@@ -607,6 +622,16 @@
     }catch(e){}
   }
   function findArticle(title){return articles.filter(function(a){return a.title===title;})[0];}
+
+  /* fetch shooting briefs Claude wrote for English Vlog episodes (github.io only) */
+  function loadVlogBriefs(){
+    try{
+      fetch("content/os-vlogbriefs.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(d&&d.briefs)vlogBriefs=d.briefs;
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function findVlogBrief(title){return vlogBriefs.filter(function(b){return b.title===title;})[0];}
 
   /* fetch status updates Claude wrote after finishing work on an item (github.io only) */
   function loadStatusUpdates(){
@@ -994,9 +1019,12 @@
     form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
     form.foFB.checked=!!o.fb;form.foIG.checked=!!o.ig;
     syncOutVis();
-    var sc=d?findScript(d.title):null, ar=d?findArticle(d.title):null;
+    var sc=d?findScript(d.title):null, ar=d?findArticle(d.title):null, isVlog=form.fStream.value==="vlog", vb=isVlog&&d?findVlogBrief(d.title):null;
     document.getElementById("sbScript").hidden=!sc;
     document.getElementById("sbArticle").hidden=!ar;
+    document.getElementById("sbArticleRequest").hidden=!(sc&&!ar);
+    document.getElementById("sbVlogBrief").hidden=!(isVlog&&vb);
+    document.getElementById("sbVlogBriefRequest").hidden=!(isVlog&&!vb);
     document.getElementById("dlgDel").hidden=!id;
     ovl.classList.add("open"); setTimeout(function(){form.fTitle.focus();},30);
   }
@@ -1044,6 +1072,17 @@
     openSub2("📄 สคริปต์",html);
     wireCopyBlocks(document.getElementById("sub2Body"),[sc.body]);
   };
+  document.getElementById("btnOpenVlogBrief").onclick=function(){
+    var vb=findVlogBrief(form.fTitle.value.trim()); if(!vb)return;
+    var html=copyBlock("บรีฟถ่ายคลิปเต็ม",vb.body);
+    openSub2("🎬 บรีฟถ่ายคลิป",html);
+    wireCopyBlocks(document.getElementById("sub2Body"),[vb.body]);
+  };
+  document.getElementById("btnCopyVlogBriefRequest").onclick=function(){
+    var title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyVlogBriefRequest");
+    var txt='ช่วยเขียนบรีฟถ่ายคลิปให้ตอนนี้: "'+title+'" — บอกว่าจะไปถ่ายที่ไหน ถ่ายอะไรบ้าง (checklist) พูดเรื่องอะไรบ้าง แบบสรุปพร้อมโครงสร้างเวลา ไม่ใช่สคริปต์คำต่อคำ แล้วเพิ่มเข้า content/os-vlogbriefs.json ให้เลย';
+    copyText(txt,btn);
+  };
   document.getElementById("btnOpenArticle").onclick=function(){
     var ar=findArticle(form.fTitle.value.trim()); if(!ar)return;
     var texts=[ar.articleFB||"",ar.articleIG||"",ar.geminiBrief||"",ar.canvaText||""];
@@ -1057,6 +1096,11 @@
     if(ar.hashtags&&ar.hashtags.length)texts.push(ar.hashtags.join(" "));
     openSub2("📝 บทความพร้อมโพสต์",html);
     wireCopyBlocks(document.getElementById("sub2Body"),texts);
+  };
+  document.getElementById("btnCopyArticleRequest").onclick=function(){
+    var title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyArticleRequest");
+    var txt='ช่วยเขียนบทความพร้อมโพสต์ให้เรื่อง: "'+title+'" — แปลงจากสคริปต์ที่เขียนไว้แล้ว ตาม workflow.md (articleFB เต็ม + articleIG ≤2,200 ตัวอักษร นับ character จริง + Gemini image prompt ไม่มีข้อความในภาพ + ข้อความสำหรับพิมพ์เองใน Canva แยกก้อน) แล้วเพิ่มเข้า content/os-articles.json ให้เลย';
+    copyText(txt,btn);
   };
   document.getElementById("btnCopyNotify").onclick=function(){
     var raw=form.fRaw.value.trim(),title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyNotify");
@@ -1188,6 +1232,7 @@
   loadStatusUpdates();
   loadScripts();
   loadArticles();
+  loadVlogBriefs();
 })();
 </script>
 </body>
