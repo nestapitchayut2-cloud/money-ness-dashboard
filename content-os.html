@@ -392,7 +392,7 @@
         </div>
         <div class="stagebox" id="sbArticle" hidden>
           <div class="sb-h">📝 บทความพร้อมโพสต์</div>
-          <div class="sb-sub">บทความ + Gemini image brief + แคปชั่น FB/IG + แฮชแท็ก — คัดลอกเป็นก้อนๆ ไปโพสต์ได้เลย</div>
+          <div class="sb-sub">บทความ FB (เต็ม) + IG (≤2,200 ตัวอักษร) + Gemini image prompt (ไม่มีข้อความในภาพ) + ข้อความพิมพ์เองใน Canva + แฮชแท็ก — คัดลอกเป็นก้อนๆ ไปโพสต์ได้เลย</div>
           <button type="button" class="sb-btn" id="btnOpenArticle">เปิดดูบทความ</button>
         </div>
         <div class="stagebox notify">
@@ -1046,12 +1046,12 @@
   };
   document.getElementById("btnOpenArticle").onclick=function(){
     var ar=findArticle(form.fTitle.value.trim()); if(!ar)return;
-    var texts=[ar.article||"",ar.geminiBriefTH||"",ar.geminiBriefEN||"",ar.fbCaption||"",ar.igCaption||""];
-    var html=copyBlock("📝 บทความ",texts[0])+
-      copyBlock("🎨 Gemini Brief — ไทย",texts[1])+
-      copyBlock("🎨 Gemini Brief — English",texts[2])+
-      copyBlock("📘 แคปชั่น FB",texts[3])+
-      copyBlock("📷 แคปชั่น IG",texts[4])+
+    var texts=[ar.articleFB||"",ar.articleIG||"",ar.geminiBrief||"",ar.canvaText||""];
+    var igLen=texts[1].length, igOver=igLen>2200;
+    var html=copyBlock("📘 บทความ — Facebook (เต็ม)",texts[0])+
+      copyBlock("📱 บทความ — Instagram ("+igLen+"/2,200 ตัวอักษร"+(igOver?" ⚠️ เกินลิมิต":"")+")",texts[1])+
+      copyBlock("🎨 Gemini Image Prompt (ไม่มีข้อความในภาพ)",texts[2])+
+      copyBlock("🖊️ ข้อความ + เลย์เอาต์ (พิมพ์เองใน Canva)",texts[3])+
       (ar.hashtags&&ar.hashtags.length?'<div class="copyblock"><div class="cb-h"><b># แฮชแท็ก</b><button type="button" class="copybtn" data-copy="1">📋 คัดลอก</button></div>'+
         '<div class="tagrow">'+ar.hashtags.map(function(h){return '<span class="tagchip">'+esc(h)+'</span>';}).join("")+'</div></div>':"");
     if(ar.hashtags&&ar.hashtags.length)texts.push(ar.hashtags.join(" "));
