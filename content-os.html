@@ -189,6 +189,32 @@
   .script-body{white-space:pre-wrap;max-height:280px;overflow:auto;background:var(--surface-2);border:1px solid var(--line);
     border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.7;color:var(--text-dim);font-family:inherit}
   .chkrow label{display:flex;gap:5px;align-items:center;cursor:pointer}
+
+  /* stage boxes — each workflow step gets its own visually separate block, own button */
+  .stagebox{border:1px solid var(--line);border-radius:10px;padding:12px 13px;background:var(--surface-2)}
+  .stagebox+.stagebox{margin-top:10px}
+  .stagebox .sb-h{font-size:12.5px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;margin-bottom:3px}
+  .stagebox .sb-sub{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:9px}
+  .stagebox.notify{border-color:#3d2f1f;background:#1e160d}
+  .stagebox.notify .sb-h{color:var(--warn)}
+  .stagebox.results{border-color:#1f3d2f;background:#0d1e16}
+  .stagebox.results .sb-h{color:var(--accent)}
+  .sb-btn{width:100%;background:var(--surface);border:1px solid var(--line);color:var(--text);padding:8px 10px;
+    border-radius:8px;font-size:12.5px;font-weight:700;text-align:center}
+  .sb-btn:hover{border-color:var(--muted)}
+  .sb-btn.warn{border-color:#5c4a1f;color:var(--warn)}
+  .sb-btn.ok{border-color:#1f5c3d;color:var(--accent)}
+
+  /* sub-overlay (script / article / results panels opened from a stage box) */
+  .subdlg{max-width:620px}
+  .copyblock{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px}
+  .copyblock .cb-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}
+  .copyblock .cb-h b{font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em}
+  .copyblock .cb-body{white-space:pre-wrap;font-size:12.5px;line-height:1.7;color:var(--text);max-height:260px;overflow:auto}
+  .copybtn{background:var(--surface);border:1px solid var(--line);color:var(--text-dim);border-radius:6px;padding:4px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+  .copybtn:hover{color:var(--text);border-color:var(--muted)}
+  .tagrow{display:flex;flex-wrap:wrap;gap:5px}
+  .tagchip{background:var(--surface);border:1px solid var(--line);color:var(--info);border-radius:99px;padding:2px 9px;font-size:11px}
 </style>
 </head>
 <body>
