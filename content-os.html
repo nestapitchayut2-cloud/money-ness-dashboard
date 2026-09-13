@@ -319,7 +319,12 @@
 
   <section class="view" data-v="review">
     <div class="panel">
+      <div class="panel-h">📊 สรุปผลตามหมวดหมู่ (เฉลี่ยจากรายการที่กรอกผลแล้ว)</div>
+      <div id="rvSummary"></div>
+    </div>
+    <div class="panel">
       <div class="panel-h">หลังโพสต์ 48 ชม. — บันทึกผล + 1 บทเรียน (feed กลับเข้า planning)</div>
+      <div class="db-tools" id="rvFilters" style="margin-bottom:10px"></div>
       <div id="rvList"></div>
     </div>
     <div class="panel">
@@ -404,7 +409,7 @@
     d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
   };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[];
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", rvFilter={stream:"all"}, calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
@@ -821,7 +826,15 @@
 
   /* REVIEW */
   function renderReview(){
-    var pub=state.items.filter(function(i){return i.status==="published";}).sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});
+    var pubAll=state.items.filter(function(i){return i.status==="published";}).sort(function(a,b){return (b.pub||"")<(a.pub||"")?-1:1;});
+    var fc=document.getElementById("rvFilters");
+    fc.innerHTML='<span style="font-size:10px;color:var(--muted);align-self:center">สตรีม:</span>'+
+      ['all'].concat(STREAMS.map(function(s){return s.id;})).map(function(id){
+        var nm=id==="all"?"ทั้งหมด":SM[id].name;
+        return '<button class="fchip" data-val="'+id+'" data-on="'+(rvFilter.stream===id?1:0)+'">'+esc(nm)+'</button>';}).join("");
+    fc.querySelectorAll(".fchip").forEach(function(b){b.onclick=function(){rvFilter.stream=b.dataset.val;renderReview();};});
+    renderReviewSummary(pubAll);
+    var pub=pubAll.filter(function(i){return rvFilter.stream==="all"||i.stream===rvFilter.stream;});
     document.getElementById("rvList").innerHTML=pub.length?pub.map(function(i){
       var r=i.review||{};
       return '<div class="rv-item" data-id="'+i.id+'">'+
@@ -838,13 +851,39 @@
     document.querySelectorAll("#rvList .rv-item").forEach(function(it){
       var id=it.dataset.id;
       it.querySelectorAll("input,textarea").forEach(function(f){
-        f.onchange=function(){var i=byId(id);i.review=i.review||{};i.review[f.dataset.f]=f.value;save();renderLearnLog();};
+        f.onchange=function(){var i=byId(id);i.review=i.review||{};i.review[f.dataset.f]=f.value;save();renderLearnLog();
+          renderReviewSummary(state.items.filter(function(x){return x.status==="published";}));};
       });
     });
     renderLearnLog();
     var t2=document.getElementById("rv2wk");
     t2.value=state.meta.review2wk||"";
     t2.onchange=function(){state.meta.review2wk=t2.value;save();};
+  }
+  function renderReviewSummary(pubAll){
+    function num(v){var n=parseFloat(v);return isNaN(n)?null:n;}
+    function groupAvg(items,keyFn,labelFn,colFn){
+      var g={};
+      items.forEach(function(i){
+        var k=keyFn(i); if(k==null)return;
+        var reach=num((i.review||{}).reach); if(reach==null)return;
+        g[k]=g[k]||{sum:0,n:0}; g[k].sum+=reach; g[k].n++;
+      });
+      var rows=Object.keys(g).map(function(k){return {k:k,avg:g[k].sum/g[k].n,n:g[k].n};});
+      rows.sort(function(a,b){return b.avg-a.avg;});
+      if(!rows.length)return "";
+      var max=Math.max.apply(null,rows.map(function(r){return r.avg;}))||1;
+      return rows.map(function(r){return brow(labelFn(r.k)+" ("+r.n+")",Math.round(r.avg),r.avg/max,colFn(r.k));}).join("");
+    }
+    var byStream=groupAvg(pubAll,function(i){return i.stream;},
+      function(k){return (SM[k]||{}).name||k;}, function(k){return cssv((SM[k]||{}).v||"--muted");});
+    var flagItems=pubAll.filter(function(i){return i.stream==="flagship"&&i.flavor;});
+    var byFlavor=groupAvg(flagItems,function(i){return i.flavor;},
+      function(k){return FM[k]||k;}, function(){return cssv("--s-flagship");});
+    document.getElementById("rvSummary").innerHTML=
+      '<div style="font-size:10px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Reach เฉลี่ย ต่อสตรีม</div>'+
+      (byStream||'<div class="kempty">ยังไม่มีข้อมูล Reach ให้สรุป — กรอกผลด้านล่างก่อน</div>')+
+      (byFlavor?'<div style="font-size:10px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px">Reach เฉลี่ย ต่อรส (คลิปยาว)</div>'+byFlavor:'');
   }
   function renderLearnLog(){
     var ll=state.items.filter(function(i){return i.review&&i.review.learning;})
