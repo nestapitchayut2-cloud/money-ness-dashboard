@@ -435,6 +435,10 @@
 (function(){
   "use strict";
   var LS="contentOS.v1", OLD="contentPipeline.v1";
+  // Google Apps Script Web App that appends post-results rows to Ness's results Sheet.
+  // Baked in as a default so it works with no per-browser setup; ⚙️ Sheet button can override
+  // (e.g. if he ever redeploys to a new URL instead of pushing a new version to this one).
+  var DEFAULT_SHEETS_URL="https://script.google.com/macros/s/AKfycbxdNcbDUb8IC_kJaKpHPAHDwT2lwNr8CjBpQV7oedT9NRKWjymx6J1g5Pio0qowJxgt8A/exec";
   var STREAMS=[
     {id:"flagship",name:"คลิปยาว",v:"--s-flagship"},
     {id:"vlog",name:"English Vlog",v:"--s-vlog"},
@@ -1065,7 +1069,7 @@
     var title=form.fTitle.value.trim();
     var d=editId?byId(editId):null;
     var r=(d&&d.review)||{};
-    var sheetsUrl=state.meta.sheetsUrl||"";
+    var sheetsUrl=state.meta.sheetsUrl||DEFAULT_SHEETS_URL||"";
     var html=
       (sheetsUrl?"":'<div style="font-size:11.5px;color:var(--warn);margin-bottom:10px">⚠️ ยังไม่ได้ตั้งค่า Google Sheet — ตั้งค่าที่ปุ่ม ⚙️ บนแถบบนก่อน (ตอนนี้ยังกดส่งไม่ได้)</div>')+
       '<div class="fld"><label>🔗 ลิงค์ที่โพสต์แล้ว</label><input id="rsLink" value="'+esc((d&&d.pubLink)||"")+'" placeholder="วางลิงก์ YouTube/IG/FB" /></div>'+
@@ -1110,14 +1114,14 @@
 
   /* Google Sheets write endpoint (Apps Script Web App) — set once via the ⚙️ button */
   function postResults(payload){
-    var url=state.meta.sheetsUrl;
+    var url=state.meta.sheetsUrl||DEFAULT_SHEETS_URL;
     if(!url)return Promise.reject(new Error("no sheetsUrl"));
     // Apps Script web apps don't send CORS headers back for a normal fetch read, so this is a
     // fire-and-forget POST (mode:no-cors) — we can't read the response, just trust it landed.
     return fetch(url,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
   }
   document.getElementById("btnSheetsCfg")&&(document.getElementById("btnSheetsCfg").onclick=function(){
-    var cur=state.meta.sheetsUrl||"";
+    var cur=state.meta.sheetsUrl||DEFAULT_SHEETS_URL||"";
     var n=prompt("Google Apps Script Web App URL (ปุ่ม ⚙️ ในหน้า ผลลัพธ์หลังโพสต์ ใช้ URL นี้ยิงข้อมูลเข้าชีต)",cur);
     if(n!=null){state.meta.sheetsUrl=n.trim();save();}
   });
