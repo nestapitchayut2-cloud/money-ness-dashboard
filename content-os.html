@@ -883,12 +883,18 @@
   function buildClaudePrompt(){
     var streamName=SM[form.fStream.value]?SM[form.fStream.value].name:"";
     var flavorName=FM[form.fFlavor.value]||"";
+    var status=form.fStatus.value;
+    var title=form.fTitle.value.trim();
     var meta=["สตรีม: "+streamName];
     if(flavorName)meta.push("รส: "+flavorName);
     meta.push("รูปแบบ: "+form.fFormat.value);
-    var lines=['เขียน/ทำ Content ให้หน่อย: "'+form.fTitle.value.trim()+'"','('+meta.join(" · ")+')'];
+    var isEditStage=(status==="record"||status==="edit");
+    var head=isEditStage?'ตัดคลิปนี้ให้หน่อย (แนบไฟล์ดิบมาแล้ว): "'+title+'"':'เขียน/ทำ Content ให้หน่อย: "'+title+'"';
+    var lines=[head,'('+meta.join(" · ")+')'];
     if(form.fNext.value.trim())lines.push("ทำอะไรต่อ: "+form.fNext.value.trim());
     if(form.fNotes.value.trim())lines.push("โน้ต: "+form.fNotes.value.trim());
+    var sc=findScript(title);
+    if(sc)lines.push("","--- สคริปต์อ้างอิง ---",sc.body);
     return lines.join("\n");
   }
   document.getElementById("dlgCopy").onclick=function(){
