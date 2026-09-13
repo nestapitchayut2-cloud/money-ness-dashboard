@@ -356,10 +356,16 @@
       </div>
       <div class="fld"><label for="fNext">ทำอะไรต่อ</label><input id="fNext" maxlength="140" placeholder="next action" /></div>
       <div class="fld"><label for="fNotes">โน้ต</label><textarea id="fNotes" maxlength="800"></textarea></div>
+      <div class="form2" id="pathWrap">
+        <div class="fld"><label for="fRaw">📁 ที่เก็บไฟล์ดิบ (พออัดเสร็จ)</label><input id="fRaw" maxlength="240" placeholder="เช่น D:\Videos\W1-กลไก หรือลิงก์ Drive" /></div>
+        <div class="fld"><label for="fPubLink">🔗 ลิงค์ที่โพสต์แล้ว</label><input id="fPubLink" maxlength="300" placeholder="วางลิงก์ YouTube/IG/FB" /></div>
+      </div>
       <div class="fld" id="outWrap"><label>output ที่ทำแล้ว (คลิปยาว)</label><div class="chkrow">
-        <label><input type="checkbox" id="foArticle" /> 📝 บทความ</label>
+        <label><input type="checkbox" id="foArticle" /> 📝 บทความ + brief Gemini</label>
         <label><input type="checkbox" id="foShort" /> 🎬 short</label>
         <label><input type="checkbox" id="foImage" /> 📸 โพสต์ภาพ</label>
+        <label><input type="checkbox" id="foFB" /> 📘 แคปชั่น FB</label>
+        <label><input type="checkbox" id="foIG" /> 📷 แคปชั่น IG + tag</label>
       </div></div>
       <div class="fld" id="scriptWrap" hidden><label>📄 สคริปต์ที่ Claude เขียนไว้</label><pre id="scriptBody" class="script-body"></pre></div>
       <div class="go">
@@ -688,8 +694,8 @@
     document.getElementById("dbBody").innerHTML=rows.map(function(i){
       var s=SM[i.stream]||{name:i.stream,v:"--muted"},col=cssv(s.v);
       var fv=i.flavor?' <span class="flavtag">'+esc(FM[i.flavor]||i.flavor)+'</span>':'';
-      var outs=i.stream==="flagship"?["article","short","image"].map(function(o){
-        var d=i.outputs&&i.outputs[o];var lbl={article:"บทความ",short:"short",image:"ภาพ"}[o];
+      var outs=i.stream==="flagship"?["article","short","image","fb","ig"].map(function(o){
+        var d=i.outputs&&i.outputs[o];var lbl={article:"บทความ",short:"short",image:"ภาพ",fb:"FB",ig:"IG"}[o];
         return '<span class="otag'+(d?" done":"")+'">'+(d?"✓ ":"")+lbl+'</span>';}).join(""):"";
       return '<tr>'+
         '<td><span class="t-title" data-id="'+i.id+'">'+esc(i.title)+'</span>'+fv+
@@ -898,7 +904,10 @@
   document.getElementById("fStream").innerHTML=STREAMS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
   document.getElementById("fFlavor").innerHTML=FLAVORS.map(function(f){return '<option value="'+f.id+'">'+esc(f.name)+'</option>';}).join("");
   document.getElementById("fStatus").innerHTML=STATUS.map(function(s){return '<option value="'+s.id+'">'+esc(s.name)+'</option>';}).join("");
-  function syncOutVis(){document.getElementById("outWrap").style.display=form.fStream.value==="flagship"?"":"none";}
+  function syncOutVis(){
+    document.getElementById("outWrap").style.display=form.fStream.value==="flagship"?"":"none";
+    document.getElementById("pathWrap").style.display=(form.fStream.value==="flagship"||form.fStream.value==="vlog")?"":"none";
+  }
   form.fStream.onchange=syncOutVis;
   function openItem(id,presetStatus,presetSched){
     editId=id||null;
@@ -913,8 +922,11 @@
     form.fDue.value=d?(d.due||""):"";
     form.fNext.value=d?(d.next||""):"";
     form.fNotes.value=d?(d.notes||""):"";
+    form.fRaw.value=d?(d.rawPath||""):"";
+    form.fPubLink.value=d?(d.pubLink||""):"";
     var o=d&&d.outputs||{};
     form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
+    form.foFB.checked=!!o.fb;form.foIG.checked=!!o.ig;
     syncOutVis();
     var sc=d?findScript(d.title):null;
     document.getElementById("scriptWrap").hidden=!sc;
@@ -934,12 +946,24 @@
     if(flavorName)meta.push("รส: "+flavorName);
     meta.push("รูปแบบ: "+form.fFormat.value);
     var isEditStage=(status==="record"||status==="edit");
-    var head=isEditStage?'ตัดคลิปนี้ให้หน่อย (แนบไฟล์ดิบมาแล้ว): "'+title+'"':'เขียน/ทำ Content ให้หน่อย: "'+title+'"';
+    var raw=form.fRaw.value.trim(), pubLink=form.fPubLink.value.trim();
+    var head;
+    if(pubLink){
+      head='โพสต์เรื่องนี้ลงแล้ว: "'+title+'" · ลิงค์: '+pubLink+' — ช่วยอัปเดตสถานะในบอร์ดเป็น "โพสต์แล้ว" ให้ด้วย';
+    }else if(isEditStage){
+      head=raw
+        ? 'ผมอัดคลิปนี้เสร็จแล้ว ไฟล์ดิบอยู่ที่: '+raw+' — ช่วยตัดคลิปให้หน่อย: "'+title+'"'
+        : 'ผมอัดคลิปนี้เสร็จแล้ว ช่วยตัดให้หน่อย: "'+title+'" (ยังไม่ได้กรอก "ที่เก็บไฟล์ดิบ" ในฟอร์ม — บอกโฟลเดอร์ให้ Claude ด้วย)';
+    }else{
+      head='เขียน/ทำ Content ให้หน่อย: "'+title+'"';
+    }
     var lines=[head,'('+meta.join(" · ")+')'];
     if(form.fNext.value.trim())lines.push("ทำอะไรต่อ: "+form.fNext.value.trim());
     if(form.fNotes.value.trim())lines.push("โน้ต: "+form.fNotes.value.trim());
-    var sc=findScript(title);
-    if(sc)lines.push("","--- สคริปต์อ้างอิง ---",sc.body);
+    if(!pubLink){
+      var sc=findScript(title);
+      if(sc)lines.push("","--- สคริปต์อ้างอิง ---",sc.body);
+    }
     return lines.join("\n");
   }
   document.getElementById("dlgCopy").onclick=function(){
@@ -962,7 +986,8 @@
     e.preventDefault();
     var v={title:form.fTitle.value.trim(),stream:form.fStream.value,flavor:form.fFlavor.value,format:form.fFormat.value,
       status:form.fStatus.value,sched:form.fSched.value,due:form.fDue.value,next:form.fNext.value.trim(),notes:form.fNotes.value.trim(),
-      outputs:{article:form.foArticle.checked,short:form.foShort.checked,image:form.foImage.checked}};
+      rawPath:form.fRaw.value.trim(),pubLink:form.fPubLink.value.trim(),
+      outputs:{article:form.foArticle.checked,short:form.foShort.checked,image:form.foImage.checked,fb:form.foFB.checked,ig:form.foIG.checked}};
     if(!v.title)return;
     if(editId){var i=byId(editId);var ch=i.status!==v.status;Object.assign(i,v);
       if(ch)i.movedAt=today();
