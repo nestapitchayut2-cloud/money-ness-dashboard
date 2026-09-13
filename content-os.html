@@ -225,6 +225,7 @@
       <div class="lede">4 คลิปยาว/สัปดาห์ (1 ต่อรส 🔧🔍❓📚) + English Vlog 1 · 1 เรื่อง → คลิป + บทความ + short + โพสต์ภาพ · การ์ดคำคมแยกอิสระ · Ness อัด+โพสต์ · Claude ทำที่เหลือ</div>
     </div>
     <div class="actions">
+      <button class="btn" id="btnSheetsCfg" title="ตั้งค่า Google Sheet สำหรับส่งผลลัพธ์">⚙️ Sheet</button>
       <button class="btn" id="btnExport">Export</button>
       <button class="btn" id="btnImport">Import</button>
       <button class="btn" id="btnReseed">รีเซ็ตตัวอย่าง</button>
@@ -382,10 +383,31 @@
       </div>
       <div class="fld"><label for="fNext">ทำอะไรต่อ</label><input id="fNext" maxlength="140" placeholder="next action" /></div>
       <div class="fld"><label for="fNotes">โน้ต</label><textarea id="fNotes" maxlength="800"></textarea></div>
-      <div class="form2" id="pathWrap">
-        <div class="fld"><label for="fRaw">📁 ที่เก็บไฟล์ดิบ (พออัดเสร็จ)</label><input id="fRaw" maxlength="240" placeholder="เช่น D:\Videos\W1-กลไก หรือลิงก์ Drive" /></div>
-        <div class="fld"><label for="fPubLink">🔗 ลิงค์ที่โพสต์แล้ว</label><input id="fPubLink" maxlength="300" placeholder="วางลิงก์ YouTube/IG/FB" /></div>
+
+      <div id="pathWrap">
+        <div class="stagebox" id="sbScript" hidden>
+          <div class="sb-h">📄 สคริปต์</div>
+          <div class="sb-sub">Claude เขียนไว้แล้ว — เปิดอ่านตอนอัด</div>
+          <button type="button" class="sb-btn" id="btnOpenScript">เปิดอ่านสคริปต์</button>
+        </div>
+        <div class="stagebox" id="sbArticle" hidden>
+          <div class="sb-h">📝 บทความพร้อมโพสต์</div>
+          <div class="sb-sub">บทความ + Gemini image brief + แคปชั่น FB/IG + แฮชแท็ก — คัดลอกเป็นก้อนๆ ไปโพสต์ได้เลย</div>
+          <button type="button" class="sb-btn" id="btnOpenArticle">เปิดดูบทความ</button>
+        </div>
+        <div class="stagebox notify">
+          <div class="sb-h">🎥 แจ้ง Claude ว่าอัดเสร็จแล้ว</div>
+          <div class="sb-sub">กรอกที่เก็บไฟล์ดิบ แล้วกดคัดลอก — วางในแชทบอก Claude ได้เลย (ข้อความนี้แยกจากคำสั่งอื่นทั้งหมด)</div>
+          <div class="fld" style="margin-bottom:8px"><input id="fRaw" maxlength="240" placeholder="เช่น D:\Videos\W1-กลไก หรือลิงก์ Drive" /></div>
+          <button type="button" class="sb-btn warn" id="btnCopyNotify">📋 คัดลอกข้อความแจ้ง Claude</button>
+        </div>
+        <div class="stagebox results">
+          <div class="sb-h">📊 ผลลัพธ์หลังโพสต์</div>
+          <div class="sb-sub" id="sbResultsSub">โพสต์แล้ว? เปิดกรอกผล — ส่งตรงเข้า Google Sheet ไม่ผ่านแชท</div>
+          <button type="button" class="sb-btn ok" id="btnOpenResults">เปิดกรอกผลลัพธ์</button>
+        </div>
       </div>
+
       <div class="fld" id="outWrap"><label>output ที่ทำแล้ว (คลิปยาว)</label><div class="chkrow">
         <label><input type="checkbox" id="foArticle" /> 📝 บทความ + brief Gemini</label>
         <label><input type="checkbox" id="foShort" /> 🎬 short</label>
@@ -393,14 +415,19 @@
         <label><input type="checkbox" id="foFB" /> 📘 แคปชั่น FB</label>
         <label><input type="checkbox" id="foIG" /> 📷 แคปชั่น IG + tag</label>
       </div></div>
-      <div class="fld" id="scriptWrap" hidden><label>📄 สคริปต์ที่ Claude เขียนไว้</label><pre id="scriptBody" class="script-body"></pre></div>
       <div class="go">
         <button type="button" class="del" id="dlgDel" hidden>ลบ</button>
-        <button type="button" class="btn" id="dlgCopy">📋 คัดลอกคำสั่ง</button>
         <button type="button" class="btn" id="dlgCancel">ยกเลิก</button>
         <button type="submit" class="btn primary">บันทึก</button>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="ovl" id="ovl2">
+  <div class="dlg subdlg" role="dialog" aria-modal="true">
+    <h2 id="sub2Title">—<button class="x" id="sub2X" aria-label="ปิด">✕</button></h2>
+    <div class="form" id="sub2Body"></div>
   </div>
 </div>
 
@@ -441,7 +468,7 @@
     d.setDate(d.getDate()-day+wk*7+(dow-1)); return d.toISOString().slice(0,10);
   };
 
-  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", rvFilter={stream:"all"}, calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[];
+  var state=load(), view="monitor", dbFilter={stream:"all",status:"all",q:""}, boardFilter="all", rvFilter={stream:"all"}, calRef=new Date(), editId=null, inbox=[], statusUpdates=[], scripts=[], articles=[];
 
   function load(){
     try{var d=JSON.parse(localStorage.getItem(LS));if(d&&d.items)return norm(d);}catch(e){}
@@ -566,6 +593,16 @@
     }catch(e){}
   }
   function findScript(title){return scripts.filter(function(s){return s.title===title;})[0];}
+
+  /* fetch finished article + Gemini brief + FB/IG copy Claude wrote for items (github.io only) */
+  function loadArticles(){
+    try{
+      fetch("content/os-articles.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(d&&d.articles)articles=d.articles;
+      }).catch(function(){});
+    }catch(e){}
+  }
+  function findArticle(title){return articles.filter(function(a){return a.title===title;})[0];}
 
   /* fetch status updates Claude wrote after finishing work on an item (github.io only) */
   function loadStatusUpdates(){
@@ -949,51 +986,23 @@
     form.fNext.value=d?(d.next||""):"";
     form.fNotes.value=d?(d.notes||""):"";
     form.fRaw.value=d?(d.rawPath||""):"";
-    form.fPubLink.value=d?(d.pubLink||""):"";
     var o=d&&d.outputs||{};
     form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
     form.foFB.checked=!!o.fb;form.foIG.checked=!!o.ig;
     syncOutVis();
-    var sc=d?findScript(d.title):null;
-    document.getElementById("scriptWrap").hidden=!sc;
-    if(sc)document.getElementById("scriptBody").textContent=sc.body;
+    var sc=d?findScript(d.title):null, ar=d?findArticle(d.title):null;
+    document.getElementById("sbScript").hidden=!sc;
+    document.getElementById("sbArticle").hidden=!ar;
     document.getElementById("dlgDel").hidden=!id;
     ovl.classList.add("open"); setTimeout(function(){form.fTitle.focus();},30);
   }
   function closeItem(){ovl.classList.remove("open");editId=null;}
   document.getElementById("dlgX").onclick=closeItem;
   document.getElementById("dlgCancel").onclick=closeItem;
-  function buildClaudePrompt(){
-    var streamName=SM[form.fStream.value]?SM[form.fStream.value].name:"";
-    var flavorName=FM[form.fFlavor.value]||"";
-    var status=form.fStatus.value;
-    var title=form.fTitle.value.trim();
-    var meta=["สตรีม: "+streamName];
-    if(flavorName)meta.push("รส: "+flavorName);
-    meta.push("รูปแบบ: "+form.fFormat.value);
-    var isEditStage=(status==="record"||status==="edit");
-    var raw=form.fRaw.value.trim(), pubLink=form.fPubLink.value.trim();
-    var head;
-    if(pubLink){
-      head='โพสต์เรื่องนี้ลงแล้ว: "'+title+'" · ลิงค์: '+pubLink+' — ช่วยอัปเดตสถานะในบอร์ดเป็น "โพสต์แล้ว" ให้ด้วย';
-    }else if(isEditStage){
-      head=raw
-        ? 'ผมอัดคลิปนี้เสร็จแล้ว ไฟล์ดิบอยู่ที่: '+raw+' — ช่วยตัดคลิปให้หน่อย: "'+title+'"'
-        : 'ผมอัดคลิปนี้เสร็จแล้ว ช่วยตัดให้หน่อย: "'+title+'" (ยังไม่ได้กรอก "ที่เก็บไฟล์ดิบ" ในฟอร์ม — บอกโฟลเดอร์ให้ Claude ด้วย)';
-    }else{
-      head='เขียน/ทำ Content ให้หน่อย: "'+title+'"';
-    }
-    var lines=[head,'('+meta.join(" · ")+')'];
-    if(form.fNext.value.trim())lines.push("ทำอะไรต่อ: "+form.fNext.value.trim());
-    if(form.fNotes.value.trim())lines.push("โน้ต: "+form.fNotes.value.trim());
-    if(!pubLink){
-      var sc=findScript(title);
-      if(sc)lines.push("","--- สคริปต์อ้างอิง ---",sc.body);
-    }
-    return lines.join("\n");
-  }
-  document.getElementById("dlgCopy").onclick=function(){
-    var txt=buildClaudePrompt(),btn=document.getElementById("dlgCopy"),orig=btn.textContent;
+
+  /* generic clipboard copy w/ button feedback */
+  function copyText(txt,btn){
+    var orig=btn.textContent;
     function done(ok){btn.textContent=ok?"✅ คัดลอกแล้ว":"⚠️ คัดลอกไม่ได้";setTimeout(function(){btn.textContent=orig;},1600);}
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(false);});
@@ -1002,9 +1011,123 @@
         document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);done(true);
       }catch(e){done(false);}
     }
+  }
+  function copyBlock(label,body){
+    return '<div class="copyblock"><div class="cb-h"><b>'+esc(label)+'</b><button type="button" class="copybtn" data-copy="1">📋 คัดลอก</button></div>'+
+      '<div class="cb-body">'+esc(body)+'</div></div>';
+  }
+  function wireCopyBlocks(container,texts){
+    container.querySelectorAll('.copyblock').forEach(function(el,i){
+      var b=el.querySelector('[data-copy]');
+      if(b)b.onclick=function(){copyText(texts[i],b);};
+    });
+  }
+
+  /* sub-overlay (script / article / results) */
+  var ovl2=document.getElementById("ovl2");
+  function openSub2(title,html){
+    document.getElementById("sub2Title").firstChild.textContent=title;
+    document.getElementById("sub2Body").innerHTML=html;
+    ovl2.classList.add("open");
+  }
+  function closeSub2(){ovl2.classList.remove("open");}
+  document.getElementById("sub2X").onclick=closeSub2;
+  ovl2.addEventListener("click",function(e){if(e.target===ovl2)closeSub2();});
+
+  document.getElementById("btnOpenScript").onclick=function(){
+    var sc=findScript(form.fTitle.value.trim()); if(!sc)return;
+    var html=copyBlock("สคริปต์เต็ม",sc.body);
+    openSub2("📄 สคริปต์",html);
+    wireCopyBlocks(document.getElementById("sub2Body"),[sc.body]);
   };
+  document.getElementById("btnOpenArticle").onclick=function(){
+    var ar=findArticle(form.fTitle.value.trim()); if(!ar)return;
+    var texts=[ar.article||"",ar.geminiBriefTH||"",ar.geminiBriefEN||"",ar.fbCaption||"",ar.igCaption||""];
+    var html=copyBlock("📝 บทความ",texts[0])+
+      copyBlock("🎨 Gemini Brief — ไทย",texts[1])+
+      copyBlock("🎨 Gemini Brief — English",texts[2])+
+      copyBlock("📘 แคปชั่น FB",texts[3])+
+      copyBlock("📷 แคปชั่น IG",texts[4])+
+      (ar.hashtags&&ar.hashtags.length?'<div class="copyblock"><div class="cb-h"><b># แฮชแท็ก</b><button type="button" class="copybtn" data-copy="1">📋 คัดลอก</button></div>'+
+        '<div class="tagrow">'+ar.hashtags.map(function(h){return '<span class="tagchip">'+esc(h)+'</span>';}).join("")+'</div></div>':"");
+    if(ar.hashtags&&ar.hashtags.length)texts.push(ar.hashtags.join(" "));
+    openSub2("📝 บทความพร้อมโพสต์",html);
+    wireCopyBlocks(document.getElementById("sub2Body"),texts);
+  };
+  document.getElementById("btnCopyNotify").onclick=function(){
+    var raw=form.fRaw.value.trim(),title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyNotify");
+    var txt=raw
+      ? 'ผมอัดคลิปนี้เสร็จแล้ว ไฟล์ดิบอยู่ที่: '+raw+' — ช่วยตัดคลิปให้หน่อย: "'+title+'"'
+      : 'ผมอัดคลิปนี้เสร็จแล้ว ช่วยตัดให้หน่อย: "'+title+'" (ยังไม่ได้กรอก "ที่เก็บไฟล์ดิบ" — บอกโฟลเดอร์ให้ Claude ด้วย)';
+    copyText(txt,btn);
+  };
+  document.getElementById("btnOpenResults").onclick=function(){
+    var title=form.fTitle.value.trim();
+    var d=editId?byId(editId):null;
+    var r=(d&&d.review)||{};
+    var sheetsUrl=state.meta.sheetsUrl||"";
+    var html=
+      (sheetsUrl?"":'<div style="font-size:11.5px;color:var(--warn);margin-bottom:10px">⚠️ ยังไม่ได้ตั้งค่า Google Sheet — ตั้งค่าที่ปุ่ม ⚙️ บนแถบบนก่อน (ตอนนี้ยังกดส่งไม่ได้)</div>')+
+      '<div class="fld"><label>🔗 ลิงค์ที่โพสต์แล้ว</label><input id="rsLink" value="'+esc((d&&d.pubLink)||"")+'" placeholder="วางลิงก์ YouTube/IG/FB" /></div>'+
+      '<div class="form2">'+
+        '<div class="fld"><label>Reach</label><input id="rsReach" value="'+esc(r.reach||"")+'" /></div>'+
+        '<div class="fld"><label>Saves</label><input id="rsSaves" value="'+esc(r.saves||"")+'" /></div>'+
+        '<div class="fld"><label>Comments</label><input id="rsComments" value="'+esc(r.comments||"")+'" /></div>'+
+        '<div class="fld"><label>IB/สอบถาม</label><input id="rsInquiry" value="'+esc(r.inquiry||"")+'" /></div>'+
+      '</div>'+
+      '<div class="fld"><label>1 บทเรียน</label><textarea id="rsLearning" placeholder="อะไรเวิร์ก/ไม่เวิร์ก · เอาไปทำอะไรต่อ">'+esc(r.learning||"")+'</textarea></div>'+
+      '<div class="go"><button type="button" class="btn primary" id="rsSubmit" '+(sheetsUrl?"":"disabled")+'>📤 ส่งเข้า Google Sheet</button></div>';
+    openSub2("📊 ผลลัพธ์หลังโพสต์ — "+title,html);
+    document.getElementById("rsSubmit").onclick=function(){
+      var btn=this,orig=btn.textContent;
+      var payload={title:title,stream:form.fStream.value,flavor:form.fFlavor.value,format:form.fFormat.value,
+        pubLink:document.getElementById("rsLink").value.trim(),
+        reach:document.getElementById("rsReach").value.trim(),
+        saves:document.getElementById("rsSaves").value.trim(),
+        comments:document.getElementById("rsComments").value.trim(),
+        inquiry:document.getElementById("rsInquiry").value.trim(),
+        learning:document.getElementById("rsLearning").value.trim(),
+        ts:new Date().toISOString()};
+      btn.disabled=true;btn.textContent="กำลังส่ง…";
+      postResults(payload).then(function(){
+        if(editId){
+          var it=byId(editId);
+          if(it){it.pubLink=payload.pubLink;it.review=it.review||{};
+            ["reach","saves","comments","inquiry","learning"].forEach(function(k){it.review[k]=payload[k];});
+            if(it.status!=="published"){it.status="published";it.movedAt=today();}
+            if(!it.pub)it.pub=today();
+          }
+          save();
+        }
+        btn.textContent="✅ ส่งแล้ว";
+        setTimeout(function(){closeSub2();closeItem();render();},900);
+      }).catch(function(){
+        btn.disabled=false;btn.textContent="⚠️ ส่งไม่สำเร็จ ลองอีกครั้ง";
+        setTimeout(function(){btn.textContent=orig;},2000);
+      });
+    };
+  };
+
+  /* Google Sheets write endpoint (Apps Script Web App) — set once via the ⚙️ button */
+  function postResults(payload){
+    var url=state.meta.sheetsUrl;
+    if(!url)return Promise.reject(new Error("no sheetsUrl"));
+    // Apps Script web apps don't send CORS headers back for a normal fetch read, so this is a
+    // fire-and-forget POST (mode:no-cors) — we can't read the response, just trust it landed.
+    return fetch(url,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  }
+  document.getElementById("btnSheetsCfg")&&(document.getElementById("btnSheetsCfg").onclick=function(){
+    var cur=state.meta.sheetsUrl||"";
+    var n=prompt("Google Apps Script Web App URL (ปุ่ม ⚙️ ในหน้า ผลลัพธ์หลังโพสต์ ใช้ URL นี้ยิงข้อมูลเข้าชีต)",cur);
+    if(n!=null){state.meta.sheetsUrl=n.trim();save();}
+  });
+
   ovl.addEventListener("click",function(e){if(e.target===ovl)closeItem();});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ovl.classList.contains("open"))closeItem();});
+  document.addEventListener("keydown",function(e){
+    if(e.key!=="Escape")return;
+    if(ovl2.classList.contains("open"))closeSub2();
+    else if(ovl.classList.contains("open"))closeItem();
+  });
   document.getElementById("dlgDel").onclick=function(){
     if(editId&&confirm("ลบรายการนี้?")){state.items=state.items.filter(function(i){return i.id!==editId;});save();closeItem();render();}
   };
@@ -1012,7 +1135,7 @@
     e.preventDefault();
     var v={title:form.fTitle.value.trim(),stream:form.fStream.value,flavor:form.fFlavor.value,format:form.fFormat.value,
       status:form.fStatus.value,sched:form.fSched.value,due:form.fDue.value,next:form.fNext.value.trim(),notes:form.fNotes.value.trim(),
-      rawPath:form.fRaw.value.trim(),pubLink:form.fPubLink.value.trim(),
+      rawPath:form.fRaw.value.trim(),
       outputs:{article:form.foArticle.checked,short:form.foShort.checked,image:form.foImage.checked,fb:form.foFB.checked,ig:form.foIG.checked}};
     if(!v.title)return;
     if(editId){var i=byId(editId);var ch=i.status!==v.status;Object.assign(i,v);
@@ -1060,6 +1183,7 @@
   loadInbox();
   loadStatusUpdates();
   loadScripts();
+  loadArticles();
 })();
 </script>
 </body>
