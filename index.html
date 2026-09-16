@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'16 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (bar chart — revenue breakdown ของ A-Book vs B-Book forex broker, 150+ คำ / 20 นาที) / EA: Sideways แกว่งแคบ ~$4,290 (กรอบ $4,283-4,317)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16sep2026.md' },
   { label:'15 ก.ย.', day:'อังคาร', topic:'IELTS Reading — ทำบล็อกจันทร์ที่ตกไป (How Forex Brokers Make Money - A-Book vs B-Book Model, ~1,050 คำ, 13 ข้อ) / ธีมใหม่: โมเดลรายได้ของ forex broker / EA: ย่อตัวจาก ~$4,406 มาอยู่แถว $4,284 (กรอบ $4,254-4,355)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-15sep2026.md' },
   { label:'11 ก.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Problem/Solution — เก็บเงินสดในบัญชีดอกเบี้ยต่ำ ปัญหา+ทางแก้, 250+ คำ / 40 นาที) / EA: Trending ขาขึ้น ผันผวนสูง ~$4,380 ใกล้ ATH (แกว่ง $4,342–4,384)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-11sep2026.md' },
   { label:'10 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking + Content (cue card — a decision where you had to give something up / opportunity cost; Part 3 trade-offs, saving vs spending, time vs money) / EA: Trending-bullish + Volatile ~$4,380 ใกล้ ATH — real yield ต่ำ + ธนาคารกลางซื้อ หนุน; ระวัง spike รอบ US PPI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10sep2026.md' },
@@ -1782,6 +1783,42 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0916', date:'16 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Bar chart — revenue breakdown ของ A-Book vs B-Book forex broker (150+ คำ / 20 นาที)', brief:'morning-brief-16sep2026.md', url:'',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่จับไม่ได้', clip:'How advertisers make us spend money — BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
+      steps:['ฟังคลิปเต็ม ~6 นาที อีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ฟังไม่ทันหรือไม่แน่ใจความหมาย อย่างน้อย 5 คำ','เปิด transcript เช็คเฉพาะจุดที่จดไว้ — ยังไม่ต้องอ่านทั้งหน้า','เพิ่มคำใหม่ลง vocab-list.md'] },
+    questions:`**Writing Task 1 — Academic (150+ คำ / จับเวลา 20 นาที)**
+
+The chart below shows the percentage breakdown of revenue sources for two types of retail forex brokers, described as "A-Book" and "B-Book", in a typical year.
+
+Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.
+
+Revenue source | A-Book Broker (%) | B-Book Broker (%)
+Spread markup | 50 | 20
+Commission | 30 | 5
+Swap / rollover fees | 20 | 10
+Client trading losses | 0 | 65
+
+⚠️ ตัวเลขเป็นข้อมูลสมมติสร้างขึ้นเพื่อฝึกเขียนโดยเฉพาะ (ไม่ใช่รายงานจริงของโบรกเกอร์รายใดรายหนึ่ง) — สัดส่วนออกแบบให้สะท้อนกลไกจริงจากบทความ Reading เมื่อวาน
+
+**Checklist ก่อนส่ง**
+
+1. ย่อหน้าเปิด = paraphrase โจทย์ ห้ามลอกประโยคโจทย์ตรงๆ
+2. Overview แยกเป็นย่อหน้าของตัวเองชัดเจน — โครงสร้างรายได้ A-Book กับ B-Book ต่างกันโดยพื้นฐาน: A-Book กระจายรายได้ 3 ช่องทางไม่มีขาดทุนลูกค้าเลย ส่วน B-Book พึ่งพารายได้จากขาดทุนของลูกค้าเป็นหลัก
+3. 2 ย่อหน้ารายละเอียด เลือกเปรียบเทียบตัวเลขเด่นสุด ไม่ต้องไล่ทุกแท่ง — A-Book: spread markup 50% ใหญ่สุด vs B-Book: client trading losses 65% ใหญ่สุด
+4. Task 1 บรรยายอย่างเดียว — ห้ามใส่เหตุผลว่าทำไมโครงสร้างรายได้ต่างกัน (ห้าม claim ว่าแบบไหน "ปลอดภัยกว่า/เสี่ยงกว่า")
+
+💡 ภาษาเปรียบเทียบสัดส่วน 5 คำของสัปดาห์ (ใช้อย่างน้อย 3 — กราฟนี้เป็นสัดส่วนไม่ใช่แนวโน้มตามเวลา): account for · make up · represent · considerably higher/lower than · in stark contrast to`,
+    answerKey:`**Model answer (~205 คำ) — เทียบหลังเขียนเสร็จเท่านั้น**
+
+The bar chart compares how two types of retail forex brokers, referred to as "A-Book" and "B-Book", generate revenue, across four categories: spread markup, commission, swap or rollover fees, and profits from client trading losses.
+
+Overall, the two models are structured very differently. A-Book brokers earn all of their income from fee-based sources and report no revenue from client losses, whereas B-Book brokers rely on client losses as their single largest income stream.
+
+For A-Book brokers, spread markup is the leading source, making up exactly half of total revenue at 50%, followed by commission at 30% and swap fees at a further 20%; together, these three channels account for the entirety of their income. Client trading losses contribute nothing at all, since A-Book brokers pass orders straight to the market and hedge their exposure.
+
+By contrast, client trading losses represent almost two-thirds of B-Book revenue, at 65%, considerably outweighing the other three categories combined. Spread markup accounts for just 20% here, while commission, at only 5%, and swap fees, at 10%, play a comparatively minor role.
+
+In short, A-Book brokers spread their earnings fairly evenly across three service-based fees, whereas B-Book brokers concentrate the bulk of their income in a single, riskier source: their own clients' losses.` },
   { id:'i0915', date:'15 ก.ย.', day:'อังคาร', part:'Reading', title:'How Forex Brokers Make Money - A-Book vs B-Book Model (Liquidity Provider, ~1,050 คำ, 13 ข้อ) - ทำบล็อกจันทร์ที่ตกไป', brief:'morning-brief-15sep2026.md', url:'https://liquidity-provider.com/articles/how-forex-brokers-make-money-a-book-vs-b-book-model/',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How advertisers make us spend money - BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
       steps:['ฟังคลิปเต็ม ~6 นาที โดยไม่เปิด transcript รอบแรก','จับใจความว่า advertiser ใช้กลยุทธ์อะไรทำให้คนซื้อของ (เดาจากบริบท ไม่ต้องแปลทุกคำ)','ตอบ this weeks question ท้ายคลิป (เรื่อง nudge theory) จากที่ฟังได้','เก็บ URL นี้ไว้ใช้ทั้งสัปดาห์ - พรุ่งนี้ฟังซ้ำ + จดคำที่ยังจับไม่ได้'] },
