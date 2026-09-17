@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'17 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — deciding whether to trust a company/service with your money · Part 3 conflict of interest) / EA: Volatile (event-driven) ~$4,296 รอผล Fed', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17sep2026.md' },
   { label:'16 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (bar chart — revenue breakdown ของ A-Book vs B-Book forex broker, 150+ คำ / 20 นาที) / EA: Sideways แกว่งแคบ ~$4,290 (กรอบ $4,283-4,317)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16sep2026.md' },
   { label:'15 ก.ย.', day:'อังคาร', topic:'IELTS Reading — ทำบล็อกจันทร์ที่ตกไป (How Forex Brokers Make Money - A-Book vs B-Book Model, ~1,050 คำ, 13 ข้อ) / ธีมใหม่: โมเดลรายได้ของ forex broker / EA: ย่อตัวจาก ~$4,406 มาอยู่แถว $4,284 (กรอบ $4,254-4,355)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-15sep2026.md' },
   { label:'11 ก.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (Problem/Solution — เก็บเงินสดในบัญชีดอกเบี้ยต่ำ ปัญหา+ทางแก้, 250+ คำ / 40 นาที) / EA: Trending ขาขึ้น ผันผวนสูง ~$4,380 ใกล้ ATH (แกว่ง $4,342–4,384)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-11sep2026.md' },
@@ -1783,6 +1784,34 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i0917', date:'17 ก.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — deciding whether to trust a company/service with your money · เตรียม 1 นาที / พูด 2 นาที', brief:'morning-brief-17sep2026.md', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
+    warmup:{ mode:'Shadowing', clip:'How advertisers make us spend money — BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
+      steps:[
+        'ฟังคลิปรอบแรกเฉยๆ ไม่เปิด transcript',
+        'เปิด transcript แล้วฟังรอบสอง พูดตามพร้อมเสียงจริง ไล่ให้ทันทุกคำ ห้ามหยุดรอ',
+        'เลือกช่วงที่พูดตามไม่ทัน ~30 วิ ฟังซ้ำเฉพาะช่วงนั้น 2-3 รอบจนตามทัน',
+        'เพ่งจังหวะ stress และ linking sound ของสำเนียง British ไม่ใช่แค่ความหมาย'
+      ] },
+    questions:`Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์):
+
+Describe a time when you had to decide whether to trust a company or service with your money.
+You should say:
+  - what the company or service was
+  - how you decided whether to trust it
+  - what information you looked for before deciding
+and explain how you felt about your decision afterwards.
+
+ใบ้ (โยงธีมสัปดาห์ = forex broker revenue model / A-Book vs B-Book): เล่าประสบการณ์จริง — เลือก The5ers เป็น prop firm ที่เทรดอยู่ · เลือกโบรกเกอร์ที่ใช้เทรดจริง · หรือครั้งอื่นที่เคยตัดสินใจเรื่องเงินกับบริษัทที่ไม่รู้จักมาก่อน หัวใจคือ "เอาอะไรมาตัดสินว่าเชื่อได้" (regulation, track record, reviews, transparency)
+
+Part 3 — ถกประเด็นต่อยอด (ตอบต่อจาก Part 2 ทันที ไม่ต้องเตรียมแยก):
+1. Should financial companies be legally required to disclose exactly how they make money from their customers?
+2. Why do people often trust larger, well-known financial companies more than smaller ones, even without clear evidence that they are safer?
+3. Do you think conflicts of interest are inevitable in the financial industry, or can regulation realistically eliminate them?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+
+🎯 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: counterparty · spread · markup · conflict of interest · liquidity provider · execution`,
+    answerKey:'' },
   { id:'i0916', date:'16 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Bar chart — revenue breakdown ของ A-Book vs B-Book forex broker (150+ คำ / 20 นาที)', brief:'morning-brief-16sep2026.md', url:'',
     warmup:{ mode:'ฟังซ้ำ + จดคำที่จับไม่ได้', clip:'How advertisers make us spend money — BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
       steps:['ฟังคลิปเต็ม ~6 นาที อีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ฟังไม่ทันหรือไม่แน่ใจความหมาย อย่างน้อย 5 คำ','เปิด transcript เช็คเฉพาะจุดที่จดไว้ — ยังไม่ต้องอ่านทั้งหน้า','เพิ่มคำใหม่ลง vocab-list.md'] },
