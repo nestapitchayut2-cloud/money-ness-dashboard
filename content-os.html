@@ -390,6 +390,11 @@
           <div class="sb-sub">Claude เขียนไว้แล้ว — เปิดอ่านตอนอัด</div>
           <button type="button" class="sb-btn" id="btnOpenScript">เปิดอ่านสคริปต์</button>
         </div>
+        <div class="stagebox notify" id="sbScriptRequest" hidden>
+          <div class="sb-h">✍️ ยังไม่มีสคริปต์</div>
+          <div class="sb-sub">กดคัดลอกแล้ววางในแชทบอก Claude ได้เลย</div>
+          <button type="button" class="sb-btn warn" id="btnCopyScriptRequest">📋 คัดลอกข้อความขอให้เขียนสคริปต์</button>
+        </div>
         <div class="stagebox" id="sbVlogBrief" hidden>
           <div class="sb-h">🎬 บรีฟถ่ายคลิป</div>
           <div class="sb-sub">Claude เขียนไว้แล้ว — ที่ไหน ถ่ายอะไร พูดเรื่องอะไรบ้าง เปิดอ่านก่อนออกไปถ่าย</div>
@@ -1019,8 +1024,9 @@
     form.foArticle.checked=!!o.article;form.foShort.checked=!!o.short;form.foImage.checked=!!o.image;
     form.foFB.checked=!!o.fb;form.foIG.checked=!!o.ig;
     syncOutVis();
-    var sc=d?findScript(d.title):null, ar=d?findArticle(d.title):null, isVlog=form.fStream.value==="vlog", vb=isVlog&&d?findVlogBrief(d.title):null;
+    var sc=d?findScript(d.title):null, ar=d?findArticle(d.title):null, isVlog=form.fStream.value==="vlog", vb=isVlog&&d?findVlogBrief(d.title):null, isFlagship=form.fStream.value==="flagship";
     document.getElementById("sbScript").hidden=!sc;
+    document.getElementById("sbScriptRequest").hidden=!(isFlagship&&!sc);
     document.getElementById("sbArticle").hidden=!ar;
     document.getElementById("sbArticleRequest").hidden=!(sc&&!ar);
     document.getElementById("sbVlogBrief").hidden=!(isVlog&&vb);
@@ -1077,6 +1083,11 @@
     var html=copyBlock("บรีฟถ่ายคลิปเต็ม",vb.body);
     openSub2("🎬 บรีฟถ่ายคลิป",html);
     wireCopyBlocks(document.getElementById("sub2Body"),[vb.body]);
+  };
+  document.getElementById("btnCopyScriptRequest").onclick=function(){
+    var title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyScriptRequest");
+    var txt='ช่วยเขียนสคริปต์เต็มให้ตอนนี้: "'+title+'" — ตาม workflow.md (prose เต็มพร้อมพูด มี [■ ~time] + "//" หายใจ โทน "เพื่อนคุยกัน" ไม่ใช่ bullet โครง) แล้วเพิ่มเข้า content/os-scripts.json ให้เลย';
+    copyText(txt,btn);
   };
   document.getElementById("btnCopyVlogBriefRequest").onclick=function(){
     var title=form.fTitle.value.trim(),btn=document.getElementById("btnCopyVlogBriefRequest");
