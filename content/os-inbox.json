@@ -1,6 +1,56 @@
 {
-  "updated": "2026-09-12",
+  "updated": "2026-09-19",
   "ideas": [
+    {
+      "id": "news-2026-09-19-01",
+      "week": "2026-09-19",
+      "grade": "yellow",
+      "flavor": "กลไก",
+      "stream": "flagship",
+      "title": "Fed ขึ้นดอกเบี้ยจริงครั้งแรกในรอบ 3 ปี — dot plot บอกจะขึ้นต่ออีก ทำไมตลาดไม่ตกใจ",
+      "why": "Fed ขึ้นดอกเบี้ย 25bps เป็น 3.75-4.00% (ครั้งแรกตั้งแต่ 2023) ตามที่ตลาดคาดไว้แล้วจากสัปดาห์ก่อน แต่ 16/18 เจ้าหน้าที่ส่งสัญญาณจะขึ้นต่ออีกอย่างน้อย 1 ครั้งปีนี้ — สอนเรื่อง forward guidance กับ priced-in ได้ในคลิปเดียว",
+      "source": "Fed FOMC 16 ก.ย. 2026 — ขึ้น 25bps เป็น 3.75-4.00%, dot plot ส่งสัญญาณขึ้นต่อ"
+    },
+    {
+      "id": "news-2026-09-19-02",
+      "week": "2026-09-19",
+      "grade": "yellow",
+      "flavor": "กลไก",
+      "stream": "flagship",
+      "title": "Bitcoin เกิด Golden Cross ครั้งแรกของปี — สัญญาณเทคนิคนี้เชื่อถือได้แค่ไหน",
+      "why": "เส้นค่าเฉลี่ย 50 วันตัดขึ้นเหนือเส้น 200 วันเป็นครั้งแรกของปี (BTC ~$77,500 มุ่งเป้า $80,000) — จังหวะดีสอนว่า technical signal คือความน่าจะเป็น ไม่ใช่การรับประกัน",
+      "source": "BTC 50-day EMA crossed above 200-day EMA, 16-17 ก.ย. 2026, target $80k"
+    },
+    {
+      "id": "news-2026-09-19-03",
+      "week": "2026-09-19",
+      "grade": "yellow",
+      "flavor": "แกะ",
+      "stream": "flagship",
+      "title": "แกะโมเดลรายได้ Forex Broker — \"ฟรีค่าคอม\" แล้วโบรกเกอร์เอาเงินจากไหน (A-Book vs B-Book)",
+      "why": "เชื่อมตรงกับธีม IELTS สัปดาห์นี้ + งานของ Ness เอง (IB Forex referral) — EU เพิ่งแบน payment-for-order-flow มีผลเต็มรูปแบบ 30 มิ.ย. 2026 บังคับโบรกเกอร์คิดโมเดลรายได้ใหม่",
+      "source": "track360.io — Forex broker business model 2026, EU PFOF ban effective 30 Jun 2026"
+    },
+    {
+      "id": "news-2026-09-19-04",
+      "week": "2026-09-19",
+      "grade": "white",
+      "flavor": "กลไก",
+      "stream": "flagship",
+      "title": "เงินไหลเข้า ETF ทั่วโลกทำสถิติสูงสุดเท่าที่เคยมีมา — passive investing กำลังเปลี่ยนตลาดยังไง",
+      "why": "",
+      "source": "Global ETF/ETP inflows through Jul 2026 highest on record; European active ETFs also broke annual record ($33.9bn) ก่อนสิ้นปี 4 เดือน"
+    },
+    {
+      "id": "news-2026-09-19-05",
+      "week": "2026-09-19",
+      "grade": "white",
+      "flavor": "กลไก",
+      "stream": "flagship",
+      "title": "หุ้นไทยดีดขึ้นจากแรงซื้อกองทุนต่างชาติ 3.9 พันล้าน — นักลงทุนรายย่อยควรอ่านสัญญาณนี้ยังไง",
+      "why": "",
+      "source": "SET ปิด 1,583.34 จุด (+1.32%) 17 ก.ย. 2026 หนุนโดยแรงซื้อกองทุนต่างชาติ"
+    },
     {
       "id": "news-2026-09-12-01",
       "week": "2026-09-12",
