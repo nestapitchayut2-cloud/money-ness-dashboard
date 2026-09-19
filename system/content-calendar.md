@@ -15,6 +15,15 @@
 | ศุกร์ 4 ก.ย. | The Money Ness | เชื่อถูกก็ยังพังได้ ถ้าไม่รู้จุดออก (Thesis Invalidation ผ่านเรื่อง Solana, Reel ตัวที่ 3) | Reels ~100-120 วิ | IG + FB | ✅ Ready (บน dashboard แล้ว) |
 | ศุกร์ 4 ก.ย. | The Money Ness | ทำไมนักลงทุนที่รวยที่สุด ถือหุ้นน้อยตัวกว่าที่คิด (Barbell Strategy, Reel ตัวที่ 4) | Reels ~110-130 วิ | IG + FB | ✅ Ready (บน dashboard แล้ว) |
 | ศุกร์ 4 ก.ย. | The Money Ness | เบี้ยประกันสุขภาพไม่ใช่ค่าใช้จ่ายคงที่ — วางแผนการเงิน Cover เบี้ยยังไง | Single Image | IG + FB | ✏️ Review (รอ Ness confirm ก่อน push) |
+| เสาร์ 6 ก.ย. | The Money Ness | ชีวิตอาจจะยากจริง แต่ไม่มีเหตุผลที่จะไม่คิดบวก (หัวข้อแบบ B) | Quote / Philosophy Image | IG + FB | 🎨 Design (ภาพลายเส้น Gemini ได้แล้ว — Ness ประกอบข้อความเองใน Canva) |
+| อังคาร 8 ก.ย. | The Money Ness | การใช้ชีวิตทุกวันนี้ยากขึ้นจริง หรือ แค่ความรู้สึก (4 fact พิสูจน์ + สาเหตุการแข่งขัน/มาตรฐานสูงขึ้น + ทางออก 4 ข้อ) | Single Image (Gemini brief ไม่มีข้อความในภาพ — ใส่เองใน Canva) | IG + FB | ✏️ Review (รอ Ness confirm ก่อน push เป็นโพสต์จริง — draft อยู่บน dashboard/content/posts/ แล้ว) |
+
+---
+
+## สัปดาห์นี้ (14–20 ก.ย. 2026)
+| วันที่ | Project | หัวข้อ | Format | Platform | Status |
+|---|---|---|---|---|---|
+| เสาร์ 19 ก.ย. | The Money Ness | การมาของ AI ส่งผลต่อตลาดงานยังไง คนตกงานเยอะขึ้นจริงเพราะ AI จริงไหม ทำไมบริษัทยังใช้ AI ทั้งที่เสี่ยงเศรษฐกิจพัง (สถิติเลิกจ้างจาก AI ครึ่งปีแรก 2026 จริง + เคส Dow/Intuit + Keynes/Acemoglu) | Single Image (Gemini brief 2 สไตล์ให้เลือก, ไม่มีข้อความในภาพ — ใส่เองใน Canva) | IG + FB | ✏️ Review (รอ Ness confirm ก่อน push — draft `FINANCE-LEARNING/market-research/post-2026-09-19-ai-job-market-impact.md` + `content/posts/`) |
 
 ---
 
