@@ -21,27 +21,25 @@ _ธีมสัปดาห์นี้ (ต่อเนื่อง): โม�
 
 **โจทย์:**
 
-> The charts below show the breakdown of revenue sources for two types of retail forex broker in 2025: an **A-Book broker** (routes client orders to the real market) and a **B-Book broker** (acts as counterparty to client trades itself).
+> The two pie charts below show the breakdown of client accounts by trader type for two different retail forex brokers in 2025: an **A-Book broker** (routes client orders to the real market) and a **B-Book broker** (acts as counterparty to client trades itself).
 >
 > Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
 
-💡 ตัวเลขด้านล่างเป็น**ตัวเลขสมมติสร้างขึ้นเพื่อฝึกเขียนโดยเฉพาะ** (ไม่ใช่ของโบรกเกอร์จริงเจ้าใดเจ้าหนึ่ง) — แต่โครงสร้างสัดส่วนใกล้เคียงของจริงในอุตสาหกรรม
+💡 ตัวเลขด้านล่างเป็น**ตัวเลขสมมติสร้างขึ้นเพื่อฝึกเขียนโดยเฉพาะ** (ไม่ใช่ของโบรกเกอร์จริงเจ้าใดเจ้าหนึ่ง) แต่สะท้อนกลไกจริงของอุตสาหกรรม: B-Book broker มักพึ่งพาลูกค้า retail (มือใหม่ ขาดทุนบ่อยกว่า = ทำกำไรให้โบรกเกอร์ในฐานะคู่สัญญา) มากกว่า A-Book broker ที่มีฐานลูกค้าหลากหลายกว่า — ⚠️ คนละประเด็นกับ revenue breakdown ที่ทำไปวันที่ 16 ก.ย. (นี่คือ "ใครคือลูกค้า" ไม่ใช่ "เงินมาจากไหน")
 
-**A-Book Broker — Revenue Breakdown**
-| แหล่งรายได้ | สัดส่วน |
+**A-Book Broker — Client Base by Trader Type (2025)**
+| ประเภทลูกค้า | สัดส่วน |
 |---|---|
-| Spread markup | 55% |
-| Commission | 30% |
-| Swap / overnight fees | 10% |
-| อื่นๆ (ค่าธรรมเนียมบริการ/subscription) | 5% |
+| Retail traders | 70% |
+| Professional traders | 20% |
+| Institutional clients | 10% |
 
-**B-Book Broker — Revenue Breakdown**
-| แหล่งรายได้ | สัดส่วน |
+**B-Book Broker — Client Base by Trader Type (2025)**
+| ประเภทลูกค้า | สัดส่วน |
 |---|---|
-| Client trading losses (คู่สัญญาเอง) | 60% |
-| Spread markup | 20% |
-| Commission | 10% |
-| Swap / overnight fees | 10% |
+| Retail traders | 92% |
+| Professional traders | 7% |
+| Institutional clients | 1% |
 
 📱 ทำโจทย์ + ส่งคำตอบได้ที่แท็บ 🎯 IELTS บน dashboard เลย (โจทย์อยู่ในการ์ดแล้ว) — เฉลยกดดูได้จากปุ่มท้ายการ์ดเดียวกัน ไม่ต้องกลัวเห็นก่อนเวลา
 
@@ -50,8 +48,8 @@ _ธีมสัปดาห์นี้ (ต่อเนื่อง): โม�
 **✅ Checklist 4 ข้อที่ต้องมีในคำตอบ:**
 1. ย่อหน้าเปิด = paraphrase โจทย์ (ห้ามลอกโจทย์ตรงๆ)
 2. **Overview 1–2 ประโยค** สรุปภาพรวม/ความต่างที่ใหญ่ที่สุดระหว่าง 2 โบรกเกอร์ (ขาดข้อนี้ = ไม่เกิน band 5)
-3. 2 ย่อหน้าเปรียบเทียบตัวเลขที่เด่นที่สุด (ไม่ใช่ไล่ทุกตัว) — เช่น client trading losses ของ B-Book vs spread markup ของ A-Book
-4. **ห้ามใส่ความเห็นหรือเหตุผลว่าทำไมตัวเลขเป็นแบบนั้น** — Task 1 บรรยายอย่างเดียว ไม่วิเคราะห์
+3. 2 ย่อหน้าเปรียบเทียบตัวเลขที่เด่นที่สุด (ไม่ใช่ไล่ทุกตัว) — เช่น สัดส่วน retail ของ B-Book (92%) vs A-Book (70%) และสัดส่วน institutional ที่ต่างกันมาก
+4. **ห้ามใส่ความเห็นหรือเหตุผลว่าทำไมตัวเลขเป็นแบบนั้น** — Task 1 บรรยายอย่างเดียว ไม่วิเคราะห์ (เหตุผลเรื่อง "ทำไม B-Book ชอบ retail" เก็บไว้พูดตอน Speaking/เรียงความแทน)
 
 **🔤 ภาษาบรรยายแนวโน้ม/เปรียบเทียบ 5 คำของวันนี้:**
 `constitute` · `the vast majority of` · `by contrast` · `whereas` · `a mere [X]%`
