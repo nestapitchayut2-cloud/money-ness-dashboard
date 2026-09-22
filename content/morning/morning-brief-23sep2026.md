@@ -65,19 +65,19 @@ _ธีมสัปดาห์นี้ (ต่อเนื่อง): โม�
 
 **Model Answer (~200 คำ):**
 
-The charts compare how two different types of retail forex broker, an A-Book broker and a B-Book broker, generate their revenue.
+The pie charts compare the composition of the client base, by trader type, for two different kinds of retail forex broker: an A-Book broker and a B-Book broker.
 
-Overall, the A-Book broker earns the vast majority of its income from client-facing fees such as spreads and commissions, whereas the B-Book broker relies primarily on client trading losses, since it acts as the counterparty to its clients' trades.
+Overall, retail traders constitute the vast majority of clients at both brokers, but this is far more pronounced at the B-Book broker, whereas the A-Book broker has a noticeably more diverse client base.
 
-Looking at the A-Book broker first, spread markup constitutes over half of total revenue, at 55%. Commission is the second-largest source, accounting for 30%, while swap and overnight fees contribute a further 10%. The remaining 5% comes from other service fees and subscriptions.
+Looking at the A-Book broker first, retail traders make up 70% of its clients. Professional traders account for a further 20%, while institutional clients represent the remaining 10% — a relatively small but still significant proportion.
 
-By contrast, client trading losses make up 60% of the B-Book broker's revenue, considerably more than any single category for the A-Book broker. Spread markup represents only 20% of income for this broker type, roughly a third of the equivalent figure for the A-Book model. Commission and swap fees each contribute a mere 10%, matching the smaller proportions seen for swap fees at the A-Book broker.
+By contrast, the B-Book broker's client base is dominated by retail traders, at 92%, considerably higher than the equivalent figure for the A-Book broker. Professional traders make up only 7% of clients at this broker, less than half the proportion seen at the A-Book broker, and institutional clients constitute a mere 1%, an almost negligible share.
 
-In summary, the two revenue models diverge sharply: the A-Book broker's income is spread across several client-service fees, while the B-Book broker depends heavily on a single, higher-risk source — the trading losses of its own clients.
+In summary, the two brokers differ most clearly in how reliant they are on retail clients: the A-Book broker serves a broader mix of trader types, while the B-Book broker's client base consists almost entirely of retail traders.
 
-(203 words)
+(198 words)
 
 **หมายเหตุจุดที่ต้องเช็คเทียบกับคำตอบตัวเอง:**
 - มี overview แยกจากรายละเอียดชัดเจนไหม (ประโยคที่ 2 ในตัวอย่าง)
-- ใช้คำเทียบ 5 คำที่ให้ไว้ครบหรือยัง
-- ไม่มีประโยคที่อธิบาย "ทำไม" B-Book ถึงมีความเสี่ยงมากกว่า (นั่นคือความเห็น ไม่ใช่ Task 1)
+- ใช้คำเทียบ 5 คำที่ให้ไว้ครบหรือยัง (constitute / the vast majority of / by contrast / whereas / a mere [X]%)
+- ไม่มีประโยคที่อธิบาย "ทำไม" B-Book ถึงพึ่งพา retail มากกว่า (นั่นคือความเห็น ไม่ใช่ Task 1)
