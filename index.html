@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'5 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — a subscription or paid membership: worth the money? · Part 3 subscription vs ads) / EA: Volatile ~$4,121-4,131', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-05nov2026.md' },
   { label:'23 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (pie charts — client base by trader type: A-Book vs B-Book forex broker, 150+ คำ / 20 นาที) / EA: Volatile กรอบกว้าง $4,291-4,376', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23sep2026.md' },
   { label:'17 ก.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — deciding whether to trust a company/service with your money · Part 3 conflict of interest) / EA: Volatile (event-driven) ~$4,296 รอผล Fed', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17sep2026.md' },
   { label:'16 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (bar chart — revenue breakdown ของ A-Book vs B-Book forex broker, 150+ คำ / 20 นาที) / EA: Sideways แกว่งแคบ ~$4,290 (กรอบ $4,283-4,317)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16sep2026.md' },
@@ -1786,6 +1787,35 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1105', date:'5 พ.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — a subscription or paid membership: worth the money? · เตรียม 1 นาที / พูด 2 นาที', brief:'morning-brief-05nov2026.md', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
+    warmup:{ mode:'Shadowing', clip:'How advertisers make us spend money — BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
+      steps:[
+        'ฟังรอบแรกเฉยๆ โดยยังไม่เปิด transcript',
+        'เปิด transcript แล้วพูดตามพร้อมเสียงจริง ไล่ให้ทัน ห้ามหยุดรอ',
+        'เลือกช่วงที่ตามไม่ทัน ~30 วินาที ฟังซ้ำ 2-3 รอบจนตามทัน',
+        'เน้น stress และ linking sound ไม่ใช่แค่ความหมาย'
+      ] },
+    questions:`Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์)
+
+Describe a subscription or paid membership you have that you feel is, or is not, worth the money.
+You should say:
+  - what it is and how you started paying for it
+  - how often you use it
+  - what you get from it
+and explain whether you would keep paying for it if the price doubled.
+
+💡 เลือกของที่จ่ายอยู่จริง เช่น AI tool, ยิม หรือ streaming แล้วเล่าจากการใช้งานจริง
+
+Part 3 — ถกประเด็นต่อยอด
+
+1. Why do many companies prefer to charge a monthly subscription rather than a one-time price?
+2. Do you think free services funded by advertising are really free for the people who use them?
+3. Should governments make it easier for consumers to cancel subscriptions, even if this hurts companies' profits?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+
+🎯 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: recurring revenue · churn · ad-supported · lock-in · monetise · subscription fatigue`,
+    answerKey:'' },
   { id:'i0923', date:'23 ก.ย.', day:'พุธ', part:'Writing Task 1', title:'Pie charts — client base by trader type ของ A-Book vs B-Book forex broker (150+ คำ / 20 นาที)', brief:'morning-brief-23sep2026.md', url:'',
     warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'How advertisers make us spend money — BBC Learning English 6 Minute English (EP 260611)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2026/ep-260611',
       steps:['เปิดหน้าเว็บที่มี transcript','ฟังคลิปเต็ม ~6 นาที พร้อมอ่านตามไปด้วย','ขีดเส้นใต้คำ/วลีที่ไม่คุ้น 3-5 คำ','เพิ่มคำใหม่ลง vocab-list.md'] },
