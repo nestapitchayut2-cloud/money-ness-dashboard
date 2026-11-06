@@ -44,7 +44,7 @@
 | วัน | ใช้ธีมยังไง |
 |---|---|
 | พฤหัส (Speaking) | Cue card: a subscription or paid membership — worth the money? (ออกโจทย์แล้ว) |
-| ศุกร์ (Writing T2) | เรียงความเรื่อง subscription vs ad-supported — ยังไม่ออกโจทย์ |
+| ศุกร์ (Writing T2) | Two-part question: why companies prefer subscriptions & is it good for consumers? (ออกโจทย์แล้ว 6 พ.ย.) |
 
 **Vocab เป้าหมายของสัปดาห์:** recurring revenue · churn · ad-supported · lock-in · monetise · subscription fatigue
 
