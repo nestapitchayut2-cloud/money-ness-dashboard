@@ -29,7 +29,12 @@
 - Morningstar mid-year 2026 Active/Passive Barometer: ตัวเลขใน angle พุธ + 1 ปีถึง มิ.ย. 2026 active ชนะ passive กว่า 40% — [Wealth Professional](https://www.wealthprofessional.ca/news/industry-news/active-funds-gained-ground-in-2026-but-75-still-trail-passive-over-10-years/393255)
 - ปลายปี 2023 กองทุนสหรัฐฯ แบบ passive ~$13.3tn แซง active ~$13.2tn (ข้อมูล Morningstar) — [Hargreaves Lansdown](https://www.hl.co.uk/news/passive-eclipses-active-in-us-fund-market-as-assets-swell-to-133tn)
 
-**Listening warm-up ของสัปดาห์นี้:** ยังไม่เลือก — task จันทร์เป็นคนเลือกและตรวจลิงก์
+**Listening warm-up ของสัปดาห์นี้ (เลือก 9 พ.ย.):**
+- "How green is your money?" — BBC Learning English, 6 Minute English (EP 231019, 19 ต.ค. 2023) · British (Neil + Beth) · ~6 นาที · มี transcript
+  https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019
+  สำรองเสียง: https://www.everand.com/podcast/678659375/How-green-is-your-money-Should-climate-change-make-us-think-where-to-invest-our-money-Learn-useful-vocabulary
+- เป็น fallback: หาคลิป 3–4 นาที UK/AUS เรื่อง index fund ที่มี transcript ฟรีไม่เจอ (Tim Harford "Index Fund" — BBC 50 Things ตรงธีมแต่ 10 นาที ไม่มี transcript ฟรี) · ตอนนี้ใกล้ธีมสุด: เงินในกองทุน/บำนาญถูกเอาไปลงทุนที่ไหน · หน้า BBC เปิดจากระบบไม่ได้ (SITE_BLOCKED) ยืนยันผ่าน mirror + Everand
+- โหมดฟัง: จันทร์ ฟังดิบ · อังคาร ฟังซ้ำ+จด · พุธ ฟังพร้อม transcript · พฤหัส shadowing · ศุกร์ ถอดเทป 1 นาทีแรก
 
 **Backlog:** Listening S1 · Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึกใน progress) · Shared Mock #3 คือ 21–22 พ.ย. ต้องสร้างใน task วันอาทิตย์ 15 พ.ย.
 

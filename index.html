@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'9 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Active vs passive investing (MoneyWeek, 13 ข้อ / 20 นาที) / EA: Sideways ~$4,030-4,126 รอ CPI 10 พ.ย.', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-09nov2026.md' },
   { label:'6 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (two-part — why companies prefer subscriptions & is it good for consumers, 250+ คำ / 40 นาที) / EA: Volatile ~$4,056-4,081 รอ NFP', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-06nov2026.md' },
   { label:'5 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — a subscription or paid membership: worth the money? · Part 3 subscription vs ads) / EA: Volatile ~$4,121-4,131', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-05nov2026.md' },
   { label:'23 ก.ย.', day:'พุธ', topic:'IELTS Writing Task 1 (pie charts — client base by trader type: A-Book vs B-Book forex broker, 150+ คำ / 20 นาที) / EA: Volatile กรอบกว้าง $4,291-4,376', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23sep2026.md' },
@@ -1790,6 +1791,55 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1109', date:'9 พ.ย.', day:'จันทร์', part:'Reading', title:'Active vs passive investing (MoneyWeek, ~1,100 คำ, 13 ข้อ) · ธีม index fund vs active fund', brief:'morning-brief-09nov2026.md', url:'https://moneyweek.com/investments/investment-strategy/605616/active-investing-vs-passive-investing-which-is-best',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How green is your money? — BBC Learning English 6 Minute English (EP 231019) · British', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019',
+      steps:['ฟังรวด 1 รอบ ~6 นาที ไม่หยุด ไม่เปิด transcript','จดคำถาม quiz ของรายการ + ใจความหลัก 2 ข้อ','จดคำที่ได้ยินแต่ไม่รู้ความหมาย 3 คำ','ยังไม่เปิด transcript — เก็บไว้วันพุธ','ถ้าลิงก์ BBC เปิดไม่ได้ ใช้เสียงสำรอง: https://www.everand.com/podcast/678659375/How-green-is-your-money-Should-climate-change-make-us-think-where-to-invest-our-money-Learn-useful-vocabulary'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านบทความที่ URL ด้านบน · ⏱️ จับเวลา 20 นาทีรวมทุกข้อ · ตอบจากบทความเท่านั้น ห้ามใช้ความรู้นอกบทความ',
+        items:['According to Morningstar, fewer than half of US-based active funds beat comparable passive funds in 2024.','The proportion of active funds beating their passive counterparts rose between 2023 and 2024.','Most passive funds charge annual fees of less than 0.2%.','The first index fund available to ordinary investors was launched in the 1970s.'] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'⚠️ ห้ามดูหัวข้อย่อยในบทความ — บังไว้ก่อน',
+        text:`Section A = ทุกย่อหน้าก่อนหัวข้อย่อยแรก (บทนำ + คำพูดของ Dan Moczulski) · Section B = ส่วนอธิบาย passive investing · Section C = ส่วนอธิบาย active investing · Section D = ส่วนท้ายสุด เรื่องลงทุนด้วยตัวเอง
+
+i. Copying the market cheaply — with a hidden concentration risk
+ii. Why most professional fund managers retire early
+iii. A hands-on approach that costs more and guarantees nothing
+iv. Matching versus beating the market: the basic divide
+v. Your own portfolio: effort, trading costs and the odds of success
+vi. How regulators control the fees that funds can charge
+vii. The best-performing funds of the last decade
+
+5. Section A
+6. Section B
+7. Section C
+8. Section D`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS)', note:'ใช้คำจากบทความ · เกิน 3 คำ/สะกดผิด = ผิด',
+        text:`Passive funds are designed to replicate the performance of a specific **(9) ______**, so investors share in both its gains and its losses. One of their main attractions is that they are **(10) ______**. However, because they buy whatever is rising in price, this effect can build up over time and lead to **(11) ______**.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'เลือก A–D ข้อละ 1 ตัว',
+        text:`**12.** According to Matthew Spencer, which of the following suggests a good active manager?
+A. charging lower fees than rival funds
+B. a portfolio that differs substantially from the benchmark
+C. investing mainly in large US technology companies
+D. moving entirely into cash during every downturn
+
+**13.** What point does the writer make with the saying "time in the market beats timing the market"?
+A. Beginners should trade more often to learn quickly.
+B. The saying can be seen as quiet support for passive investing.
+C. Investors should wait for a market fall before buying.
+D. Active fund managers usually time the market successfully.`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — Morningstar: แค่ 42% ของ active funds สหรัฐฯ ชนะ passive ในปี 2024 (< ครึ่ง)
+2. FALSE — ตัวเลข "ลดลง" จาก 47% (2023) เหลือ 42% (2024) สวนกับคำว่า rose
+3. NOT GIVEN — บทความบอกแค่ low-cost / cheap fees ไม่มีตัวเลข % เลย → ยืนยันหรือปฏิเสธไม่ได้ ไม่ใช่ False
+4. NOT GIVEN — กับดักความรู้นอกบทความ: โลกจริง index fund แรกคือปี 1976 แต่บทความไม่ได้เล่าประวัติเลย
+5. iv — Moczulski: active พยายาม beat ตลาด, passive พยายาม match
+6. i — replicate index + low-cost + ซื้อสิ่งที่ราคาขึ้น → concentration risk (~70% US / 20%+ big tech)
+7. iii — "more hands-on approach" + ค่าธรรมเนียมสูงกว่า + ไม่การันตีชนะ benchmark
+8. v — ต้อง research, ค่าเทรด "rack up", มืออาชีพยังแพ้ตลาด รายย่อยยิ่งยาก (ii, vi, vii = ตัวลวง)
+9. index — "replicate the performance of a specific index"
+10. low-cost — "One of their advantages is that they are low-cost." (cheap = คำนอกบทความ เสี่ยงผิด)
+11. concentration risk — "That can compound, leading to concentration risk."
+12. B — Spencer: ฝีมือเลือกหุ้นที่พิสูจน์แล้ว + พอร์ตต่างจาก benchmark มาก (C = ตัวลวงจาก Section B)
+13. B — ผู้เขียนเรียกสำนวนนี้ว่า "a tacit endorsement" ของ passive investing` },
   { id:'i1108mock', date:'8 พ.ย.', day:'อาทิตย์', part:'Reading', title:'🧪 Sunday Mock — Reading เต็มชุด 3 passages · 40 ข้อ · 60 นาทีเป๊ะ (โจทย์ที่ Claude สร้างขึ้น)', brief:'sunday-lesson-2026-11-08.md', url:'',
     warmup:{ mode:'—', clip:'ไม่มี warm-up (วันนี้คือวันสอบซ้อม)', url:'', steps:['Mock day ไม่มี warm-up — เตรียมนาฬิกาจับเวลา 60 นาที แล้วเริ่มเลย'] },
     sections:[
