@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'10 พ.ย.', day:'อังคาร', topic:'IELTS Listening S1 / Phone interview form (ielts-up.com Test #10, 10 ข้อ + dictation) / EA: Volatile ~$4,148 Pause ช่วง CPI 20:30', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10nov2026.md' },
   { label:'9 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Active vs passive investing (MoneyWeek, 13 ข้อ / 20 นาที) / EA: Sideways ~$4,030-4,126 รอ CPI 10 พ.ย.', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-09nov2026.md' },
   { label:'6 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (two-part — why companies prefer subscriptions & is it good for consumers, 250+ คำ / 40 นาที) / EA: Volatile ~$4,056-4,081 รอ NFP', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-06nov2026.md' },
   { label:'5 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking (cue card — a subscription or paid membership: worth the money? · Part 3 subscription vs ads) / EA: Volatile ~$4,121-4,131', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-05nov2026.md' },
@@ -1791,6 +1792,57 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1110', date:'10 พ.ย.', day:'อังคาร', part:'Listening', title:'Section 1 — Phone interview: lifeguard job application form (ielts-up.com Test #10, 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-10nov2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-10.1.html',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'How green is your money? — BBC Learning English 6 Minute English (EP 231019)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019',
+      steps:['ฟังคลิปเต็มอีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เทียบกับ 3 คำที่จดเมื่อวาน — เดาความหมายจากบริบทได้หรือยัง','transcript เก็บไว้วันพุธ'] },
+    sections:[
+      { key:'a1', type:'text', label:'Questions 1–10 · FORM COMPLETION', note:'เปิดเสียง https://ielts-up.com/listening/10.1.mp3 ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer · สะกดผิด = ผิดทั้งข้อ',
+        text:`**PHONE INTERVIEW — JOB APPLICATION**
+
+| Field | |
+|---|---|
+| Name | John Murphy |
+| Position applying for | Example: **Lifeguard** |
+| Street address | 45 ______ (1) Court |
+| Contact phone number | ______ (2) |
+| Current part-time job | ______ (3) |
+| Previous job at Ridgemont High School | ______ (4) |
+| Additional relevant work experience | ______ (5) |
+| Relevant skills / qualifications | CPR certification and ______ (6) |
+| CPR certification expiration date | ______ (7) |
+| Preferred weekly shift | ______ (8) |
+| Time available to start work | ______ (9) |
+| Where he saw the advertisement | ______ (10) |
+
+💡 ก่อนกด play ใช้ 30 วินาทีเดาว่าช่องไหนเป็น ตัวเลข / ชื่อ / คำนาม / เวลา — S1 ชอบหลอกด้วยการสะกดชื่อ ตัวเลขยาว และการเปลี่ยนคำตอบกลางประโยค
+
+⚠️ ข้อความในฟอร์มเรียบเรียงจากหน้าโจทย์ต้นทาง ถ้าต่างกันให้ยึดหน้า ielts-up.com`, placeholder:'1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10. ' },
+      { key:'a2', type:'text', label:'🎙️ Dictation (5 ประโยค)', note:'ทำหลังตอบครบ 10 ข้อ · ฟังช่วงหลังกลางคลิป (ราว 55–70% ของไฟล์) ตั้งแต่ John พูดถึง CPR certification จนถึงตอนบอกว่าเริ่มงานได้กี่โมง · ย้อนได้ไม่จำกัด เขียนครบทุกคำทุกเครื่องหมาย',
+        text:`💡 ท่อนนี้มีกับดักเปลี่ยนคำตอบของจริงอยู่ 1 จุด — ตอนทำข้อ 1–10 จับได้ไหม?`, placeholder:'1. \n2. \n3. \n4. \n5. ' },
+      { key:'a3', type:'text', label:'🎧 Warm-up — คำที่ยังจับไม่ได้', note:'จดอย่างน้อย 5 จุดจากคลิป How green is your money?',
+        text:`เขียนเสียงที่ได้ยิน + เดาความหมายจากบริบท`, placeholder:'1. \n2. \n3. \n4. \n5. ' }
+    ],
+    answerKey:`**Questions 1–10**
+1. Elsinore — สะกดชื่อถนนให้ครบ ไม่ต้องเขียน Court ซ้ำ
+2. 077896245 — ระวัง "oh" = 0 / "double"
+3. waiter
+4. baseball coach — coach ไม่ใช่ couch
+5. rescue diver
+6. diving experience — เสียงพูดว่า "2 years of diving experience" แต่ช่องรับ 2 คำ
+7. October — ⚠️ กับดัก: พูด November ก่อน แล้วเช็คบัตรแก้เป็น October → รอผู้พูดจบความก่อนเขียน
+8. Saturday mornings — คำตอบคือคำที่เจาะจงที่สุด (ไม่ใช่ weekends)
+9. 6 / 6.00 / six (o'clock)
+10. radio
+
+**Dictation** (transcript จาก engnovate.com — IELTS Recent Actual Test 2, Listening Test 2, Part 1)
+1. I am CPR certified and have 2 years of diving experience.
+2. When does your CPR certification expire?
+3. Hm. I think in November, but let me quickly check my CPR card... actually, it expires in October.
+4. Since I work in the restaurant on weeknights, I like weekends best - specifically Saturday mornings.
+5. I can get there by 6.00 if need be.
+
+จุดที่มักพลาด: certified · expire(s) · specifically · weeknights · if need be`
+  },
   { id:'i1109', date:'9 พ.ย.', day:'จันทร์', part:'Reading', title:'Active vs passive investing (MoneyWeek, ~1,100 คำ, 13 ข้อ) · ธีม index fund vs active fund', brief:'morning-brief-09nov2026.md', url:'https://moneyweek.com/investments/investment-strategy/605616/active-investing-vs-passive-investing-which-is-best',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How green is your money? — BBC Learning English 6 Minute English (EP 231019) · British', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019',
       steps:['ฟังรวด 1 รอบ ~6 นาที ไม่หยุด ไม่เปิด transcript','จดคำถาม quiz ของรายการ + ใจความหลัก 2 ข้อ','จดคำที่ได้ยินแต่ไม่รู้ความหมาย 3 คำ','ยังไม่เปิด transcript — เก็บไว้วันพุธ','ถ้าลิงก์ BBC เปิดไม่ได้ ใช้เสียงสำรอง: https://www.everand.com/podcast/678659375/How-green-is-your-money-Should-climate-change-make-us-think-where-to-invest-our-money-Learn-useful-vocabulary'] },

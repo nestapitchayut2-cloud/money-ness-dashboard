@@ -36,7 +36,7 @@
 - เป็น fallback: หาคลิป 3–4 นาที UK/AUS เรื่อง index fund ที่มี transcript ฟรีไม่เจอ (Tim Harford "Index Fund" — BBC 50 Things ตรงธีมแต่ 10 นาที ไม่มี transcript ฟรี) · ตอนนี้ใกล้ธีมสุด: เงินในกองทุน/บำนาญถูกเอาไปลงทุนที่ไหน · หน้า BBC เปิดจากระบบไม่ได้ (SITE_BLOCKED) ยืนยันผ่าน mirror + Everand
 - โหมดฟัง: จันทร์ ฟังดิบ · อังคาร ฟังซ้ำ+จด · พุธ ฟังพร้อม transcript · พฤหัส shadowing · ศุกร์ ถอดเทป 1 นาทีแรก
 
-**Backlog:** Listening S1 · Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึกใน progress) · Shared Mock #3 คือ 21–22 พ.ย. ต้องสร้างใน task วันอาทิตย์ 15 พ.ย.
+**Backlog:** ~~Listening S1~~ (ออกโจทย์แล้ว 10 พ.ย.) · Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึกใน progress) · Shared Mock #3 คือ 21–22 พ.ย. ต้องสร้างใน task วันอาทิตย์ 15 พ.ย.
 
 ---
 
