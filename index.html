@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'13 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (advantages/disadvantages — index funds vs paying fund managers, 250+ คำ / 40 นาที) / EA: Trending ลง ~$3,878 low รอบ 1 ปี รอ PPI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-13nov2026.md' },
   { label:'10 พ.ย.', day:'อังคาร', topic:'IELTS Listening S1 / Phone interview form (ielts-up.com Test #10, 10 ข้อ + dictation) / EA: Volatile ~$4,148 Pause ช่วง CPI 20:30', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10nov2026.md' },
   { label:'9 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Active vs passive investing (MoneyWeek, 13 ข้อ / 20 นาที) / EA: Sideways ~$4,030-4,126 รอ CPI 10 พ.ย.', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-09nov2026.md' },
   { label:'6 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (two-part — why companies prefer subscriptions & is it good for consumers, 250+ คำ / 40 นาที) / EA: Volatile ~$4,056-4,081 รอ NFP', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-06nov2026.md' },
@@ -1792,6 +1793,49 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1113', date:'13 พ.ย.', day:'ศุกร์', part:'Writing Task 2', title:'Advantages/Disadvantages essay — index funds vs paying fund managers to beat the market (250+ คำ / 40 นาที)', brief:'morning-brief-13nov2026.md', url:'',
+    warmup:{ mode:'ถอดเทป 1 นาทีแรก (ปิด transcript)', clip:'How green is your money? — BBC Learning English 6 Minute English (EP 231019)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019',
+      steps:[
+        'ปิด transcript แล้วฟัง 0:00–1:00 — ฟังซ้ำกี่รอบก็ได้',
+        'เขียนตามให้ครบทุกคำเท่าที่ทำได้ (เดาสะกดไว้ก่อน)',
+        'เปิด transcript เทียบทีละบรรทัด แล้วมาร์กคำที่พลาด',
+        'จด 3 คำที่พลาดบ่อยสุดลง vocab-list.md'
+      ] },
+    questions:`**Writing Task 2 — เรียงความ 250+ คำ / จับเวลา 40 นาที**
+
+In many countries, a growing number of ordinary people now put their savings into low-cost index funds, which simply follow the stock market, instead of paying professional fund managers to try to beat it.
+
+**Do the advantages of this development outweigh the disadvantages?**
+
+Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.
+
+⚠️ ประเภท: Advantages/Disadvantages แบบ outweigh — ต้องตัดสินให้ชัดว่าข้อดีมากกว่าหรือน้อยกว่า ลิสต์ข้อดี-ข้อเสียเฉยๆ แล้วไม่ตัดสิน = เสีย Task Response
+
+Checklist โครง 4 ย่อหน้า
+
+1. **Introduction** — paraphrase โจทย์ + บอกจุดยืน (ข้อดี > หรือ < ข้อเสีย)
+2. **Body 1 — ข้อดี** 2 ข้อ + ตัวอย่าง/ตัวเลข 1 จุด
+3. **Body 2 — ข้อเสีย** 2 ข้อ + ประโยคชั่งน้ำหนักว่าทำไมข้อเสียเบากว่า (หรือหนักกว่า)
+4. **Conclusion** — สรุปจุดยืนเดิมด้วยคำใหม่
+
+💡 ประโยคเปิดตัวอย่าง: Rather than paying experts to pick shares, an increasing number of individual savers are choosing funds that simply track the whole market. / Although this shift is not without risks, I believe its benefits are considerably more significant.
+
+🔁 จุดพลาดเดิม: สะกดผิด ~15 คำ (proofread 3 นาทีท้าย) · "I am totally disagree" → I totally disagree · ย่อหน้าสรุปห้ามลอกคำเดิม
+
+Part 2 · Vocab Review (5 ข้อ)
+
+เติมคำ: **account for · percentage point · in contrast · taken out of · prospectus**
+
+1. By the end of 2023, passive funds had grown to ______ just over half of all money held in US funds.
+2. Management fees are ______ a fund's returns automatically, so many investors never notice how much they pay.
+3. If index funds' share of the market rises from 48% to 53%, it has gained five ______s.
+4. Index funds simply copy a benchmark. ______, active managers try to choose shares that will perform better than average.
+5. Before you invest, read the fund's ______ — it explains the objective, the risks and the annual fees.
+
+📤 ส่ง: เรียงความเต็ม + คำตอบ vocab 5 ข้อ (+ ถอดเทป warm-up ถ้าทำ)`,
+    answerKey:`Vocab: 1. account for · 2. taken out of · 3. percentage point(s) · 4. In contrast · 5. prospectus
+
+Model essay (~290 คำ) อยู่ท้ายไฟล์ morning-brief-13nov2026.md — เปิดดูหลังเขียนเสร็จเท่านั้น · จุดสังเกต: จุดยืนอยู่ท้ายบทนำ · Body 2 ปิดด้วย "However, these concerns seem modest for most people." · บทสรุปใช้คำใหม่` },
   { id:'i1110', date:'10 พ.ย.', day:'อังคาร', part:'Listening', title:'Section 1 — Phone interview: lifeguard job application form (ielts-up.com Test #10, 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-10nov2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-10.1.html',
     warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'How green is your money? — BBC Learning English 6 Minute English (EP 231019)', url:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019',
       steps:['ฟังคลิปเต็มอีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เทียบกับ 3 คำที่จดเมื่อวาน — เดาความหมายจากบริบทได้หรือยัง','transcript เก็บไว้วันพุธ'] },

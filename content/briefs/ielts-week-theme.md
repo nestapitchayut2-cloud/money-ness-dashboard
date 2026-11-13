@@ -21,7 +21,7 @@
 | อังคาร (Listening) | Listening S1 ตาม backlog + warm-up คลิปเรื่อง index investing หรือ fund fees |
 | พุธ (Writing T1) | Bar chart: สัดส่วน active funds ที่ชนะ passive ในรอบ 10 ปี (ทุกกลุ่ม 25% · large-cap growth 5% · active bond 45% · ถูกสุด 33% · แพงสุด 20%) |
 | พฤหัส (Speaking) | Cue card: Describe a time you compared two options before spending or investing money + Part 3 เรื่องค่าธรรมเนียมและความเชื่อใจผู้จัดการกองทุน |
-| ศุกร์ (Writing T2) | Should ordinary investors simply buy index funds rather than try to beat the market? |
+| ศุกร์ (Writing T2) | Should ordinary investors simply buy index funds rather than try to beat the market? (ออกโจทย์แล้ว 13 พ.ย. — Advantages/Disadvantages แบบ outweigh) |
 
 **Vocab เป้าหมายของสัปดาห์:** passive investing · expense ratio · benchmark · outperform · market share · tracking error
 
