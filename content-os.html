@@ -598,6 +598,31 @@
   });
   try{var sv=localStorage.getItem("contentOS.tab"); if(sv)view=sv;}catch(e){}
 
+  /* fetch shooting queue Claude prepared — auto-adds cards to 📋 คิว (once per id, so deleted cards don't come back) */
+  function loadQueue(){
+    try{
+      fetch("content/os-queue.json?"+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(d){
+        if(!d||!d.items)return;
+        state.meta.queueSeen=state.meta.queueSeen||[];
+        var changed=false;
+        d.items.forEach(function(q){
+          if(state.meta.queueSeen.indexOf(q.id)>=0)return;
+          var it=state.items.filter(function(i){return i.title===q.title;})[0];
+          if(it){
+            if(["backlog","idea","research","script"].indexOf(it.status)>=0){it.status=q.status||"record";it.movedAt=today();}
+            if(!it.notes)it.notes=q.notes||"";
+          }else{
+            state.items.push({id:uid(),title:q.title,stream:q.stream||"flagship",flavor:q.flavor||"",format:"YouTube",
+              status:q.status||"record",source:"plan",fromInbox:q.fromInbox||undefined,next:"",due:"",notes:q.notes||"",
+              sched:q.sched||"",pub:"",movedAt:today(),createdAt:today(),outputs:{},review:{}});
+          }
+          state.meta.queueSeen.push(q.id); changed=true;
+        });
+        if(changed){save();render();}
+      }).catch(function(){});
+    }catch(e){}
+  }
+
   /* fetch news inbox (github.io only) */
   function loadInbox(){
     try{
@@ -1238,6 +1263,7 @@
     else if(view==="review")renderReview();
   }
   render();
+  loadQueue();
   loadInbox();
   loadStatusUpdates();
   loadScripts();

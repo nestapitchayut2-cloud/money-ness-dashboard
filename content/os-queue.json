@@ -1,0 +1,63 @@
+{
+  "updated": "2026-11-14",
+  "note": "คิวอัดคลิปยาว — Content OS ดึงเข้า 📋 คิว คอลัมน์ 🎥 ถ่าย/อัด อัตโนมัติ (ครั้งเดียวต่อ id)",
+  "items": [
+    {
+      "id": "q-ld-ep1",
+      "title": "Life Design EP.1 — ถ้าชีวิตไม่ได้มีแค่เรื่องเงิน แล้วเรากำลังให้อะไรสำคัญเกินไป?",
+      "stream": "flagship",
+      "flavor": "คำถาม",
+      "status": "record",
+      "notes": "🎥 คิว 1 · ซีรีส์ แล้วจะเอาชีวิตไปทำอะไร · อัด EP.1→2→3 ต่อกัน · English Journal เสียงนิ่ง ~8 นาที · ไฟล์ THE-MONEY-NESS/series-life-design/01-มิติชีวิตคืออะไร.md"
+    },
+    {
+      "id": "q-ld-ep2",
+      "title": "Life Design EP.2 — เงินที่ผมหามาทั้งหมด มันซื้ออะไรให้ผมได้จริงๆ",
+      "stream": "flagship",
+      "flavor": "คำถาม",
+      "status": "record",
+      "notes": "🎥 คิว 2 · ซีรีส์ แล้วจะเอาชีวิตไปทำอะไร · อัด EP.1→2→3 ต่อกัน · English Journal เสียงนิ่ง ~8 นาที · ไฟล์ THE-MONEY-NESS/series-life-design/02-เงิน.md"
+    },
+    {
+      "id": "q-ld-ep3",
+      "title": "Life Design EP.3 — เงิน ภาค 2: คำถามที่ยังตามหลอนผม",
+      "stream": "flagship",
+      "flavor": "คำถาม",
+      "status": "record",
+      "notes": "🎥 คิว 3 · ซีรีส์ แล้วจะเอาชีวิตไปทำอะไร · อัด EP.1→2→3 ต่อกัน · English Journal เสียงนิ่ง ~8 นาที · ไฟล์ THE-MONEY-NESS/series-life-design/03-เงิน-ตัวเลือก1-ภาค2ทฤษฎี.md"
+    },
+    {
+      "id": "q-w3-slip",
+      "title": "W3 · 📝 คู่มือ บท 1 — อ่านสลิปเงินเดือนให้ออก (gross ≠ net)",
+      "stream": "flagship",
+      "flavor": "กลไก",
+      "status": "record",
+      "notes": "🎥 คิว 4 · พร้อมอัด · เติมชื่อช่องจริงในสลิปก่อน · Content-Pipeline/weekly/W3-2026-11-09/01-กลไก.md"
+    },
+    {
+      "id": "q-w3-naval",
+      "title": "W3 · Naval — คนรวยเป็นเจ้าของสิ่งที่ทำงานตอนหลับ",
+      "stream": "flagship",
+      "flavor": "บทเรียน",
+      "status": "record",
+      "notes": "🎥 คิว 5 · พร้อมอัด · เติม [...] ตัวอย่างงานจริง · W3/04-บทเรียน.md"
+    },
+    {
+      "id": "q-w3-salary",
+      "title": "W3 · เงินเดือนขึ้นแล้วทำไมไม่รู้สึกรวยขึ้น (hedonic treadmill)",
+      "stream": "flagship",
+      "flavor": "คำถาม",
+      "status": "record",
+      "notes": "🎥 สำรอง · ช่อง ❓ เดียวกับ Life Design — ถ้าอัด Life Design แล้วข้ามอันนี้ได้ · W3/03-คำถาม.md"
+    },
+    {
+      "id": "q-w3-nasdaq",
+      "title": "Nasdaq ร่วง 5.5% ในวันเดียว — เกิดอะไรขึ้น และคนถือกองทุนหุ้นเทคควรเช็กอะไรก่อนกดขาย",
+      "stream": "flagship",
+      "flavor": "แกะ",
+      "status": "record",
+      "notes": "⏰ ข่าว 5 พ.ย. เริ่มเก่าแล้ว (ตลาดเด้งกลับ) — อัดภายในสัปดาห์นี้ หรือย้ายไป 🅿️ พัก · W3/02-แกะ-ด่วน-Nasdaq-ร่วง.md",
+      "fromInbox": "news-2026-11-06-01"
+    }
+  ]
+}
