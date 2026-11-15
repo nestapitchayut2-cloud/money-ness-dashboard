@@ -5,38 +5,42 @@
 
 ---
 
-## สัปดาห์ปัจจุบัน: 9 – 13 พ.ย. 2026
+## สัปดาห์ปัจจุบัน: 16 – 20 พ.ย. 2026
 
-✅ **ยืนยันแล้วโดย `sunday-english-lesson` อาทิตย์ 8 พ.ย.** — ใช้ธีมนี้จันทร์ 9 – ศุกร์ 13 พ.ย. (เลือกไว้ตั้งแต่ 5 พ.ย.) · task อาทิตย์ 15 พ.ย. ต้องเลือกธีมใหม่ + สร้าง Shared Mock #3
+✅ **เลือกโดย `sunday-english-lesson` อาทิตย์ 15 พ.ย.** — ใช้ธีมนี้จันทร์ 16 – ศุกร์ 20 พ.ย.
+🧪 **เสาร์-อาทิตย์ 21–22 พ.ย. = Shared Mock #3** (ไฟล์อยู่ `SHARED\mock-staging\brief-2026-11-21-ielts-mock-03.md`) — ศุกร์ 20 พ.ย. อย่าให้งานหนักเกิน 90 นาที
 
-**5 คำจาก vocab-list ที่ต้องใช้ให้ได้สัปดาห์นี้:** account for · percentage point · in contrast · taken out of · prospectus
+**5 คำจาก vocab-list ที่ต้องใช้ให้ได้สัปดาห์นี้:** account for · in contrast · surge · plateau · percentage point
 
-**ธีม:** Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง — ค่าธรรมเนียมต่ำกับผลตอบแทนระยะยาว
-**ทำไมธีมนี้:** ตรงกับการตัดสินใจลงทุนจริงของ Ness มีตัวเลขพร้อมทำ Writing T1 และมีข้อถกเถียงชัดสำหรับ Task 2
+**ธีม:** ต้นทุนไฟฟ้าของ AI data center — ใครจ่ายไฟให้ AI และกระทบหุ้นพลังงาน/ระบบไฟฟ้ายังไง
+**ทำไมธีมนี้:** เป็นข่าวต่อเนื่อง ได้ vocab สายพลังงาน/สิ่งแวดล้อม (นอกสายการเงิน) ช่วยข้อสอบหัวข้อทั่วไปก่อน mock วันเสาร์ และยังโยงกับหุ้นพลังงานที่ Ness สนใจ
 
 **Angle รายวัน:**
 | วัน | ใช้ธีมยังไง |
 |---|---|
-| จันทร์ (Reading) | บทความว่า passive funds แซง active funds ได้อย่างไร และทำไมค่าธรรมเนียมมีผลต่อผลตอบแทนระยะยาว |
-| อังคาร (Listening) | Listening S1 ตาม backlog + warm-up คลิปเรื่อง index investing หรือ fund fees |
-| พุธ (Writing T1) | Bar chart: สัดส่วน active funds ที่ชนะ passive ในรอบ 10 ปี (ทุกกลุ่ม 25% · large-cap growth 5% · active bond 45% · ถูกสุด 33% · แพงสุด 20%) |
-| พฤหัส (Speaking) | Cue card: Describe a time you compared two options before spending or investing money + Part 3 เรื่องค่าธรรมเนียมและความเชื่อใจผู้จัดการกองทุน |
-| ศุกร์ (Writing T2) | Should ordinary investors simply buy index funds rather than try to beat the market? (ออกโจทย์แล้ว 13 พ.ย. — Advantages/Disadvantages แบบ outweigh) |
+| จันทร์ (Reading) | บทความเรื่อง AI ทำให้ความต้องการไฟฟ้าของ data center พุ่ง และใครจะจ่ายไฟให้ (renewables vs natural gas) |
+| อังคาร (Listening) | Listening **S2** ตามรอบ (S1 ทำแล้ว 10 พ.ย.) + warm-up คลิปเรื่อง AI กับพลังงาน |
+| พุธ (Writing T1) | Bar/line chart: ไฟฟ้าที่ data center ทั่วโลกใช้ ~415 TWh (2024) → ~945 TWh (คาดการณ์ 2030) — หรือแยกตามภูมิภาค/แหล่งพลังงาน |
+| พฤหัส (Speaking) | Cue card: Describe a piece of technology you use every day + Part 3 เรื่องเทคโนโลยีกับสิ่งแวดล้อม ใครควรจ่ายต้นทุนพลังงาน |
+| ศุกร์ (Writing T2) | Opinion (รอบหมุนเริ่มใหม่): Governments should limit the building of new data centres to protect electricity supplies and the environment. To what extent do you agree or disagree? |
 
-**Vocab เป้าหมายของสัปดาห์:** passive investing · expense ratio · benchmark · outperform · market share · tracking error
+**Vocab เป้าหมายของสัปดาห์:** power demand · grid capacity · energy-intensive · baseload · emissions · double (v.) by 2030
 
-**ข้อมูลตั้งต้นที่ตรวจแล้ว (5 พ.ย.):**
-- Morningstar mid-year 2026 Active/Passive Barometer: ตัวเลขใน angle พุธ + 1 ปีถึง มิ.ย. 2026 active ชนะ passive กว่า 40% — [Wealth Professional](https://www.wealthprofessional.ca/news/industry-news/active-funds-gained-ground-in-2026-but-75-still-trail-passive-over-10-years/393255)
-- ปลายปี 2023 กองทุนสหรัฐฯ แบบ passive ~$13.3tn แซง active ~$13.2tn (ข้อมูล Morningstar) — [Hargreaves Lansdown](https://www.hl.co.uk/news/passive-eclipses-active-in-us-fund-market-as-assets-swell-to-133tn)
+**ข้อมูลตั้งต้นที่ตรวจแล้ว (15 พ.ย.):**
+- IEA *Energy and AI* (เม.ย. 2025): data center ใช้ไฟ ~415 TWh ในปี 2024 (~1.5% ของโลก) โต ~12%/ปีใน 5 ปีที่ผ่านมา · คาด ~945 TWh ในปี 2030 (≈ ไฟทั้งประเทศญี่ปุ่นตอนนี้) · data center = เกือบครึ่งของการเติบโตของความต้องการไฟในสหรัฐฯ · renewables + natural gas จะเป็นแหล่งหลัก — [S&P Global](https://www.spglobal.com/commodity-insights/en/news-research/latest-news/electric-power/041025-global-data-center-power-demand-to-double-by-2030-on-ai-surge-iea)
+- หน้า IEA โดยตรงเปิดจากระบบไม่ได้ (client_error) — morning brief วันจันทร์ต้องหาบทความจริงเอง ห้ามแต่ง URL
 
-**Listening warm-up ของสัปดาห์นี้ (เลือก 9 พ.ย.):**
-- "How green is your money?" — BBC Learning English, 6 Minute English (EP 231019, 19 ต.ค. 2023) · British (Neil + Beth) · ~6 นาที · มี transcript
-  https://www.bbc.co.uk/learningenglish/english/features/6-minute-english_2023/ep-231019
-  สำรองเสียง: https://www.everand.com/podcast/678659375/How-green-is-your-money-Should-climate-change-make-us-think-where-to-invest-our-money-Learn-useful-vocabulary
-- เป็น fallback: หาคลิป 3–4 นาที UK/AUS เรื่อง index fund ที่มี transcript ฟรีไม่เจอ (Tim Harford "Index Fund" — BBC 50 Things ตรงธีมแต่ 10 นาที ไม่มี transcript ฟรี) · ตอนนี้ใกล้ธีมสุด: เงินในกองทุน/บำนาญถูกเอาไปลงทุนที่ไหน · หน้า BBC เปิดจากระบบไม่ได้ (SITE_BLOCKED) ยืนยันผ่าน mirror + Everand
-- โหมดฟัง: จันทร์ ฟังดิบ · อังคาร ฟังซ้ำ+จด · พุธ ฟังพร้อม transcript · พฤหัส shadowing · ศุกร์ ถอดเทป 1 นาทีแรก
+**Listening warm-up ของสัปดาห์นี้:** ยังไม่ได้เลือก — ให้ `morning-study-brief` วันจันทร์เลือก (โหมด: จ. ฟังดิบ · อ. ฟังซ้ำ+จด · พ. พร้อม transcript · พฤ. shadowing · ศ. ถอดเทป 1 นาทีแรก)
 
-**Backlog:** ~~Listening S1~~ (ออกโจทย์แล้ว 10 พ.ย.) · Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึกใน progress) · Shared Mock #3 คือ 21–22 พ.ย. ต้องสร้างใน task วันอาทิตย์ 15 พ.ย.
+**Backlog:** Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึก) · งานค้างตรวจ 32 ชิ้นในแท็บ 🎯 IELTS
+
+---
+
+## สัปดาห์ก่อนหน้า: 9 – 13 พ.ย. 2026 (เก็บไว้อ้างอิง)
+
+**ธีม:** Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง — ค่าธรรมเนียมต่ำกับผลตอบแทนระยะยาว
+**สถานะ:** ออกโจทย์ 3/5 วัน (จ. Reading · อ. Listening S1 · ศ. Writing T2) — พุธ Writing T1 + พฤหัส Speaking ไม่มี brief
+**Vocab เป้าหมาย:** passive investing · expense ratio · benchmark · outperform · market share · tracking error
 
 ---
 
@@ -105,7 +109,6 @@
 ## คลังธีมที่ยังไม่ได้ใช้
 
 - Nasdaq หารายได้จากอะไรบ้าง (listing fees, data, technology)
-- ต้นทุนจริงของ AI data center กับผลต่อหุ้นพลังงาน
 - Freemium ใน fintech ไทย
 - ทำไม insurance ถึงเป็นธุรกิจ "เงินลอยตัว" (float)
 - SWIFT กับระบบชำระเงินระหว่างประเทศ ทำงานยังไงและใครคุม
@@ -124,4 +127,5 @@
 - ทำไมทองคำไม่ให้ดอกเบี้ย แต่คนยังถือ (opportunity cost of holding gold) (7–13 ก.ย. 2026 — ขาด Listening S1)
 - โมเดลรายได้ของ forex broker (spread, markup, B-book) (15–23 ก.ย. 2026)
 - Subscription vs advertising business model (5–6 พ.ย. 2026 — จันทร์–พุธไม่มีโจทย์)
-- Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง (9–13 พ.ย. 2026 — สัปดาห์ปัจจุบัน)
+- Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง (9–13 พ.ย. 2026 — 3/5 วัน)
+- ต้นทุนไฟฟ้าของ AI data center (16–20 พ.ย. 2026 — สัปดาห์ปัจจุบัน)
