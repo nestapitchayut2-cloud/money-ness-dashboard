@@ -30,7 +30,16 @@
 - IEA *Energy and AI* (เม.ย. 2025): data center ใช้ไฟ ~415 TWh ในปี 2024 (~1.5% ของโลก) โต ~12%/ปีใน 5 ปีที่ผ่านมา · คาด ~945 TWh ในปี 2030 (≈ ไฟทั้งประเทศญี่ปุ่นตอนนี้) · data center = เกือบครึ่งของการเติบโตของความต้องการไฟในสหรัฐฯ · renewables + natural gas จะเป็นแหล่งหลัก — [S&P Global](https://www.spglobal.com/commodity-insights/en/news-research/latest-news/electric-power/041025-global-data-center-power-demand-to-double-by-2030-on-ai-surge-iea)
 - หน้า IEA โดยตรงเปิดจากระบบไม่ได้ (client_error) — morning brief วันจันทร์ต้องหาบทความจริงเอง ห้ามแต่ง URL
 
-**Listening warm-up ของสัปดาห์นี้:** ยังไม่ได้เลือก — ให้ `morning-study-brief` วันจันทร์เลือก (โหมด: จ. ฟังดิบ · อ. ฟังซ้ำ+จด · พ. พร้อม transcript · พฤ. shadowing · ศ. ถอดเทป 1 นาทีแรก)
+**Listening warm-up ของสัปดาห์นี้:**
+- ✅ **เลือกแล้ว (16 พ.ย.):** "Business English News 61 – Data Centers" — Business English Pod (15 ก.พ. 2026)
+  https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/
+  PDF transcript ฟรีในหน้าเดียวกัน · หน้าเว็บไม่ระบุความยาว/สำเนียง → ใช้เฉพาะช่วงอ่านข่าวตอนต้น ~3–4 นาที (ข้ามช่วงอธิบายศัพท์)
+- คลิป BBC/British Council ที่ตรงธีมสั้นไป (~200 คำ, NPR) หรือต้องล็อกอิน จึงไม่ใช้
+- โหมด: จ. ฟังดิบ · อ. ฟังซ้ำ+จด · พ. พร้อม transcript · พฤ. shadowing · ศ. ถอดเทป 1 นาทีแรก
+
+**Reading จันทร์ 16 พ.ย. (ใช้แล้ว):** LSE Grantham — "Who pays for AI? Data centres, electricity costs and regional energy equity" (20 ส.ค. 2026) ครึ่งแรก ~950 คำ
+  https://www.lse.ac.uk/granthaminstitute/news/who-pays-for-ai-data-centres-electricity-costs-and-regional-energy-equity/
+  ครึ่งหลัง (efficiency, regional equity: South Wales / East Data West Computing / Johor) ใช้ต่อเป็นไอเดีย Speaking P3 / Writing T2 ได้
 
 **Backlog:** Writing T2 ของ 18 ก.ย. · Shared Mock #2 (10–11 ต.ค. ไม่พบบันทึก) · งานค้างตรวจ 32 ชิ้นในแท็บ 🎯 IELTS
 
