@@ -992,6 +992,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'17 พ.ย.', day:'อังคาร', topic:'IELTS Listening S2 / Overseas work & travel programme (ielts-up.com Sample #12, 10 ข้อ + dictation) / EA: Trending ลง ~$3,875 แนวรับ $3,841 Pause Retail Sales + FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17nov2026.md' },
   { label:'16 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Who pays for AI? — ค่าไฟ data center (LSE Grantham, 13 ข้อ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,790 รอ FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16nov2026.md' },
   { label:'13 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (advantages/disadvantages — index funds vs paying fund managers, 250+ คำ / 40 นาที) / EA: Trending ลง ~$3,878 low รอบ 1 ปี รอ PPI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-13nov2026.md' },
   { label:'10 พ.ย.', day:'อังคาร', topic:'IELTS Listening S1 / Phone interview form (ielts-up.com Test #10, 10 ข้อ + dictation) / EA: Volatile ~$4,148 Pause ช่วง CPI 20:30', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-10nov2026.md' },
@@ -1795,6 +1796,73 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1117', date:'17 พ.ย.', day:'อังคาร', part:'Listening', title:'Section 2 — Overseas work & travel programme (ielts-up.com Sample #12, 10 ข้อ: sentence completion / matching / MC + dictation 5 ประโยค)', brief:'morning-brief-17nov2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-12.2.html',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
+      steps:['ฟังช่วงอ่านข่าวตอนต้นอีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เทียบกับตัวเลขที่จดเมื่อวาน (TWh / % / จำนวนบ้าน) ว่าจับได้ครบขึ้นไหม','หาว่าได้ยินคำเป้าหมาย power demand / grid / energy-intensive ตรงไหน'] },
+    sections:[
+      { key:'a1', type:'text', label:'Questions 11–12 · SENTENCE COMPLETION (ONE WORD ONLY)', note:'ไฟล์เสียง: https://ielts-up.com/listening/12.2.mp3 · ⚠️ ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · อ่านโจทย์ทุกข้อ 30 วินาทีก่อนกด play · สะกดผิด = ผิด',
+        text:`Complete the sentences below. Write **ONE WORD ONLY** for each answer.
+
+11. The program is made for travelers to make ______.
+12. The program operates in cooperation with ______.
+
+⚠️ เขียน 2 คำ = ผิดทันที`, placeholder:'11. \n12. ' },
+      { key:'a2', type:'text', label:'Questions 13–16 · MATCHING', note:'เลือก 4 จาก 6 ตัวเลือก — จำตัวเลือกก่อนเสียงเริ่ม',
+        text:`What is the stipulation for an internship in each country? Choose **FOUR** answers, A–F.
+
+| | Stipulation |
+|---|---|
+| A | home stay |
+| B | no summer program |
+| C | minimum time requirement |
+| D | formal report required |
+| E | specific time period |
+| F | agriculture |
+
+13. USA
+14. Australia
+15. South Africa
+16. India
+
+💡 ผู้พูดใช้คำ paraphrase เช่น farm work ↔ agriculture, stay with a local family ↔ home stay`, placeholder:'13. \n14. \n15. \n16. ' },
+      { key:'a3', type:'text', label:'Questions 17–20 · MULTIPLE CHOICE', note:'เลือก A, B หรือ C ข้อละ 1 ตัว',
+        text:`**17.** What should you do to get the Global Traveling Certificate?
+A. Record activity every day.
+B. Formal report.
+C. Talk the experience with the assessor.
+
+**18.** You can apply for the certificate
+A. only after you come back.
+B. while on the trip.
+C. before you leave.
+
+**19.** When should you pay the final installment?
+A. The day before you leave.
+B. One month before you return.
+C. Before you can get your plane ticket.
+
+**20.** Before your application, you need
+A. to take a health check.
+B. to attend the workshop.
+C. to meet people with whom you will work.`, placeholder:'17. \n18. \n19. \n20. ' },
+      { key:'a4', type:'text', label:'DICTATION · 5 ประโยค', note:'ทำหลังตอบครบ 10 ข้อ · ย้อนฟังได้ไม่จำกัด',
+        text:`ฟังช่วงที่ผู้พูดอธิบาย **Global Traveling Certificate และการจ่ายเงิน** (เนื้อหาข้อ 17–19 อยู่ช่วงครึ่งหลังของไฟล์) แล้วเขียนตาม 5 ประโยคติดกัน ทุกคำ ทุกเครื่องหมาย
+
+⚠️ หน้า ielts-up.com ไม่มี transcript → dictation รอบนี้ไม่มีเฉลยคำต่อคำ · ขีดเส้นใต้ (หรือใส่ [?]) คำที่ไม่แน่ใจ แล้ว Claude จะตรวจ grammar/การสะกดให้`, placeholder:'1. \n2. \n3. \n4. \n5. ' }
+    ],
+    answerKey:`11. money — คำเดียว (some money = ผิด)
+12. school — สะกด s-c-h-o-o-l
+13. E — USA = specific time period
+14. C — Australia = minimum time requirement
+15. F — South Africa = agriculture
+16. A — India = home stay
+(ตัวลวงที่ไม่ใช้: B no summer program, D formal report required)
+17. A — record activity every day (B formal report = กับดัก)
+18. A — only after you come back
+19. B — one month before you return
+20. A — take a health check
+ที่มา: เฉลยบนหน้า ielts-up.com · dictation ไม่มีเฉลยคำต่อคำ (ไม่มี transcript)
+วิธีอ่านผล: 9–10 ดีมาก · 7–8 ผ่าน ดูว่าพลาด matching (paraphrase) หรือ MC (distractor) · ≤6 ฝึกอ่านตัวเลือกล่วงหน้า + จับคำปฏิเสธ` },
   { id:'i1116', date:'16 พ.ย.', day:'จันทร์', part:'Reading', title:'Who pays for AI? Data centres & electricity costs (LSE Grantham, ครึ่งแรก ~950 คำ, 13 ข้อ) · ธีม AI data center', brief:'morning-brief-16nov2026.md', url:'https://www.lse.ac.uk/granthaminstitute/news/who-pays-for-ai-data-centres-electricity-costs-and-regional-energy-equity/',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ฟังเฉพาะช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
       steps:['ฟังช่วงอ่านข่าวตอนต้นรวด 1 รอบ ไม่หยุด ไม่เปิด transcript (ช่วงอธิบายศัพท์ท้ายตอนข้ามได้)','จดตัวเลขที่ได้ยินให้มากที่สุด (TWh / % / จำนวนบ้าน)','จดคำที่ได้ยินแต่ไม่รู้ความหมาย 3 คำ','ยังไม่เปิด PDF transcript — เก็บไว้วันพุธ'] },
