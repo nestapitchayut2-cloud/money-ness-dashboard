@@ -7,15 +7,35 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>The Money Ness — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ── Theme tokens (The Money Ness brand: warm black, warm white, grey, green accent) ── */
+  :root {
+    --bg: #0e0e0d; --surface: #171715; --surface-2: #121211; --surface-3: #22221f;
+    --border: #2a2925; --border-soft: #211f1c; --border-strong: #3a3934;
+    --text-strong: #f7f5f0; --text: #f1eee7; --text-2: #d3cfc6; --muted: #a8a59c; --muted-2: #8c8c86; --faint: #66645e;
+    --accent: #4be36d; --on-accent: #0a1a0e; --accent-soft: rgba(75,227,109,.10); --accent-border: rgba(75,227,109,.30);
+    --good: #7ad99a;
+    --info: #9cc0f0; --info-strong: #7aa7ea; --info-soft: rgba(156,192,240,.10); --info-border: rgba(156,192,240,.30);
+    --warn: #efb663; --warn-soft: rgba(239,182,99,.10); --warn-border: rgba(239,182,99,.30);
+    --bad: #ee8274; --bad-soft: rgba(238,130,116,.10);
+    --violet: #c7aaf5; --violet-soft: rgba(199,170,245,.10); --pink: #ef9cc4;
+    --cyan: #86d8e2; --cyan-soft: rgba(134,216,226,.10);
+    --hover: rgba(255,255,255,.03);
+    --radius: 14px; --radius-sm: 10px;
+    --font: 'Anuphan', 'IBM Plex Sans Thai', 'Segoe UI', Tahoma, sans-serif;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; padding: 24px; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px; }
 
   /* Header */
   .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-  .header h1 { font-size: 22px; font-weight: 700; color: #fff; }
-  .header h1 span { color: #39ff14; }
-  .header .date { font-size: 13px; color: #64748b; }
+  .header h1 { font-size: 22px; font-weight: 700; color: var(--text-strong); }
+  .header h1 span { color: var(--accent); }
+  .header .date { font-size: 13px; color: var(--muted-2); }
 
   /* Grid */
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -25,145 +45,145 @@
 
   /* Page nav */
   .page-nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .page-btn { padding: 9px 20px; border-radius: 10px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-  .page-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
-  .page-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .page-btn { padding: 9px 20px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+  .page-btn:hover:not(.active) { color: var(--muted); border-color: var(--border-strong); }
+  .page-btn.active { background: var(--info-soft); border-color: var(--info-border); color: var(--info); }
   .page { display: none; }
   .page.active { display: block; }
 
   /* Content list (long rows) */
   .content-list { display: flex; flex-direction: column; gap: 6px; }
-  .c-row { display: flex; align-items: baseline; gap: 12px; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 11px 14px; cursor: pointer; transition: all 0.15s; }
-  .c-row:hover { border-color: #39ff14; background: #0d1f0d; }
-  .c-row .c-date { font-size: 11px; color: #64748b; flex-shrink: 0; width: 66px; line-height: 1.35; }
-  .c-row .c-topic { font-size: 13.5px; color: #e2e8f0; font-weight: 500; flex: 1; line-height: 1.45; }
+  .c-row { display: flex; align-items: baseline; gap: 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; cursor: pointer; transition: all 0.15s; }
+  .c-row:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .c-row .c-date { font-size: 11px; color: var(--muted-2); flex-shrink: 0; width: 66px; line-height: 1.35; }
+  .c-row .c-topic { font-size: 13.5px; color: var(--text); font-weight: 500; flex: 1; line-height: 1.45; }
   .c-row .c-badges { flex-shrink: 0; display: flex; align-items: center; gap: 4px; align-self: center; }
   .c-row .c-badges span { font-size: 10px; padding: 2px 7px; border-radius: 99px; white-space: nowrap; }
-  .c-yt-btn { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 6px; border: 1px solid #2d3148; background: #12151f; color: #c084fc; cursor: pointer; transition: all 0.15s; white-space: nowrap; margin-left: 4px; }
-  .c-yt-btn:hover { background: #1e1b2e; border-color: #7c3aed; }
-  .mm-frame { width: 100%; height: 620px; min-height: 340px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
-  .pipe-frame { width: 100%; height: 780px; min-height: 440px; border: 1px solid #2d3148; border-radius: 10px; background: #0f1117; display: block; }
+  .c-yt-btn { flex-shrink: 0; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-2); color: var(--violet); cursor: pointer; transition: all 0.15s; white-space: nowrap; margin-left: 4px; }
+  .c-yt-btn:hover { background: var(--violet-soft); border-color: var(--violet); }
+  .mm-frame { width: 100%; height: 620px; min-height: 340px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); display: block; }
+  .pipe-frame { width: 100%; height: 780px; min-height: 440px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); display: block; }
   @media (max-width: 768px) {
     .c-row { flex-wrap: wrap; gap: 4px 10px; }
     .c-row .c-topic { flex-basis: 100%; order: 3; }
   }
 
   /* Card */
-  .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 12px; padding: 20px; }
-  .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-2); margin-bottom: 14px; }
 
   /* EA Progress */
-  .ea-phase { font-size: 12px; color: #fb923c; font-weight: 600; background: #2d1f0e; padding: 3px 10px; border-radius: 99px; display: inline-block; margin-bottom: 10px; }
-  .ea-pct { font-size: 48px; font-weight: 800; color: #39ff14; line-height: 1; }
-  .ea-label { font-size: 12px; color: #64748b; margin: 4px 0 12px; }
-  .progress-bar { background: #2d3148; border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 6px; }
-  .progress-fill { background: linear-gradient(90deg, #39ff14, #00d4aa); height: 100%; border-radius: 99px; }
-  .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: #475569; margin-bottom: 14px; }
-  .ea-blocker { font-size: 11px; background: #1e1e2e; border: 1px solid #3d3148; border-radius: 8px; padding: 8px 10px; color: #94a3b8; }
-  .ea-blocker strong { color: #fb923c; }
+  .ea-phase { font-size: 12px; color: var(--warn); font-weight: 600; background: var(--warn-soft); padding: 3px 10px; border-radius: 99px; display: inline-block; margin-bottom: 10px; }
+  .ea-pct { font-size: 48px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .ea-label { font-size: 12px; color: var(--muted-2); margin: 4px 0 12px; }
+  .progress-bar { background: var(--border); border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+  .progress-fill { background: linear-gradient(90deg, var(--accent), var(--accent)); height: 100%; border-radius: 99px; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--faint); margin-bottom: 14px; }
+  .ea-blocker { font-size: 11px; background: var(--surface-3); border: 1px solid var(--violet-soft); border-radius: 8px; padding: 8px 10px; color: var(--muted); }
+  .ea-blocker strong { color: var(--warn); }
 
   /* Portfolio */
   .port-layers { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
   .port-layer { display: flex; align-items: center; gap: 10px; }
-  .port-bar-wrap { flex: 1; background: #2d3148; border-radius: 99px; height: 10px; overflow: hidden; }
+  .port-bar-wrap { flex: 1; background: var(--border); border-radius: 99px; height: 10px; overflow: hidden; }
   .port-bar { height: 100%; border-radius: 99px; }
-  .bar-stable { background: linear-gradient(90deg, #22c55e, #16a34a); width: 50%; }
-  .bar-growth { background: linear-gradient(90deg, #eab308, #ca8a04); width: 35%; }
-  .bar-risk   { background: linear-gradient(90deg, #ef4444, #dc2626); width: 15%; }
-  .port-label { font-size: 12px; color: #94a3b8; min-width: 110px; }
+  .bar-stable { background: linear-gradient(90deg, var(--good), var(--good)); width: 50%; }
+  .bar-growth { background: linear-gradient(90deg, var(--warn), var(--warn)); width: 35%; }
+  .bar-risk   { background: linear-gradient(90deg, var(--bad), var(--bad)); width: 15%; }
+  .port-label { font-size: 12px; color: var(--muted); min-width: 110px; }
   .port-pct { font-size: 13px; font-weight: 700; min-width: 34px; text-align: right; }
-  .pct-stable { color: #22c55e; }
-  .pct-growth { color: #eab308; }
-  .pct-risk   { color: #ef4444; }
-  .port-goal { font-size: 11px; color: #475569; display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid #2d3148; }
-  .port-goal span { color: #94a3b8; }
+  .pct-stable { color: var(--good); }
+  .pct-growth { color: var(--warn); }
+  .pct-risk   { color: var(--bad); }
+  .port-goal { font-size: 11px; color: var(--faint); display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--border); }
+  .port-goal span { color: var(--muted); }
 
   /* Upcoming Posts */
   .post-list { display: flex; flex-direction: column; gap: 10px; }
-  .post-item { display: flex; align-items: center; gap: 12px; background: #12151f; border-radius: 8px; padding: 12px; border: 1px solid #2d3148; }
+  .post-item { display: flex; align-items: center; gap: 12px; background: var(--surface-2); border-radius: 8px; padding: 12px; border: 1px solid var(--border); }
   .post-date { min-width: 52px; text-align: center; }
-  .post-date .day { font-size: 18px; font-weight: 700; color: #fff; line-height: 1; }
-  .post-date .month { font-size: 10px; color: #64748b; }
-  .post-divider { width: 1px; height: 36px; background: #2d3148; }
+  .post-date .day { font-size: 18px; font-weight: 700; color: var(--text-strong); line-height: 1; }
+  .post-date .month { font-size: 10px; color: var(--muted-2); }
+  .post-divider { width: 1px; height: 36px; background: var(--border); }
   .post-info { flex: 1; }
-  .post-title { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 3px; }
+  .post-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
   .post-tag { font-size: 10px; padding: 2px 7px; border-radius: 99px; display: inline-block; font-weight: 500; }
-  .tag-tmn { background: #1e3a5f; color: #60a5fa; }
+  .tag-tmn { background: var(--info-soft); color: var(--info); }
   .post-status { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; white-space: nowrap; }
-  .status-ready { background: #0d2b0d; color: #39ff14; border: 1px solid #1a4d1a; }
+  .status-ready { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
 
   /* Quick Actions */
   .actions { display: flex; flex-direction: column; gap: 8px; }
   .btn { width: 100%; padding: 10px 14px; border-radius: 8px; border: none; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.15s; text-align: left; }
   .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
-  .btn-primary   { background: #39ff14; color: #0a1f0a; }
-  .btn-secondary { background: #1e3a5f; color: #93c5fd; }
-  .btn-warning   { background: #2d1f0e; color: #fb923c; border: 1px solid #3d2a10; }
-  .btn-ghost     { background: #1a1d27; color: #94a3b8; border: 1px solid #2d3148; }
+  .btn-primary   { background: var(--accent); color: var(--on-accent); }
+  .btn-secondary { background: var(--info-soft); color: var(--info); }
+  .btn-warning   { background: var(--warn-soft); color: var(--warn); border: 1px solid var(--warn-border); }
+  .btn-ghost     { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
   .btn-icon { font-size: 15px; }
   .btn-text { flex: 1; }
   .btn-sub { font-size: 10px; font-weight: 400; opacity: 0.7; display: block; }
 
   /* Scheduled Tasks */
   .task-list { display: flex; flex-direction: column; gap: 8px; }
-  .task-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; background: #12151f; border-radius: 8px; border: 1px solid #2d3148; }
-  .task-name { font-size: 12px; color: #e2e8f0; font-weight: 500; }
-  .task-time { font-size: 10px; color: #64748b; margin-top: 1px; }
+  .task-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); }
+  .task-name { font-size: 12px; color: var(--text); font-weight: 500; }
+  .task-time { font-size: 10px; color: var(--muted-2); margin-top: 1px; }
   .task-badge { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 99px; white-space: nowrap; }
-  .badge-active { background: #0d2b0d; color: #39ff14; }
-  .badge-off    { background: #1e1e1e; color: #475569; }
+  .badge-active { background: var(--accent-soft); color: var(--accent); }
+  .badge-off    { background: var(--surface-3); color: var(--faint); }
 
   /* ── Learning Hub ── */
   .tab-nav { display: flex; gap: 6px; margin-bottom: 16px; }
-  .tab-btn { padding: 7px 16px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-  .tab-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
-  .tab-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
+  .tab-btn { padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .tab-btn.active { background: var(--info-soft); border-color: var(--info-border); color: var(--info); }
+  .tab-btn:hover:not(.active) { color: var(--muted); border-color: var(--border-strong); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
   /* Tab 1: This Week */
-  .layer-badge { display: inline-flex; align-items: center; gap: 6px; background: #1e2d1e; border: 1px solid #2a4d2a; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #86efac; margin-bottom: 14px; }
+  .layer-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-soft); border: 1px solid var(--accent-border); border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--good); margin-bottom: 14px; }
   .topic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
-  .topic-card { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px; }
-  .topic-card .t-day { font-size: 10px; color: #64748b; font-weight: 600; margin-bottom: 4px; }
-  .topic-card .t-content { font-size: 11px; color: #cbd5e1; margin-bottom: 4px; line-height: 1.4; }
-  .topic-card .t-learn { font-size: 10px; color: #7c8fb0; line-height: 1.3; }
-  .topic-card.post-day { border-color: #1e3a5f; }
-  .topic-card .t-dot { width: 6px; height: 6px; border-radius: 50%; background: #475569; display: inline-block; margin-bottom: 3px; }
-  .curriculum-box { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 12px 14px; }
-  .curriculum-box .c-title { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+  .topic-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+  .topic-card .t-day { font-size: 10px; color: var(--muted-2); font-weight: 600; margin-bottom: 4px; }
+  .topic-card .t-content { font-size: 11px; color: var(--text-2); margin-bottom: 4px; line-height: 1.4; }
+  .topic-card .t-learn { font-size: 10px; color: var(--muted-2); line-height: 1.3; }
+  .topic-card.post-day { border-color: var(--info-soft); }
+  .topic-card .t-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--faint); display: inline-block; margin-bottom: 3px; }
+  .curriculum-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .curriculum-box .c-title { font-size: 11px; color: var(--muted-2); margin-bottom: 8px; }
   .curriculum-ep { display: flex; gap: 8px; }
-  .ep-card { flex: 1; background: #1a1d27; border-radius: 8px; padding: 10px; border: 1px solid #2d3148; }
+  .ep-card { flex: 1; background: var(--surface); border-radius: 8px; padding: 10px; border: 1px solid var(--border); }
   .ep-card .ep-layer { font-size: 10px; margin-bottom: 3px; }
-  .ep-card .ep-num { font-size: 10px; color: #475569; }
-  .ep-card .ep-name { font-size: 12px; font-weight: 600; color: #e2e8f0; margin: 2px 0; }
-  .ep-card .ep-goal { font-size: 10px; color: #64748b; line-height: 1.3; }
+  .ep-card .ep-num { font-size: 10px; color: var(--faint); }
+  .ep-card .ep-name { font-size: 12px; font-weight: 600; color: var(--text); margin: 2px 0; }
+  .ep-card .ep-goal { font-size: 10px; color: var(--muted-2); line-height: 1.3; }
 
   /* Tab 2: Briefs */
   .sub-tabs { display: flex; gap: 6px; margin-bottom: 14px; }
-  .sub-tab-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 11px; cursor: pointer; transition: all 0.15s; }
-  .sub-tab-btn.active { background: #1a1d27; border-color: #64748b; color: #e2e8f0; }
+  .sub-tab-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .sub-tab-btn.active { background: var(--surface); border-color: var(--muted-2); color: var(--text); }
   .sub-panel { display: none; }
   .sub-panel.active { display: block; }
   .brief-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
-  .brief-item { background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
-  .brief-item:hover { border-color: #39ff14; background: #0d1f0d; }
-  .brief-item .b-date { font-size: 14px; font-weight: 700; color: #e2e8f0; margin-bottom: 3px; }
-  .brief-item .b-day { font-size: 11px; color: #64748b; margin-bottom: 6px; }
-  .brief-item .b-topic { font-size: 10px; color: #94a3b8; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brief-item .b-action { font-size: 10px; color: #39ff14; }
+  .brief-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .brief-item:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .brief-item .b-date { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .brief-item .b-day { font-size: 11px; color: var(--muted-2); margin-bottom: 6px; }
+  .brief-item .b-topic { font-size: 10px; color: var(--muted); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brief-item .b-action { font-size: 10px; color: var(--accent); }
 
   /* Tab 3: Vocabulary */
   .vocab-controls { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-  .vocab-search { flex: 1; min-width: 180px; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #e2e8f0; outline: none; }
-  .vocab-search:focus { border-color: #39ff14; }
-  .vocab-search::placeholder { color: #475569; }
+  .vocab-search { flex: 1; min-width: 180px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text); outline: none; }
+  .vocab-search:focus { border-color: var(--accent); }
+  .vocab-search::placeholder { color: var(--faint); }
   .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 11px; cursor: pointer; transition: all 0.15s; }
-  .filter-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
+  .filter-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 11px; cursor: pointer; transition: all 0.15s; }
+  .filter-btn.active { background: var(--info-soft); border-color: var(--info-border); color: var(--info); }
   .view-toggle { display: flex; gap: 4px; }
-  .view-btn { padding: 6px 10px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; cursor: pointer; }
-  .view-btn.active { background: #1a1d27; border-color: #64748b; color: #e2e8f0; }
+  .view-btn { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 12px; cursor: pointer; }
+  .view-btn.active { background: var(--surface); border-color: var(--muted-2); color: var(--text); }
 
   /* Flashcard grid */
   .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
@@ -171,126 +191,126 @@
   .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
   .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
   .card-front, .card-back { position: absolute; inset: 0; border-radius: 10px; padding: 14px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; }
-  .card-front { background: #12151f; border: 1px solid #2d3148; }
-  .card-back { background: #0f1f2f; border: 1px solid #1e3a5f; transform: rotateY(180deg); }
-  .card-front .fc-cat { font-size: 10px; color: #64748b; margin-bottom: 6px; }
-  .card-front .fc-word { font-size: 14px; font-weight: 700; color: #e2e8f0; }
-  .card-front .fc-hint { font-size: 10px; color: #39ff14; margin-top: 8px; }
-  .card-back .fc-meaning { font-size: 12px; color: #93c5fd; line-height: 1.4; margin-bottom: 6px; }
-  .card-back .fc-example { font-size: 10px; color: #64748b; line-height: 1.3; font-style: italic; }
+  .card-front { background: var(--surface-2); border: 1px solid var(--border); }
+  .card-back { background: var(--info-soft); border: 1px solid var(--info-soft); transform: rotateY(180deg); }
+  .card-front .fc-cat { font-size: 10px; color: var(--muted-2); margin-bottom: 6px; }
+  .card-front .fc-word { font-size: 14px; font-weight: 700; color: var(--text); }
+  .card-front .fc-hint { font-size: 10px; color: var(--accent); margin-top: 8px; }
+  .card-back .fc-meaning { font-size: 12px; color: var(--info); line-height: 1.4; margin-bottom: 6px; }
+  .card-back .fc-example { font-size: 10px; color: var(--muted-2); line-height: 1.3; font-style: italic; }
 
   /* List view */
   .vocab-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .vocab-table th { text-align: left; padding: 8px 10px; color: #64748b; font-size: 11px; border-bottom: 1px solid #2d3148; }
-  .vocab-table td { padding: 9px 10px; border-bottom: 1px solid #1e2030; vertical-align: top; }
-  .vocab-table tr:hover td { background: #12151f; }
-  .vocab-table .v-word { color: #60a5fa; font-weight: 600; }
-  .vocab-table .v-meaning { color: #e2e8f0; }
-  .vocab-table .v-example { color: #64748b; font-style: italic; }
-  .vocab-count { font-size: 11px; color: #475569; margin-bottom: 10px; }
+  .vocab-table th { text-align: left; padding: 8px 10px; color: var(--muted-2); font-size: 11px; border-bottom: 1px solid var(--border); }
+  .vocab-table td { padding: 9px 10px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+  .vocab-table tr:hover td { background: var(--surface-2); }
+  .vocab-table .v-word { color: var(--info); font-weight: 600; }
+  .vocab-table .v-meaning { color: var(--text); }
+  .vocab-table .v-example { color: var(--muted-2); font-style: italic; }
+  .vocab-count { font-size: 11px; color: var(--faint); margin-bottom: 10px; }
 
   /* Quick Content Panel */
   .qc-wrap { display: flex; flex-direction: column; gap: 14px; }
   .qc-row { display: flex; gap: 10px; align-items: flex-start; }
-  .qc-input { flex: 1; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; }
-  .qc-input:focus { border-color: #39ff14; }
-  .qc-input::placeholder { color: #475569; }
+  .qc-input { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--text); outline: none; font-family: inherit; }
+  .qc-input:focus { border-color: var(--accent); }
+  .qc-input::placeholder { color: var(--faint); }
   .qc-type-group { display: flex; gap: 6px; }
-  .qc-type-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid #2d3148; background: #12151f; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-  .qc-type-btn.active { background: #1e3a5f; border-color: #3b6fa8; color: #93c5fd; }
-  .qc-type-btn:hover:not(.active) { color: #94a3b8; border-color: #3d4468; }
-  .qc-copy-btn { padding: 10px 22px; border-radius: 8px; border: none; background: #39ff14; color: #0a1f0a; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .qc-type-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted-2); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .qc-type-btn.active { background: var(--info-soft); border-color: var(--info-border); color: var(--info); }
+  .qc-type-btn:hover:not(.active) { color: var(--muted); border-color: var(--border-strong); }
+  .qc-copy-btn { padding: 10px 22px; border-radius: 8px; border: none; background: var(--accent); color: var(--on-accent); font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: all 0.15s; }
   .qc-copy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-  .qc-hint { font-size: 11px; color: #475569; line-height: 1.5; padding: 10px 12px; background: #12151f; border-radius: 8px; border: 1px solid #2d3148; }
-  .qc-hint strong { color: #64748b; }
-  .qc-select { width: 100%; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; cursor: pointer; }
-  .qc-select:focus { border-color: #39ff14; }
+  .qc-hint { font-size: 11px; color: var(--faint); line-height: 1.5; padding: 10px 12px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); }
+  .qc-hint strong { color: var(--muted-2); }
+  .qc-select { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--text); outline: none; font-family: inherit; cursor: pointer; }
+  .qc-select:focus { border-color: var(--accent); }
   .qc-style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .qc-style-field label { display: block; font-size: 11px; color: #64748b; margin-bottom: 4px; font-weight: 600; }
-  .qc-textarea { width: 100%; background: #12151f; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #e2e8f0; outline: none; font-family: inherit; resize: vertical; min-height: 60px; }
-  .qc-textarea:focus { border-color: #39ff14; }
-  .qc-textarea::placeholder { color: #475569; }
+  .qc-style-field label { display: block; font-size: 11px; color: var(--muted-2); margin-bottom: 4px; font-weight: 600; }
+  .qc-textarea { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--text); outline: none; font-family: inherit; resize: vertical; min-height: 60px; }
+  .qc-textarea:focus { border-color: var(--accent); }
+  .qc-textarea::placeholder { color: var(--faint); }
   @media (max-width: 640px) { .qc-style-grid { grid-template-columns: 1fr; } }
 
   /* Quiz History */
-  .quiz-stat { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 100px; }
+  .quiz-stat { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 100px; }
   .quiz-stat .qs-num { font-size: 22px; font-weight: 800; }
-  .quiz-stat .qs-label { font-size: 10px; color: #64748b; margin-top: 2px; }
-  .quiz-card { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .quiz-stat .qs-label { font-size: 10px; color: var(--muted-2); margin-top: 2px; }
+  .quiz-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
   .quiz-card-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; transition: background .15s; }
-  .quiz-card-header:hover { background: rgba(255,255,255,.03); }
+  .quiz-card-header:hover { background: var(--hover); }
   .qc-score { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
-  .qc-pass { background: rgba(57,255,20,.12); color: #39ff14; border: 2px solid #39ff14; }
-  .qc-fail { background: rgba(239,68,68,.12); color: #ef4444; border: 2px solid #ef4444; }
-  .quiz-card-body { display: none; border-top: 1px solid #2d3148; }
+  .qc-pass { background: var(--accent-soft); color: var(--accent); border: 2px solid var(--accent); }
+  .qc-fail { background: var(--bad-soft); color: var(--bad); border: 2px solid var(--bad); }
+  .quiz-card-body { display: none; border-top: 1px solid var(--border); }
   .quiz-card-body.open { display: block; }
-  .qa-item { padding: 12px 16px; border-bottom: 1px solid #1e2030; }
+  .qa-item { padding: 12px 16px; border-bottom: 1px solid var(--border-soft); }
   .qa-item:last-child { border-bottom: none; }
-  .qa-question { font-size: 12px; color: #e2e8f0; line-height: 1.5; margin-bottom: 6px; }
-  .qa-your-answer { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+  .qa-question { font-size: 12px; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+  .qa-your-answer { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
   .qa-explanation { font-size: 11px; line-height: 1.5; margin-top: 4px; padding: 6px 10px; border-radius: 6px; }
-  .qa-correct-exp { background: rgba(57,255,20,.08); color: #86efac; border-left: 3px solid #39ff14; }
-  .qa-wrong-exp { background: rgba(239,68,68,.08); color: #fca5a5; border-left: 3px solid #ef4444; }
+  .qa-correct-exp { background: var(--accent-soft); color: var(--good); border-left: 3px solid var(--accent); }
+  .qa-wrong-exp { background: var(--bad-soft); color: var(--bad); border-left: 3px solid var(--bad); }
 
   /* Toast */
-  .toast { position: fixed; bottom: 24px; right: 24px; background: #1a1d27; border: 1px solid #39ff14; color: #39ff14; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 100; }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--accent); color: var(--accent); padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 100; }
   .toast.show { opacity: 1; transform: translateY(0); }
 
 
   /* ── Goals & Tracking ── */
   .goals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .goal-section { background: #12151f; border: 1px solid #2d3148; border-radius: 10px; padding: 14px; }
-  .goal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .goal-section { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .goal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-2); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
   .goal-section-title span { font-size: 14px; }
 
   /* Weekly checkboxes */
   .goal-check-list { display: flex; flex-direction: column; gap: 7px; }
   .goal-check-item { display: flex; align-items: center; gap: 9px; cursor: pointer; }
   .goal-check-item input[type=checkbox] { display: none; }
-  .g-box { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid #3d4468; background: #1a1d27; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .goal-check-item.checked .g-box { background: #39ff14; border-color: #39ff14; }
-  .goal-check-item.checked .g-box::after { content: '✓'; font-size: 10px; font-weight: 800; color: #0a1f0a; }
-  .goal-check-item.checked .g-label { color: #475569; text-decoration: line-through; }
-  .g-label { font-size: 12px; color: #94a3b8; flex: 1; }
-  .g-sub { font-size: 10px; color: #475569; }
+  .g-box { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-strong); background: var(--surface); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .goal-check-item.checked .g-box { background: var(--accent); border-color: var(--accent); }
+  .goal-check-item.checked .g-box::after { content: '✓'; font-size: 10px; font-weight: 800; color: var(--on-accent); }
+  .goal-check-item.checked .g-label { color: var(--faint); text-decoration: line-through; }
+  .g-label { font-size: 12px; color: var(--muted); flex: 1; }
+  .g-sub { font-size: 10px; color: var(--faint); }
 
   /* Weekly mini-progress */
-  .week-progress { margin-top: 12px; padding-top: 10px; border-top: 1px solid #2d3148; }
-  .week-progress-label { font-size: 10px; color: #64748b; margin-bottom: 5px; display: flex; justify-content: space-between; }
-  .week-pct-val { color: #39ff14; font-weight: 700; }
+  .week-progress { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .week-progress-label { font-size: 10px; color: var(--muted-2); margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .week-pct-val { color: var(--accent); font-weight: 700; }
 
   /* Monthly progress */
   .month-goal-list { display: flex; flex-direction: column; gap: 12px; }
   .month-goal-item {}
   .month-goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-  .month-goal-name { font-size: 12px; color: #e2e8f0; font-weight: 500; }
-  .month-goal-val { font-size: 11px; color: #94a3b8; }
-  .month-goal-val .curr { color: #39ff14; font-weight: 700; }
-  .month-goal-val .tgt { color: #475569; }
-  .month-edit-btn { font-size: 10px; color: #3b6fa8; cursor: pointer; padding: 2px 6px; border-radius: 4px; border: 1px solid #1e3a5f; background: none; transition: all 0.15s; }
-  .month-edit-btn:hover { background: #1e3a5f; color: #93c5fd; }
+  .month-goal-name { font-size: 12px; color: var(--text); font-weight: 500; }
+  .month-goal-val { font-size: 11px; color: var(--muted); }
+  .month-goal-val .curr { color: var(--accent); font-weight: 700; }
+  .month-goal-val .tgt { color: var(--faint); }
+  .month-edit-btn { font-size: 10px; color: var(--info-border); cursor: pointer; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--info-soft); background: none; transition: all 0.15s; }
+  .month-edit-btn:hover { background: var(--info-soft); color: var(--info); }
   .month-input-row { display: none; margin-top: 6px; gap: 6px; align-items: center; }
   .month-input-row.show { display: flex; }
-  .month-input { background: #1a1d27; border: 1px solid #3d4468; border-radius: 6px; padding: 5px 8px; color: #e2e8f0; font-size: 12px; width: 100%; outline: none; }
-  .month-input:focus { border-color: #39ff14; }
-  .month-save-btn { background: #39ff14; color: #0a1f0a; border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .month-input { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 6px; padding: 5px 8px; color: var(--text); font-size: 12px; width: 100%; outline: none; }
+  .month-input:focus { border-color: var(--accent); }
+  .month-save-btn { background: var(--accent); color: var(--on-accent); border: none; border-radius: 6px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 
   /* Yearly milestones */
   .year-milestone-list { display: flex; flex-direction: column; gap: 8px; }
   .year-milestone { display: flex; align-items: flex-start; gap: 9px; cursor: pointer; padding: 8px; border-radius: 7px; transition: background 0.15s; }
-  .year-milestone:hover { background: #1a1d27; }
-  .year-milestone.done .ym-dot { background: #39ff14; border-color: #39ff14; }
-  .year-milestone.done .ym-dot::after { content: '✓'; font-size: 9px; font-weight: 800; color: #0a1f0a; display: flex; align-items: center; justify-content: center; height: 100%; }
-  .year-milestone.done .ym-name { color: #475569; text-decoration: line-through; }
-  .ym-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #3d4468; background: #1a1d27; flex-shrink: 0; margin-top: 1px; transition: all 0.15s; }
+  .year-milestone:hover { background: var(--surface); }
+  .year-milestone.done .ym-dot { background: var(--accent); border-color: var(--accent); }
+  .year-milestone.done .ym-dot::after { content: '✓'; font-size: 9px; font-weight: 800; color: var(--on-accent); display: flex; align-items: center; justify-content: center; height: 100%; }
+  .year-milestone.done .ym-name { color: var(--faint); text-decoration: line-through; }
+  .ym-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border-strong); background: var(--surface); flex-shrink: 0; margin-top: 1px; transition: all 0.15s; }
   .ym-content { flex: 1; }
-  .ym-name { font-size: 12px; color: #94a3b8; line-height: 1.3; }
+  .ym-name { font-size: 12px; color: var(--muted); line-height: 1.3; }
   .ym-tag { font-size: 10px; padding: 1px 6px; border-radius: 99px; display: inline-block; margin-top: 3px; }
-  .ym-q1 { background: #1e3a5f; color: #60a5fa; }
-  .ym-q2 { background: #1e2d1e; color: #86efac; }
-  .ym-q3 { background: #2d1f0e; color: #fb923c; }
-  .ym-q4 { background: #2d1a2d; color: #c084fc; }
-  .ym-ongoing { background: #1e1e2e; color: #94a3b8; }
+  .ym-q1 { background: var(--info-soft); color: var(--info); }
+  .ym-q2 { background: var(--accent-soft); color: var(--good); }
+  .ym-q3 { background: var(--warn-soft); color: var(--warn); }
+  .ym-q4 { background: var(--violet-soft); color: var(--violet); }
+  .ym-ongoing { background: var(--surface-3); color: var(--muted); }
   @media (max-width: 768px) { .goals-grid { grid-template-columns: 1fr; } }
 
   /* ── Mobile ── */
@@ -371,174 +391,146 @@
   /* ── Modal ── */
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:200; overflow-y:auto; padding:16px; }
   .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; }
-  .modal-box { background:#1a1d27; border:1px solid #2d3148; border-radius:14px; width:100%; max-width:760px; margin:auto; overflow:hidden; }
-  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid #2d3148; position:sticky; top:0; background:#1a1d27; z-index:10; }
-  .modal-title { font-size:14px; font-weight:700; color:#e2e8f0; flex:1; margin-right:12px; }
-  .modal-close { background:#12151f; border:1px solid #2d3148; color:#94a3b8; width:32px; height:32px; border-radius:8px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .modal-close:hover { background:#2d3148; color:#e2e8f0; }
+  .modal-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; width:100%; max-width:760px; margin:auto; overflow:hidden; }
+  .modal-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--surface); z-index:10; }
+  .modal-title { font-size:14px; font-weight:700; color:var(--text); flex:1; margin-right:12px; }
+  .modal-close { background:var(--surface-2); border:1px solid var(--border); color:var(--muted); width:32px; height:32px; border-radius:8px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .modal-close:hover { background:var(--border); color:var(--text); }
   .modal-body { padding:20px; overflow-y:auto; max-height:80vh; }
-  .modal-body h1,.modal-body h2,.modal-body h3 { color:#e2e8f0; margin:16px 0 8px; }
-  .modal-body h1 { font-size:18px; border-bottom:1px solid #2d3148; padding-bottom:8px; }
-  .modal-body h2 { font-size:15px; color:#93c5fd; }
-  .modal-body h3 { font-size:13px; color:#60a5fa; }
-  .modal-body p { font-size:13px; line-height:1.7; color:#cbd5e1; margin-bottom:10px; }
-  .modal-body ul,.modal-body ol { font-size:13px; color:#cbd5e1; padding-left:20px; margin-bottom:10px; line-height:1.7; }
+  .modal-body h1,.modal-body h2,.modal-body h3 { color:var(--text); margin:16px 0 8px; }
+  .modal-body h1 { font-size:18px; border-bottom:1px solid var(--border); padding-bottom:8px; }
+  .modal-body h2 { font-size:15px; color:var(--info); }
+  .modal-body h3 { font-size:13px; color:var(--info); }
+  .modal-body p { font-size:13px; line-height:1.7; color:var(--text-2); margin-bottom:10px; }
+  .modal-body ul,.modal-body ol { font-size:13px; color:var(--text-2); padding-left:20px; margin-bottom:10px; line-height:1.7; }
   .modal-body li { margin-bottom:4px; }
-  .modal-body code { background:#12151f; color:#39ff14; padding:2px 6px; border-radius:4px; font-size:12px; font-family:monospace; }
-  .modal-body pre { background:#12151f; border:1px solid #2d3148; border-radius:8px; padding:12px; overflow-x:auto; margin-bottom:12px; }
-  .modal-body pre code { background:none; padding:0; color:#94a3b8; }
-  .modal-body strong { color:#f8fafc; }
-  .modal-body em { color:#fbbf24; }
-  .modal-body blockquote { border-left:3px solid #39ff14; padding-left:12px; color:#64748b; margin:10px 0; }
+  .modal-body code { background:var(--surface-2); color:var(--accent); padding:2px 6px; border-radius:4px; font-size:12px; font-family:monospace; }
+  .modal-body pre { background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:12px; overflow-x:auto; margin-bottom:12px; }
+  .modal-body pre code { background:none; padding:0; color:var(--muted); }
+  .modal-body strong { color:var(--text-strong); }
+  .modal-body em { color:var(--warn); }
+  .modal-body blockquote { border-left:3px solid var(--accent); padding-left:12px; color:var(--muted-2); margin:10px 0; }
   .modal-body table { width:100%; border-collapse:collapse; font-size:12px; margin-bottom:12px; }
-  .modal-body th { background:#12151f; color:#64748b; padding:8px 10px; text-align:left; border-bottom:1px solid #2d3148; }
-  .modal-body td { padding:8px 10px; border-bottom:1px solid #1e2030; color:#cbd5e1; }
-  .modal-body hr { border:none; border-top:1px solid #2d3148; margin:16px 0; }
+  .modal-body th { background:var(--surface-2); color:var(--muted-2); padding:8px 10px; text-align:left; border-bottom:1px solid var(--border); }
+  .modal-body td { padding:8px 10px; border-bottom:1px solid var(--border-soft); color:var(--text-2); }
+  .modal-body hr { border:none; border-top:1px solid var(--border); margin:16px 0; }
+
+  /* ── Clean layer: layout, type and controls ── */
+  html { color-scheme: dark; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); padding: 0; line-height: 1.5;
+         -webkit-font-smoothing: antialiased; }
+  button, input, select, textarea { font-family: inherit; }
+
+  .topbar { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; flex-wrap: wrap; padding: 14px 32px; background: rgba(14,14,13,.86);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .brand { font-size: 17px; font-weight: 700; color: var(--text-strong); display: flex; align-items: baseline; gap: 12px; }
+  .brand .date { font-size: 12.5px; font-weight: 400; color: var(--muted-2); }
+  .guide-btn { background: transparent; border: 1px solid var(--border); color: var(--text-2); border-radius: 10px;
+               padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .guide-btn:hover { background: var(--hover); color: var(--text-strong); }
+  .page-title { font-size: 24px; font-weight: 700; color: var(--text-strong); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .page-lead { font-size: 13.5px; color: var(--muted-2); margin-bottom: 20px; }
+  .card-note { font-size: 12px; color: var(--muted-2); margin-bottom: 12px; }
+  .tab-panel > .card + .card { margin-top: 16px; }
+  .link-btn { display: inline-block; margin-top: 14px; background: none; border: none; padding: 0; color: var(--info);
+              font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; }
+  .link-btn:hover { text-decoration: underline; }
+  .today-queue { display: flex; flex-direction: column; gap: 10px; }
+  .q-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: var(--surface-2);
+            border: 1px solid var(--border-soft); border-radius: 10px; }
+  .q-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--surface-3); color: var(--text-2);
+           font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .q-title { font-size: 14px; color: var(--text); font-weight: 600; line-height: 1.45; }
+  .q-note { font-size: 12px; color: var(--muted-2); margin-top: 2px; }
+  .q-updated, .empty { font-size: 12px; color: var(--faint); }
+  .guide-links > div { display: flex; flex-wrap: wrap; gap: 8px; }
+  .modal-body .card-title { margin-bottom: 10px; }
+  .os-frame { height: calc(100vh - 230px); min-height: 560px; }
+  .goal-section { background: transparent; border: none; padding: 0; }
+  .goal-section-title { display: none; }
+  .grid { align-items: start; }
+  .grid > * { min-width: 0; }
+  #habit-week-grid table { width: 100%; }
+  .page-nav { margin: 0; gap: 4px; padding: 4px; background: var(--surface-2); border: 1px solid var(--border);
+              border-radius: 12px; }
+  .page-btn { border: none; background: transparent; color: var(--muted-2); padding: 8px 16px; border-radius: 9px;
+              font-size: 13px; font-weight: 600; }
+  .page-btn:hover:not(.active) { color: var(--text-2); background: var(--hover); }
+  .page-btn.active { background: var(--surface-3); color: var(--text-strong); box-shadow: inset 0 0 0 1px var(--border-strong); }
+
+  .page { max-width: 1280px; margin: 0 auto; padding: 28px 32px 64px; }
+  .grid { gap: 20px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px; }
+  .card-title { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--muted-2); margin-bottom: 16px; }
+
+  /* calmer controls: no lift on hover, solid fills instead of gradients */
+  .btn, .qc-copy-btn, .c-row, .brief-item { transition: background .15s, border-color .15s, color .15s; }
+  .btn:hover, .qc-copy-btn:hover { transform: none; filter: brightness(1.06); }
+  .btn { border-radius: var(--radius-sm); padding: 11px 14px; }
+  .btn-secondary { border: 1px solid var(--info-border); background: var(--info-soft); }
+  .btn-ghost { background: var(--surface-2); }
+  .progress-bar { background: var(--surface-3); height: 6px; }
+  .progress-fill { background: var(--accent); }
+  .bar-stable { background: var(--good); } .bar-growth { background: var(--warn); } .bar-risk { background: var(--bad); }
+  .ea-pct { font-weight: 700; letter-spacing: -0.02em; }
+
+  .c-row, .post-item, .task-item, .topic-card, .brief-item, .goal-section, .curriculum-box, .quiz-card, .qc-hint {
+    border-color: var(--border-soft); }
+  .c-row:hover, .brief-item:hover { border-color: var(--accent-border); background: var(--accent-soft); }
+
+  .tab-nav, .sub-tabs { flex-wrap: wrap; }
+  .tab-btn, .sub-tab-btn, .filter-btn, .qc-type-btn, .view-btn { border-radius: 999px; }
+  .tab-btn.active, .filter-btn.active, .qc-type-btn.active { background: var(--surface-3); border-color: var(--border-strong); color: var(--text-strong); }
+
+  .vocab-search:focus, .qc-input:focus, .qc-select:focus, .qc-textarea:focus, .month-input:focus { border-color: var(--accent-border); }
+  .toast { border-color: var(--accent-border); background: var(--surface-3); }
+  .modal-box { border-radius: 16px; }
+  .modal-overlay { background: rgba(0,0,0,.72); backdrop-filter: blur(4px); }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 10px 14px; gap: 10px; }
+    .page-nav { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+    .brand .date { display: none; }
+    .page-btn { flex: 1; white-space: nowrap; padding: 8px 10px; }
+    .page { padding: 16px 14px 48px; }
+    .grid { gap: 14px; }
+    .card { padding: 18px; }
+    #habit-week-grid th, #habit-week-grid td { min-width: 0 !important; padding: 4px 1px !important; }
+    #habit-week-grid table { table-layout: fixed; min-width: 0 !important; }
+    #habit-week-grid th:first-child, #habit-week-grid td:first-child { width: 74px !important; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 </head>
 <body>
 
-<div class="header">
-  <h1>The Money Ness <span>System</span></h1>
-  <div class="date" id="currentDate"></div>
+<div class="topbar">
+  <div class="brand">The Money Ness <span class="date" id="currentDate"></span></div>
+  <nav class="page-nav">
+    <button class="page-btn active" onclick="switchPage('today')">วันนี้</button>
+    <button class="page-btn" onclick="switchPage('content')">Content</button>
+    <button class="page-btn" onclick="switchPage('learning')">Learning</button>
+    <button class="page-btn" onclick="switchPage('goals')">เป้าหมาย</button>
+  </nav>
+  <button class="guide-btn" onclick="openGuide()">คู่มือ</button>
 </div>
 
-<div class="page-nav">
-  <button class="page-btn active" onclick="switchPage('monitor')">📊 Monitor</button>
-  <button class="page-btn" onclick="switchPage('content')">✍️ Content</button>
-  <button class="page-btn" onclick="switchPage('learning')">🎓 Learning · IELTS</button>
-</div>
-
-<section class="page active" id="page-monitor">
-<div class="grid">
-
-  <!-- EA Progress -->
-  <div class="card col-1">
-    <div class="card-title">🤖 EA → Prop Firm</div>
-    <div class="ea-phase">Optimization Phase</div>
-    <div class="ea-pct">50%</div>
-    <div class="ea-label">XAU/USD · เป้า: Prop Firm Challenge Q1/2027</div>
-    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-    <div class="progress-labels"><span>0%</span><span>100% = Challenge ready</span></div>
-    <div class="ea-blocker">
-      <strong>⚠ Blocker:</strong> AI เขียน code ผิด → iteration ช้า<br>
-      <span style="color:#64748b">Fix: เรียน MQL5 พื้นฐาน (Episode 2 · ส.ค.)</span>
+<!-- ═════════ วันนี้ ═════════ -->
+<section class="page active" id="page-today">
+  <h2 class="page-title">วันนี้</h2>
+  <p class="page-lead">สิ่งที่ต้องทำวันนี้และสัปดาห์นี้ อยู่ในหน้านี้ทั้งหมด</p>
+  <div class="grid">
+    <div class="card col-2">
+      <div class="card-title">Habits ประจำวัน</div>
+      <div class="card-note">แตะวงกลมเพื่อบันทึก · แตะซ้ำเพื่อเปลี่ยนสถานะ (ทำแล้ว → ข้าม → ว่าง)</div>
+    <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
+    <div id="missed-tasks-list" style="font-size:13px;color:var(--muted-2)"></div>
     </div>
-  </div>
-
-  <!-- Upcoming Posts -->
-  <div class="card col-2">
-    <div class="card-title">📅 โพสต์/Reels ล่าสุด</div>
-    <div class="post-list">
-      <div class="post-item">
-        <div class="post-date"><div class="day">1</div><div class="month">ก.ค.</div></div>
-        <div class="post-divider"></div>
-        <div class="post-info">
-          <div class="post-title">DCA กองทุน S&P500 — Reels</div>
-          <span class="post-tag tag-tmn">The Money Ness</span>
-        </div>
-        <span class="post-status status-ready">✅ พร้อม</span>
-      </div>
-      <div class="post-item">
-        <div class="post-date"><div class="day">1</div><div class="month">ก.ค.</div></div>
-        <div class="post-divider"></div>
-        <div class="post-info">
-          <div class="post-title">DCA มีหลายแบบ คุณรู้แค่แบบเดียวเหรอ? — Reels</div>
-          <span class="post-tag tag-tmn">The Money Ness</span>
-        </div>
-        <span class="post-status status-ready">✅ พร้อม</span>
-      </div>
-      <div class="post-item">
-        <div class="post-date"><div class="day">26</div><div class="month">มิ.ย.</div></div>
-        <div class="post-divider"></div>
-        <div class="post-info">
-          <div class="post-title">กฎหมาย Forex ไทย + Finfluencer — โพสต์</div>
-          <span class="post-tag tag-tmn">The Money Ness</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Portfolio -->
-  <div class="card col-2">
-    <div class="card-title">💼 Portfolio 50/35/15</div>
-    <div class="port-layers">
-      <div class="port-layer">
-        <div class="port-label">🟢 Safe & Stable</div>
-        <div class="port-bar-wrap"><div class="port-bar bar-stable"></div></div>
-        <div class="port-pct pct-stable">50%</div>
-      </div>
-      <div class="port-layer">
-        <div class="port-label">🟡 Growth</div>
-        <div class="port-bar-wrap"><div class="port-bar bar-growth"></div></div>
-        <div class="port-pct pct-growth">35%</div>
-      </div>
-      <div class="port-layer">
-        <div class="port-label">🔴 High-risk (EA)</div>
-        <div class="port-bar-wrap"><div class="port-bar bar-risk"></div></div>
-        <div class="port-pct pct-risk">15%</div>
-      </div>
-    </div>
-    <div class="port-goal">
-      <span>เริ่มต้น 600,000 ฿ · +50,000 ฿/เดือน</span>
-      <span>เป้า <strong style="color:#39ff14">10,000,000 ฿</strong> ใน 5 ปี</span>
-    </div>
-  </div>
-
-  <!-- Quick Actions -->
-  <div class="card col-1">
-    <div class="card-title">⚡ Quick Actions</div>
-    <div class="actions">
-      <button class="btn btn-primary" onclick="copySyncCommand()">
-        <span class="btn-icon">🔄</span>
-        <div class="btn-text">Sync Master Workflow<span class="btn-sub">Copy PowerShell command</span></div>
-      </button>
-      <button class="btn btn-secondary" onclick="copyPath('weekly-topics')">
-        <span class="btn-icon">📝</span>
-        <div class="btn-text">แก้ Weekly Topics<span class="btn-sub">Copy path → เปิดใน editor</span></div>
-      </button>
-      <button class="btn btn-warning" onclick="copyPath('curriculum')">
-        <span class="btn-icon">📚</span>
-        <div class="btn-text">ดู Learning Curriculum<span class="btn-sub">Copy path → เปิดใน editor</span></div>
-      </button>
-      <button class="btn btn-ghost" onclick="copyPath('action-plan')">
-        <span class="btn-icon">🗺️</span>
-        <div class="btn-text">Action Plan รายปี<span class="btn-sub">Copy path → เปิดใน editor</span></div>
-      </button>
-    </div>
-  </div>
-
-  <!-- Scheduled Tasks -->
-  <div class="card col-1">
-    <div class="card-title">🤖 Scheduled Tasks</div>
-    <div class="task-list">
-      <div class="task-item">
-        <div><div class="task-name">morning-study-brief</div><div class="task-time">จ–ศ 08:33 · Daily Orientation</div></div>
-        <span class="task-badge badge-active">✅ Active</span>
-      </div>
-      <div class="task-item">
-        <div><div class="task-name">weekly-finance-news</div><div class="task-time">เสาร์ 09:01 · สรุปข่าว + content angles</div></div>
-        <span class="task-badge badge-active">✅ Active</span>
-      </div>
-      <div class="task-item">
-        <div><div class="task-name">weekly-project-report</div><div class="task-time">อาทิตย์ 20:00 · local-first report</div></div>
-        <span class="task-badge badge-active">✅ Active</span>
-      </div>
-      <div class="task-item">
-        <div><div class="task-name">daily-content-pipeline</div><div class="task-time">ปิดถาวร</div></div>
-        <span class="task-badge badge-off">⛔ Off</span>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Goals & Tracking -->
-  <div class="card col-3">
-    <div class="card-title">🎯 เป้าหมาย & Tracking</div>
-    <div class="goals-grid">
-
-      <!-- Weekly -->
+    <div class="card col-1">
+      <div class="card-title">เช็กลิสต์สัปดาห์นี้</div>
       <div class="goal-section">
         <div class="goal-section-title"><span>📅</span> สัปดาห์นี้</div>
         <div class="goal-check-list" id="weeklyChecks">
@@ -573,11 +565,311 @@
             <span class="week-pct-val" id="weekPct">0%</span>
           </div>
           <div class="progress-bar"><div class="progress-fill" id="weekBar" style="width:0%"></div></div>
-          <div style="font-size:10px;color:#475569;margin-top:4px" id="weekReset"></div>
+          <div style="font-size:10px;color:var(--faint);margin-top:4px" id="weekReset"></div>
         </div>
       </div>
+    </div>
+    <div class="card col-2">
+      <div class="card-title">คิวอัดคลิป</div>
+      <div id="todayQueue" class="today-queue"><div class="empty">กำลังโหลดคิว…</div></div>
+      <button class="link-btn" onclick="switchPage('content')">ดูคิวและปฏิทินทั้งหมด →</button>
+    </div>
+    <div class="card col-1">
+      <div class="card-title">Quiz ที่รอทำ</div>
+      <div id="pendingQuizzes"></div>
+    </div>
+  </div>
+</section>
 
-      <!-- Monthly -->
+<!-- ═════════ Content ═════════ -->
+<section class="page" id="page-content">
+  <h2 class="page-title">Content</h2>
+  <p class="page-lead">งาน Content ทั้งหมดอยู่ที่นี่: คิว ปฏิทิน ไอเดีย ร่าง และตัวช่วยเขียน Prompt</p>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="openTab('content','os',this)">คิวและปฏิทิน</button>
+    <button class="tab-btn" onclick="openTab('content','ideas',this)">ไอเดีย</button>
+    <button class="tab-btn" onclick="openTab('content','drafts',this)">ร่าง Content</button>
+    <button class="tab-btn" onclick="openTab('content','prompt',this)">สร้าง Prompt</button>
+    <button class="tab-btn" onclick="openTab('content','topics',this)">Topic Map</button>
+  </div>
+  <div class="tab-panel active" data-tgroup="content" data-tab="os">
+    <iframe class="pipe-frame os-frame" data-src="content-os.html" title="Content OS"></iframe>
+    <a class="link-btn" href="content-os.html" target="_blank" rel="noopener">เปิด Content OS เต็มจอ ↗</a>
+  </div>
+  <div class="tab-panel" data-tgroup="content" data-tab="ideas"><div class="card">
+    <div id="ideaInbox" style="margin-bottom:16px"></div>
+    <div id="ideaFilters"></div>
+    <div id="ideaCards"></div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="content" data-tab="drafts"><div class="card">
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="contentFilters">
+      <span style="font-size:11px;color:var(--muted-2);align-self:center">ประเภท:</span>
+      <button class="filter-btn active" onclick="filterContent('type','All',this)">ทั้งหมด</button>
+      <button class="filter-btn" onclick="filterContent('type','โพสต์',this)">📸 โพสต์</button>
+      <button class="filter-btn" onclick="filterContent('type','Reels',this)">🎬 Reels</button>
+      <span style="font-size:11px;color:var(--muted-2);align-self:center;margin-left:8px">หมวด:</span>
+      <button class="filter-btn active" id="catAll" onclick="filterContent('cat','All',this)">ทั้งหมด</button>
+      <button class="filter-btn" onclick="filterContent('cat','Forex',this)">Forex</button>
+      <button class="filter-btn" onclick="filterContent('cat','หุ้น',this)">หุ้น</button>
+      <button class="filter-btn" onclick="filterContent('cat','กองทุน',this)">กองทุน</button>
+      <button class="filter-btn" onclick="filterContent('cat','BTC',this)">BTC</button>
+      <button class="filter-btn" onclick="filterContent('cat','Mindset',this)">Mindset</button>
+    </div>
+    <div class="content-list" id="briefGridContent"></div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="content" data-tab="prompt"><div class="card">
+    <div class="qc-wrap">
+      <div class="qc-row">
+        <input class="qc-input" id="qcTopic" type="text" placeholder="หัวข้อที่อยากทำ Content เช่น ทำไม DCA ดีกว่าจับจังหวะตลาด" />
+        <button class="qc-copy-btn" onclick="generateContentPrompt()">📋 Copy Prompt</button>
+      </div>
+      <div class="qc-type-group">
+        <button class="qc-type-btn active" id="qcBtn-post" onclick="selectQcType('โพสต์', this)">📸 โพสต์</button>
+        <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
+        <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
+        <button class="qc-type-btn" id="qcBtn-quote" onclick="selectQcType('คำคม', this)">💬 คำคม/ปลุกใจ</button>
+      </div>
+      <div id="qcStyleRow">
+        <div style="font-size:12px;color:var(--muted-2);font-weight:700;margin-bottom:8px">🎨 Gemini Image Brief — ปรับได้ทีละส่วน (เว้นว่างข้อไหนได้ ให้ Claude เลือกเอง):</div>
+        <div class="qc-style-grid" style="margin-bottom:10px">
+          <div class="qc-style-field">
+            <label>1. แนวภาพ</label>
+            <select class="qc-select" id="qcVisualApproach">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="แนวภาพ: Conceptual Still Life สมจริง-เหนือจริง เชิงสัญลักษณ์แฝงนัย (Moody base)">🌙 Conceptual Still Life (สมจริง-เหนือจริง)</option>
+              <option value="แนวภาพ: Macro Photography วัตถุจริงจัดสัดส่วนเกินจริงเชิงสัญลักษณ์ (Money Buffalo base)">📸 Macro Photography (วัตถุจริงจัดเกินจริง)</option>
+              <option value="แนวภาพ: Symbolic Object Scene จัดฉากวัตถุเชิงสัญลักษณ์มีเรื่องราว (Hero vs Villain base)">🛡️ Symbolic Object Scene (มีเรื่องราวในภาพ)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>2. จำนวนองค์ประกอบ</label>
+            <select class="qc-select" id="qcElementCount">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="จำนวนองค์ประกอบ: วัตถุหลักชิ้นเดียวเด่น โฟกัสจุดเดียว (Single Hero Object)">1️⃣ วัตถุหลักชิ้นเดียว (โฟกัสจุดเดียว)</option>
+              <option value="จำนวนองค์ประกอบ: หลายองค์ประกอบเล่าเรื่องภาพรวม เช่น มีตัวเอกและตัวร้ายในฉากเดียวกัน (Multi-element scene)">🖼️ หลายองค์ประกอบ (พูดถึงภาพรวม)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>3. แสงและโทน</label>
+            <select class="qc-select" id="qcLighting">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="แสงและโทน: Chiaroscuro นุ่มนวล ขรึม สงบ">🕯️ นุ่มนวล ขรึม (Soft Chiaroscuro)</option>
+              <option value="แสงและโทน: แสงจัดจ้าน ดราม่า High-contrast สีสดจัดจ้าน">⚡ จัดจ้าน ดราม่า (Aggressive Lighting)</option>
+              <option value="แสงและโทน: Low-angle directional light เงายาวดราม่า cinematic">🌇 Low-angle เงายาว (Cinematic)</option>
+            </select>
+          </div>
+          <div class="qc-style-field">
+            <label>4. ความรู้สึกที่ได้</label>
+            <select class="qc-select" id="qcFeeling">
+              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
+              <option value="ความรู้สึกที่ต้องการ: สงบ น่าเชื่อถือ ครุ่นคิด">😌 สงบ น่าเชื่อถือ</option>
+              <option value="ความรู้สึกที่ต้องการ: ดุ กวนๆ กระแทกอารมณ์">😠 ดุ กระแทกอารมณ์</option>
+              <option value="ความรู้สึกที่ต้องการ: มีชัยชนะ/ทางออกชัดเจน ดูมีความหวัง">🏆 มีชัยชนะ/ทางออก</option>
+            </select>
+          </div>
+        </div>
+        <div class="qc-style-field">
+          <label>5. บรีฟเพิ่มเติม (ไม่บังคับ)</label>
+          <textarea class="qc-textarea" id="qcExtraBrief" placeholder="พิมพ์รายละเอียดเพิ่มเติม เช่น วัตถุที่อยากให้ใช้, สี, ของประกอบฉาก ฯลฯ — ถ้าไม่ใส่ Claude จะคิดรายละเอียดให้เอง"></textarea>
+        </div>
+      </div>
+      <div class="qc-hint">
+        <strong>วิธีใช้:</strong> พิมหัวข้อ → เลือก format → กด Copy → วาง prompt ใน Claude chat<br>
+        Claude จะอ่าน ness-profile + weekly-topics ก่อนเสมอ ไม่ต้องบอกซ้ำ
+      </div>
+    </div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="content" data-tab="topics">
+    <iframe class="pipe-frame" data-src="money-manual-tracker.html" title="Topic Map"></iframe>
+  </div>
+</section>
+
+<!-- ═════════ Learning ═════════ -->
+<section class="page" id="page-learning">
+  <h2 class="page-title">Learning</h2>
+  <p class="page-lead">IELTS เป้า Overall 7.0 · งานที่ต้องทำอยู่แท็บแรก ของเก่าอยู่ในคลังเก่า</p>
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="openTab('learning','ielts',this)">งาน IELTS</button>
+    <button class="tab-btn" onclick="openTab('learning','week',this)">แผนสัปดาห์นี้</button>
+    <button class="tab-btn" onclick="openTab('learning','vocab',this)">คำศัพท์</button>
+    <button class="tab-btn" onclick="openTab('learning','quiz',this)">ผล Quiz</button>
+    <button class="tab-btn" onclick="openTab('learning','archive',this)">คลังเก่า</button>
+  </div>
+  <div class="tab-panel active" data-tgroup="learning" data-tab="ielts"><div class="card">
+      <div id="ieltsHeader" style="margin-bottom:14px"></div>
+      <div id="ieltsPractice" style="margin-bottom:20px"></div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="learning" data-tab="week"><div class="card">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><button onclick="openBriefFile('ielts-week-theme.md')" style="background:var(--info-soft);color:var(--info);border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📅 Weekly Topics — แผนสัปดาห์นี้</button><button onclick="openBriefFile('weekly-report-latest.md')" style="background:var(--warn-soft);color:var(--warn);border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📊 Weekly Report — รายงานอาทิตย์ล่าสุด</button></div>
+      <div class="layer-badge">🎯 สัปดาห์นี้ (16–20 พ.ย.): IELTS — ต้นทุนไฟฟ้าของ AI data center · 🧪 เสาร์-อาทิตย์ 21–22 พ.ย. = Shared Mock #3</div>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <div class="t-day">จ.</div>
+          <div class="t-content">📖 Reading</div>
+          <div class="t-learn">AI ทำให้ความต้องการไฟฟ้าของ data center พุ่ง — ใครจะจ่ายไฟให้ (renewables vs gas)</div>
+        </div>
+        <div class="topic-card">
+          <div class="t-day">อ.</div>
+          <div class="t-content">🎧 Listening</div>
+          <div class="t-learn">Listening S2 ตามรอบ + warm-up เรื่อง AI กับพลังงาน</div>
+        </div>
+        <div class="topic-card">
+          <div class="t-day">พ.</div>
+          <div class="t-content">📊 Writing T1</div>
+          <div class="t-learn">Chart: ไฟฟ้าที่ data center ทั่วโลกใช้ ~415 TWh (2024) → ~945 TWh (2030 คาดการณ์)</div>
+        </div>
+        <div class="topic-card post-day">
+          <div class="t-day">พฤ.</div>
+          <div class="t-content">🗣️ Speaking + คลิป</div>
+          <div class="t-learn">Cue card: Describe a piece of technology you use every day + P3 เทคโนโลยีกับสิ่งแวดล้อม</div>
+        </div>
+        <div class="topic-card">
+          <div class="t-day">ศ.</div>
+          <div class="t-content">✍️ Writing T2</div>
+          <div class="t-learn">Opinion: Should governments limit new data centres to protect electricity supplies and the environment?</div>
+        </div>
+      </div>
+      <div class="curriculum-box">
+        <div class="c-title">🎯 เป้าหมาย IELTS</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027<br>อาทิตย์ = 🧪 Mock day (หมุน L/R/W/S ตามสัปดาห์ของเดือน)</div>
+      </div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="learning" data-tab="vocab"><div class="card">
+      <div class="vocab-controls">
+        <input class="vocab-search" type="text" placeholder="🔍 ค้นหาคำศัพท์..." oninput="filterVocab()" id="vocabSearch">
+        <div class="filter-btns" id="filterBtns"></div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="viewFlash" onclick="setView('flash')">🃏</button>
+          <button class="view-btn" id="viewList" onclick="setView('list')">📋</button>
+        </div>
+      </div>
+      <div class="vocab-count" id="vocabCount"></div>
+      <div id="vocabFlashGrid" class="flashcard-grid"></div>
+      <div id="vocabListView" style="display:none;overflow-x:auto">
+        <table class="vocab-table">
+          <thead><tr><th>คำ</th><th>ความหมาย</th><th>ตัวอย่าง</th><th>หมวด</th></tr></thead>
+          <tbody id="vocabTableBody"></tbody>
+        </table>
+      </div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="learning" data-tab="quiz"><div class="card">
+    <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap"></div>
+    <div id="quizCards"></div>
+  </div></div>
+  <div class="tab-panel" data-tgroup="learning" data-tab="archive">
+    <p class="page-lead">ของที่ไม่ได้ใช้ประจำแล้ว เก็บไว้ครบ เปิดดูได้เมื่อต้องการ</p>
+    <div class="card">
+      <div class="card-title">งาน IELTS ที่ตรวจแล้ว · บทความ English ระบบเดิม</div>
+      <div class="quiz-card" style="margin-top:14px">
+        <div class="quiz-card-header" onclick="document.getElementById('ieltsArchiveBox').classList.toggle('open')">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">📁 ประวัติ IELTS — งานที่ตรวจครบแล้ว</div>
+          <div style="font-size:11px;color:var(--muted-2)">คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ ของทุกงานที่ส่งตรวจแล้ว</div></div>
+          <span style="font-size:11px;color:var(--faint)">▼</span></div>
+        <div class="quiz-card-body" id="ieltsArchiveBox" style="padding:14px">
+          <div id="ieltsArchiveList"></div>
+        </div>
+      </div>
+      <div class="quiz-card" style="margin-top:18px">
+        <div class="quiz-card-header" onclick="document.getElementById('legacyEngBox').classList.toggle('open')">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">📦 ค้างจากระบบเดิม — English Articles</div>
+          <div style="font-size:11px;color:var(--muted-2)">ระบบ "อ่านบทความ + สรุป" แบบเดิม เลิกใช้ 10 ส.ค. 2569 — ร่างที่เคยเขียนไว้ยังอยู่ครบ ทำต่อได้ถ้าอยากเคลียร์</div></div>
+          <span style="font-size:11px;color:var(--faint)">▼</span></div>
+        <div class="quiz-card-body" id="legacyEngBox" style="padding:14px">
+          <div id="englishPractice"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Morning Brief และบทเรียนเก่า</div>
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchSubTab('morning')">🌅 Morning Brief</button>
+        <button class="sub-tab-btn" onclick="switchSubTab('learning')">📚 บทเรียน</button>
+      </div>
+      <p style="font-size:11px;color:var(--faint);margin-bottom:12px">คลิกเพื่อเปิดในหน้าต่างใหม่ — ถ้าเปิดไม่ได้ให้กด Shift+คลิก หรือ copy path วางใน Explorer</p>
+      <div class="sub-panel active" id="sub-morning">
+        <div class="brief-grid" id="briefGridMorning"></div>
+      </div>
+      <div class="sub-panel" id="sub-learning">
+        <div class="brief-grid" id="briefGridLearning"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">โพสต์ล่าสุด (การ์ดเดิม ข้อมูลถึงกรกฎาคม 2569)</div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-date"><div class="day">1</div><div class="month">ก.ค.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">DCA กองทุน S&P500 — Reels</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+        <span class="post-status status-ready">✅ พร้อม</span>
+      </div>
+      <div class="post-item">
+        <div class="post-date"><div class="day">1</div><div class="month">ก.ค.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">DCA มีหลายแบบ คุณรู้แค่แบบเดียวเหรอ? — Reels</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+        <span class="post-status status-ready">✅ พร้อม</span>
+      </div>
+      <div class="post-item">
+        <div class="post-date"><div class="day">26</div><div class="month">มิ.ย.</div></div>
+        <div class="post-divider"></div>
+        <div class="post-info">
+          <div class="post-title">กฎหมาย Forex ไทย + Finfluencer — โพสต์</div>
+          <span class="post-tag tag-tmn">The Money Ness</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ เป้าหมาย ═════════ -->
+<section class="page" id="page-goals">
+  <h2 class="page-title">เป้าหมาย</h2>
+  <p class="page-lead">พอร์ต เป้ารายเดือน เป้ารายปี และความคืบหน้า EA</p>
+  <div class="grid">
+    <div class="card col-2">
+      <div class="card-title">Portfolio 50/35/15</div>
+    <div class="port-layers">
+      <div class="port-layer">
+        <div class="port-label">🟢 Safe & Stable</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-stable"></div></div>
+        <div class="port-pct pct-stable">50%</div>
+      </div>
+      <div class="port-layer">
+        <div class="port-label">🟡 Growth</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-growth"></div></div>
+        <div class="port-pct pct-growth">35%</div>
+      </div>
+      <div class="port-layer">
+        <div class="port-label">🔴 High-risk (EA)</div>
+        <div class="port-bar-wrap"><div class="port-bar bar-risk"></div></div>
+        <div class="port-pct pct-risk">15%</div>
+      </div>
+    </div>
+    <div class="port-goal">
+      <span>เริ่มต้น 600,000 ฿ · +50,000 ฿/เดือน</span>
+      <span>เป้า <strong style="color:var(--accent)">10,000,000 ฿</strong> ใน 5 ปี</span>
+    </div>
+    </div>
+    <div class="card col-1">
+    <div class="card-title">🤖 EA → Prop Firm</div>
+    <div class="ea-phase">Optimization Phase</div>
+    <div class="ea-pct">50%</div>
+    <div class="ea-label">XAU/USD · เป้า: Prop Firm Challenge Q1/2027</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+    <div class="progress-labels"><span>0%</span><span>100% = Challenge ready</span></div>
+    <div class="ea-blocker">
+      <strong>⚠ Blocker:</strong> AI เขียน code ผิด → iteration ช้า<br>
+      <span style="color:var(--muted-2)">Fix: เรียน MQL5 พื้นฐาน (Episode 2 · ส.ค.)</span>
+    </div>
+    </div>
+    <div class="card col-1">
+      <div class="card-title">เดือนนี้</div>
       <div class="goal-section">
         <div class="goal-section-title"><span>📆</span> เดือนนี้</div>
         <div class="month-goal-list">
@@ -638,8 +930,9 @@
 
         </div>
       </div>
-
-      <!-- Yearly -->
+    </div>
+    <div class="card col-2">
+      <div class="card-title">ปีนี้ 2026</div>
       <div class="goal-section">
         <div class="goal-section-title"><span>🏆</span> ปีนี้ 2026</div>
         <div class="year-milestone-list" id="yearMilestones">
@@ -687,255 +980,66 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
-  <!-- Habits (moved from Learning Hub tab) -->
-  <div class="card col-1">
-    <div class="card-title">📋 Habits</div>
-    <div style="font-size:11px;color:#64748b;margin-bottom:12px">คลิกที่วงกลมเพื่อบันทึก · กดซ้ำเพื่อเปลี่ยนสถานะ (✓ ทำแล้ว → ✗ ข้าม → ว่าง)</div>
-    <div id="habit-week-grid" style="overflow-x:auto;margin-bottom:16px"></div>
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px">⚠️ งานที่ยังไม่ได้ทำ</div>
-    <div id="missed-tasks-list" style="font-size:13px;color:#64748b"></div>
-  </div>
-
-  <!-- Quiz History (moved from Learning Hub tab) -->
-  <div class="card col-2">
-    <div class="card-title">🧠 Quiz History</div>
-    <div id="pendingQuizzes" style="margin-bottom:20px"></div>
-    <div id="quizSummaryBar" style="display:flex;gap:12px;margin-bottom:16px;flew-wrap:wrap"></div>
-    <div id="quizCards"></div>
-  </div>
-
-</div>
 </section>
 
-<section class="page" id="page-learning">
-<div class="grid">
-
-  <!-- Learning Hub -->
-  <div class="card col-3">
-    <div class="card-title">🎓 Learning Hub</div>
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('ielts')">🎯 IELTS</button>
-      <button class="tab-btn" onclick="switchTab('vocab')">🔤 Vocabulary</button>
-      <button class="tab-btn" onclick="switchTab('week')">📅 สัปดาห์นี้</button>
-      <button class="tab-btn" onclick="switchTab('briefs')">📖 Brief Archive</button>
-    </div>
-
-    <!-- Tab: This Week -->
-    <div class="tab-panel" id="tab-week">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><button onclick="openBriefFile('ielts-week-theme.md')" style="background:#1e3a5f;color:#93c5fd;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📅 Weekly Topics — แผนสัปดาห์นี้</button><button onclick="openBriefFile('weekly-report-latest.md')" style="background:#2b230d;color:#fbbf24;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📊 Weekly Report — รายงานอาทิตย์ล่าสุด</button></div>
-      <div class="layer-badge">🎯 สัปดาห์นี้ (16–20 พ.ย.): IELTS — ต้นทุนไฟฟ้าของ AI data center · 🧪 เสาร์-อาทิตย์ 21–22 พ.ย. = Shared Mock #3</div>
-      <div class="topic-grid">
-        <div class="topic-card">
-          <div class="t-day">จ.</div>
-          <div class="t-content">📖 Reading</div>
-          <div class="t-learn">AI ทำให้ความต้องการไฟฟ้าของ data center พุ่ง — ใครจะจ่ายไฟให้ (renewables vs gas)</div>
-        </div>
-        <div class="topic-card">
-          <div class="t-day">อ.</div>
-          <div class="t-content">🎧 Listening</div>
-          <div class="t-learn">Listening S2 ตามรอบ + warm-up เรื่อง AI กับพลังงาน</div>
-        </div>
-        <div class="topic-card">
-          <div class="t-day">พ.</div>
-          <div class="t-content">📊 Writing T1</div>
-          <div class="t-learn">Chart: ไฟฟ้าที่ data center ทั่วโลกใช้ ~415 TWh (2024) → ~945 TWh (2030 คาดการณ์)</div>
-        </div>
-        <div class="topic-card post-day">
-          <div class="t-day">พฤ.</div>
-          <div class="t-content">🗣️ Speaking + คลิป</div>
-          <div class="t-learn">Cue card: Describe a piece of technology you use every day + P3 เทคโนโลยีกับสิ่งแวดล้อม</div>
-        </div>
-        <div class="topic-card">
-          <div class="t-day">ศ.</div>
-          <div class="t-content">✍️ Writing T2</div>
-          <div class="t-learn">Opinion: Should governments limit new data centres to protect electricity supplies and the environment?</div>
-        </div>
-      </div>
-      <div class="curriculum-box">
-        <div class="c-title">🎯 เป้าหมาย IELTS</div>
-        <div style="font-size:12px;color:#94a3b8;line-height:1.6">IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027<br>อาทิตย์ = 🧪 Mock day (หมุน L/R/W/S ตามสัปดาห์ของเดือน)</div>
-      </div>
-    </div>
-
-    <!-- Tab: Brief Archive -->
-    <div class="tab-panel" id="tab-briefs">
-      <div class="sub-tabs">
-        <button class="sub-tab-btn active" onclick="switchSubTab('morning')">🌅 Morning Brief</button>
-        <button class="sub-tab-btn" onclick="switchSubTab('learning')">📚 บทเรียน</button>
-      </div>
-      <p style="font-size:11px;color:#475569;margin-bottom:12px">คลิกเพื่อเปิดในหน้าต่างใหม่ — ถ้าเปิดไม่ได้ให้กด Shift+คลิก หรือ copy path วางใน Explorer</p>
-      <div class="sub-panel active" id="sub-morning">
-        <div class="brief-grid" id="briefGridMorning"></div>
-      </div>
-      <div class="sub-panel" id="sub-learning">
-        <div class="brief-grid" id="briefGridLearning"></div>
-      </div>
-    </div>
-
-    <!-- Tab: IELTS -->
-    <div class="tab-panel active" id="tab-ielts">
-      <div id="ieltsHeader" style="margin-bottom:14px"></div>
-      <div id="ieltsPractice" style="margin-bottom:20px"></div>
-      <div class="quiz-card" style="margin-top:18px">
-        <div class="quiz-card-header" onclick="document.getElementById('legacyEngBox').classList.toggle('open')">
-          <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">📦 ค้างจากระบบเดิม — English Articles</div>
-          <div style="font-size:11px;color:#64748b">ระบบ "อ่านบทความ + สรุป" แบบเดิม เลิกใช้ 10 ส.ค. 2569 — ร่างที่เคยเขียนไว้ยังอยู่ครบ ทำต่อได้ถ้าอยากเคลียร์</div></div>
-          <span style="font-size:11px;color:#475569">▼</span></div>
-        <div class="quiz-card-body" id="legacyEngBox" style="padding:14px">
-          <div id="englishPractice"></div>
-        </div>
-      </div>
-      <div class="quiz-card" style="margin-top:14px">
-        <div class="quiz-card-header" onclick="document.getElementById('ieltsArchiveBox').classList.toggle('open')">
-          <div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">📁 ประวัติ IELTS — งานที่ตรวจครบแล้ว</div>
-          <div style="font-size:11px;color:#64748b">คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ ของทุกงานที่ส่งตรวจแล้ว</div></div>
-          <span style="font-size:11px;color:#475569">▼</span></div>
-        <div class="quiz-card-body" id="ieltsArchiveBox" style="padding:14px">
-          <div id="ieltsArchiveList"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab: Vocabulary -->
-    <div class="tab-panel" id="tab-vocab">
-      <div class="vocab-controls">
-        <input class="vocab-search" type="text" placeholder="🔍 ค้นหาคำศัพท์..." oninput="filterVocab()" id="vocabSearch">
-        <div class="filter-btns" id="filterBtns"></div>
-        <div class="view-toggle">
-          <button class="view-btn active" id="viewFlash" onclick="setView('flash')">🃏</button>
-          <button class="view-btn" id="viewList" onclick="setView('list')">📋</button>
-        </div>
-      </div>
-      <div class="vocab-count" id="vocabCount"></div>
-      <div id="vocabFlashGrid" class="flashcard-grid"></div>
-      <div id="vocabListView" style="display:none;overflow-x:auto">
-        <table class="vocab-table">
-          <thead><tr><th>คำ</th><th>ความหมาย</th><th>ตัวอย่าง</th><th>หมวด</th></tr></thead>
-          <tbody id="vocabTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</div>
-</section>
-
-<section class="page" id="page-content">
-<div class="grid">
-
-  <!-- Content OS — ศูนย์รวมการตลาดคอนเทนต์ (source of truth) -->
-  <div class="card col-3" style="border-color:#39ff14">
-    <div class="card-title">🗂️ Content OS — ศูนย์รวมงานคอนเทนต์ทั้งหมด</div>
-    <div style="font-size:12.5px;color:#cbd5e1;line-height:1.7;margin-bottom:12px">
-      <b style="color:#39ff14">หลักการ:</b> <b>4 คลิปยาว/สัปดาห์</b> (1 ต่อรส 🔧🔍❓📚) + English Vlog 1 · 1 เรื่อง → คลิป + บทความ + short + โพสต์ภาพ · การ์ดคำคมแยกอิสระ ~3/สัปดาห์ · <b>Ness อัด+โพสต์ Claude ทำที่เหลือ</b>
-      <br><span style="color:#94a3b8">4 สตรีม (คลิปยาว+รส / English Vlog / การ์ดคำคม / โพสต์เดี่ยว) · 5 แท็บ: <b>คลัง</b> (รวมคู่มือการเงิน 11 บท) · <b>คิว</b> (kanban) · <b>ปฏิทิน</b> · <b>Monitor</b> · <b>Review loop</b></span>
-    </div>
+<!-- ═════════ คู่มือ (เมนูมุมขวาบน) ═════════ -->
+<div class="modal-overlay" id="guideModal" onclick="if(event.target===this)closeGuide()">
+  <div class="modal-box">
+    <div class="modal-header"><div class="modal-title">คู่มือและเครื่องมือระบบ</div>
+      <button class="modal-close" onclick="closeGuide()">✕</button></div>
+    <div class="modal-body">
+      <div class="card-title">เอกสาร</div>
+      <div class="guide-links">
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <a href="content-os.html" target="_blank" rel="noopener" style="background:#39ff14;color:#0a1f0a;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:800;text-decoration:none">↗ เปิด Content OS</a>
-      <a href="workflow.md" target="_blank" rel="noopener" style="background:#12151f;color:#fbbf24;border:1px solid #2d3148;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📖 วิธีทำงาน (SOP)</a>
-      <a href="content-strategy.md" target="_blank" rel="noopener" style="background:#12151f;color:#86efac;border:1px solid #2d3148;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📋 แผน 4 สัปดาห์ + กลยุทธ์</a>
-      <a href="money-manual-tracker.html" target="_blank" rel="noopener" style="background:#12151f;color:#93c5fd;border:1px solid #2d3148;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📘 Topic Map 70 หัวข้อ</a>
+      <a href="content-os.html" target="_blank" rel="noopener" style="background:var(--accent);color:var(--on-accent);border-radius:8px;padding:9px 18px;font-size:13px;font-weight:800;text-decoration:none">↗ เปิด Content OS</a>
+      <a href="workflow.md" target="_blank" rel="noopener" style="background:var(--surface-2);color:var(--warn);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📖 วิธีทำงาน (SOP)</a>
+      <a href="content-strategy.md" target="_blank" rel="noopener" style="background:var(--surface-2);color:var(--good);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📋 แผน 4 สัปดาห์ + กลยุทธ์</a>
+      <a href="money-manual-tracker.html" target="_blank" rel="noopener" style="background:var(--surface-2);color:var(--info);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none">📘 Topic Map 70 หัวข้อ</a>
     </div>
-  </div>
-
-  <!-- Content Drafts -->
-  <div class="card col-3">
-    <div class="card-title">✍️ Content Drafts</div>
-    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap" id="contentFilters">
-      <span style="font-size:11px;color:#64748b;align-self:center">ประเภท:</span>
-      <button class="filter-btn active" onclick="filterContent('type','All',this)">ทั้งหมด</button>
-      <button class="filter-btn" onclick="filterContent('type','โพสต์',this)">📸 โพสต์</button>
-      <button class="filter-btn" onclick="filterContent('type','Reels',this)">🎬 Reels</button>
-      <span style="font-size:11px;color:#64748b;align-self:center;margin-left:8px">หมวด:</span>
-      <button class="filter-btn active" id="catAll" onclick="filterContent('cat','All',this)">ทั้งหมด</button>
-      <button class="filter-btn" onclick="filterContent('cat','Forex',this)">Forex</button>
-      <button class="filter-btn" onclick="filterContent('cat','หุ้น',this)">หุ้น</button>
-      <button class="filter-btn" onclick="filterContent('cat','กองทุน',this)">กองทุน</button>
-      <button class="filter-btn" onclick="filterContent('cat','BTC',this)">BTC</button>
-      <button class="filter-btn" onclick="filterContent('cat','Mindset',this)">Mindset</button>
-    </div>
-    <div class="content-list" id="briefGridContent"></div>
-  </div>
-
-  <!-- Ideas (moved from Learning Hub tab) -->
-  <div class="card col-3">
-    <div class="card-title">💡 Ideas — คลังไอเดีย content</div>
-    <div id="ideaInbox" style="margin-bottom:16px"></div>
-    <div id="ideaFilters"></div>
-    <div id="ideaCards"></div>
-  </div>
-
-  <!-- Quick Content -->
-  <div class="card col-3">
-    <div class="card-title">✍️ Quick Content — สร้าง Prompt ให้ Claude</div>
-    <div class="qc-wrap">
-      <div class="qc-row">
-        <input class="qc-input" id="qcTopic" type="text" placeholder="หัวข้อที่อยากทำ Content เช่น ทำไม DCA ดีกว่าจับจังหวะตลาด" />
-        <button class="qc-copy-btn" onclick="generateContentPrompt()">📋 Copy Prompt</button>
       </div>
-      <div class="qc-type-group">
-        <button class="qc-type-btn active" id="qcBtn-post" onclick="selectQcType('โพสต์', this)">📸 โพสต์</button>
-        <button class="qc-type-btn" id="qcBtn-reels" onclick="selectQcType('Reels', this)">🎬 Reels Script</button>
-        <button class="qc-type-btn" id="qcBtn-brief" onclick="selectQcType('บทเรียน', this)">📚 บทเรียน</button>
-        <button class="qc-type-btn" id="qcBtn-quote" onclick="selectQcType('คำคม', this)">💬 คำคม/ปลุกใจ</button>
+      <div class="card-title" style="margin-top:22px">คำสั่งลัด</div>
+      <div class="actions">
+      <button class="btn btn-primary" onclick="copySyncCommand()">
+        <span class="btn-icon">🔄</span>
+        <div class="btn-text">Sync Master Workflow<span class="btn-sub">Copy PowerShell command</span></div>
+      </button>
+      <button class="btn btn-secondary" onclick="copyPath('weekly-topics')">
+        <span class="btn-icon">📝</span>
+        <div class="btn-text">แก้ Weekly Topics<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
+      <button class="btn btn-warning" onclick="copyPath('curriculum')">
+        <span class="btn-icon">📚</span>
+        <div class="btn-text">ดู Learning Curriculum<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
+      <button class="btn btn-ghost" onclick="copyPath('action-plan')">
+        <span class="btn-icon">🗺️</span>
+        <div class="btn-text">Action Plan รายปี<span class="btn-sub">Copy path → เปิดใน editor</span></div>
+      </button>
       </div>
-      <div id="qcStyleRow">
-        <div style="font-size:12px;color:#64748b;font-weight:700;margin-bottom:8px">🎨 Gemini Image Brief — ปรับได้ทีละส่วน (เว้นว่างข้อไหนได้ ให้ Claude เลือกเอง):</div>
-        <div class="qc-style-grid" style="margin-bottom:10px">
-          <div class="qc-style-field">
-            <label>1. แนวภาพ</label>
-            <select class="qc-select" id="qcVisualApproach">
-              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
-              <option value="แนวภาพ: Conceptual Still Life สมจริง-เหนือจริง เชิงสัญลักษณ์แฝงนัย (Moody base)">🌙 Conceptual Still Life (สมจริง-เหนือจริง)</option>
-              <option value="แนวภาพ: Macro Photography วัตถุจริงจัดสัดส่วนเกินจริงเชิงสัญลักษณ์ (Money Buffalo base)">📸 Macro Photography (วัตถุจริงจัดเกินจริง)</option>
-              <option value="แนวภาพ: Symbolic Object Scene จัดฉากวัตถุเชิงสัญลักษณ์มีเรื่องราว (Hero vs Villain base)">🛡️ Symbolic Object Scene (มีเรื่องราวในภาพ)</option>
-            </select>
-          </div>
-          <div class="qc-style-field">
-            <label>2. จำนวนองค์ประกอบ</label>
-            <select class="qc-select" id="qcElementCount">
-              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
-              <option value="จำนวนองค์ประกอบ: วัตถุหลักชิ้นเดียวเด่น โฟกัสจุดเดียว (Single Hero Object)">1️⃣ วัตถุหลักชิ้นเดียว (โฟกัสจุดเดียว)</option>
-              <option value="จำนวนองค์ประกอบ: หลายองค์ประกอบเล่าเรื่องภาพรวม เช่น มีตัวเอกและตัวร้ายในฉากเดียวกัน (Multi-element scene)">🖼️ หลายองค์ประกอบ (พูดถึงภาพรวม)</option>
-            </select>
-          </div>
-          <div class="qc-style-field">
-            <label>3. แสงและโทน</label>
-            <select class="qc-select" id="qcLighting">
-              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
-              <option value="แสงและโทน: Chiaroscuro นุ่มนวล ขรึม สงบ">🕯️ นุ่มนวล ขรึม (Soft Chiaroscuro)</option>
-              <option value="แสงและโทน: แสงจัดจ้าน ดราม่า High-contrast สีสดจัดจ้าน">⚡ จัดจ้าน ดราม่า (Aggressive Lighting)</option>
-              <option value="แสงและโทน: Low-angle directional light เงายาวดราม่า cinematic">🌇 Low-angle เงายาว (Cinematic)</option>
-            </select>
-          </div>
-          <div class="qc-style-field">
-            <label>4. ความรู้สึกที่ได้</label>
-            <select class="qc-select" id="qcFeeling">
-              <option value="auto" selected>🤖 ให้ Claude เลือกเอง</option>
-              <option value="ความรู้สึกที่ต้องการ: สงบ น่าเชื่อถือ ครุ่นคิด">😌 สงบ น่าเชื่อถือ</option>
-              <option value="ความรู้สึกที่ต้องการ: ดุ กวนๆ กระแทกอารมณ์">😠 ดุ กระแทกอารมณ์</option>
-              <option value="ความรู้สึกที่ต้องการ: มีชัยชนะ/ทางออกชัดเจน ดูมีความหวัง">🏆 มีชัยชนะ/ทางออก</option>
-            </select>
-          </div>
-        </div>
-        <div class="qc-style-field">
-          <label>5. บรีฟเพิ่มเติม (ไม่บังคับ)</label>
-          <textarea class="qc-textarea" id="qcExtraBrief" placeholder="พิมพ์รายละเอียดเพิ่มเติม เช่น วัตถุที่อยากให้ใช้, สี, ของประกอบฉาก ฯลฯ — ถ้าไม่ใส่ Claude จะคิดรายละเอียดให้เอง"></textarea>
-        </div>
+      <div class="card-title" style="margin-top:22px">Scheduled Tasks</div>
+      <div class="task-list">
+      <div class="task-item">
+        <div><div class="task-name">morning-study-brief</div><div class="task-time">จ–ศ 08:33 · Daily Orientation</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
       </div>
-      <div class="qc-hint">
-        <strong>วิธีใช้:</strong> พิมหัวข้อ → เลือก format → กด Copy → วาง prompt ใน Claude chat<br>
-        Claude จะอ่าน ness-profile + weekly-topics ก่อนเสมอ ไม่ต้องบอกซ้ำ
+      <div class="task-item">
+        <div><div class="task-name">weekly-finance-news</div><div class="task-time">เสาร์ 09:01 · สรุปข่าว + content angles</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
+      </div>
+      <div class="task-item">
+        <div><div class="task-name">weekly-project-report</div><div class="task-time">อาทิตย์ 20:00 · local-first report</div></div>
+        <span class="task-badge badge-active">✅ Active</span>
+      </div>
+      <div class="task-item">
+        <div><div class="task-name">daily-content-pipeline</div><div class="task-time">ปิดถาวร</div></div>
+        <span class="task-badge badge-off">⛔ Off</span>
+      </div>
       </div>
     </div>
   </div>
-
 </div>
-</section>
 
 <div class="toast" id="toast"></div>
 
@@ -1153,7 +1257,7 @@ window.addEventListener('message', function(e){
     if (card) {
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       card.style.transition = 'box-shadow .25s';
-      card.style.boxShadow = '0 0 0 2px #39ff14';
+      card.style.boxShadow = '0 0 0 2px var(--accent)';
       setTimeout(function(){ card.style.boxShadow = ''; }, 1700);
     }
     try { inp.focus(); } catch (err) {}
@@ -1218,10 +1322,10 @@ function renderHabits() {
 
   let html = '<table style="width:100%;border-collapse:collapse;min-width:340px">';
   // Header row — dates
-  html += '<thead><tr><th style="width:90px;text-align:left;font-size:11px;color:#94a3b8;padding:4px 6px">งาน</th>';
+  html += '<thead><tr><th style="width:90px;text-align:left;font-size:11px;color:var(--muted);padding:4px 6px">งาน</th>';
   days7.forEach(d => {
     const isToday = habitDateKey(d) === habitDateKey(today);
-    html += `<th style="text-align:center;font-size:10px;color:${isToday?'#6366f1':'#94a3b8'};padding:4px 2px;min-width:36px">
+    html += `<th style="text-align:center;font-size:10px;color:${isToday?'var(--info-strong)':'var(--muted)'};padding:4px 2px;min-width:36px">
       ${dayLabels[d.getDay()]}<br><span style="font-size:11px;font-weight:${isToday?700:400}">${d.getDate()}</span>
     </th>`;
   });
@@ -1229,7 +1333,7 @@ function renderHabits() {
 
   // One row per task
   HABIT_TASKS.forEach(task => {
-    html += `<tr><td style="font-size:12px;color:#475569;padding:5px 6px;white-space:nowrap">${task.label}</td>`;
+    html += `<tr><td style="font-size:12px;color:var(--faint);padding:5px 6px;white-space:nowrap">${task.label}</td>`;
     days7.forEach(d => {
       const dk = habitDateKey(d);
       const state = (data[dk] && data[dk][task.id]) || 'none';
@@ -1256,7 +1360,7 @@ function renderHabits() {
   const noneList   = HABIT_TASKS.filter(t => (todayData[t.id] || 'none') === 'none');
 
   if (missedList.length === 0 && noneList.length === 0) {
-    missed.innerHTML = '<span style="color:#22c55e">✅ ทำครบทุกอย่างวันนี้แล้ว!</span>';
+    missed.innerHTML = '<span style="color:var(--good)">✅ ทำครบทุกอย่างวันนี้แล้ว!</span>';
   } else {
     let out = '';
     if (missedList.length) out += '<div style="margin-bottom:6px">❌ ข้าม: ' + missedList.map(t=>t.label).join(', ') + '</div>';
@@ -1296,7 +1400,7 @@ async function openBriefFile(path) {
   
   // Show loading
   titleEl.textContent = 'กำลังโหลด...';
-  bodyEl.innerHTML = '<p style="color:#64748b;text-align:center;padding:40px">⏳ กำลังโหลด...</p>';
+  bodyEl.innerHTML = '<p style="color:var(--muted-2);text-align:center;padding:40px">⏳ กำลังโหลด...</p>';
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
   
@@ -1307,7 +1411,7 @@ async function openBriefFile(path) {
     const geminiStyles = extractGeminiBriefStyles(content);
     if (geminiStyles.length) injectGeminiStylePicker(bodyEl, geminiStyles);
   } catch(e) {
-    bodyEl.innerHTML = '<p style="color:#ef4444">❌ ' + e.message + '</p>';
+    bodyEl.innerHTML = '<p style="color:var(--bad)">❌ ' + e.message + '</p>';
   }
 }
 
@@ -1331,12 +1435,12 @@ function injectGeminiStylePicker(bodyEl, styles) {
   headings.forEach(h => { if (h.textContent.includes('Gemini Image Brief')) targetHeading = h; });
   if (!targetHeading) return;
   const bar = document.createElement('div');
-  bar.style.cssText = 'margin:10px 0 16px;padding:10px 12px;background:#f1f5f9;border-radius:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px';
+  bar.style.cssText = 'margin:10px 0 16px;padding:10px 12px;background:var(--text-strong);border-radius:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px';
   const label = document.createElement('span');
   label.textContent = '🎨 เลือกสไตล์ภาพก่อน copy:';
-  label.style.cssText = 'font-weight:600;color:#334155';
+  label.style.cssText = 'font-weight:600;color:var(--border-strong)';
   const select = document.createElement('select');
-  select.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid #cbd5e1;font-size:14px';
+  select.style.cssText = 'padding:6px 10px;border-radius:6px;border:1px solid var(--text-2);font-size:14px';
   styles.forEach((s, i) => {
     const opt = document.createElement('option');
     opt.value = i;
@@ -1345,7 +1449,7 @@ function injectGeminiStylePicker(bodyEl, styles) {
   });
   const btn = document.createElement('button');
   btn.textContent = '📋 Copy Prompt';
-  btn.style.cssText = 'padding:6px 14px;border-radius:6px;border:none;background:#2563eb;color:#fff;cursor:pointer;font-weight:600;font-size:14px';
+  btn.style.cssText = 'padding:6px 14px;border-radius:6px;border:none;background:var(--info-strong);color:var(--text-strong);cursor:pointer;font-weight:600;font-size:14px';
   btn.onclick = () => {
     const chosen = styles[select.value];
     navigator.clipboard.writeText(chosen.text).then(() =>
@@ -1400,7 +1504,7 @@ function renderContentGrid() {
     (activeContentCat === 'All' || d.cat === activeContentCat)
   );
   if (!filtered.length) {
-    grid.innerHTML = '<div style="font-size:12px;color:#475569;padding:12px">ไม่มี content ในหมวดนี้</div>';
+    grid.innerHTML = '<div style="font-size:12px;color:var(--faint);padding:12px">ไม่มี content ในหมวดนี้</div>';
     return;
   }
   filtered.forEach(b => {
@@ -1411,8 +1515,8 @@ function renderContentGrid() {
       <div class="c-date">${b.label}<br>${b.day}</div>
       <div class="c-topic">${b.topic}</div>
       <div class="c-badges">
-        <span style="background:#1e3a5f;color:#60a5fa">${typeIcon} ${b.type}</span>
-        <span style="background:#1e2d1e;color:#86efac">${b.cat}</span>
+        <span style="background:var(--info-soft);color:var(--info)">${typeIcon} ${b.type}</span>
+        <span style="background:var(--accent-soft);color:var(--good)">${b.cat}</span>
         <button class="c-yt-btn" title="สร้าง prompt: แตกเนื้อหานี้เป็นภาพประกอบคลิปยาว YouTube">🎥 → คลิปยาว</button>
       </div>`;
     el.onclick = () => openBriefFile(b.path);
@@ -1551,7 +1655,7 @@ function renderVocab() {
     tbody.innerHTML = '';
     filtered.forEach(v => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td class="v-word">${v.word}</td><td class="v-meaning">${v.meaning}</td><td class="v-example">${v.example}</td><td style="color:#64748b">${v.cat}</td>`;
+      tr.innerHTML = `<td class="v-word">${v.word}</td><td class="v-meaning">${v.meaning}</td><td class="v-example">${v.example}</td><td style="color:var(--muted-2)">${v.cat}</td>`;
       tbody.appendChild(tr);
     });
   }
@@ -1630,9 +1734,9 @@ function renderQuizHistory() {
   const passed = taken.filter(q => q.passed).length;
 
   document.getElementById('quizSummaryBar').innerHTML = `
-    <div class="quiz-stat"><div class="qs-num" style="color:#39ff14">${taken.length}</div><div class="qs-label">Quiz ที่ทำแล้ว</div></div>
-    <div class="quiz-stat"><div class="qs-num" style="color:#60a5fa">${avgPct}%</div><div class="qs-label">คะแนนเฉลี่ย</div></div>
-    <div class="quiz-stat"><div class="qs-num" style="color:#39ff14">${passed}/${taken.length}</div><div class="qs-label">ผ่านแล้ว</div></div>`;
+    <div class="quiz-stat"><div class="qs-num" style="color:var(--accent)">${taken.length}</div><div class="qs-label">Quiz ที่ทำแล้ว</div></div>
+    <div class="quiz-stat"><div class="qs-num" style="color:var(--info)">${avgPct}%</div><div class="qs-label">คะแนนเฉลี่ย</div></div>
+    <div class="quiz-stat"><div class="qs-num" style="color:var(--accent)">${passed}/${taken.length}</div><div class="qs-label">ผ่านแล้ว</div></div>`;
 
   document.getElementById('quizCards').innerHTML = taken.map((q,i) => {
     const pct = Math.round(q.score/q.total*100);
@@ -1648,12 +1752,12 @@ function renderQuizHistory() {
         <div class="qc-score ${q.passed ? 'qc-pass' : 'qc-fail'}">${pct}%</div>
         <div style="flex:1">
           <div style="font-size:13px;font-weight:700;margin-bottom:3px">${q.topic}</div>
-          <div style="font-size:11px;color:#64748b">${q.date} · ${q.score}/${q.total} ข้อ</div>
-          ${q.weak ? `<div style="font-size:10px;color:#ef4444;margin-top:4px">⚠ ${q.weak}</div>` : ''}
+          <div style="font-size:11px;color:var(--muted-2)">${q.date} · ${q.score}/${q.total} ข้อ</div>
+          ${q.weak ? `<div style="font-size:10px;color:var(--bad);margin-top:4px">⚠ ${q.weak}</div>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;${q.passed ? 'background:#0d2b0d;color:#39ff14' : 'background:#2b0d0d;color:#ef4444'}">${q.passed ? '✓ ผ่าน' : '✗ ไม่ผ่าน'}</span>
-          <span style="font-size:11px;color:#475569">▼</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;${q.passed ? 'background:var(--accent-soft);color:var(--accent)' : 'background:var(--bad-soft);color:var(--bad)'}">${q.passed ? '✓ ผ่าน' : '✗ ไม่ผ่าน'}</span>
+          <span style="font-size:11px;color:var(--faint)">▼</span>
         </div>
       </div>
       <div class="quiz-card-body" id="qb-${i}">${qaRows}</div>
@@ -1695,18 +1799,18 @@ function copyQuizAnswers(qid){
 function renderPendingQuizzes(){
   const box = document.getElementById('pendingQuizzes');
   if(!box) return;
-  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px">⏳ Quiz ที่รอตอบ — พิมพ์คำตอบได้เลย ระบบเซฟร่างให้อัตโนมัติ พอครบกด Copy แล้วเอาไปวางใน Claude chat</div>' +
+  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--warn);margin-bottom:10px">⏳ Quiz ที่รอตอบ — พิมพ์คำตอบได้เลย ระบบเซฟร่างให้อัตโนมัติ พอครบกด Copy แล้วเอาไปวางใน Claude chat</div>' +
   pendingQuizzes.map(q=>{
-    if(!q.ready) return '<div class="quiz-card" style="opacity:.55;padding:14px"><div style="font-size:13px;font-weight:700">'+q.title+'</div><div style="font-size:11px;color:#64748b;margin-top:4px">'+q.note+'</div></div>';
+    if(!q.ready) return '<div class="quiz-card" style="opacity:.55;padding:14px"><div style="font-size:13px;font-weight:700">'+q.title+'</div><div style="font-size:11px;color:var(--muted-2);margin-top:4px">'+q.note+'</div></div>';
     const qs = q.questions.map((question,i)=>
-      '<div style="margin-bottom:12px"><div style="font-size:12px;color:#cbd5e1;margin-bottom:5px">'+(i+1)+'. '+question+'</div>'+
-      '<textarea oninput="saveQuizDraft(\''+q.id+'\','+i+',this)" id="pq-'+q.id+'-'+i+'" placeholder="พิมพ์คำตอบ..." style="width:100%;min-height:52px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea></div>').join('');
+      '<div style="margin-bottom:12px"><div style="font-size:12px;color:var(--text-2);margin-bottom:5px">'+(i+1)+'. '+question+'</div>'+
+      '<textarea oninput="saveQuizDraft(\''+q.id+'\','+i+',this)" id="pq-'+q.id+'-'+i+'" placeholder="พิมพ์คำตอบ..." style="width:100%;min-height:52px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea></div>').join('');
     return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'pqb-'+q.id+'\').classList.toggle(\'open\')">'+
       '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+q.title+'</div>'+
-      '<div style="font-size:11px;color:#64748b">'+q.note+'</div></div>'+
-      '<span id="pqstat-'+q.id+'" style="font-size:11px;color:#fbbf24;margin-right:8px"></span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div style="font-size:11px;color:var(--muted-2)">'+q.note+'</div></div>'+
+      '<span id="pqstat-'+q.id+'" style="font-size:11px;color:var(--warn);margin-right:8px"></span><span style="font-size:11px;color:var(--faint)">▼</span></div>'+
       '<div class="quiz-card-body" id="pqb-'+q.id+'" style="padding:14px">'+qs+
-      '<button onclick="copyQuizAnswers(\''+q.id+'\')" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy คำตอบไปวางใน Claude</button></div></div>';
+      '<button onclick="copyQuizAnswers(\''+q.id+'\')" style="background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy คำตอบไปวางใน Claude</button></div></div>';
   }).join('');
   pendingQuizzes.filter(q=>q.ready).forEach(q=>{
     q.questions.forEach((_,i)=>{ const el=document.getElementById('pq-'+q.id+'-'+i); if(el) el.value = localStorage.getItem(qKey(q.id,i))||''; });
@@ -1736,41 +1840,41 @@ function mdLite(text){
     const block = raw.trim();
     if(!block) return '';
     const fence = block.match(/^```([\s\S]*?)```$/);
-    if(fence) return '<div style="background:#0b0d14;border:1px solid #3d4468;border-radius:8px;padding:12px;margin:8px 0;font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#e2e8f0;white-space:pre-wrap;line-height:1.6">'+escH(fence[1].trim())+'</div>';
+    if(fence) return '<div style="background:var(--surface-2);border:1px solid var(--border-strong);border-radius:8px;padding:12px;margin:8px 0;font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--text);white-space:pre-wrap;line-height:1.6">'+escH(fence[1].trim())+'</div>';
     const rawLines = block.split('\n');
     if(rawLines.length>=2 && rawLines.every(function(l){return l.indexOf('|')!==-1;})){
       const rows = rawLines.map(function(l){ return l.split('|').map(function(c){return c.trim();}); });
       const header = rows[0], body = rows.slice(1);
       return '<div style="overflow-x:auto;margin:10px 0"><table style="border-collapse:collapse;width:100%;font-size:11.5px">' +
-        '<tr>'+header.map(function(h){return '<th style="text-align:left;padding:6px 8px;border-bottom:1px solid #3d4468;color:#93c5fd;white-space:nowrap">'+escH(h)+'</th>';}).join('')+'</tr>' +
-        body.map(function(r){return '<tr>'+r.map(function(c){return '<td style="padding:6px 8px;border-bottom:1px solid #1f2437;color:#cbd5e1;white-space:nowrap">'+escH(c)+'</td>';}).join('')+'</tr>';}).join('') +
+        '<tr>'+header.map(function(h){return '<th style="text-align:left;padding:6px 8px;border-bottom:1px solid var(--border-strong);color:var(--info);white-space:nowrap">'+escH(h)+'</th>';}).join('')+'</tr>' +
+        body.map(function(r){return '<tr>'+r.map(function(c){return '<td style="padding:6px 8px;border-bottom:1px solid var(--surface-3);color:var(--text-2);white-space:nowrap">'+escH(c)+'</td>';}).join('')+'</tr>';}).join('') +
         '</table></div>';
     }
-    let html = escH(block).replace(/\*\*(.+?)\*\*/g, '<strong style="color:#f1f5f9">$1</strong>');
-    if(/^(💡|🔑|👉|ใบ้)/.test(block)) return '<div style="background:#1a1608;border-left:3px solid #fbbf24;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#fde68a;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
-    if(/^(⚠️|❗)/.test(block)) return '<div style="background:#1a0e0e;border-left:3px solid #f87171;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#fca5a5;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
-    if(/^🔁/.test(block)) return '<div style="background:#1a1020;border-left:3px solid #c084fc;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:#e9d5ff;line-height:1.6;white-space:pre-wrap">'+html+'</div>';
-    if(/You should say:/.test(block)) return '<div style="background:#161a26;border:1px solid #3d4468;border-radius:8px;padding:12px 14px;margin:8px 0;font-size:12.5px;color:#e2e8f0;line-height:1.7;white-space:pre-wrap;font-style:italic">'+html+'</div>';
-    if(/^\(.*\)$/.test(block)) return '<div style="font-size:11.5px;color:#64748b;line-height:1.6;white-space:pre-wrap;margin:6px 0;font-style:italic">'+html+'</div>';
+    let html = escH(block).replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text-strong)">$1</strong>');
+    if(/^(💡|🔑|👉|ใบ้)/.test(block)) return '<div style="background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:var(--warn);line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/^(⚠️|❗)/.test(block)) return '<div style="background:var(--bad-soft);border-left:3px solid var(--bad);border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:var(--bad);line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/^🔁/.test(block)) return '<div style="background:var(--violet-soft);border-left:3px solid var(--violet);border-radius:6px;padding:10px 12px;margin:10px 0;font-size:12.5px;color:var(--violet);line-height:1.6;white-space:pre-wrap">'+html+'</div>';
+    if(/You should say:/.test(block)) return '<div style="background:var(--surface-3);border:1px solid var(--border-strong);border-radius:8px;padding:12px 14px;margin:8px 0;font-size:12.5px;color:var(--text);line-height:1.7;white-space:pre-wrap;font-style:italic">'+html+'</div>';
+    if(/^\(.*\)$/.test(block)) return '<div style="font-size:11.5px;color:var(--muted-2);line-height:1.6;white-space:pre-wrap;margin:6px 0;font-style:italic">'+html+'</div>';
     const lines = html.split('\n');
     if(lines.length && /^(Part \d|Questions? \d|Checklist)/.test(lines[0]) && lines[0].length < 90){
       const head = lines.shift();
       const rest = lines.join('\n');
-      return '<div style="font-size:12.5px;font-weight:700;color:#93c5fd;margin:12px 0 4px">'+head+'</div>' +
-        (rest ? '<div style="font-size:12.5px;color:#cbd5e1;line-height:1.7;white-space:pre-wrap">'+rest+'</div>' : '');
+      return '<div style="font-size:12.5px;font-weight:700;color:var(--info);margin:12px 0 4px">'+head+'</div>' +
+        (rest ? '<div style="font-size:12.5px;color:var(--text-2);line-height:1.7;white-space:pre-wrap">'+rest+'</div>' : '');
     }
-    return '<div style="font-size:12.5px;color:#cbd5e1;line-height:1.7;white-space:pre-wrap;margin:8px 0">'+html+'</div>';
+    return '<div style="font-size:12.5px;color:var(--text-2);line-height:1.7;white-space:pre-wrap;margin:8px 0">'+html+'</div>';
   }).join('');
 }
 function renderWarmup(w){
   if(!w) return '';
-  const steps = (w.steps||[]).map(function(s,i){ return '<div style="display:flex;gap:8px;margin-top:6px"><span style="color:#22d3ee;font-weight:700;flex-shrink:0">'+(i+1)+'.</span><span style="font-size:12px;color:#cbd5e1;line-height:1.6">'+escH(s)+'</span></div>'; }).join('');
-  return '<div style="background:#0c1a1d;border:1px solid #164e52;border-left:3px solid #22d3ee;border-radius:10px;padding:12px 14px;margin-bottom:14px">' +
-    '<div style="font-size:12px;font-weight:700;color:#67e8f9;margin-bottom:6px">🎧 Warm-up ก่อนเริ่ม (10 นาที)'+(w.mode?' — '+escH(w.mode):'')+'</div>' +
-    (w.clip ? '<div style="font-size:11.5px;color:#a5f3fc;margin-bottom:4px">คลิป: <span style="color:#e2e8f0">'+escH(w.clip)+'</span></div>' : '') +
-    (w.url ? '<div style="font-size:11.5px;margin-bottom:8px"><a href="'+w.url+'" target="_blank" style="color:#60a5fa;text-decoration:none">🔗 เปิดฟังคลิป ↗</a></div>' : '') +
+  const steps = (w.steps||[]).map(function(s,i){ return '<div style="display:flex;gap:8px;margin-top:6px"><span style="color:var(--cyan);font-weight:700;flex-shrink:0">'+(i+1)+'.</span><span style="font-size:12px;color:var(--text-2);line-height:1.6">'+escH(s)+'</span></div>'; }).join('');
+  return '<div style="background:var(--cyan-soft);border:1px solid var(--cyan-soft);border-left:3px solid var(--cyan);border-radius:10px;padding:12px 14px;margin-bottom:14px">' +
+    '<div style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px">🎧 Warm-up ก่อนเริ่ม (10 นาที)'+(w.mode?' — '+escH(w.mode):'')+'</div>' +
+    (w.clip ? '<div style="font-size:11.5px;color:var(--cyan);margin-bottom:4px">คลิป: <span style="color:var(--text)">'+escH(w.clip)+'</span></div>' : '') +
+    (w.url ? '<div style="font-size:11.5px;margin-bottom:8px"><a href="'+w.url+'" target="_blank" style="color:var(--info);text-decoration:none">🔗 เปิดฟังคลิป ↗</a></div>' : '') +
     steps +
-    '<div style="font-size:11px;color:#67e8f9;margin-top:10px;font-weight:600">👇 ฟังให้ครบก่อน แล้วค่อยลงมือทำโจทย์ด้านล่าง</div>' +
+    '<div style="font-size:11px;color:var(--cyan);margin-top:10px;font-weight:600">👇 ฟังให้ครบก่อน แล้วค่อยลงมือทำโจทย์ด้านล่าง</div>' +
   '</div>';
 }
 const ieltsInfo = { goal:'IELTS Academic · เป้า Overall 7.0+ (ไม่มีพาร์ทต่ำกว่า 6.5) · สอบ ~ก.พ. 2027', theme:'ต้นทุนไฟฟ้าของ AI data center — ใครจ่ายไฟให้ AI (16–20 พ.ย.) · 🧪 Shared Mock #3 เสาร์-อาทิตย์ 21–22 พ.ย.' };
@@ -1782,17 +1886,17 @@ const ieltsGuides = [
   { label:'🗣️ Speaking', file:'ielts-speaking-strategy.md' }
 ];
 const IELTS_PARTS = {
-  'Reading':        { icon:'📖', color:'#60a5fa', rule:'จับเวลา 20 นาที · ห้ามเปิด dict ระหว่างทำ',
+  'Reading':        { icon:'📖', color:'var(--info)', rule:'จับเวลา 20 นาที · ห้ามเปิด dict ระหว่างทำ',
                       boxes:[['a','✍️ คำตอบ (บรรทัดละข้อ)','1. TRUE\n2. NOT GIVEN\n3. iv\n...'],['n','🤔 ข้อที่ไม่มั่นใจ + เหตุผล (ไม่บังคับ แต่ช่วยให้ตรวจแม่นขึ้นมาก)','เช่น ข้อ 4 ลังเลระหว่าง FALSE กับ NOT GIVEN เพราะ...']] },
-  'Listening':      { icon:'🎧', color:'#34d399', rule:'ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · สะกดผิด = ผิด',
+  'Listening':      { icon:'🎧', color:'var(--good)', rule:'ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · สะกดผิด = ผิด',
                       boxes:[['a','✍️ คำตอบ + dictation','1. ...\n2. ...\n\nDictation:\n...'],['n','🤔 ตรงไหนฟังไม่ทัน','เช่น ช่วง 2:10–2:20 จับคำไม่ได้เลย']] },
-  'Writing Task 1': { icon:'📊', color:'#fbbf24', rule:'150+ คำ · จับเวลา 20 นาที · ต้องมี overview · ห้ามใส่ความเห็น',
+  'Writing Task 1': { icon:'📊', color:'var(--warn)', rule:'150+ คำ · จับเวลา 20 นาที · ต้องมี overview · ห้ามใส่ความเห็น',
                       boxes:[['w','📝 คำตอบ (English)','Write your 150+ word answer here...']] },
-  'Writing Task 2': { icon:'✍️', color:'#fb923c', rule:'250+ คำ · จับเวลา 40 นาที · ตอบให้ตรงคำถามทุกส่วน',
+  'Writing Task 2': { icon:'✍️', color:'var(--warn)', rule:'250+ คำ · จับเวลา 40 นาที · ตอบให้ตรงคำถามทุกส่วน',
                       boxes:[['w','📝 เรียงความ (English)','Write your 250+ word essay here...']] },
-  'Speaking':       { icon:'🗣️', color:'#f472b6', rule:'เทค 1 พูดสด 2 นาที · ห้ามเขียนสคริปต์ ห้ามอัดใหม่',
+  'Speaking':       { icon:'🗣️', color:'var(--pink)', rule:'เทค 1 พูดสด 2 นาที · ห้ามเขียนสคริปต์ ห้ามอัดใหม่',
                       boxes:[['t','🎙️ ถอดคำพูดเทค 1 ตามที่พูดจริง (รวมช่วงที่ติดขัดด้วย)','พิมพ์ตามที่พูดจริง อย่าเกลาให้สวย ไม่งั้นตรวจไม่ตรง...']] },
-  'Mock':           { icon:'🧪', color:'#a78bfa', rule:'สภาพสอบจริง · จับเวลาไม่ต่อ · ห้ามเปิดอะไรช่วย',
+  'Mock':           { icon:'🧪', color:'var(--violet)', rule:'สภาพสอบจริง · จับเวลาไม่ต่อ · ห้ามเปิดอะไรช่วย',
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
@@ -3439,7 +3543,7 @@ Part 3 — ถกประเด็นต่อยอด (ตอบต่อจ�
 ];
 function iKey(id,k){ return 'ielts_'+id+'_'+k; }
 function saveIelts(id,k,el){ localStorage.setItem(iKey(id,k), el.value); updateIeltsStatus(id); }
-function ieltsPart(p){ return IELTS_PARTS[p] || { icon:'🎯', color:'#94a3b8', rule:'', boxes:[['a','✍️ คำตอบ','...']] }; }
+function ieltsPart(p){ return IELTS_PARTS[p] || { icon:'🎯', color:'var(--muted)', rule:'', boxes:[['a','✍️ คำตอบ','...']] }; }
 function sectionDone(id,s){
   if(s.type==='tfng') return s.items.every(function(_,i){ return (localStorage.getItem(iKey(id,s.key+'_'+(i+1)))||'').trim(); });
   return !!(localStorage.getItem(iKey(id,s.key))||'').trim();
@@ -3505,67 +3609,67 @@ function copyIelts(id){
 function renderIeltsPractice(){
   const head = document.getElementById('ieltsHeader');
   if(head){
-    head.innerHTML = '<div style="background:#12151f;border:1px solid #2d3148;border-radius:10px;padding:12px 14px">' +
-      '<div style="font-size:12px;font-weight:700;color:#39ff14;margin-bottom:6px">🎯 ' + ieltsInfo.goal + '</div>' +
-      '<div style="font-size:11px;color:#94a3b8">🧵 ธีมสัปดาห์นี้: <span style="color:#e2e8f0;font-weight:600">' + ieltsInfo.theme + '</span></div>' +
-      '<div style="font-size:11px;color:#64748b;margin-top:6px">จ. 📖 Reading · อ. 🎧 Listening · พ. 📊 Writing T1 · พฤ. 🗣️ Speaking+คลิป · ศ. ✍️ Writing T2+บทความ EN/TH · อา. 🧪 Mock</div>' +
-      '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">' + ieltsGuides.map(function(g){return '<button onclick="openBriefFile(\''+g.file+'\')" style="background:#1e293b;color:#93c5fd;border:1px solid #2d3148;border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer">'+g.label+'</button>';}).join('') + '</div>' +
+    head.innerHTML = '<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:12px 14px">' +
+      '<div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px">🎯 ' + ieltsInfo.goal + '</div>' +
+      '<div style="font-size:11px;color:var(--muted)">🧵 ธีมสัปดาห์นี้: <span style="color:var(--text);font-weight:600">' + ieltsInfo.theme + '</span></div>' +
+      '<div style="font-size:11px;color:var(--muted-2);margin-top:6px">จ. 📖 Reading · อ. 🎧 Listening · พ. 📊 Writing T1 · พฤ. 🗣️ Speaking+คลิป · ศ. ✍️ Writing T2+บทความ EN/TH · อา. 🧪 Mock</div>' +
+      '<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">' + ieltsGuides.map(function(g){return '<button onclick="openBriefFile(\''+g.file+'\')" style="background:var(--surface-3);color:var(--info);border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:11px;cursor:pointer">'+g.label+'</button>';}).join('') + '</div>' +
       '</div>';
   }
   const box = document.getElementById('ieltsPractice'); if(!box) return;
   if(!ieltsTasks.length){
-    box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:18px;text-align:center;border:1px dashed #2d3148;border-radius:10px">' +
+    box.innerHTML = '<div style="font-size:12px;color:var(--muted-2);padding:18px;text-align:center;border:1px dashed var(--border);border-radius:10px">' +
       'ยังไม่มีงาน IELTS ค้าง 🎉<br><span style="font-size:11px">งานชิ้นถัดไปจะขึ้นที่นี่อัตโนมัติหลัง Morning Brief พรุ่งนี้เช้า</span></div>';
     return;
   }
-  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:#fbbf24;margin-bottom:10px">🎯 งาน IELTS ที่ยังไม่ส่งตรวจ (' + ieltsTasks.length + ' ชิ้น) — ทำในกล่องได้เลย ระบบเซฟร่างอัตโนมัติ เสร็จแล้วกด Copy มาวางใน Claude chat · เฉลยกดดูได้ท้ายการ์ด</div>' +
+  box.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--warn);margin-bottom:10px">🎯 งาน IELTS ที่ยังไม่ส่งตรวจ (' + ieltsTasks.length + ' ชิ้น) — ทำในกล่องได้เลย ระบบเซฟร่างอัตโนมัติ เสร็จแล้วกด Copy มาวางใน Claude chat · เฉลยกดดูได้ท้ายการ์ด</div>' +
   ieltsTasks.map(function(t,idx){
     const cfg = ieltsPart(t.part);
     let inner = '';
     if(t.warmup) inner += renderWarmup(t.warmup);
-    if(t.url) inner += '<div style="font-size:11px;margin-bottom:8px"><a href="'+t.url+'" target="_blank" style="color:#60a5fa;text-decoration:none">🔗 แหล่งอ้างอิงบทความ/คลิปต้นฉบับ (ภาษาอังกฤษเต็ม) ↗</a></div>';
+    if(t.url) inner += '<div style="font-size:11px;margin-bottom:8px"><a href="'+t.url+'" target="_blank" style="color:var(--info);text-decoration:none">🔗 แหล่งอ้างอิงบทความ/คลิปต้นฉบับ (ภาษาอังกฤษเต็ม) ↗</a></div>';
     if(cfg.rule) inner += '<div style="font-size:11px;color:'+cfg.color+';margin-bottom:8px;font-weight:600">⏱️ '+cfg.rule+'</div>';
     if(t.sections){
       t.sections.forEach(function(s){
-        inner += '<div style="font-size:12px;font-weight:700;color:#e2e8f0;margin:14px 0 4px">'+escH(s.label)+'</div>';
-        if(s.note) inner += '<div style="font-size:11px;color:#94a3b8;margin-bottom:6px">'+escH(s.note)+'</div>';
+        inner += '<div style="font-size:12px;font-weight:700;color:var(--text);margin:14px 0 4px">'+escH(s.label)+'</div>';
+        if(s.note) inner += '<div style="font-size:11px;color:var(--muted);margin-bottom:6px">'+escH(s.note)+'</div>';
         if(s.type==='tfng'){
           inner += '<div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px">' + s.items.map(function(txt,i){
             const n = i+1; const sk = s.key+'_'+n;
             const saved = localStorage.getItem(iKey(t.id,sk))||'';
             const opts = ['','TRUE','FALSE','NOT GIVEN'].map(function(o){return '<option value="'+o+'"'+(o===saved?' selected':'')+'>'+(o||'—')+'</option>';}).join('');
-            return '<div style="display:flex;align-items:flex-start;gap:8px;background:#12151f;border:1px solid #2d3148;border-radius:8px;padding:8px 10px">'+
-              '<span style="font-size:12px;color:#cbd5e1;flex:1">'+n+'. '+escH(txt)+'</span>'+
-              '<select onchange="saveIelts(\''+t.id+'\',\''+sk+'\',this)" style="background:#1a1d27;color:#e2e8f0;border:1px solid #3d4468;border-radius:6px;font-size:11px;padding:4px 6px;flex-shrink:0">'+opts+'</select>'+
+            return '<div style="display:flex;align-items:flex-start;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px">'+
+              '<span style="font-size:12px;color:var(--text-2);flex:1">'+n+'. '+escH(txt)+'</span>'+
+              '<select onchange="saveIelts(\''+t.id+'\',\''+sk+'\',this)" style="background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:6px;font-size:11px;padding:4px 6px;flex-shrink:0">'+opts+'</select>'+
             '</div>';
           }).join('') + '</div>';
         } else {
-          if(s.text) inner += '<div style="background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:8px">'+mdLite(s.text)+'</div>';
-          inner += '<textarea oninput="saveIelts(\''+t.id+'\',\''+s.key+'\',this)" id="ita-'+t.id+'-'+s.key+'" placeholder="'+(s.placeholder||'พิมพ์คำตอบ...').replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:70px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
+          if(s.text) inner += '<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:8px">'+mdLite(s.text)+'</div>';
+          inner += '<textarea oninput="saveIelts(\''+t.id+'\',\''+s.key+'\',this)" id="ita-'+t.id+'-'+s.key+'" placeholder="'+(s.placeholder||'พิมพ์คำตอบ...').replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:70px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
         }
       });
-      inner += '<div style="font-size:11px;color:#64748b;margin:14px 0 5px">🤔 ข้อที่ไม่มั่นใจ + เหตุผล (ไม่บังคับ แต่ช่วยให้ตรวจแม่นขึ้นมาก)</div>' +
-        '<textarea oninput="saveIelts(\''+t.id+'\',\'n\',this)" id="ita-'+t.id+'-n" placeholder="เช่น ข้อ 4 ลังเลระหว่าง FALSE กับ NOT GIVEN เพราะ..." style="width:100%;min-height:60px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
+      inner += '<div style="font-size:11px;color:var(--muted-2);margin:14px 0 5px">🤔 ข้อที่ไม่มั่นใจ + เหตุผล (ไม่บังคับ แต่ช่วยให้ตรวจแม่นขึ้นมาก)</div>' +
+        '<textarea oninput="saveIelts(\''+t.id+'\',\'n\',this)" id="ita-'+t.id+'-n" placeholder="เช่น ข้อ 4 ลังเลระหว่าง FALSE กับ NOT GIVEN เพราะ..." style="width:100%;min-height:60px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
     } else {
-      if(t.questions) inner += '<div style="font-size:11px;color:#64748b;margin:6px 0 5px">📋 โจทย์</div><div style="background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:10px">'+mdLite(t.questions)+'</div>';
+      if(t.questions) inner += '<div style="font-size:11px;color:var(--muted-2);margin:6px 0 5px">📋 โจทย์</div><div style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:12.5px;padding:12px;line-height:1.6;margin-bottom:10px">'+mdLite(t.questions)+'</div>';
       cfg.boxes.forEach(function(b){
-        inner += '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">'+b[1]+'</div>' +
-          '<textarea oninput="saveIelts(\''+t.id+'\',\''+b[0]+'\',this)" id="ita-'+t.id+'-'+b[0]+'" placeholder="'+b[2].replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:90px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
+        inner += '<div style="font-size:11px;color:var(--muted-2);margin:10px 0 5px">'+b[1]+'</div>' +
+          '<textarea oninput="saveIelts(\''+t.id+'\',\''+b[0]+'\',this)" id="ita-'+t.id+'-'+b[0]+'" placeholder="'+b[2].replace(/"/g,'&quot;').replace(/\n/g,'&#10;')+'" style="width:100%;min-height:90px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>';
       });
     }
-    inner += '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">🔤 Vocab ที่เจอ (บรรทัดละคำ: word = ความหมาย) — คำที่ Claude แนะนำให้จำจะถูกเพิ่มเข้าแท็บ 🔤 Vocabulary ตอนตรวจ</div>' +
-      '<textarea oninput="saveIelts(\''+t.id+'\',\'v\',this)" id="ita-'+t.id+'-v" placeholder="เช่น: leverage = อัตราทด" style="width:100%;min-height:50px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>' +
+    inner += '<div style="font-size:11px;color:var(--muted-2);margin:10px 0 5px">🔤 Vocab ที่เจอ (บรรทัดละคำ: word = ความหมาย) — คำที่ Claude แนะนำให้จำจะถูกเพิ่มเข้าแท็บ 🔤 Vocabulary ตอนตรวจ</div>' +
+      '<textarea oninput="saveIelts(\''+t.id+'\',\'v\',this)" id="ita-'+t.id+'-v" placeholder="เช่น: leverage = อัตราทด" style="width:100%;min-height:50px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>' +
       '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">' +
-      '<button onclick="copyIelts(\''+t.id+'\')" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ทุก Part ไปส่ง Claude</button>';
+      '<button onclick="copyIelts(\''+t.id+'\')" style="background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ทุก Part ไปส่ง Claude</button>';
     const key = (t.answerKey||'').trim();
     const keyBody = key ? escH(key) : 'พาร์ทนี้ไม่มีเฉลยตายตัว (Writing/Speaking) — ส่งคำตอบมาให้ตรวจแทน';
-    inner += '<button id="keybtn-'+t.id+'" onclick="toggleKey(\''+t.id+'\')" style="background:#2d1414;color:#f87171;border:1px solid #4a1e1e;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">👁️ กดเพื่อดูเฉลย</button>' +
+    inner += '<button id="keybtn-'+t.id+'" onclick="toggleKey(\''+t.id+'\')" style="background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-soft);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">👁️ กดเพื่อดูเฉลย</button>' +
       '</div>' +
-      '<div id="key-'+t.id+'" style="display:none;white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6;margin-top:10px">'+keyBody+'</div>';
+      '<div id="key-'+t.id+'" style="display:none;white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:12.5px;padding:10px;line-height:1.6;margin-top:10px">'+keyBody+'</div>';
     return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'itb-'+t.id+'\').classList.toggle(\'open\')">'+
       '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+(idx===0?'⭐ ':'')+cfg.icon+' '+t.date+' ('+t.day+') — '+t.part+'</div>'+
-      '<div style="font-size:11px;color:#64748b">'+t.title+(idx===0?' · ล่าสุด':'')+'</div></div>'+
-      '<span id="istat-'+t.id+'" style="font-size:11px;color:#fbbf24;margin-right:8px"></span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div style="font-size:11px;color:var(--muted-2)">'+t.title+(idx===0?' · ล่าสุด':'')+'</div></div>'+
+      '<span id="istat-'+t.id+'" style="font-size:11px;color:var(--warn);margin-right:8px"></span><span style="font-size:11px;color:var(--faint)">▼</span></div>'+
       '<div class="quiz-card-body" id="itb-'+t.id+'" style="padding:14px">'+inner+'</div></div>';
   }).join('');
   ieltsTasks.forEach(function(t){
@@ -3630,31 +3734,31 @@ For these reasons, I believe prop trading firms should not face the same strict 
 ];
 function bandChips(b){
   return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">' +
-    ['TR','CC','LR','GRA'].map(function(k){return '<span style="background:#1e293b;color:#93c5fd;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">'+k+' '+b[k].toFixed(1)+'</span>';}).join('') +
-    '<span style="background:#3b2f0d;color:#fbbf24;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:800">Band รวม '+b.overall.toFixed(1)+'</span>' +
+    ['TR','CC','LR','GRA'].map(function(k){return '<span style="background:var(--surface-3);color:var(--info);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700">'+k+' '+b[k].toFixed(1)+'</span>';}).join('') +
+    '<span style="background:var(--warn-soft);color:var(--warn);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:800">Band รวม '+b.overall.toFixed(1)+'</span>' +
   '</div>';
 }
 function renderIeltsArchive(){
   const box = document.getElementById('ieltsArchiveList'); if(!box) return;
   if(!ieltsArchive.length){
-    box.innerHTML = '<div style="font-size:12px;color:#64748b;padding:18px;text-align:center;border:1px dashed #2d3148;border-radius:10px">ยังไม่มีงานที่ตรวจแล้วเก็บไว้ที่นี่</div>';
+    box.innerHTML = '<div style="font-size:12px;color:var(--muted-2);padding:18px;text-align:center;border:1px dashed var(--border);border-radius:10px">ยังไม่มีงานที่ตรวจแล้วเก็บไว้ที่นี่</div>';
     return;
   }
-  box.innerHTML = '<div style="font-size:12px;color:#64748b;margin-bottom:12px">📁 งาน IELTS ที่ตรวจครบแล้ว (' + ieltsArchive.length + ' ชิ้น) — คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ เก็บไว้ที่นี่ถาวร</div>' +
+  box.innerHTML = '<div style="font-size:12px;color:var(--muted-2);margin-bottom:12px">📁 งาน IELTS ที่ตรวจครบแล้ว (' + ieltsArchive.length + ' ชิ้น) — คำตอบเต็ม + คำแนะนำ + เวอร์ชันแก้ เก็บไว้ที่นี่ถาวร</div>' +
   ieltsArchive.map(function(t,idx){
     const cfg = ieltsPart(t.part);
     return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'iab-'+t.id+'\').classList.toggle(\'open\')">'+
       '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+(idx===0?'⭐ ':'')+cfg.icon+' '+t.date+' ('+t.day+') — '+t.part+'</div>'+
-      '<div style="font-size:11px;color:#64748b">'+escH(t.title)+(idx===0?' · ล่าสุด':'')+'</div></div>'+
-      '<span style="font-size:11px;color:#fbbf24;margin-right:8px;font-weight:700">Band '+t.bands.overall.toFixed(1)+'</span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div style="font-size:11px;color:var(--muted-2)">'+escH(t.title)+(idx===0?' · ล่าสุด':'')+'</div></div>'+
+      '<span style="font-size:11px;color:var(--warn);margin-right:8px;font-weight:700">Band '+t.bands.overall.toFixed(1)+'</span><span style="font-size:11px;color:var(--faint)">▼</span></div>'+
       '<div class="quiz-card-body" id="iab-'+t.id+'" style="padding:14px">'+
         bandChips(t.bands) +
-        '<div style="font-size:11px;font-weight:700;color:#93c5fd;margin:14px 0 5px">✍️ คำตอบที่เขียนส่ง</div>'+
-        '<div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.answer)+'</div>'+
-        '<div style="font-size:11px;font-weight:700;color:#fbbf24;margin:14px 0 5px">💬 คำแนะนำ</div>'+
-        '<div style="white-space:pre-wrap;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#cbd5e1;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.feedback)+'</div>'+
-        '<div style="font-size:11px;font-weight:700;color:#34d399;margin:14px 0 5px">✅ เวอร์ชันที่แก้แล้ว</div>'+
-        '<div style="white-space:pre-wrap;background:#0c1a14;border:1px solid #164e37;border-radius:8px;color:#d1fae5;font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.corrected)+'</div>'+
+        '<div style="font-size:11px;font-weight:700;color:var(--info);margin:14px 0 5px">✍️ คำตอบที่เขียนส่ง</div>'+
+        '<div style="white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.answer)+'</div>'+
+        '<div style="font-size:11px;font-weight:700;color:var(--warn);margin:14px 0 5px">💬 คำแนะนำ</div>'+
+        '<div style="white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text-2);font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.feedback)+'</div>'+
+        '<div style="font-size:11px;font-weight:700;color:var(--good);margin:14px 0 5px">✅ เวอร์ชันที่แก้แล้ว</div>'+
+        '<div style="white-space:pre-wrap;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:8px;color:var(--good);font-size:12.5px;padding:10px;line-height:1.6">'+escH(t.corrected)+'</div>'+
       '</div></div>';
   }).join('');
 }
@@ -3707,19 +3811,19 @@ function copyEngA(id){
 }
 function renderEngPractice(){
   const box=document.getElementById('englishPractice'); if(!box) return;
-  box.innerHTML = '<div style="font-size:12px;color:#64748b;margin-bottom:10px">📦 ระบบเดิม (เลิกใช้แล้ว) — เหลือค้าง '+pendingArticles.length+' บทความ ทำต่อได้ถ้าอยากเคลียร์ ร่างเก่ายังอยู่ครบ · งานหลักตอนนี้อยู่ในการ์ด IELTS ด้านบน</div>' +
+  box.innerHTML = '<div style="font-size:12px;color:var(--muted-2);margin-bottom:10px">📦 ระบบเดิม (เลิกใช้แล้ว) — เหลือค้าง '+pendingArticles.length+' บทความ ทำต่อได้ถ้าอยากเคลียร์ ร่างเก่ายังอยู่ครบ · งานหลักตอนนี้อยู่ในการ์ด IELTS ด้านบน</div>' +
   pendingArticles.map(function(a,idx){
     return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'engb-'+a.id+'\').classList.toggle(\'open\')">'+
       '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:3px">'+(idx===0?'⭐ ':'')+a.date+' — '+a.title+'</div>'+
-      '<div style="font-size:11px;color:#64748b">'+a.source+(idx===0?' · บทความล่าสุด':'')+'</div></div>'+
-      '<span id="engstat-'+a.id+'" style="font-size:11px;color:#fbbf24;margin-right:8px"></span><span style="font-size:11px;color:#475569">▼</span></div>'+
+      '<div style="font-size:11px;color:var(--muted-2)">'+a.source+(idx===0?' · บทความล่าสุด':'')+'</div></div>'+
+      '<span id="engstat-'+a.id+'" style="font-size:11px;color:var(--warn);margin-right:8px"></span><span style="font-size:11px;color:var(--faint)">▼</span></div>'+
       '<div class="quiz-card-body" id="engb-'+a.id+'" style="padding:14px">'+
-      '<a href="'+a.url+'" target="_blank" style="font-size:12px;color:#60a5fa;text-decoration:none">เปิดอ่านบทความ ↗</a>'+
-      '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">✍️ สรุป 3-5 ประโยค (ภาษาอังกฤษ):</div>'+
-      '<textarea oninput="saveEngA(\''+a.id+'\',\'s\',this)" id="engs-'+a.id+'" placeholder="Write your 3-5 sentence summary here..." style="width:100%;min-height:80px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
-      '<div style="font-size:11px;color:#64748b;margin:10px 0 5px">🔤 Vocab ที่เรียนรู้ (บรรทัดละคำ: word = ความหมาย):</div>'+
-      '<textarea oninput="saveEngA(\''+a.id+'\',\'v\',this)" id="engv-'+a.id+'" placeholder="เช่น: bullion = ทองคำแท่ง" style="width:100%;min-height:50px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
-      '<button onclick="copyEngA(\''+a.id+'\')" style="margin-top:10px;background:#39ff14;color:#000;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>'+
+      '<a href="'+a.url+'" target="_blank" style="font-size:12px;color:var(--info);text-decoration:none">เปิดอ่านบทความ ↗</a>'+
+      '<div style="font-size:11px;color:var(--muted-2);margin:10px 0 5px">✍️ สรุป 3-5 ประโยค (ภาษาอังกฤษ):</div>'+
+      '<textarea oninput="saveEngA(\''+a.id+'\',\'s\',this)" id="engs-'+a.id+'" placeholder="Write your 3-5 sentence summary here..." style="width:100%;min-height:80px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
+      '<div style="font-size:11px;color:var(--muted-2);margin:10px 0 5px">🔤 Vocab ที่เรียนรู้ (บรรทัดละคำ: word = ความหมาย):</div>'+
+      '<textarea oninput="saveEngA(\''+a.id+'\',\'v\',this)" id="engv-'+a.id+'" placeholder="เช่น: bullion = ทองคำแท่ง" style="width:100%;min-height:50px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
+      '<button onclick="copyEngA(\''+a.id+'\')" style="margin-top:10px;background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>'+
       '</div></div>';
   }).join('');
   pendingArticles.forEach(function(a){
@@ -3754,27 +3858,27 @@ function renderIdeaInbox(){
   const box=document.getElementById('ideaInbox'); if(!box) return;
   const a=getIdeas();
   const items=a.map(function(x,i){
-    return '<div style="display:flex;gap:8px;align-items:flex-start;background:#12151f;border:1px solid #2d3148;border-radius:8px;padding:8px 10px;margin-bottom:6px">'+
-      '<div style="flex:1;min-width:0"><div style="font-size:12px;color:#e2e8f0">'+(x.note||'(ไม่มีโน้ต)')+'</div>'+
-      (x.url?'<a href="'+x.url+'" target="_blank" style="font-size:11px;color:#60a5fa;word-break:break-all;text-decoration:none">'+x.url+' ↗</a>':'')+
-      '<div style="font-size:10px;color:#475569">'+x.d+'</div></div>'+
-      '<button onclick="delIdea('+i+')" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:13px">✕</button></div>';
+    return '<div style="display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:6px">'+
+      '<div style="flex:1;min-width:0"><div style="font-size:12px;color:var(--text)">'+(x.note||'(ไม่มีโน้ต)')+'</div>'+
+      (x.url?'<a href="'+x.url+'" target="_blank" style="font-size:11px;color:var(--info);word-break:break-all;text-decoration:none">'+x.url+' ↗</a>':'')+
+      '<div style="font-size:10px;color:var(--faint)">'+x.d+'</div></div>'+
+      '<button onclick="delIdea('+i+')" style="background:none;border:none;color:var(--muted-2);cursor:pointer;font-size:13px">✕</button></div>';
   }).join('');
   box.innerHTML = '<div class="quiz-card"><div style="padding:14px">'+
     '<div style="font-size:13px;font-weight:700;margin-bottom:4px">💡 Idea Inbox — เจอคลิป/บทความน่าเรียน วางไว้ตรงนี้กันลืม'+(a.length?' ('+a.length+')':'')+'</div>'+
-    '<div style="font-size:11px;color:#64748b;margin-bottom:10px">พร้อมเรียนเมื่อไหร่ กด Copy ไปวางใน Claude chat → ผมทำบทเรียน + quiz → สอบผ่านแล้วแตกเป็น content ให้</div>'+
-    '<input id="ideaUrl" placeholder="วางลิงก์ YouTube / บทความ (ไม่มีก็ได้)" style="width:100%;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;margin-bottom:6px;font-family:inherit">'+
-    '<textarea id="ideaNote" placeholder="โน้ตสั้นๆ: สนใจมุมไหน / คลิปชื่ออะไร" style="width:100%;min-height:40px;background:#12151f;border:1px solid #2d3148;border-radius:8px;color:#e2e8f0;font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
+    '<div style="font-size:11px;color:var(--muted-2);margin-bottom:10px">พร้อมเรียนเมื่อไหร่ กด Copy ไปวางใน Claude chat → ผมทำบทเรียน + quiz → สอบผ่านแล้วแตกเป็น content ให้</div>'+
+    '<input id="ideaUrl" placeholder="วางลิงก์ YouTube / บทความ (ไม่มีก็ได้)" style="width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;margin-bottom:6px;font-family:inherit">'+
+    '<textarea id="ideaNote" placeholder="โน้ตสั้นๆ: สนใจมุมไหน / คลิปชื่ออะไร" style="width:100%;min-height:40px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:8px;font-family:inherit;resize:vertical"></textarea>'+
     '<div style="display:flex;gap:8px;margin:8px 0 12px">'+
-    '<button onclick="addIdea()" style="background:#1e3a5f;color:#60a5fa;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">＋ เก็บไอเดีย</button>'+
-    '<button onclick="openBriefFile(\'idea-bank.md\')" style="background:#12151f;color:#fbbf24;border:1px solid #2d3148;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📚 เปิดคลังไอเดีย</button>'+
-    (a.length?'<button onclick="copyIdeas()" style="background:#39ff14;color:#000;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>':'')+
+    '<button onclick="addIdea()" style="background:var(--info-soft);color:var(--info);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">＋ เก็บไอเดีย</button>'+
+    '<button onclick="openBriefFile(\'idea-bank.md\')" style="background:var(--surface-2);color:var(--warn);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📚 เปิดคลังไอเดีย</button>'+
+    (a.length?'<button onclick="copyIdeas()" style="background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer">📋 Copy ไปส่ง Claude</button>':'')+
     '</div>'+items+'</div></div>';
 }
 renderIdeaInbox();
 
 // ── Ideas Hub (คลังไอเดีย — หมวดหมู่ + สถานะ) ──
-const IDEA_STATUS = { todo:['⏳ รอทำ','#fbbf24','#2b230d'], learned:['📚 เรียนแล้ว','#60a5fa','#0d1a2b'], done:['✅ ทำ content แล้ว','#39ff14','#0d2b0d'] };
+const IDEA_STATUS = { todo:['⏳ รอทำ','var(--warn)','var(--warn-soft)'], learned:['📚 เรียนแล้ว','var(--info)','var(--info-soft)'], done:['✅ ทำ content แล้ว','var(--accent)','var(--accent-soft)'] };
 const IDEA_CATS = ['หุ้น','BTC','Forex','กองทุน','Tax','Tech','Mindset'];
 const ideaBank = [
   { num:'004', topic:'One Person Business — ธุรกิจคนเดียวทำได้จริงแค่ไหน?', cat:'Mindset', tags:[], status:'todo', date:'9 ก.ค. 2569',
@@ -3808,30 +3912,30 @@ function renderIdeaHub(){
   const fbox=document.getElementById('ideaFilters'), cbox=document.getElementById('ideaCards');
   if(!fbox||!cbox) return;
   function btn(label,dim,val,active){ return '<button class="filter-btn'+(active?' active':'')+'" onclick="setIdeaFilter(\''+dim+'\',\''+val+'\')">'+label+'</button>'; }
-  let f='<div style="font-size:11px;color:#475569;margin-bottom:4px">สถานะ:</div><div class="filter-btns" style="margin-bottom:8px">';
+  let f='<div style="font-size:11px;color:var(--faint);margin-bottom:4px">สถานะ:</div><div class="filter-btns" style="margin-bottom:8px">';
   f+=btn('ทั้งหมด','s','All',ideaFStatus==='All');
   for(const k in IDEA_STATUS) f+=btn(IDEA_STATUS[k][0],'s',k,ideaFStatus===k);
-  f+='</div><div style="font-size:11px;color:#475569;margin-bottom:4px">หมวด:</div><div class="filter-btns" style="margin-bottom:14px">'+btn('ทั้งหมด','c','All',ideaFCat==='All');
+  f+='</div><div style="font-size:11px;color:var(--faint);margin-bottom:4px">หมวด:</div><div class="filter-btns" style="margin-bottom:14px">'+btn('ทั้งหมด','c','All',ideaFCat==='All');
   IDEA_CATS.forEach(function(c){ f+=btn(c,'c',c,ideaFCat===c); });
   f+='</div>';
   fbox.innerHTML=f;
   const list=ideaBank.filter(function(x){
     return (ideaFStatus==='All'||x.status===ideaFStatus) && (ideaFCat==='All'||x.cat===ideaFCat||(x.tags||[]).indexOf(ideaFCat)>=0);
   });
-  if(!list.length){ cbox.innerHTML='<div style="font-size:12px;color:#475569;padding:12px">ไม่มีไอเดียในหมวดนี้</div>'; return; }
+  if(!list.length){ cbox.innerHTML='<div style="font-size:12px;color:var(--faint);padding:12px">ไม่มีไอเดียในหมวดนี้</div>'; return; }
   cbox.innerHTML=list.map(function(x){
     const st=IDEA_STATUS[x.status];
-    const tags=[x.cat].concat(x.tags||[]).map(function(t){ return '<span style="background:#1e3a5f;color:#93c5fd;padding:2px 8px;border-radius:99px;font-size:10px;margin-right:4px">'+t+'</span>'; }).join('');
+    const tags=[x.cat].concat(x.tags||[]).map(function(t){ return '<span style="background:var(--info-soft);color:var(--info);padding:2px 8px;border-radius:99px;font-size:10px;margin-right:4px">'+t+'</span>'; }).join('');
     const angles=(x.angles||[]).map(function(a){ return '<li style="margin-bottom:4px">'+a+'</li>'; }).join('');
     return '<div class="quiz-card"><div class="quiz-card-header" onclick="document.getElementById(\'ideab-'+x.num+'\').classList.toggle(\'open\')">'+
       '<div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:4px">💡 #'+x.num+' — '+x.topic+'</div>'+
-      '<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+tags+'<span style="font-size:10px;color:#475569">เก็บ '+x.date+'</span></div></div>'+
-      '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;background:'+st[2]+';color:'+st[1]+'">'+st[0]+'</span><span style="font-size:11px;color:#475569">▼</span></div></div>'+
+      '<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+tags+'<span style="font-size:10px;color:var(--faint)">เก็บ '+x.date+'</span></div></div>'+
+      '<div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:99px;background:'+st[2]+';color:'+st[1]+'">'+st[0]+'</span><span style="font-size:11px;color:var(--faint)">▼</span></div></div>'+
       '<div class="quiz-card-body" id="ideab-'+x.num+'" style="padding:14px">'+
-      '<div style="font-size:11px;color:#64748b;margin-bottom:6px">🎯 Angle ที่น่าสนใจ:</div><ul style="font-size:12px;color:#cbd5e1;padding-left:18px;margin-bottom:10px">'+angles+'</ul>'+
-      (x.image?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">🖼️ ภาพต้นแบบ:</div><div style="font-size:12px;color:#cbd5e1;margin-bottom:10px">'+x.image+'</div>':'')+
-      (x.fit?'<div style="font-size:11px;color:#64748b;margin-bottom:4px">📌 เหมาะกับ:</div><div style="font-size:12px;color:#cbd5e1">'+x.fit+'</div>':'')+
-      '<div style="margin-top:12px"><button onclick="copyIdeaUse(\''+x.num+'\')" style="background:'+(x.status==='todo'?'#39ff14':(x.status==='learned'?'#60a5fa':'#12151f'))+';color:'+(x.status==='done'?'#64748b':'#000')+';border:'+(x.status==='done'?'1px solid #2d3148':'none')+';border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">'+(x.status==='todo'?'🚀 หยิบไปเรียน — Copy ส่ง Claude':(x.status==='learned'?'✍️ หยิบไปทำ Content — Copy ส่ง Claude':'🔁 ต่อยอด/รีมิกซ์'))+'</button></div>'+
+      '<div style="font-size:11px;color:var(--muted-2);margin-bottom:6px">🎯 Angle ที่น่าสนใจ:</div><ul style="font-size:12px;color:var(--text-2);padding-left:18px;margin-bottom:10px">'+angles+'</ul>'+
+      (x.image?'<div style="font-size:11px;color:var(--muted-2);margin-bottom:4px">🖼️ ภาพต้นแบบ:</div><div style="font-size:12px;color:var(--text-2);margin-bottom:10px">'+x.image+'</div>':'')+
+      (x.fit?'<div style="font-size:11px;color:var(--muted-2);margin-bottom:4px">📌 เหมาะกับ:</div><div style="font-size:12px;color:var(--text-2)">'+x.fit+'</div>':'')+
+      '<div style="margin-top:12px"><button onclick="copyIdeaUse(\''+x.num+'\')" style="background:'+(x.status==='todo'?'var(--accent)':(x.status==='learned'?'var(--info)':'var(--surface-2)'))+';color:'+(x.status==='done'?'var(--muted-2)':'var(--on-accent)')+';border:'+(x.status==='done'?'1px solid var(--border)':'none')+';border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">'+(x.status==='todo'?'🚀 หยิบไปเรียน — Copy ส่ง Claude':(x.status==='learned'?'✍️ หยิบไปทำ Content — Copy ส่ง Claude':'🔁 ต่อยอด/รีมิกซ์'))+'</button></div>'+
       '</div></div>';
   }).join('');
 }
@@ -4054,6 +4158,49 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// ── Simple structure helpers ──
+function openTab(group, name, btn) {
+  document.querySelectorAll('.tab-panel[data-tgroup="' + group + '"]').forEach(function (p) {
+    var on = p.getAttribute('data-tab') === name;
+    p.classList.toggle('active', on);
+    if (on) p.querySelectorAll('iframe[data-src]').forEach(function (f) { if (!f.getAttribute('src')) f.src = f.getAttribute('data-src'); });
+  });
+  if (btn) btn.parentElement.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.toggle('active', b === btn); });
+  try { localStorage.setItem('mnd_tab_' + group, name); } catch (e) {}
+}
+function restoreTabs() {
+  ['content', 'learning'].forEach(function (g) {
+    var name = null; try { name = localStorage.getItem('mnd_tab_' + g); } catch (e) {}
+    var btns = document.querySelectorAll('.tab-btn[onclick*="openTab(\'' + g + '\'"]');
+    var btn = null;
+    btns.forEach(function (b) { if (name && b.getAttribute('onclick').indexOf("'" + name + "'") >= 0) btn = b; });
+    if (!btn) { btn = btns[0]; name = null; }
+    if (btn) openTab(g, name || btn.getAttribute('onclick').match(/'[^']+',\s*'([^']+)'/)[1], btn);
+  });
+}
+function openGuide() { document.getElementById('guideModal').classList.add('open'); }
+function closeGuide() { document.getElementById('guideModal').classList.remove('open'); }
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeGuide(); });
+
+function escHtml(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function renderTodayQueue() {
+  var box = document.getElementById('todayQueue');
+  if (!box) return;
+  fetch('content/os-queue.json?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (d) {
+    var items = (d.items || []).filter(function (x) { return x.status !== 'done' && x.status !== 'posted'; }).slice(0, 4);
+    if (!items.length) { box.innerHTML = '<div class="empty">ไม่มีคลิปค้างในคิว</div>'; return; }
+    box.innerHTML = items.map(function (x, i) {
+      var note = (x.notes || '').split(' · ').slice(0, 2).join(' · ');
+      return '<div class="q-item"><span class="q-num">' + (i + 1) + '</span><div><div class="q-title">' + escHtml(x.title) +
+             '</div><div class="q-note">' + escHtml(note) + '</div></div></div>';
+    }).join('') + '<div class="q-updated">อัปเดตคิว ' + escHtml(d.updated || '') + '</div>';
+  }).catch(function () { box.innerHTML = '<div class="empty">โหลดคิวไม่ได้</div>'; });
+}
+renderTodayQueue();
+restoreTabs();
+(function () { try { var p = localStorage.getItem('mnd_page'); if (['today','content','learning','goals'].indexOf(p) < 0) switchPage('today'); } catch (e) {} })();
+
 </script>
 
 <div class="modal-overlay" id="fileModal" onclick="closeModal(event)">
