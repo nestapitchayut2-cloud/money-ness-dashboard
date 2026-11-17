@@ -453,6 +453,8 @@
 </div>
 
 <script>
+// เริ่มนับใหม่ 18 พ.ย. 2569: งานที่กำหนดก่อนวันนี้ไม่นับเป็น "ค้างเกินกำหนด"
+var FRESH_START="2026-11-18";
 (function(){
   "use strict";
   var LS="contentOS.v1", OLD="contentPipeline.v1";
@@ -484,7 +486,7 @@
   var BOARD_ST=STATUS.filter(function(s){return s.board;}).map(function(s){return s.id;});
   var cssv=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();};
   var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(m){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m];});};
-  var today=function(){return new Date().toISOString().slice(0,10);};
+  var today=function(){var d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);};
   var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);};
   var dbet=function(a,b){return Math.round((new Date(b)-new Date(a))/864e5);};
   var addDays=function(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
@@ -726,7 +728,7 @@
         var n=prompt(k==="1"?"เป้าคลิปยาวต่อสัปดาห์":"เป้าโพสต์ทุกชนิดต่อเดือน",cur);
         if(n&&+n>0){if(k==="1")state.targets.flagWk=+n;else state.targets.month=+n;save();renderMonitor();}};
     });
-    var overdue=state.items.filter(function(i){return i.sched&&i.sched<today()&&i.status!=="published"&&i.status!=="parked";})
+    var overdue=state.items.filter(function(i){return i.sched&&i.sched>=FRESH_START&&i.sched<today()&&i.status!=="published"&&i.status!=="parked";})
       .sort(function(a,b){return a.sched<b.sched?-1:1;});
     var soon=state.items.filter(function(i){return i.sched&&i.sched>=today()&&i.sched<=addDays(today(),7)&&i.status!=="published";})
       .sort(function(a,b){return a.sched<b.sched?-1:1;});

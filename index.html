@@ -448,6 +448,9 @@
   .modal-body .card-title { margin-bottom: 10px; }
   .os-frame { height: calc(100vh - 230px); min-height: 560px; }
   .goal-section { background: transparent; border: none; padding: 0; }
+  .sk-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-soft); font-size: 12.5px; color: var(--text-2); }
+  .sk-date { flex-shrink: 0; width: 64px; color: var(--muted-2); }
+  details summary { cursor: pointer; color: var(--info); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
   .goal-section-title { display: none; }
   .grid { align-items: start; }
   .grid > * { min-width: 0; }
@@ -758,6 +761,11 @@
   </div></div>
   <div class="tab-panel" data-tgroup="learning" data-tab="archive">
     <p class="page-lead">ของที่ไม่ได้ใช้ประจำแล้ว เก็บไว้ครบ เปิดดูได้เมื่อต้องการ</p>
+    <div class="card">
+      <div class="card-title">งานที่ข้ามไป (ค้างก่อน 18 พ.ย. 2569)</div>
+      <div class="card-note">เริ่มนับใหม่ตั้งแต่ 18 พ.ย. งานเหล่านี้ไม่ได้ลบ แค่ไม่นับเป็นงานค้างแล้ว</div>
+      <div id="skippedList"></div>
+    </div>
     <div class="card">
       <div class="card-title">งาน IELTS ที่ตรวจแล้ว · บทความ English ระบบเดิม</div>
       <div class="quiz-card" style="margin-top:14px">
@@ -1799,6 +1807,7 @@ function copyQuizAnswers(qid){
 function renderPendingQuizzes(){
   const box = document.getElementById('pendingQuizzes');
   if(!box) return;
+  if(!pendingQuizzes.length){ box.innerHTML = '<div class="empty">ไม่มี Quiz ค้าง</div>'; return; }
   box.innerHTML = '<div style="font-size:12px;font-weight:700;color:var(--warn);margin-bottom:10px">⏳ Quiz ที่รอตอบ — พิมพ์คำตอบได้เลย ระบบเซฟร่างให้อัตโนมัติ พอครบกด Copy แล้วเอาไปวางใน Claude chat</div>' +
   pendingQuizzes.map(q=>{
     if(!q.ready) return '<div class="quiz-card" style="opacity:.55;padding:14px"><div style="font-size:13px;font-weight:700">'+q.title+'</div><div style="font-size:11px;color:var(--muted-2);margin-top:4px">'+q.note+'</div></div>';
@@ -1816,6 +1825,11 @@ function renderPendingQuizzes(){
     q.questions.forEach((_,i)=>{ const el=document.getElementById('pq-'+q.id+'-'+i); if(el) el.value = localStorage.getItem(qKey(q.id,i))||''; });
     updatePendingStatus(q.id);
   });
+}
+const QUIZ_SKIPPED_IDS = ['tax','mf'];
+const quizSkipped = [];
+for (let k = pendingQuizzes.length - 1; k >= 0; k--) {
+  if (QUIZ_SKIPPED_IDS.indexOf(pendingQuizzes[k].id) >= 0) quizSkipped.unshift(pendingQuizzes.splice(k, 1)[0]);
 }
 renderPendingQuizzes();
 renderHabits();
@@ -3541,6 +3555,15 @@ Part 3 — ถกประเด็นต่อยอด (ตอบต่อจ�
 ⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner จับได้และไม่นับคะแนน`,
     answerKey:'' },
 ];
+// ── เริ่มนับใหม่ 18 พ.ย. 2569: งานที่ค้างก่อนวันนี้ถือว่า "ข้ามไป" (ไม่ลบ ดูได้ในแท็บคลังเก่า) ──
+// อยากเอากลับมา: ลบ id ออกจากรายการนี้
+const FRESH_START_DATE = '2026-11-18';
+const IELTS_SKIPPED_IDS = ['i1117','i1116','i1113','i1110','i1109','i1108mock','i1106','i1105mock','i1105','i0923','i0917','i0916','i0915','i0911','i0910','i0909','i0908','i0906','i0904','i0903','i0902','i0901','i0831','i0829mock','i0828','i0825','i0824','i0821','i0820','i0818','i0817','i0816b','i0816a','i0813'];
+const ieltsSkipped = [];
+for (let k = ieltsTasks.length - 1; k >= 0; k--) {
+  if (IELTS_SKIPPED_IDS.indexOf(ieltsTasks[k].id) >= 0) ieltsSkipped.unshift(ieltsTasks.splice(k, 1)[0]);
+}
+
 function iKey(id,k){ return 'ielts_'+id+'_'+k; }
 function saveIelts(id,k,el){ localStorage.setItem(iKey(id,k), el.value); updateIeltsStatus(id); }
 function ieltsPart(p){ return IELTS_PARTS[p] || { icon:'🎯', color:'var(--muted)', rule:'', boxes:[['a','✍️ คำตอบ','...']] }; }
@@ -4197,6 +4220,14 @@ function renderTodayQueue() {
     }).join('') + '<div class="q-updated">อัปเดตคิว ' + escHtml(d.updated || '') + '</div>';
   }).catch(function () { box.innerHTML = '<div class="empty">โหลดคิวไม่ได้</div>'; });
 }
+function renderSkipped() {
+  var box = document.getElementById('skippedList'); if (!box) return;
+  var rows = ieltsSkipped.map(function (t) { return '<div class="sk-row"><span class="sk-date">' + escHtml(t.date) + '</span><span>' + escHtml(t.part) + ' — ' + escHtml(t.title) + '</span></div>'; })
+    .concat(quizSkipped.map(function (q) { return '<div class="sk-row"><span class="sk-date">Quiz</span><span>' + escHtml(q.title) + '</span></div>'; }));
+  box.innerHTML = rows.length ? '<details><summary>' + rows.length + ' รายการ · แตะเพื่อดู</summary>' + rows.join('') + '</details>' : '<div class="empty">ไม่มี</div>';
+}
+renderSkipped();
+
 renderTodayQueue();
 restoreTabs();
 (function () { try { var p = localStorage.getItem('mnd_page'); if (['today','content','learning','goals'].indexOf(p) < 0) switchPage('today'); } catch (e) {} })();
