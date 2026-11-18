@@ -1113,6 +1113,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'18 พ.ย.', day:'พุธ', topic:'IELTS Writing Task 1 / Table — ไฟฟ้าที่ data center ใช้ 2024 vs 2030 (IEA, 150+ คำ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,841 Pause FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18nov2026.md' },
   { label:'17 พ.ย.', day:'อังคาร', topic:'IELTS Listening S2 / Overseas work & travel programme (ielts-up.com Sample #12, 10 ข้อ + dictation) / EA: Trending ลง ~$3,875 แนวรับ $3,841 Pause Retail Sales + FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17nov2026.md' },
   { label:'16 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Who pays for AI? — ค่าไฟ data center (LSE Grantham, 13 ข้อ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,790 รอ FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16nov2026.md' },
   { label:'13 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 (advantages/disadvantages — index funds vs paying fund managers, 250+ คำ / 40 นาที) / EA: Trending ลง ~$3,878 low รอบ 1 ปี รอ PPI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-13nov2026.md' },
@@ -1923,6 +1924,51 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1118', date:'18 พ.ย.', day:'พุธ', part:'Writing Task 1', title:'Table — data centre electricity consumption by region, 2024 vs 2030 projected (150+ คำ / 20 นาที)', brief:'morning-brief-18nov2026.md', url:'',
+    warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
+      steps:['เปิด PDF transcript ฟรีในหน้าเดียวกัน','ฟังช่วงอ่านข่าวตอนต้นพร้อมอ่านตามทีละประโยค','เช็คคำที่จดไว้เมื่อวานว่าจริงๆ คือคำอะไร ขีดเส้นใต้จุดที่ฟังผิด','วงตัวเลข/หน่วย (TWh, %, ปี) ทุกจุดในข่าว','จดคำใหม่ 3–5 คำลง vocab-list'] },
+    questions:`**Writing Task 1 — Academic (150+ คำ / จับเวลา 20 นาที)**
+
+The table below shows the estimated electricity consumption of data centres in four major economies and the rest of the world in 2024, together with projected figures for 2030.
+
+Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.
+
+**Electricity consumption of data centres, 2024 and 2030 (projected), TWh**
+
+| Region | 2024 | 2030 (projected) |
+|---|---|---|
+| United States | 185 | 425 |
+| China | 103 | 278 |
+| Europe | 64 | 110 |
+| Japan | 19 | 34 |
+| Rest of the world | 44 | 98 |
+| World total | 415 | 945 |
+
+💡 ที่มา: ยอดรวมโลก 415 → 945 TWh จาก IEA Energy and AI (Base Case) · ตัวเลขรายภูมิภาคคำนวณย้อนจากอัตราเติบโตที่ IEA ระบุแล้วปัดเศษ (ค่าประมาณเพื่อฝึก)
+
+Checklist 4 ข้อ
+
+1. ย่อหน้าเปิด = paraphrase โจทย์ (ห้ามลอก)
+2. Overview 1–2 ประโยค: ยอดรวมโลกเพิ่มเท่าไหร่ + ใครใหญ่สุด/โตเร็วสุด — ไม่ใส่ตัวเลข (ขาด = ไม่เกิน band 5)
+3. 2 ย่อหน้าเปรียบเทียบ (แนะนำ 2024 / 2030) — ต้องแตะครบทุกแถว
+4. ห้ามใส่ความเห็น/เหตุผล (ห้าม because of AI)
+
+💡 คำที่ต้องใช้ 5 คำ: surge · more than double / almost treble · account for · in contrast · percentage point (15% → 12% = 3 percentage points)
+
+⚠️ จุดพลาดซ้ำ: คำไม่ถึง 150 · overview ไม่ชัด · ข้ามบางแถว · สะกดผิด — proofread 2 นาทีสุดท้าย
+
+📤 ส่งกลับ: เรียงความ + จำนวนคำ + เวลาที่ใช้จริง`,
+    answerKey:`**Model Answer (~200 คำ):**
+
+The table illustrates how much electricity data centres used in the United States, China, Europe, Japan and the rest of the world in 2024, along with projections for 2030, measured in terawatt hours (TWh).
+
+Overall, global data-centre electricity demand is expected to more than double over the period. The United States remains by far the largest consumer in both years, while China is forecast to record the fastest growth.
+
+In 2024, data centres worldwide consumed 415 TWh. The US accounted for 185 TWh, or roughly 45% of the total, followed by China at 103 TWh. In contrast, Europe and Japan used considerably less, at 64 TWh and 19 TWh respectively, while the rest of the world consumed 44 TWh.
+
+By 2030, global consumption is projected to surge to 945 TWh. US demand is expected to rise to 425 TWh, so its share remains at around 45%. China's figure is predicted to almost treble to 278 TWh. Europe's consumption is set to reach 110 TWh, yet its share of the total falls by almost four percentage points, from about 15% to under 12%. Meanwhile, Japan is projected to climb to 34 TWh, and the rest of the world to 98 TWh, more than double its 2024 level.
+
+จุดเช็ค: overview ไม่มีตัวเลข / แตะครบ 6 แถว / percentage point ใช้กับส่วนแบ่ง ไม่ใช่ TWh / ไม่มีประโยคอธิบายสาเหตุ` },
   { id:'i1117', date:'17 พ.ย.', day:'อังคาร', part:'Listening', title:'Section 2 — Overseas work & travel programme (ielts-up.com Sample #12, 10 ข้อ: sentence completion / matching / MC + dictation 5 ประโยค)', brief:'morning-brief-17nov2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-12.2.html',
     warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
       steps:['ฟังช่วงอ่านข่าวตอนต้นอีกรอบ ยังไม่เปิด transcript','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','เทียบกับตัวเลขที่จดเมื่อวาน (TWh / % / จำนวนบ้าน) ว่าจับได้ครบขึ้นไหม','หาว่าได้ยินคำเป้าหมาย power demand / grid / energy-intensive ตรงไหน'] },
