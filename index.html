@@ -451,6 +451,11 @@
   .sk-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-soft); font-size: 12.5px; color: var(--text-2); }
   .sk-date { flex-shrink: 0; width: 64px; color: var(--muted-2); }
   details summary { cursor: pointer; color: var(--info); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .cal-frame { width: 100%; height: 340px; border: 1px solid var(--border-soft); border-radius: 10px; background: #fff; }
+  .cal-add { margin-left: auto; flex-shrink: 0; align-self: center; font-size: 12px; color: var(--info); text-decoration: none;
+             border: 1px solid var(--border); border-radius: 8px; padding: 4px 10px; white-space: nowrap; }
+  .cal-add:hover { background: var(--hover); }
+  .tab-panel .cal-add { display: inline-block; margin: 0 0 10px; }
   .goal-section-title { display: none; }
   .grid { align-items: start; }
   .grid > * { min-width: 0; }
@@ -576,6 +581,10 @@
       <div class="card-title">คิวอัดคลิป</div>
       <div id="todayQueue" class="today-queue"><div class="empty">กำลังโหลดคิว…</div></div>
       <button class="link-btn" onclick="switchPage('content')">ดูคิวและปฏิทินทั้งหมด →</button>
+    </div>
+    <div class="card col-1">
+      <div class="card-title">ปฏิทิน</div>
+      <div id="calBox"></div>
     </div>
     <div class="card col-1">
       <div class="card-title">Quiz ที่รอทำ</div>
@@ -3649,6 +3658,7 @@ function renderIeltsPractice(){
   ieltsTasks.map(function(t,idx){
     const cfg = ieltsPart(t.part);
     let inner = '';
+    inner += '<a class="cal-add" href="' + gcalLink('IELTS ' + t.part + ' — ' + t.title, 'งาน IELTS จาก Money Ness Dashboard (แท็บ Learning)', 60) + '" target="_blank" rel="noopener">📅 เพิ่มลงปฏิทิน</a>';
     if(t.warmup) inner += renderWarmup(t.warmup);
     if(t.url) inner += '<div style="font-size:11px;margin-bottom:8px"><a href="'+t.url+'" target="_blank" style="color:var(--info);text-decoration:none">🔗 แหล่งอ้างอิงบทความ/คลิปต้นฉบับ (ภาษาอังกฤษเต็ม) ↗</a></div>';
     if(cfg.rule) inner += '<div style="font-size:11px;color:'+cfg.color+';margin-bottom:8px;font-weight:600">⏱️ '+cfg.rule+'</div>';
@@ -4216,7 +4226,8 @@ function renderTodayQueue() {
     box.innerHTML = items.map(function (x, i) {
       var note = (x.notes || '').split(' · ').slice(0, 2).join(' · ');
       return '<div class="q-item"><span class="q-num">' + (i + 1) + '</span><div><div class="q-title">' + escHtml(x.title) +
-             '</div><div class="q-note">' + escHtml(note) + '</div></div></div>';
+             '</div><div class="q-note">' + escHtml(note) + '</div></div>' +
+             '<a class="cal-add" href="' + gcalLink('อัดคลิป: ' + x.title, 'จากคิวอัดคลิป Money Ness Dashboard', 90) + '" target="_blank" rel="noopener">📅 นัดอัด</a></div>';
     }).join('') + '<div class="q-updated">อัปเดตคิว ' + escHtml(d.updated || '') + '</div>';
   }).catch(function () { box.innerHTML = '<div class="empty">โหลดคิวไม่ได้</div>'; });
 }
@@ -4227,6 +4238,42 @@ function renderSkipped() {
   box.innerHTML = rows.length ? '<details><summary>' + rows.length + ' รายการ · แตะเพื่อดู</summary>' + rows.join('') + '</details>' : '<div class="empty">ไม่มี</div>';
 }
 renderSkipped();
+
+// ── Google Calendar ──
+// The calendar address is saved only in this browser (localStorage), because this repository is public.
+function gcalLink(title, details, minutes) {
+  var start = new Date(); start.setDate(start.getDate() + 1); start.setHours(19, 0, 0, 0);
+  var end = new Date(start.getTime() + (minutes || 60) * 60000);
+  function f(d) { return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0') +
+                  'T' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0') + '00'; }
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) +
+         '&details=' + encodeURIComponent(details || '') + '&dates=' + f(start) + '/' + f(end) + '&ctz=Asia/Bangkok';
+}
+function renderCalendar() {
+  var box = document.getElementById('calBox'); if (!box) return;
+  var id = ''; try { id = localStorage.getItem('mnd_gcal_id') || ''; } catch (e) {}
+  if (!id) {
+    box.innerHTML = '<div class="card-note">ใส่อีเมล Google ที่ใช้ปฏิทิน ครั้งเดียวต่อเครื่อง (เก็บไว้ในเบราว์เซอร์นี้เท่านั้น ไม่ขึ้นเว็บ)</div>' +
+      '<div style="display:flex;gap:8px"><input id="gcalIdInput" class="qc-input" style="flex:1" placeholder="you@gmail.com">' +
+      '<button class="btn btn-ghost" style="width:auto" onclick="saveCalendarId()">บันทึก</button></div>';
+    return;
+  }
+  var src = 'https://calendar.google.com/calendar/embed?src=' + encodeURIComponent(id) +
+            '&ctz=Asia%2FBangkok&mode=AGENDA&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0';
+  box.innerHTML = '<iframe class="cal-frame" src="' + src + '" title="Google Calendar"></iframe>' +
+    '<div style="display:flex;justify-content:space-between;margin-top:10px">' +
+    '<a class="link-btn" style="margin:0" href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener">เปิด Google Calendar ↗</a>' +
+    '<button class="link-btn" style="margin:0;color:var(--muted-2)" onclick="resetCalendarId()">เปลี่ยนบัญชี</button></div>' +
+    '<div class="card-note" style="margin-top:8px">ถ้าขึ้นว่าดูไม่ได้ ให้ล็อกอิน Google ในเบราว์เซอร์นี้ก่อน</div>';
+}
+function saveCalendarId() {
+  var v = (document.getElementById('gcalIdInput').value || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { showToast('ใส่อีเมลให้ถูกรูปแบบก่อนครับ'); return; }
+  try { localStorage.setItem('mnd_gcal_id', v); } catch (e) {}
+  renderCalendar();
+}
+function resetCalendarId() { try { localStorage.removeItem('mnd_gcal_id'); } catch (e) {} renderCalendar(); }
+renderCalendar();
 
 renderTodayQueue();
 restoreTabs();
