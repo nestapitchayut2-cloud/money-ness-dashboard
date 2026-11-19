@@ -1113,6 +1113,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'19 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking / Cue card — technology you use every day + Part 3 ค่าไฟ AI data center ใครควรจ่าย / EA: Volatile ทองทรุด >3% low 14 เดือน ~$3,719 หลัง FOMC minutes hawkish', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-19nov2026.md' },
   { label:'18 พ.ย.', day:'พุธ', topic:'IELTS Writing Task 1 / Table — ไฟฟ้าที่ data center ใช้ 2024 vs 2030 (IEA, 150+ คำ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,841 Pause FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18nov2026.md' },
   { label:'17 พ.ย.', day:'อังคาร', topic:'IELTS Listening S2 / Overseas work & travel programme (ielts-up.com Sample #12, 10 ข้อ + dictation) / EA: Trending ลง ~$3,875 แนวรับ $3,841 Pause Retail Sales + FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-17nov2026.md' },
   { label:'16 พ.ย.', day:'จันทร์', topic:'IELTS Reading / Who pays for AI? — ค่าไฟ data center (LSE Grantham, 13 ข้อ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,790 รอ FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-16nov2026.md' },
@@ -1924,6 +1925,36 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1119', date:'19 พ.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — a piece of technology you use every day + Part 3 ค่าไฟ AI data center · เตรียม 1 นาที / พูด 2 นาที', brief:'morning-brief-19nov2026.md', url:'',
+    warmup:{ mode:'Shadowing', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
+      steps:[
+        'เปิด PDF transcript ฟรีในหน้าเดียวกัน ใช้เฉพาะช่วงอ่านข่าวตอนต้น',
+        'เล่นเสียงแล้วพูดตามพร้อมกันไปเลย ไล่ให้ทัน ห้ามกดหยุดรอ',
+        'เลือกช่วงที่ตามไม่ทัน ~30 วินาที ทำซ้ำ 2-3 รอบจนตามทัน',
+        'เน้น stress และ linking sound ไม่ใช่แค่ความหมาย',
+        'ตัวเลขกับหน่วย (TWh, per cent) พูดให้ชัด'
+      ] },
+    questions:`**Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์)**
+
+Describe a piece of technology you use every day that you would find it hard to live without.
+You should say:
+  - what it is
+  - when and how you started using it
+  - what you use it for in a typical day
+and explain how your life would be different without it.
+
+💡 เลือกของที่ใช้จริงทุกวัน เช่น AI assistant ที่ใช้ทำงาน/เรียน IELTS หรือแอปเทรด/EA แล้วเล่าจากชีวิตจริง — ถ้าเลือก AI จะต่อเข้า Part 3 ได้ลื่นที่สุด
+
+**Part 3 — ถกประเด็นต่อยอด (ข้อละ ~45–60 วินาที: ความเห็น → เหตุผล → ตัวอย่าง)**
+
+1. Many people use AI tools every day without thinking about the electricity they need. Do you think ordinary users should be more aware of the environmental cost of technology?
+2. Data centres can push up local electricity prices. Who should pay for the extra power they need — the technology companies, the government, or everyone through their bills?
+3. Some countries are trying to attract data centres for jobs and investment, while others want to limit them. Which approach do you think is wiser, and why?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+
+💡 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: power demand · energy-intensive · grid capacity · emissions · double by 2030 · account for · in contrast · surge`,
+    answerKey:'' },
   { id:'i1118', date:'18 พ.ย.', day:'พุธ', part:'Writing Task 1', title:'Table — data centre electricity consumption by region, 2024 vs 2030 projected (150+ คำ / 20 นาที)', brief:'morning-brief-18nov2026.md', url:'',
     warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'Business English News 61 – Data Centers — Business English Pod (15 ก.พ. 2026) · ช่วงอ่านข่าวตอนต้น ~3–4 นาที', url:'https://www.businessenglishpod.com/2026/02/15/business-english-news-61-data-centers/',
       steps:['เปิด PDF transcript ฟรีในหน้าเดียวกัน','ฟังช่วงอ่านข่าวตอนต้นพร้อมอ่านตามทีละประโยค','เช็คคำที่จดไว้เมื่อวานว่าจริงๆ คือคำอะไร ขีดเส้นใต้จุดที่ฟังผิด','วงตัวเลข/หน่วย (TWh, %, ปี) ทุกจุดในข่าว','จดคำใหม่ 3–5 คำลง vocab-list'] },
