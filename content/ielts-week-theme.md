@@ -22,7 +22,7 @@
 | อังคาร (Listening) | Listening **S2** ตามรอบ (S1 ทำแล้ว 10 พ.ย.) + warm-up คลิปเรื่อง AI กับพลังงาน |
 | พุธ (Writing T1) | Bar/line chart: ไฟฟ้าที่ data center ทั่วโลกใช้ ~415 TWh (2024) → ~945 TWh (คาดการณ์ 2030) — หรือแยกตามภูมิภาค/แหล่งพลังงาน |
 | พฤหัส (Speaking) | Cue card: Describe a piece of technology you use every day + Part 3 เรื่องเทคโนโลยีกับสิ่งแวดล้อม ใครควรจ่ายต้นทุนพลังงาน (ออกโจทย์แล้ว 19 พ.ย. — การ์ด `i1119`) |
-| ศุกร์ (Writing T2) | Opinion (รอบหมุนเริ่มใหม่): Governments should limit the building of new data centres to protect electricity supplies and the environment. To what extent do you agree or disagree? |
+| ศุกร์ (Writing T2) | Opinion (รอบหมุนเริ่มใหม่): Governments should limit the building of new data centres to protect electricity supplies and the environment. To what extent do you agree or disagree? (ออกโจทย์แล้ว 20 พ.ย. — การ์ด `i1120`) |
 
 **Vocab เป้าหมายของสัปดาห์:** power demand · grid capacity · energy-intensive · baseload · emissions · double (v.) by 2030
 
