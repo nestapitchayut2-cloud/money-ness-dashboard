@@ -5,7 +5,39 @@
 
 ---
 
-## สัปดาห์ปัจจุบัน: 16 – 20 พ.ย. 2026
+## สัปดาห์ปัจจุบัน: 23 – 27 พ.ย. 2026
+
+✅ **เลือกโดย `sunday-english-lesson` อาทิตย์ 22 พ.ย.** — ใช้ธีมนี้จันทร์ 23 – ศุกร์ 27 พ.ย.
+ℹ️ เสาร์-อาทิตย์ 28–29 พ.ย. ไม่ใช่รอบ Shared Mock (รอบ #4 = 2–3 ม.ค. 2570) · อาทิตย์ 29 พ.ย. = สัปดาห์ที่ 5 ของเดือน → mock พาร์ทที่ band ต่ำสุด
+⚠️ Shared Mock #3 (21–22 พ.ย.) ไฟล์ยังอยู่ใน `SHARED\mock-staging\` — ถ้า Ness+ออม เลื่อนไปทำ 28–29 พ.ย. ให้ศุกร์ 27 พ.ย. เบาลง
+
+**5 คำจาก vocab-list ที่ต้องใช้ให้ได้สัปดาห์นี้:** gauge · consensus · oversight · edged up · varies
+
+**ธีม:** Nasdaq หารายได้จากอะไรบ้าง — listing fees, market data, technology (ตลาดหลักทรัพย์ไม่ได้หากินจากค่าเทรดอย่างเดียว)
+**ทำไมธีมนี้:** ต่อจาก "ใครเป็นตัวกลางหาเงินยังไง" (broker, PFOF) ไปที่ระดับตลาดหลักทรัพย์ · ตรงกับรอบหมุน T1 = process diagram (ขั้นตอน IPO) และ T2 = Discussion · ได้ vocab ธุรกิจที่ใช้ได้ในข้อสอบทั่วไป
+
+**Angle รายวัน:**
+| วัน | ใช้ธีมยังไง |
+|---|---|
+| จันทร์ (Reading) | บทความเรื่องตลาดหลักทรัพย์ยุคใหม่หาเงินจาก data/technology/บริการบริษัทจดทะเบียน มากกว่าค่าเทรด (Nasdaq "Solutions" vs Market Services) |
+| อังคาร (Listening) | Listening **S3** ตามรอบ (S2 ทำแล้ว 17 พ.ย.) + warm-up คลิปเรื่องตลาดหุ้น/IPO |
+| พุธ (Writing T1) | **Process diagram** (รอบหมุนถึงคิว): ขั้นตอนที่บริษัทเข้าจดทะเบียน IPO — เลือกที่ปรึกษา → ยื่น filing/prospectus → regulator review → roadshow → ตั้งราคา → เริ่มซื้อขายวันแรก · ⚠️ ต้องมีประโยค overview "Overall, ..." ก่อนรายละเอียด (จุดพลาดซ้ำ) |
+| พฤหัส (Speaking) | Cue card: Describe a well-known company in your country that you think is successful + P3 ทำไมบริษัทถึงเข้าตลาด / คนทั่วไปควรลงทุนในหุ้นไหม / ตลาดหุ้นควรถูกกำกับเข้มแค่ไหน (oversight) |
+| ศุกร์ (Writing T2) | **Discussion** (รอบหมุนถึงคิว): Some people think growing companies should list on a stock exchange to raise money from the public, while others believe staying private is better. Discuss both views and give your own opinion. |
+
+**Vocab เป้าหมายของสัปดาห์:** listing fee · market data · go public / IPO · recurring revenue · trading volume · prospectus
+
+**ข้อมูลตั้งต้นที่ตรวจแล้ว (22 พ.ย.):**
+- Nasdaq FY2025: net revenue เกิน $5.2B และ Solutions revenue (Capital Access Platforms + Financial Technology) เกิน $4.0B — หัวข่าวผลประกอบการ Q4/FY2025 (https://finviz.com/news/291317/nasdaq-reports-fourth-quarter-and-full-year-2025-results-annual-results-exceed-52b-in-net-revenue-and-40b-in-solutions-revenue)
+- ตัวเลขรายกลุ่มยังไม่ได้ตรวจทีละบรรทัด — morning brief ต้องหาบทความจริงเอง ห้ามแต่ง URL / ห้ามแต่งตัวเลข
+
+**Listening warm-up ของสัปดาห์นี้:** (morning brief วันจันทร์เลือก + บันทึก URL ที่นี่)
+
+**Backlog:** งานค้างตรวจ 37 การ์ด (รวม Speaking mock 22 พ.ย.) · Shared Mock #3 ยังไม่ยืนยันว่าทำแล้ว · Writing T2 ของ 18 ก.ย.
+
+---
+
+## สัปดาห์ก่อนหน้า: 16 – 20 พ.ย. 2026 (เก็บไว้อ้างอิง)
 
 ✅ **เลือกโดย `sunday-english-lesson` อาทิตย์ 15 พ.ย.** — ใช้ธีมนี้จันทร์ 16 – ศุกร์ 20 พ.ย.
 🧪 **เสาร์-อาทิตย์ 21–22 พ.ย. = Shared Mock #3** (ไฟล์อยู่ `SHARED\mock-staging\brief-2026-11-21-ielts-mock-03.md`) — ศุกร์ 20 พ.ย. อย่าให้งานหนักเกิน 90 นาที
@@ -21,8 +53,8 @@
 | จันทร์ (Reading) | บทความเรื่อง AI ทำให้ความต้องการไฟฟ้าของ data center พุ่ง และใครจะจ่ายไฟให้ (renewables vs natural gas) |
 | อังคาร (Listening) | Listening **S2** ตามรอบ (S1 ทำแล้ว 10 พ.ย.) + warm-up คลิปเรื่อง AI กับพลังงาน |
 | พุธ (Writing T1) | Bar/line chart: ไฟฟ้าที่ data center ทั่วโลกใช้ ~415 TWh (2024) → ~945 TWh (คาดการณ์ 2030) — หรือแยกตามภูมิภาค/แหล่งพลังงาน |
-| พฤหัส (Speaking) | Cue card: Describe a piece of technology you use every day + Part 3 เรื่องเทคโนโลยีกับสิ่งแวดล้อม ใครควรจ่ายต้นทุนพลังงาน |
-| ศุกร์ (Writing T2) | Opinion (รอบหมุนเริ่มใหม่): Governments should limit the building of new data centres to protect electricity supplies and the environment. To what extent do you agree or disagree? |
+| พฤหัส (Speaking) | Cue card: Describe a piece of technology you use every day + Part 3 เรื่องเทคโนโลยีกับสิ่งแวดล้อม ใครควรจ่ายต้นทุนพลังงาน (ออกโจทย์แล้ว 19 พ.ย. — การ์ด `i1119`) |
+| ศุกร์ (Writing T2) | Opinion (รอบหมุนเริ่มใหม่): Governments should limit the building of new data centres to protect electricity supplies and the environment. To what extent do you agree or disagree? (ออกโจทย์แล้ว 20 พ.ย. — การ์ด `i1120`) |
 
 **Vocab เป้าหมายของสัปดาห์:** power demand · grid capacity · energy-intensive · baseload · emissions · double (v.) by 2030
 
@@ -117,7 +149,6 @@
 
 ## คลังธีมที่ยังไม่ได้ใช้
 
-- Nasdaq หารายได้จากอะไรบ้าง (listing fees, data, technology)
 - Freemium ใน fintech ไทย
 - ทำไม insurance ถึงเป็นธุรกิจ "เงินลอยตัว" (float)
 - SWIFT กับระบบชำระเงินระหว่างประเทศ ทำงานยังไงและใครคุม
@@ -137,4 +168,5 @@
 - โมเดลรายได้ของ forex broker (spread, markup, B-book) (15–23 ก.ย. 2026)
 - Subscription vs advertising business model (5–6 พ.ย. 2026 — จันทร์–พุธไม่มีโจทย์)
 - Index fund กินส่วนแบ่งตลาดจาก active fund ได้ยังไง (9–13 พ.ย. 2026 — 3/5 วัน)
-- ต้นทุนไฟฟ้าของ AI data center (16–20 พ.ย. 2026 — สัปดาห์ปัจจุบัน)
+- ต้นทุนไฟฟ้าของ AI data center (16–20 พ.ย. 2026 — ออกโจทย์ครบ 5/5)
+- Nasdaq หารายได้จากอะไรบ้าง (23–27 พ.ย. 2026 — สัปดาห์ปัจจุบัน)
