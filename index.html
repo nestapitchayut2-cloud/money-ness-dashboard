@@ -1113,6 +1113,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'23 พ.ย.', day:'จันทร์', topic:'IELTS Reading / How does Nasdaq make money? — listing fees, trading, index & data, fintech (Climb the Ladder, 13 ข้อ / 20 นาที) / EA: Volatile ทองร่วงสัปดาห์ก่อน ~8% ~$3,550 แนวรับ $3,500 Caution flash PMI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23nov2026.md' },
   { label:'20 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 / Opinion — ควรจำกัดการสร้าง data center เพื่อปกป้องไฟฟ้า+สิ่งแวดล้อมไหม (250+ คำ / 40 นาที) / EA: Trending ลง ทองหลุด $3,600 ~$3,545–3,580 Fed hike ~90%', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20nov2026.md' },
   { label:'19 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking / Cue card — technology you use every day + Part 3 ค่าไฟ AI data center ใครควรจ่าย / EA: Volatile ทองทรุด >3% low 14 เดือน ~$3,719 หลัง FOMC minutes hawkish', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-19nov2026.md' },
   { label:'18 พ.ย.', day:'พุธ', topic:'IELTS Writing Task 1 / Table — ไฟฟ้าที่ data center ใช้ 2024 vs 2030 (IEA, 150+ คำ / 20 นาที) / EA: Trending ลง ~$3,890 แนวรับ $3,841 Pause FOMC minutes', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-18nov2026.md' },
@@ -1927,6 +1928,57 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1123', date:'23 พ.ย.', day:'จันทร์', part:'Reading', title:'How Does Nasdaq Make Money? Listings, Trades, and Data (Climb the Ladder, ~1,000 คำ, 13 ข้อ) · ธีม Nasdaq revenue', brief:'morning-brief-23nov2026.md', url:'https://climbtheladder.com/how-does-nasdaq-make-money-listings-trades-and-data/',
+    warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How does the stock market work? — Oliver Elfenbaum, TED-Ed (~4–5 นาที · สำเนียง American)', url:'https://ed.ted.com/lessons/how-does-the-stock-market-work-oliver-elfenbaum',
+      steps:['ฟังรวด 1 รอบ ไม่หยุด ปิด subtitle ไม่เปิด transcript','จดตัวเลข ปี และชื่อเฉพาะที่ได้ยินให้มากที่สุด','จดคำที่ได้ยินแต่ไม่รู้ความหมาย 3 คำ','เขียนสรุป 1 ประโยคภาษาอังกฤษว่า ทำไมบริษัทถึงขายหุ้น','เก็บ transcript ไว้เปิดวันพุธ: https://www.ted.com/talks/oliver_elfenbaum_how_does_the_stock_market_work/transcript'] },
+    sections:[
+      { key:'a1', type:'tfng', label:'Questions 1–4 · TRUE / FALSE / NOT GIVEN', note:'อ่านบทความที่ URL ด้านบน · ⏱️ จับเวลา 20 นาทีรวมทุกข้อ · ตอบจากบทความเท่านั้น ห้ามใช้ความรู้นอกบทความเรื่อง Nasdaq',
+        items:["According to the writer, Nasdaq's software and data services now generate more revenue than its traditional exchange operations.","Companies applying to list on the Nasdaq Global Select Market pay an application fee that is returned if they are not accepted.","Nasdaq's listing fees are lower than those of the New York Stock Exchange.","The Invesco QQQ ETF is the largest product that pays to use a Nasdaq index."] },
+      { key:'a2', type:'text', label:'Questions 5–8 · MATCHING HEADINGS', note:'⚠️ ห้ามดูหัวข้อย่อยในบทความ — บังไว้ก่อน',
+        text:`Section A = บทนำ + หัวข้อย่อยที่ 1 (listing fees) · Section B = หัวข้อย่อยที่ 2 · Section C = หัวข้อย่อยที่ 3 · Section D = หัวข้อย่อยที่ 4 · Section E = หัวข้อย่อยที่ 5
+
+Choose the correct heading for Sections B–E. There are more headings than sections.
+
+i. A small charge on every buy and sell
+ii. A famous name that other companies pay to use
+iii. Why Nasdaq plans to close its trading venues
+iv. A costly purchase that brought steady, repeating income
+v. Different income streams with different levels of stability
+vi. How regulators decide which companies may list
+vii. The rise of retail investors after the pandemic
+
+5. Section B
+6. Section C
+7. Section D
+8. Section E`, placeholder:'5. \n6. \n7. \n8. ' },
+      { key:'a3', type:'text', label:'Questions 9–11 · SUMMARY COMPLETION (NO MORE THAN THREE WORDS AND/OR A NUMBER)', note:'ใช้คำจากบทความ · เกิน 3 คำ/สะกดผิด = ผิด',
+        text:`Nasdaq licenses indexes such as the Nasdaq-100 to fund companies, which usually pay a small percentage of their **(9) ______** as a fee. By the end of 2025, exchange-traded products linked to Nasdaq indexes held a record **(10) ______**, and nearly half of the 122 new products launched that year were aimed at **(11) ______**.`, placeholder:'9. \n10. \n11. ' },
+      { key:'a4', type:'text', label:'Questions 12–13 · MULTIPLE CHOICE', note:'เลือก A–D ข้อละ 1 ตัว',
+        text:`**12.** Approximately how much did Nasdaq pay to acquire Adenza?
+A. $1.5 billion
+B. $10 billion
+C. $99 billion
+D. $882 billion
+
+**13.** According to the passage, why has Nasdaq moved towards software-as-a-service?
+A. to replace the income it used to receive from listing fees
+B. to make itself less dependent on the ups and downs of trading
+C. because regulators required exchanges to sell technology
+D. to win more technology companies' IPOs from rival exchanges`, placeholder:'12. \n13. ' }
+    ],
+    answerKey:`1. TRUE — บทนำ: software และ data services "now generate more revenue than traditional exchange operations" (ผู้เขียนพูดไว้จริง แม้ไม่ให้ตัวเลข)
+2. FALSE — application fee $25,000 เป็น non-refundable = ไม่คืนเงิน
+3. NOT GIVEN — บทความพูดถึงค่าธรรมเนียม Nasdaq อย่างเดียว ไม่เอ่ยถึง NYSE เลย (ไม่ใช่ FALSE เพราะไม่ได้บอกว่าแพงกว่า แค่ไม่เทียบ)
+4. NOT GIVEN — QQQ เป็นแค่ตัวอย่าง ("including") ไม่ได้บอกว่าใหญ่ที่สุด
+5. i — ค่าธรรมเนียมเล็กๆ ทุกการซื้อขาย + maker-taker ของ options
+6. ii — Nasdaq-100 ที่ Nasdaq เป็นเจ้าของและเก็บค่า licence
+7. iv — ซื้อ Adenza ~$10B → ซอฟต์แวร์ subscription รายได้ซ้ำ
+8. v — listing มั่นคง / transaction แกว่ง / index โตตามสินทรัพย์ / fintech recurring (iii, vi, vii = ตัวลวง)
+9. assets under management
+10. $882 billion (ตัวลวง: $99 billion = net inflows ปี 2025)
+11. international markets
+12. B — ~$10 billion ($1.5B = pro forma revenue กลุ่ม Fintech ปี 2023)
+13. B — "a deliberate strategy" ลดการพึ่ง cyclical trading · A ผิด เพราะ listing fee ยังเป็น stable base` },
   { id:'i1122mock', date:'22 พ.ย.', day:'อาทิตย์', part:'Speaking', title:'🧪 Sunday Mock — Speaking เต็มชุด P1+P2+P3 · 11–14 นาที · อัดรวดเดียว (โจทย์ที่ Claude สร้างขึ้น)', brief:'sunday-lesson-2026-11-22.md', url:'',
     warmup:{ mode:'—', clip:'ไม่มี warm-up (วันนี้คือวันสอบซ้อม)', url:'', steps:['Mock day ไม่มี warm-up — เช็กไมค์ อัดเสียงทดสอบ 5 วินาที แล้วเข้า mock เลย'] },
     questions:`**⚠️ กติกาสภาพสอบจริง**
