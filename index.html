@@ -1113,6 +1113,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'24 พ.ย.', day:'อังคาร', topic:'IELTS Listening / Section 3 — Student project planning (ielts-up.com Sample #12, note completion 10 ข้อ + dictation) / EA: Volatile ทองเด้งจาก low $3,503 มา ~$3,670 กรอบ $3,600–3,700 Caution PCE พุธ', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24nov2026.md' },
   { label:'23 พ.ย.', day:'จันทร์', topic:'IELTS Reading / How does Nasdaq make money? — listing fees, trading, index & data, fintech (Climb the Ladder, 13 ข้อ / 20 นาที) / EA: Volatile ทองร่วงสัปดาห์ก่อน ~8% ~$3,550 แนวรับ $3,500 Caution flash PMI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23nov2026.md' },
   { label:'20 พ.ย.', day:'ศุกร์', topic:'IELTS Writing Task 2 / Opinion — ควรจำกัดการสร้าง data center เพื่อปกป้องไฟฟ้า+สิ่งแวดล้อมไหม (250+ คำ / 40 นาที) / EA: Trending ลง ทองหลุด $3,600 ~$3,545–3,580 Fed hike ~90%', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-20nov2026.md' },
   { label:'19 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking / Cue card — technology you use every day + Part 3 ค่าไฟ AI data center ใครควรจ่าย / EA: Volatile ทองทรุด >3% low 14 เดือน ~$3,719 หลัง FOMC minutes hawkish', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-19nov2026.md' },
@@ -1928,7 +1929,44 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
-  { id:'i1123', date:'23 พ.ย.', day:'จันทร์', part:'Reading', title:'How Does Nasdaq Make Money? Listings, Trades, and Data (Climb the Ladder, ~1,000 คำ, 13 ข้อ) · ธีม Nasdaq revenue', brief:'morning-brief-23nov2026.md', url:'https://climbtheladder.com/how-does-nasdaq-make-money-listings-trades-and-data/',
+  { id:'i1124', date:'24 พ.ย.', day:'อังคาร', part:'Listening', title:'Section 3 — Student project planning (ielts-up.com Sample #12, note/table completion 10 ข้อ + dictation 5 ประโยค)', brief:'morning-brief-24nov2026.md', url:'https://ielts-up.com/listening/ielts-listening-sample-12.3.html',
+    warmup:{ mode:'ฟังซ้ำ + จดคำที่ยังจับไม่ได้', clip:'How does the stock market work? — Oliver Elfenbaum, TED-Ed (~4–5 นาที · American)', url:'https://ed.ted.com/lessons/how-does-the-stock-market-work-oliver-elfenbaum',
+      steps:['ฟังทั้งคลิปอีกรอบ ปิด subtitle (ยังไม่เปิด transcript — เก็บไว้วันพุธ)','จดคำ/วลีที่ยังจับไม่ได้อย่างน้อย 5 จุด (เขียนเสียงที่ได้ยินไว้ก่อน)','จับให้ได้ว่าคลิปอธิบาย "บริษัทขายหุ้นเพื่อระดมทุน" ตรงไหน — เชื่อมกับ go public / IPO / investors','เทียบกับที่จดเมื่อวาน (ฟังดิบ) ว่าเข้าใจเพิ่มขึ้นตรงไหน'] },
+    sections:[
+      { key:'a1', type:'text', label:'Questions 21–30 · NOTE / TABLE COMPLETION (NO MORE THAN TWO WORDS AND/OR A NUMBER)', note:'ไฟล์เสียง: https://ielts-up.com/listening/12.3.mp3 (ถ้าเปิดตรงไม่ได้ กด play จากหน้าโจทย์) · ⚠️ ฟังรอบเดียว ห้ามหยุด ห้ามย้อน · สะกดผิด = ผิด',
+        text:`Complete the notes below. Write **NO MORE THAN TWO WORDS AND/OR A NUMBER** for each answer.
+
+| Topic | Information source |
+|---|---|
+| 21. ______ | check at the 22. ______ |
+| Views on 23. ______ | interview the manager of 24. ______ |
+| Practice of 25. ______ | find relevant information from the 26. ______ |
+| How to deliver the plan: | as an 27. ______ |
+| Date of giving the presentation: | on 28. ______ |
+| Schedule of items due: | First Phase: 29. ______ · Final Phase: Group 30. ______ |
+
+💡 อ่านตาราง 30 วินาทีก่อนกด play แล้วเดาชนิดคำของทุกช่อง (22/24/26 = สถานที่/หน่วยงาน · 28 = วันที่)
+
+⚠️ S3 กับดัก: ผู้พูดเสนอไอเดียแล้วอีกคนแย้ง — คำตอบคือสิ่งที่ตกลงกันได้สุดท้าย (ฟังคำ actually / instead)`, placeholder:'21. \n22. \n23. \n24. \n25. \n26. \n27. \n28. \n29. \n30. ' },
+      { key:'a2', type:'text', label:'DICTATION · 5 ประโยค', note:'ทำหลังตอบครบ 10 ข้อ · ย้อนฟังได้ไม่จำกัด',
+        text:`ฟัง **ช่วงท้ายของไฟล์ที่คุยเรื่องวิธีส่งแผน วันพรีเซนต์ และกำหนดส่งงาน** (เนื้อหาข้อ 27–30) แล้วเขียนตาม 5 ประโยคติดกัน ทุกคำ ทุกเครื่องหมาย
+
+⚠️ หน้า ielts-up.com ไม่มี transcript → dictation รอบนี้ไม่มีเฉลยคำต่อคำ · ขีดเส้นใต้ (หรือใส่ [?]) คำที่ไม่แน่ใจ แล้ว Claude จะตรวจ grammar/การสะกดให้`, placeholder:'1. \n2. \n3. \n4. \n5. ' }
+    ],
+    answerKey:`21. Student Loans
+22. Finance Office
+23. Smoking — ไม่มี e
+24. (the) Supermarket
+25. Natural Medicine — สะกด medicine
+26. Careers Office — Careers สองตัว e
+27. (an) Email attachment — attachment สองตัว t
+28. 5 November (5th November / November 5 ได้)
+29. Data analysis — ลงท้าย -sis
+30. Presentation
+ที่มา: เฉลยบนหน้า ielts-up.com · dictation ไม่มีเฉลยคำต่อคำ (ไม่มี transcript)
+วิธีอ่านผล: 9–10 ดีมาก (band 7+) · 7–8 ผ่าน ดูว่าพลาดเพราะสะกด หรือจับไอเดียที่ถูกแย้งทิ้ง · ≤6 ฝึกอ่านตารางล่วงหน้า + เดาชนิดคำ` },
+  
+{ id:'i1123', date:'23 พ.ย.', day:'จันทร์', part:'Reading', title:'How Does Nasdaq Make Money? Listings, Trades, and Data (Climb the Ladder, ~1,000 คำ, 13 ข้อ) · ธีม Nasdaq revenue', brief:'morning-brief-23nov2026.md', url:'https://climbtheladder.com/how-does-nasdaq-make-money-listings-trades-and-data/',
     warmup:{ mode:'ฟังดิบ (ไม่ดู transcript)', clip:'How does the stock market work? — Oliver Elfenbaum, TED-Ed (~4–5 นาที · สำเนียง American)', url:'https://ed.ted.com/lessons/how-does-the-stock-market-work-oliver-elfenbaum',
       steps:['ฟังรวด 1 รอบ ไม่หยุด ปิด subtitle ไม่เปิด transcript','จดตัวเลข ปี และชื่อเฉพาะที่ได้ยินให้มากที่สุด','จดคำที่ได้ยินแต่ไม่รู้ความหมาย 3 คำ','เขียนสรุป 1 ประโยคภาษาอังกฤษว่า ทำไมบริษัทถึงขายหุ้น','เก็บ transcript ไว้เปิดวันพุธ: https://www.ted.com/talks/oliver_elfenbaum_how_does_the_stock_market_work/transcript'] },
     sections:[
