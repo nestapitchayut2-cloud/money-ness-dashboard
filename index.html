@@ -1113,6 +1113,7 @@ const vocab = [
 
 // ── Brief Archive ──
 const morningBriefs = [
+  { label:'26 พ.ย.', day:'พฤหัส', topic:'IELTS Speaking / Cue card — a well-known successful company in your country + Part 3 go public / ordinary investors / market oversight (เตรียม 1 นาที / พูด 2 นาที) / EA: Volatile ทองหลุด $3,500 ~$3,476 หลัง core PCE ร้อน ไม่เหมาะ test (Thanksgiving volume บาง)', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-26nov2026.md' },
   { label:'25 พ.ย.', day:'พุธ', topic:'IELTS Writing Task 1 / Process diagram — ขั้นตอน IPO ของบริษัทที่เข้าตลาดหุ้นสหรัฐฯ 9 ขั้น (SEC Investor Bulletin, 150+ คำ / 20 นาที) / EA: Volatile ทองหลุดกลับใต้ $3,600 ~$3,545 กรอบ $3,500–3,600 Pause PCE คืนนี้', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-25nov2026.md' },
   { label:'24 พ.ย.', day:'อังคาร', topic:'IELTS Listening / Section 3 — Student project planning (ielts-up.com Sample #12, note completion 10 ข้อ + dictation) / EA: Volatile ทองเด้งจาก low $3,503 มา ~$3,670 กรอบ $3,600–3,700 Caution PCE พุธ', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-24nov2026.md' },
   { label:'23 พ.ย.', day:'จันทร์', topic:'IELTS Reading / How does Nasdaq make money? — listing fees, trading, index & data, fintech (Climb the Ladder, 13 ข้อ / 20 นาที) / EA: Volatile ทองร่วงสัปดาห์ก่อน ~8% ~$3,550 แนวรับ $3,500 Caution flash PMI', path:'C:\\Users\\NP\\Desktop\\Claude Workspace\\FINANCE-LEARNING\\market-research\\morning-brief-23nov2026.md' },
@@ -1930,6 +1931,35 @@ const IELTS_PARTS = {
                       boxes:[['a','✍️ คำตอบทั้งชุด','...']] }
 };
 const ieltsTasks = [
+  { id:'i1126', date:'26 พ.ย.', day:'พฤหัส', part:'Speaking', title:'Cue card — a well-known company in your country that you think is successful + Part 3 go public / ordinary investors / oversight · เตรียม 1 นาที / พูด 2 นาที', brief:'morning-brief-26nov2026.md', url:'',
+    warmup:{ mode:'Shadowing', clip:'How does the stock market work? — Oliver Elfenbaum, TED-Ed (~4–5 นาที · American) · transcript: https://www.ted.com/talks/oliver_elfenbaum_how_does_the_stock_market_work/transcript', url:'https://ed.ted.com/lessons/how-does-the-stock-market-work-oliver-elfenbaum',
+      steps:[
+        'เปิด transcript ไว้ข้างๆ เล่นเสียงแล้วพูดตามพร้อมกันไปเลย ไล่ให้ทัน ห้ามกดหยุดรอ',
+        'เลือกช่วงที่ตามไม่ทัน ~30 วินาที ทำซ้ำ 2-3 รอบจนตามทัน',
+        'เน้น stress และ linking sound เช่น stock market, go public',
+        'ช่วงที่พูดถึง going public พูดให้ชัดเป็นพิเศษ — ใช้ต่อใน Part 3 ข้อ 1'
+      ] },
+    questions:`**Part 2 — Cue Card (เตรียม 1 นาที / พูดสด 2 นาที ห้ามหยุด ห้ามอัดใหม่ ห้ามเขียนสคริปต์)**
+
+Describe a well-known company in your country that you think is successful.
+You should say:
+  - what the company is and what it does
+  - how you first came to know about it
+  - how you think it makes most of its money
+and explain why you think it is successful.
+
+💡 เลือกบริษัทไทยที่รู้จักจริงและเล่าจากประสบการณ์ตัวเองได้ (ร้านสะดวกซื้อ ธนาคาร/แอปที่ใช้ หรือบริษัทใน SET ที่เคยดูหุ้น) — ข้อ "how it makes most of its money" คือจุดที่สาย finance ได้เปรียบ
+
+**Part 3 — ถกประเด็นต่อยอด (ข้อละ ~45–60 วินาที: ความเห็น → เหตุผล → ตัวอย่าง)**
+
+1. Why do you think many successful companies decide to go public and list their shares on a stock exchange?
+2. Do you think ordinary people should invest in the stock market, or is it better left to professionals?
+3. How closely should governments regulate stock markets? Is more oversight always better for investors?
+
+⚠️ เทค 1 (ส่งตรวจ) ต้องพูดสด ห้ามท่องสคริปต์ — examiner ถูกฝึกมาให้จับคำตอบที่ท่องมาและไม่นับคะแนนช่วงนั้น
+
+💡 ใช้ vocab สัปดาห์นี้ให้ได้ 2–3 คำ: go public · listing fee · recurring revenue · trading volume · oversight · consensus · varies · gauge`,
+    answerKey:'' },
   { id:'i1125', date:'25 พ.ย.', day:'พุธ', part:'Writing Task 1', title:'Process diagram — how a company goes public through an IPO, 9 stages (150+ คำ / 20 นาที)', brief:'morning-brief-25nov2026.md', url:'',
     warmup:{ mode:'ฟังพร้อมอ่าน transcript', clip:'How does the stock market work? — Oliver Elfenbaum, TED-Ed (~4–5 นาที · American) · transcript: https://www.ted.com/talks/oliver_elfenbaum_how_does_the_stock_market_work/transcript', url:'https://ed.ted.com/lessons/how-does-the-stock-market-work-oliver-elfenbaum',
       steps:['เปิด transcript คู่กับคลิป ฟังพร้อมอ่านตามทีละประโยค','เช็คคำที่จดไว้เมื่อวานว่าจริงๆ คือคำอะไร — ขีดเส้นใต้จุดที่ฟังผิด','วงทุกจุดที่พูดถึง IPO / going public / shares / investors (วัตถุดิบของโจทย์ Task 1 วันนี้)','จดคำใหม่ 3–5 คำลง vocab-list'] },
