@@ -22,8 +22,8 @@
 | จันทร์ (Reading) | บทความเรื่องตลาดหลักทรัพย์ยุคใหม่หาเงินจาก data/technology/บริการบริษัทจดทะเบียน มากกว่าค่าเทรด (Nasdaq "Solutions" vs Market Services) |
 | อังคาร (Listening) | Listening **S3** ตามรอบ (S2 ทำแล้ว 17 พ.ย.) + warm-up คลิปเรื่องตลาดหุ้น/IPO |
 | พุธ (Writing T1) | **Process diagram** (รอบหมุนถึงคิว): ขั้นตอนที่บริษัทเข้าจดทะเบียน IPO — เลือกที่ปรึกษา → ยื่น filing/prospectus → regulator review → roadshow → ตั้งราคา → เริ่มซื้อขายวันแรก · ⚠️ ต้องมีประโยค overview "Overall, ..." ก่อนรายละเอียด (จุดพลาดซ้ำ) (ออกโจทย์แล้ว 25 พ.ย. — การ์ด `i1125`) |
-| พฤหัส (Speaking) | Cue card: Describe a well-known company in your country that you think is successful + P3 ทำไมบริษัทถึงเข้าตลาด / คนทั่วไปควรลงทุนในหุ้นไหม / ตลาดหุ้นควรถูกกำกับเข้มแค่ไหน (oversight) |
-| ศุกร์ (Writing T2) | **Discussion** (รอบหมุนถึงคิว): Some people think growing companies should list on a stock exchange to raise money from the public, while others believe staying private is better. Discuss both views and give your own opinion. |
+| พฤหัส (Speaking) | Cue card: Describe a well-known company in your country that you think is successful + P3 ทำไมบริษัทถึงเข้าตลาด / คนทั่วไปควรลงทุนในหุ้นไหม / ตลาดหุ้นควรถูกกำกับเข้มแค่ไหน (oversight) (ออกโจทย์แล้ว 26 พ.ย. — การ์ด `i1126`) |
+| ศุกร์ (Writing T2) | **Discussion** (รอบหมุนถึงคิว): Some people think growing companies should list on a stock exchange to raise money from the public, while others believe staying private is better. Discuss both views and give your own opinion. (ออกโจทย์แล้ว 27 พ.ย. — การ์ด `i1127`) |
 
 **Vocab เป้าหมายของสัปดาห์:** listing fee · market data · go public / IPO · recurring revenue · trading volume · prospectus
 
